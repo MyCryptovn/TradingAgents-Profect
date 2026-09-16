@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Run scanner contract test
+        run: python scripts/scanner_contract_test.py
+
       - name: Run broad real-market multi-timeframe scanner
         run: python scripts/market_scanner.py | tee scanner-output.txt
 
