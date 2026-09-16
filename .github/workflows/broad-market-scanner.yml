@@ -11,7 +11,7 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,12 +21,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run broad real-market scanner
+      - name: Run broad real-market multi-timeframe scanner
         run: python scripts/market_scanner.py | tee scanner-output.txt
 
-      - name: Verify safety gates
+      - name: Verify safety and scanner gates
         run: |
+          grep -q "BROAD REAL-MARKET MULTI-TIMEFRAME SCANNER" scanner-output.txt
           grep -q "DATA SOURCE: KRAKEN PUBLIC SPOT MARKET DATA" scanner-output.txt
+          grep -q "CANDLES: COMPLETED ONLY" scanner-output.txt
           grep -q "LIVE ORDERS: DISABLED" scanner-output.txt
           grep -q "NEXT GATE: Only these candidates should enter TradingAgents deep analysis." scanner-output.txt
           grep -q "LIVE TRADING GATE: DISABLED" scanner-output.txt
