@@ -12,7 +12,8 @@ permissions:
   contents: read
 
 env:
-  SOURCE_DIR: vendor/TradingAgents
+  SOURCE_DIR: vendor/TradingAgents-v0.4.2-test
+  TRADINGAGENTS_UPSTREAM_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
   TRADINGAGENTS_LLM_PROVIDER: groq
   TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
   TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-120b
@@ -28,7 +29,7 @@ env:
 
 jobs:
   paper-trade:
-    name: BTC-USD TradingAgents paper evaluation
+    name: BTC-USD TradingAgents v0.4.2 paper evaluation
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -37,6 +38,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Fetch exact TradingAgents v0.4.2 source
+        run: |
+          rm -rf "$SOURCE_DIR"
+          git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
+          git -C "$SOURCE_DIR" checkout --detach "$TRADINGAGENTS_UPSTREAM_COMMIT"
+          grep -q 'version = "0.4.2"' "$SOURCE_DIR/pyproject.toml"
+          echo "TradingAgents commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
+          echo "TradingAgents version: $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
 
       - name: Verify paper-test prerequisites
         run: |
@@ -52,16 +62,16 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: vendor/TradingAgents/pyproject.toml
+          cache-dependency-path: vendor/TradingAgents-v0.4.2-test/pyproject.toml
 
-      - name: Install TradingAgents
-        working-directory: vendor/TradingAgents
+      - name: Install TradingAgents v0.4.2
+        working-directory: vendor/TradingAgents-v0.4.2-test
         run: |
           python -m pip install --upgrade pip
           pip install -e .
 
       - name: Run historical paper trades
-        working-directory: vendor/TradingAgents
+        working-directory: vendor/TradingAgents-v0.4.2-test
         run: |
           python - <<'PY'
           import csv
@@ -170,6 +180,8 @@ jobs:
           summary = {
               'mode': 'historical paper trading only',
               'real_money': False,
+              'tradingagents_version': '0.4.2',
+              'tradingagents_commit': os.environ['TRADINGAGENTS_UPSTREAM_COMMIT'],
               'ticker': ticker,
               'samples': len(rows),
               'actionable_samples': len(actionable),
@@ -189,7 +201,7 @@ jobs:
       - name: Upload paper-test results
         uses: actions/upload-artifact@v4
         with:
-          name: tradingagents-paper-trade-results
+          name: tradingagents-v0.4.2-paper-trade-results
           path: paper-results/
           if-no-files-found: error
           retention-days: 30
