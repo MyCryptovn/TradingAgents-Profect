@@ -1,0 +1,257 @@
+name: TradingAgents BTC Paper Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  SOURCE_DIR: vendor/TradingAgents-btc-paper
+  TRADINGAGENTS_UPSTREAM_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
+  TRADINGAGENTS_SOURCE_LABEL: v0.4.2
+  TRADINGAGENTS_LLM_PROVIDER: groq
+  TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
+  TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-120b
+  TRADINGAGENTS_MAX_DEBATE_ROUNDS: '1'
+  TRADINGAGENTS_MAX_RISK_ROUNDS: '1'
+  TRADINGAGENTS_TEMPERATURE: '0.1'
+  TRADINGAGENTS_LLM_MAX_RETRIES: '2'
+  TRADINGAGENTS_MAX_TOKENS: '2048'
+  TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET: '6000'
+  TRADINGAGENTS_OUTPUT_LANGUAGE: English
+  TRADINGAGENTS_RESULTS_DIR: ${{ github.workspace }}/paper-results
+  TRADINGAGENTS_CACHE_DIR: ${{ github.workspace }}/paper-cache
+  TRADINGAGENTS_MEMORY_LOG_PATH: ${{ github.workspace }}/paper-results/trading_memory.md
+
+jobs:
+  btc-paper:
+    name: BTC-USD TradingAgents v0.4.2 paper evaluation
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch exact TradingAgents source
+        run: |
+          rm -rf "$SOURCE_DIR"
+          git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
+          git -C "$SOURCE_DIR" checkout --detach "$TRADINGAGENTS_UPSTREAM_COMMIT"
+          test "$(git -C "$SOURCE_DIR" rev-parse HEAD)" = "$TRADINGAGENTS_UPSTREAM_COMMIT"
+          echo "TradingAgents commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
+          grep '^version = ' "$SOURCE_DIR/pyproject.toml"
+
+      - name: Verify prerequisites and paper-only mode
+        run: |
+          test -f "$SOURCE_DIR/pyproject.toml"
+          test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
+          test -n "$GROQ_API_KEY" || { echo 'GROQ_API_KEY secret is missing.'; exit 1; }
+          echo 'REAL MONEY TRADING: DISABLED'
+          echo 'EXCHANGE EXECUTION: DISABLED'
+          echo 'MODE: BTC historical paper evaluation'
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: vendor/TradingAgents-btc-paper/pyproject.toml
+
+      - name: Install exact TradingAgents source
+        working-directory: vendor/TradingAgents-btc-paper
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Apply REAL 6K Bear Researcher context guard
+        working-directory: vendor/TradingAgents-btc-paper
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('tradingagents/agents/researchers/bear_researcher.py')
+          text = path.read_text(encoding='utf-8')
+          marker = 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET'
+          if marker in text:
+              print('6K Bear Researcher guard already present.')
+              raise SystemExit(0)
+
+          pattern = re.compile(r'(?ms)^(\s*)prompt = f"""You are a Bear Analyst.*?^\1""" \+ get_language_instruction\(\)')
+          match = pattern.search(text)
+          if not match:
+              raise SystemExit('Expected native Bear Researcher prompt was not found. Refusing to continue.')
+
+          indent = match.group(1)
+          replacement = f'''{indent}# Groq HTTP 413 guard: bound assembled Bear Researcher input to <= 6000 approximate tokens.
+          {indent}token_budget = 6000
+          {indent}try:
+          {indent}    token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))
+          {indent}except ValueError:
+          {indent}    token_budget = 6000
+          {indent}token_budget = max(1000, min(token_budget, 6000))
+          {indent}
+          {indent}sections = [
+          {indent}    ('instrument', instrument_context),
+          {indent}    ('market', market_research_report),
+          {indent}    ('sentiment', sentiment_report),
+          {indent}    ('news', news_report),
+          {indent}    ('fundamentals', fundamentals_report),
+          {indent}    ('history', history),
+          {indent}    ('bull', current_response),
+          {indent}]
+          {indent}fixed_prompt = f"""You are a Bear Analyst making the case against investing in the {{target_label}}. Present a well-reasoned argument emphasizing risks, challenges, and negative indicators. Use the research context below and directly address the bull analyst's claims.\n\n"""
+          {indent}suffix = f"\\nDeliver the bear argument for {{target_label}}." + get_language_instruction()
+          {indent}weights = {{'instrument': 1.0, 'market': 1.25, 'sentiment': 0.9, 'news': 1.15, 'fundamentals': 0.7, 'history': 0.55, 'bull': 1.0}}
+          {indent}labels = {{'instrument': 'Resources available', 'market': 'Market research report', 'sentiment': 'Social media sentiment report', 'news': 'Latest world affairs news', 'fundamentals': fundamentals_label, 'history': 'Conversation history of the debate', 'bull': 'Last bull argument'}}
+          {indent}total_weight = sum(weights.values())
+          {indent}available_chars = max(4000, token_budget * 4 - len(fixed_prompt) - len(suffix))
+          {indent}rendered = []
+          {indent}for name, value in sections:
+          {indent}    value = str(value or '').strip()
+          {indent}    budget = max(600, int(available_chars * weights[name] / total_weight))
+          {indent}    if len(value) > budget:
+          {indent}        head = max(300, budget // 3)
+          {indent}        tail = max(300, budget - head)
+          {indent}        value = value[:head] + '\\n...[context truncated for Groq 6K input budget]...\\n' + value[-tail:]
+          {indent}    rendered.append(f"{{labels[name]}}: {{value}}")
+          {indent}prompt = fixed_prompt + '\\n\\n' + '\\n'.join(rendered) + suffix
+          {indent}approx_tokens = (len(prompt) + 3) // 4
+          {indent}print(f'BEAR INPUT GUARD: chars={{len(prompt)}} approx_tokens={{approx_tokens}} budget={{token_budget}}')
+          {indent}if approx_tokens > token_budget:
+          {indent}    target_chars = token_budget * 4
+          {indent}    head = target_chars // 2
+          {indent}    tail = target_chars - head
+          {indent}    prompt = prompt[:head] + '\\n...[final context trim]...\\n' + prompt[-tail:]
+          {indent}    print(f'BEAR INPUT GUARD FINAL: chars={{len(prompt)}} approx_tokens={{(len(prompt) + 3) // 4}}')'''
+
+          path.write_text(text[:match.start()] + replacement + text[match.end():], encoding='utf-8')
+          print('Applied REAL 6K Bear Researcher context guard.')
+          PY
+
+      - name: Verify guard before any Groq call
+        working-directory: vendor/TradingAgents-btc-paper
+        run: |
+          python -m py_compile tradingagents/agents/researchers/bear_researcher.py
+          grep -n 'BEAR INPUT GUARD' tradingagents/agents/researchers/bear_researcher.py
+          grep -n 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET' tradingagents/agents/researchers/bear_researcher.py
+
+      - name: Run BTC historical paper evaluation through native TradingAgents
+        working-directory: vendor/TradingAgents-btc-paper
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          import os
+          import re
+          from datetime import datetime, timedelta
+          import yfinance as yf
+          from tradingagents.graph.trading_graph import TradingAgentsGraph
+          from tradingagents.default_config import DEFAULT_CONFIG
+
+          ticker = 'BTC-USD'
+          dates = ['2026-01-15', '2026-03-16', '2026-06-15']
+          horizon = 5
+
+          config = DEFAULT_CONFIG.copy()
+          config['llm_provider'] = 'groq'
+          config['deep_think_llm'] = os.environ['TRADINGAGENTS_DEEP_THINK_LLM']
+          config['quick_think_llm'] = os.environ['TRADINGAGENTS_QUICK_THINK_LLM']
+          config['max_debate_rounds'] = 1
+          config['max_risk_discuss_rounds'] = 1
+          config['temperature'] = 0.1
+          config['llm_max_retries'] = 2
+          config['max_tokens'] = 2048
+          config['results_dir'] = os.environ['TRADINGAGENTS_RESULTS_DIR']
+          config['data_cache_dir'] = os.environ['TRADINGAGENTS_CACHE_DIR']
+          config['memory_log_path'] = os.environ['TRADINGAGENTS_MEMORY_LOG_PATH']
+
+          os.makedirs(config['results_dir'], exist_ok=True)
+          os.makedirs(config['data_cache_dir'], exist_ok=True)
+
+          ta = TradingAgentsGraph(
+              selected_analysts=('market', 'social', 'news', 'fundamentals'),
+              debug=False,
+              config=config,
+          )
+
+          rows = []
+          for trade_date in dates:
+              print(f'===== BTC PAPER {ticker} @ {trade_date} =====')
+              _, decision = ta.propagate(ticker, trade_date, asset_type='crypto')
+              raw = decision if isinstance(decision, str) else json.dumps(decision, ensure_ascii=False, default=str)
+              print('AGENT DECISION:', raw)
+
+              action = 'UNKNOWN'
+              if isinstance(decision, dict):
+                  for key in ('action', 'decision', 'signal'):
+                      if decision.get(key):
+                          action = str(decision[key]).upper()
+                          break
+              if action == 'UNKNOWN':
+                  found = re.search(r'\b(BUY|SELL|HOLD)\b', raw.upper())
+                  if found:
+                      action = found.group(1)
+
+              start = yf.Ticker(ticker).history(
+                  start=trade_date,
+                  end=(datetime.strptime(trade_date, '%Y-%m-%d') + timedelta(days=horizon + 7)).strftime('%Y-%m-%d'),
+                  auto_adjust=False,
+              )
+              if len(start) <= horizon:
+                  raise RuntimeError(f'Insufficient future bars for {trade_date}')
+
+              entry = float(start['Close'].iloc[0])
+              exit_price = float(start['Close'].iloc[horizon])
+              future_return = (exit_price - entry) / entry
+              if action == 'BUY':
+                  outcome = 'CORRECT' if future_return > 0 else 'WRONG'
+              elif action == 'SELL':
+                  outcome = 'CORRECT' if future_return < 0 else 'WRONG'
+              elif action == 'HOLD':
+                  outcome = 'NO_POSITION'
+              else:
+                  outcome = 'UNPARSED'
+
+              rows.append({'ticker': ticker, 'trade_date': trade_date, 'action': action, 'entry_price': entry, 'exit_price_5d': exit_price, 'future_return_5d': future_return, 'outcome': outcome})
+              print(f'ACTION={action} | 5D RETURN={future_return:.4%} | OUTCOME={outcome}')
+
+          out = os.path.join(config['results_dir'], 'paper_trade_results.csv')
+          with open(out, 'w', newline='', encoding='utf-8') as f:
+              writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+              writer.writeheader()
+              writer.writerows(rows)
+
+          actionable = [r for r in rows if r['action'] in ('BUY', 'SELL') and r['outcome'] in ('CORRECT', 'WRONG')]
+          correct = sum(r['outcome'] == 'CORRECT' for r in actionable)
+          accuracy = correct / len(actionable) if actionable else None
+          summary = {
+              'mode': 'historical paper trading only',
+              'real_money': False,
+              'ticker': ticker,
+              'samples': len(rows),
+              'actionable_samples': len(actionable),
+              'correct_actionable': correct,
+              'action_accuracy': accuracy,
+              'tradingagents_source_label': os.environ['TRADINGAGENTS_SOURCE_LABEL'],
+              'tradingagents_commit': os.environ['TRADINGAGENTS_UPSTREAM_COMMIT'],
+              'bear_input_token_budget': 6000,
+          }
+          with open(os.path.join(config['results_dir'], 'paper_trade_summary.json'), 'w', encoding='utf-8') as f:
+              json.dump(summary, f, indent=2)
+          print('===== PAPER TEST SUMMARY =====')
+          print(json.dumps(summary, indent=2))
+          print('REAL MONEY TRADING: DISABLED')
+          PY
+
+      - name: Upload BTC paper results
+        uses: actions/upload-artifact@v4
+        with:
+          name: tradingagents-btc-paper-results
+          path: paper-results/
+          if-no-files-found: error
+          retention-days: 30
