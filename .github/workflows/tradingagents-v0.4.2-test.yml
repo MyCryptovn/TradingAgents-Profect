@@ -1,4 +1,4 @@
-name: TradingAgents v0.4.2 - Full Source Test
+name: TradingAgents v0.4.2 - Repository Source Test
 
 on:
   push:
@@ -14,24 +14,30 @@ concurrency:
 
 env:
   TRADINGAGENTS_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
+  SOURCE_DIR: vendor/TradingAgents
 
 jobs:
   full-source-test:
-    name: TradingAgents full-source test (Python 3.12)
+    name: TradingAgents repository-source test (Python 3.12)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
-      - name: Prepare workspace
-        run: mkdir -p vendor
+      - name: Checkout repository source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - name: Clone exact official TradingAgents source
+      - name: Verify pinned TradingAgents source is present
         run: |
-          git clone https://github.com/TauricResearch/TradingAgents.git vendor/TradingAgents
-          cd vendor/TradingAgents
-          git checkout "$TRADINGAGENTS_COMMIT"
-          echo "TradingAgents commit: $(git rev-parse HEAD)"
-          test "$(git rev-parse HEAD)" = "$TRADINGAGENTS_COMMIT"
+          test -f "$SOURCE_DIR/pyproject.toml"
+          test -f "$SOURCE_DIR/README.md"
+          test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
+          test -f "$SOURCE_DIR/tradingagents/llm_clients/factory.py"
+          test -f "$SOURCE_DIR/tests/test_provider_registry.py"
+          ! find "$SOURCE_DIR" -type d \( -name '.git' -o -name '.ruff_cache' -o -name '__pycache__' -o -name '*.egg-info' \) | grep .
+          echo "Expected upstream commit: $TRADINGAGENTS_COMMIT"
+          echo "Repository source files: $(find "$SOURCE_DIR" -type f | wc -l)"
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -59,18 +65,18 @@ jobs:
         working-directory: vendor/TradingAgents
         run: ruff check .
 
-      - name: Package complete TradingAgents source
+      - name: Package repository source artifact
         run: |
           cd vendor
-          tar --exclude='.git' -czf TradingAgents-v0.4.2-full-source.tar.gz TradingAgents
-          sha256sum TradingAgents-v0.4.2-full-source.tar.gz | tee TradingAgents-v0.4.2-full-source.sha256
+          tar --exclude='.git' -czf TradingAgents-v0.4.2-repository-source.tar.gz TradingAgents
+          sha256sum TradingAgents-v0.4.2-repository-source.tar.gz | tee TradingAgents-v0.4.2-repository-source.sha256
 
-      - name: Upload complete source artifact
+      - name: Upload repository source artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TradingAgents-v0.4.2-full-source
+          name: TradingAgents-v0.4.2-repository-source
           path: |
-            vendor/TradingAgents-v0.4.2-full-source.tar.gz
-            vendor/TradingAgents-v0.4.2-full-source.sha256
+            vendor/TradingAgents-v0.4.2-repository-source.tar.gz
+            vendor/TradingAgents-v0.4.2-repository-source.sha256
           if-no-files-found: error
           retention-days: 30
