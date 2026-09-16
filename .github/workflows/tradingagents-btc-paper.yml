@@ -17,7 +17,7 @@ env:
   TRADINGAGENTS_MAX_RISK_ROUNDS: '1'
   TRADINGAGENTS_TEMPERATURE: '0.1'
   TRADINGAGENTS_LLM_MAX_RETRIES: '2'
-  TRADINGAGENTS_MAX_TOKENS: '2048'
+  TRADINGAGENTS_MAX_TOKENS: '1024'
   TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET: '6000'
   TRADINGAGENTS_OUTPUT_LANGUAGE: English
   TRADINGAGENTS_RESULTS_DIR: ${{ github.workspace }}/paper-results
@@ -49,10 +49,11 @@ jobs:
         run: |
           test -f "$SOURCE_DIR/pyproject.toml"
           test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
+          test -f "$SOURCE_DIR/tradingagents/agents/researchers/bear_researcher.py"
           test -n "$GROQ_API_KEY" || { echo 'GROQ_API_KEY secret is missing.'; exit 1; }
           echo 'REAL MONEY TRADING: DISABLED'
           echo 'EXCHANGE EXECUTION: DISABLED'
-          echo 'MODE: BTC historical paper evaluation'
+          echo 'MODE: BTC historical paper smoke test'
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -89,75 +90,61 @@ jobs:
           if text.find(start_marker, start + 1) >= 0:
               raise SystemExit('Multiple Bear Researcher prompt blocks found; refusing ambiguous patch.')
 
-          replacement = '''        # Groq HTTP 413 guard: bound the assembled Bear Researcher input.
-          token_budget = 6000
-          try:
-              token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))
-          except ValueError:
-              token_budget = 6000
-          token_budget = max(1000, min(token_budget, 6000))
-
-          fixed_prompt = (
-              'You are a Bear Analyst making the case against investing in the '
-              + target_label
-              + '. Present a well-reasoned argument emphasizing risks, challenges, '
-              'negative indicators, and direct counterpoints to the bull analyst.\n\n'
-          )
-          suffix = (
-              '\nUse the research to deliver a compelling bear argument for the '
-              + target_label
-              + '.'
-              + get_language_instruction()
-          )
-
-          sections = [
-              ('Resources available', instrument_context, 1.00),
-              ('Market research report', market_research_report, 1.25),
-              ('Social media sentiment report', sentiment_report, 0.90),
-              ('Latest world affairs news', news_report, 1.15),
-              (fundamentals_label, fundamentals_report, 0.70),
-              ('Conversation history of the debate', history, 0.55),
-              ('Last bull argument', current_response, 1.00),
+          replacement_lines = [
+              "        # Groq HTTP 413 guard: bound the assembled Bear Researcher input.",
+              "        token_budget = 6000",
+              "        try:",
+              "            token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))",
+              "        except ValueError:",
+              "            token_budget = 6000",
+              "        token_budget = max(1000, min(token_budget, 6000))",
+              "",
+              "        fixed_prompt = (",
+              "            'You are a Bear Analyst making the case against investing in the '",
+              "            + target_label",
+              "            + '. Present a well-reasoned argument emphasizing risks, challenges, '",
+              "            'negative indicators, and direct counterpoints to the bull analyst.\\n\\n'",
+              "        )",
+              "        suffix = (",
+              "            '\\nUse the research to deliver a compelling bear argument for the '",
+              "            + target_label",
+              "            + '.'",
+              "            + get_language_instruction()",
+              "        )",
+              "",
+              "        sections = [",
+              "            ('Resources available', instrument_context, 1.00),",
+              "            " + "('Market research report', market_research_report, 1.25)," + ",",
+              "            ('Social media sentiment report', sentiment_report, 0.90),",
+              "            ('Latest world affairs news', news_report, 1.15),",
+              "            (fundamentals_label, fundamentals_report, 0.70),",
+              "            ('Conversation history of the debate', history, 0.55),",
+              "            ('Last bull argument', current_response, 1.00),",
+              "        ]",
+              "        total_weight = sum(weight for _, _, weight in sections)",
+              "        available_chars = max(4000, token_budget * 4 - len(fixed_prompt) - len(suffix) - 500)",
+              "        rendered = []",
+              "",
+              "        for label, value, weight in sections:",
+              "            value = str(value or '').strip()",
+              "            section_budget = max(600, int(available_chars * weight / total_weight))",
+              "            if len(value) > section_budget:",
+              "                head = max(300, section_budget // 3)",
+              "                tail = max(300, section_budget - head)",
+              "                value = value[:head] + '\\n...[context truncated for Groq 6K input budget]...\\n' + value[-tail:]",
+              "            rendered.append(f'{label}: {value}')",
+              "",
+              "        prompt = fixed_prompt + '\\n\\n'.join(rendered) + suffix",
+              "        approx_tokens = (len(prompt) + 3) // 4",
+              "        print(f'BEAR INPUT GUARD: chars={len(prompt)} approx_tokens={approx_tokens} budget={token_budget}')",
+              "        if approx_tokens > token_budget:",
+              "            target_chars = token_budget * 4",
+              "            head = target_chars // 2",
+              "            tail = target_chars - head",
+              "            prompt = prompt[:head] + '\\n...[final context trim]...\\n' + prompt[-tail:]",
+              "            print(f'BEAR INPUT GUARD FINAL: chars={len(prompt)} approx_tokens={(len(prompt) + 3) // 4}')",
           ]
-          total_weight = sum(weight for _, _, weight in sections)
-          available_chars = max(4000, token_budget * 4 - len(fixed_prompt) - len(suffix) - 500)
-          rendered = []
-
-          for label, value, weight in sections:
-              value = str(value or '').strip()
-              section_budget = max(600, int(available_chars * weight / total_weight))
-              if len(value) > section_budget:
-                  head = max(300, section_budget // 3)
-                  tail = max(300, section_budget - head)
-                  value = (
-                      value[:head]
-                      + '\n...[context truncated for Groq 6K input budget]...\n'
-                      + value[-tail:]
-                  )
-              rendered.append(f'{label}: {value}')
-
-          prompt = fixed_prompt + '\n\n'.join(rendered) + suffix
-          approx_tokens = (len(prompt) + 3) // 4
-          print(
-              f'BEAR INPUT GUARD: chars={len(prompt)} '
-              f'approx_tokens={approx_tokens} budget={token_budget}'
-          )
-
-          if approx_tokens > token_budget:
-              target_chars = token_budget * 4
-              head = target_chars // 2
-              tail = target_chars - head
-              prompt = (
-                  prompt[:head]
-                  + '\n...[final context trim]...\n'
-                  + prompt[-tail:]
-              )
-              print(
-                  f'BEAR INPUT GUARD FINAL: chars={len(prompt)} '
-                  f'approx_tokens={(len(prompt) + 3) // 4}'
-              )
-'''
-
+          replacement = '\n'.join(replacement_lines) + '\n'
           text = text[:start] + replacement + text[end:]
           path.write_text(text, encoding='utf-8')
           print('Applied REAL 6K Bear Researcher context guard.')
@@ -171,23 +158,17 @@ jobs:
           grep -n 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET' tradingagents/agents/researchers/bear_researcher.py
           grep -n 'response = llm.invoke(prompt)' tradingagents/agents/researchers/bear_researcher.py
 
-      - name: Run BTC historical paper evaluation through native TradingAgents
+      - name: Run one BTC historical paper smoke test through native TradingAgents
         working-directory: vendor/TradingAgents-btc-paper
         run: |
           python - <<'PY'
-          import csv
           import json
           import os
-          import re
-          from datetime import datetime, timedelta
-          import yfinance as yf
           from tradingagents.graph.trading_graph import TradingAgentsGraph
           from tradingagents.default_config import DEFAULT_CONFIG
 
           ticker = 'BTC-USD'
-          dates = ['2026-01-15', '2026-03-16', '2026-06-15']
-          horizon = 5
-
+          trade_date = '2026-01-15'
           config = DEFAULT_CONFIG.copy()
           config['llm_provider'] = 'groq'
           config['deep_think_llm'] = os.environ['TRADINGAGENTS_DEEP_THINK_LLM']
@@ -196,7 +177,7 @@ jobs:
           config['max_risk_discuss_rounds'] = 1
           config['temperature'] = 0.1
           config['llm_max_retries'] = 2
-          config['max_tokens'] = 2048
+          config['max_tokens'] = 1024
           config['results_dir'] = os.environ['TRADINGAGENTS_RESULTS_DIR']
           config['data_cache_dir'] = os.environ['TRADINGAGENTS_CACHE_DIR']
           config['memory_log_path'] = os.environ['TRADINGAGENTS_MEMORY_LOG_PATH']
@@ -204,93 +185,25 @@ jobs:
           os.makedirs(config['results_dir'], exist_ok=True)
           os.makedirs(config['data_cache_dir'], exist_ok=True)
 
+          print(f'===== BTC PAPER SMOKE TEST: {ticker} @ {trade_date} =====')
           ta = TradingAgentsGraph(
               selected_analysts=('market', 'social', 'news', 'fundamentals'),
               debug=False,
               config=config,
           )
-
-          rows = []
-          for trade_date in dates:
-              print(f'===== BTC PAPER {ticker} @ {trade_date} =====')
-              _, decision = ta.propagate(ticker, trade_date, asset_type='crypto')
-              raw = decision if isinstance(decision, str) else json.dumps(decision, ensure_ascii=False, default=str)
-              print('AGENT DECISION:', raw)
-
-              action = 'UNKNOWN'
-              if isinstance(decision, dict):
-                  for key in ('action', 'decision', 'signal'):
-                      if decision.get(key):
-                          action = str(decision[key]).upper()
-                          break
-              if action == 'UNKNOWN':
-                  found = re.search(r'\b(BUY|SELL|HOLD)\b', raw.upper())
-                  if found:
-                      action = found.group(1)
-
-              start = yf.Ticker(ticker).history(
-                  start=trade_date,
-                  end=(datetime.strptime(trade_date, '%Y-%m-%d') + timedelta(days=horizon + 7)).strftime('%Y-%m-%d'),
-                  auto_adjust=False,
-              )
-              if len(start) <= horizon:
-                  raise RuntimeError(f'Insufficient future bars for {trade_date}')
-
-              entry = float(start['Close'].iloc[0])
-              exit_price = float(start['Close'].iloc[horizon])
-              future_return = (exit_price - entry) / entry
-              if action == 'BUY':
-                  outcome = 'CORRECT' if future_return > 0 else 'WRONG'
-              elif action == 'SELL':
-                  outcome = 'CORRECT' if future_return < 0 else 'WRONG'
-              elif action == 'HOLD':
-                  outcome = 'NO_POSITION'
-              else:
-                  outcome = 'UNPARSED'
-
-              rows.append({
-                  'ticker': ticker,
-                  'trade_date': trade_date,
-                  'action': action,
-                  'entry_price': entry,
-                  'exit_price_5d': exit_price,
-                  'future_return_5d': future_return,
-                  'outcome': outcome,
-              })
-              print(f'ACTION={action} | 5D RETURN={future_return:.4%} | OUTCOME={outcome}')
-
-          out = os.path.join(config['results_dir'], 'paper_trade_results.csv')
-          with open(out, 'w', newline='', encoding='utf-8') as f:
-              writer = csv.DictWriter(f, fieldnames=rows[0].keys())
-              writer.writeheader()
-              writer.writerows(rows)
-
-          actionable = [r for r in rows if r['action'] in ('BUY', 'SELL') and r['outcome'] in ('CORRECT', 'WRONG')]
-          correct = sum(r['outcome'] == 'CORRECT' for r in actionable)
-          accuracy = correct / len(actionable) if actionable else None
-          summary = {
-              'mode': 'historical paper trading only',
-              'real_money': False,
-              'ticker': ticker,
-              'samples': len(rows),
-              'actionable_samples': len(actionable),
-              'correct_actionable': correct,
-              'action_accuracy': accuracy,
-              'tradingagents_source_label': os.environ['TRADINGAGENTS_SOURCE_LABEL'],
-              'tradingagents_commit': os.environ['TRADINGAGENTS_UPSTREAM_COMMIT'],
-              'bear_input_token_budget': 6000,
-          }
-          with open(os.path.join(config['results_dir'], 'paper_trade_summary.json'), 'w', encoding='utf-8') as f:
-              json.dump(summary, f, indent=2)
-          print('===== PAPER TEST SUMMARY =====')
-          print(json.dumps(summary, indent=2))
+          _, decision = ta.propagate(ticker, trade_date, asset_type='crypto')
+          print('AGENT DECISION:')
+          print(decision if isinstance(decision, str) else json.dumps(decision, ensure_ascii=False, default=str))
           print('REAL MONEY TRADING: DISABLED')
+
+          with open(os.path.join(config['results_dir'], 'btc_paper_smoke_result.json'), 'w', encoding='utf-8') as f:
+              json.dump({'ticker': ticker, 'trade_date': trade_date, 'real_money': False, 'decision': decision}, f, ensure_ascii=False, indent=2, default=str)
           PY
 
-      - name: Upload BTC paper results
+      - name: Upload BTC paper smoke result
         uses: actions/upload-artifact@v4
         with:
-          name: tradingagents-btc-paper-results
+          name: tradingagents-btc-paper-smoke-result
           path: paper-results/
           if-no-files-found: error
           retention-days: 30
