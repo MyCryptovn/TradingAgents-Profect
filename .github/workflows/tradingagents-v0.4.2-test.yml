@@ -1,0 +1,76 @@
+name: TradingAgents v0.4.2 - Full Source Test
+
+on:
+  push:
+    branches: [main, tradingagents-v0.4.2-test]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tradingagents-v0.4.2-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TRADINGAGENTS_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
+
+jobs:
+  full-source-test:
+    name: TradingAgents full-source test (Python 3.12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Prepare workspace
+        run: mkdir -p vendor
+
+      - name: Clone exact official TradingAgents source
+        run: |
+          git clone https://github.com/TauricResearch/TradingAgents.git vendor/TradingAgents
+          cd vendor/TradingAgents
+          git checkout "$TRADINGAGENTS_COMMIT"
+          echo "TradingAgents commit: $(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "$TRADINGAGENTS_COMMIT"
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: vendor/TradingAgents/pyproject.toml
+
+      - name: Install full project with development dependencies
+        working-directory: vendor/TradingAgents
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Clean-install import check
+        working-directory: vendor/TradingAgents
+        run: |
+          python -c "import tradingagents, cli.main; print('clean import OK')"
+
+      - name: Run complete test suite
+        working-directory: vendor/TradingAgents
+        run: pytest -q
+
+      - name: Run strict lint
+        working-directory: vendor/TradingAgents
+        run: ruff check .
+
+      - name: Package complete TradingAgents source
+        run: |
+          cd vendor
+          tar --exclude='.git' -czf TradingAgents-v0.4.2-full-source.tar.gz TradingAgents
+          sha256sum TradingAgents-v0.4.2-full-source.tar.gz | tee TradingAgents-v0.4.2-full-source.sha256
+
+      - name: Upload complete source artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TradingAgents-v0.4.2-full-source
+          path: |
+            vendor/TradingAgents-v0.4.2-full-source.tar.gz
+            vendor/TradingAgents-v0.4.2-full-source.sha256
+          if-no-files-found: error
+          retention-days: 30
