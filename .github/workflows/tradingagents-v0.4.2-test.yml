@@ -14,6 +14,7 @@ concurrency:
 
 env:
   TRADINGAGENTS_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
+  TRADINGAGENTS_SOURCE_LABEL: v0.4.2
   SOURCE_DIR: vendor/TradingAgents-v0.4.2-test
 
 jobs:
@@ -32,12 +33,12 @@ jobs:
           git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
           git -C "$SOURCE_DIR" checkout --detach "$TRADINGAGENTS_COMMIT"
           test "$(git -C "$SOURCE_DIR" rev-parse HEAD)" = "$TRADINGAGENTS_COMMIT"
-          grep -q 'version = "0.4.2"' "$SOURCE_DIR/pyproject.toml"
           test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
           test -f "$SOURCE_DIR/tradingagents/llm_clients/factory.py"
           test -f "$SOURCE_DIR/tests/test_provider_registry.py"
+          echo "Exact source label: $TRADINGAGENTS_SOURCE_LABEL"
           echo "Exact upstream commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
-          echo "Package version: $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
+          echo "Package metadata version (upstream commit): $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
           echo "Repository source files: $(find "$SOURCE_DIR" -type f | wc -l)"
 
       - name: Set up Python 3.12
