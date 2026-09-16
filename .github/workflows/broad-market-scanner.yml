@@ -1,0 +1,39 @@
+name: Broad Real-Market Scanner - Paper Only
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run broad real-market scanner
+        run: python scripts/market_scanner.py | tee scanner-output.txt
+
+      - name: Verify safety gates
+        run: |
+          grep -q "DATA SOURCE: KRAKEN PUBLIC SPOT MARKET DATA" scanner-output.txt
+          grep -q "LIVE ORDERS: DISABLED" scanner-output.txt
+          grep -q "NEXT GATE: Only these candidates should enter TradingAgents deep analysis." scanner-output.txt
+          grep -q "LIVE TRADING GATE: DISABLED" scanner-output.txt
+
+      - name: Upload scanner report
+        uses: actions/upload-artifact@v4
+        with:
+          name: broad-market-scanner-report
+          path: scanner-output.txt
+          retention-days: 7
