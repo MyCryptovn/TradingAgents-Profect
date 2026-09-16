@@ -1,4 +1,4 @@
-name: TradingAgents v0.4.2 - Repository Source Test
+name: TradingAgents v0.4.2 - Exact Upstream Source Test
 
 on:
   push:
@@ -14,29 +14,30 @@ concurrency:
 
 env:
   TRADINGAGENTS_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
-  SOURCE_DIR: vendor/TradingAgents
+  SOURCE_DIR: vendor/TradingAgents-v0.4.2-test
 
 jobs:
   full-source-test:
-    name: TradingAgents repository-source test (Python 3.12)
+    name: TradingAgents v0.4.2 exact upstream test (Python 3.12)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
-      - name: Checkout repository source
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
-      - name: Verify pinned TradingAgents source is present
+      - name: Fetch exact TradingAgents v0.4.2 source
         run: |
-          test -f "$SOURCE_DIR/pyproject.toml"
-          test -f "$SOURCE_DIR/README.md"
+          rm -rf "$SOURCE_DIR"
+          git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
+          git -C "$SOURCE_DIR" checkout --detach "$TRADINGAGENTS_COMMIT"
+          test "$(git -C "$SOURCE_DIR" rev-parse HEAD)" = "$TRADINGAGENTS_COMMIT"
+          grep -q 'version = "0.4.2"' "$SOURCE_DIR/pyproject.toml"
           test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
           test -f "$SOURCE_DIR/tradingagents/llm_clients/factory.py"
           test -f "$SOURCE_DIR/tests/test_provider_registry.py"
-          ! find "$SOURCE_DIR" -type d \( -name '.git' -o -name '.ruff_cache' -o -name '__pycache__' -o -name '*.egg-info' \) | grep .
-          echo "Expected upstream commit: $TRADINGAGENTS_COMMIT"
+          echo "Exact upstream commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
+          echo "Package version: $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
           echo "Repository source files: $(find "$SOURCE_DIR" -type f | wc -l)"
 
       - name: Set up Python 3.12
@@ -44,39 +45,39 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: vendor/TradingAgents/pyproject.toml
+          cache-dependency-path: vendor/TradingAgents-v0.4.2-test/pyproject.toml
 
       - name: Install full project with development dependencies
-        working-directory: vendor/TradingAgents
+        working-directory: vendor/TradingAgents-v0.4.2-test
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
       - name: Clean-install import check
-        working-directory: vendor/TradingAgents
+        working-directory: vendor/TradingAgents-v0.4.2-test
         run: |
           python -c "import tradingagents, cli.main; print('clean import OK')"
 
       - name: Run complete test suite
-        working-directory: vendor/TradingAgents
+        working-directory: vendor/TradingAgents-v0.4.2-test
         run: pytest -q
 
       - name: Run strict lint
-        working-directory: vendor/TradingAgents
+        working-directory: vendor/TradingAgents-v0.4.2-test
         run: ruff check .
 
-      - name: Package repository source artifact
+      - name: Package exact v0.4.2 source artifact
         run: |
           cd vendor
-          tar --exclude='.git' -czf TradingAgents-v0.4.2-repository-source.tar.gz TradingAgents
-          sha256sum TradingAgents-v0.4.2-repository-source.tar.gz | tee TradingAgents-v0.4.2-repository-source.sha256
+          tar --exclude='.git' -czf TradingAgents-v0.4.2-exact-upstream-source.tar.gz TradingAgents-v0.4.2-test
+          sha256sum TradingAgents-v0.4.2-exact-upstream-source.tar.gz | tee TradingAgents-v0.4.2-exact-upstream-source.sha256
 
-      - name: Upload repository source artifact
+      - name: Upload exact v0.4.2 source artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TradingAgents-v0.4.2-repository-source
+          name: TradingAgents-v0.4.2-exact-upstream-source
           path: |
-            vendor/TradingAgents-v0.4.2-repository-source.tar.gz
-            vendor/TradingAgents-v0.4.2-repository-source.sha256
+            vendor/TradingAgents-v0.4.2-exact-upstream-source.tar.gz
+            vendor/TradingAgents-v0.4.2-exact-upstream-source.sha256
           if-no-files-found: error
           retention-days: 30
