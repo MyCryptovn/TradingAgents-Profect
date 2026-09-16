@@ -34,7 +34,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Fetch exact TradingAgents source
         run: |
           rm -rf "$SOURCE_DIR"
@@ -43,7 +42,6 @@ jobs:
           test "$(git -C "$SOURCE_DIR" rev-parse HEAD)" = "$TRADINGAGENTS_UPSTREAM_COMMIT"
           echo "TradingAgents commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
           grep '^version = ' "$SOURCE_DIR/pyproject.toml"
-
       - name: Verify prerequisites and paper-only mode
         run: |
           test -f "$SOURCE_DIR/pyproject.toml"
@@ -53,25 +51,21 @@ jobs:
           echo 'REAL MONEY TRADING: DISABLED'
           echo 'EXCHANGE EXECUTION: DISABLED'
           echo 'MODE: BTC historical paper smoke test'
-
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: vendor/TradingAgents-btc-paper/pyproject.toml
-
       - name: Install exact TradingAgents source
         working-directory: vendor/TradingAgents-btc-paper
         run: |
           python -m pip install --upgrade pip
           pip install -e .
-
       - name: Apply REAL 6K Bear Researcher context guard
         working-directory: vendor/TradingAgents-btc-paper
         run: |
-          python -c "import base64; exec(base64.b64decode('CmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAoKcGF0aCA9IFBhdGgoInRyYWRpbmdhZ2VudHMvYWdlbnRzL3Jlc2VhcmNoZXJzL2JlYXJfcmVzZWFyY2hlci5weSIpCnRleHQgPSBwYXRoLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQptYXJrZXIgPSAiVFJBRElOR0FHRU5UU19CRUF SX0lOUFVUX1RPS0VOX0JVREdFVCI='))"
-
+          python -c "import base64; exec(base64.b64decode('CmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAoKcGF0aCA9IFBhdGgoInRyYWRpbmdhZ2VudHMvYWdlbnRzL3Jlc2VhcmNoZXJzL2JlYXJfcmVzZWFyY2hlci5weSIpCnRleHQgPSBwYXRoLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQptYXJrZXIgPSAiVFJBRElOR0FHRU5UU19CRUFSX0lOUFVUX1RPS0VOX0JVREdFVCIKaWYgbWFya2VyIGluIHRleHQ6CiAgICBwcmludCgiNksgQmVhciBSZXNlYXJjaGVyIGd1YXJkIGFscmVhZHkgcHJlc2VudC4iKQogICAgcmFpc2UgU3lzdGVtRXhpdCgwKQoKc3RhcnRfbWFya2VyID0gJyAgICAgICAgcHJvbXB0ID0gZiIiIicKZW5kX21hcmtlciA9ICIgICAgICAgIHJlc3BvbnNlID0gbGxtLmludm9rZShwcm9tcHQpIgpzdGFydCA9IHRleHQuZmluZChzdGFydF9tYXJrZXIpCmVuZCA9IHRleHQuZmluZChlbmRfbWFya2VyLCBzdGFydCkKaWYgc3RhcnQgPCAwIG9yIGVuZCA8IDA6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCJFeHBlY3RlZCBCZWFyIFJlc2VhcmNoZXIgcHJvbXB0IGJvdW5kYXJpZXMgd2VyZSBub3QgZm91bmQgaW4gdGhlIGV4YWN0IHVwc3RyZWFtIGNvbW1pdC4gUmVmdXNpbmcgdG8gY29udGludWUuIikKaWYgdGV4dC5maW5kKHN0YXJ0X21hcmtlciwgc3RhcnQgKyAxKSA+PSAwOgogICAgcmFpc2UgU3lzdGVtRXhpdCgiTXVsdGlwbGUgQmVhciBSZXNlYXJjaGVyIHByb21wdCBibG9ja3MgZm91bmQ7IHJlZnVzaW5nIGFtYmlndW91cyBwYXRjaC4iKQoKcmVwbGFjZW1lbnQgPSAiIiIgICAgICAgICMgR3JvcSBIVFRQIDQxMyBndWFyZDogYm91bmQgdGhlIGFzc2VtYmxlZCBCZWFyIFJlc2VhcmNoZXIgaW5wdXQuCiAgICAgICAgdG9rZW5fYnVkZ2V0ID0gNjAwMAogICAgICAgIHRyeToKICAgICAgICAgICAgdG9rZW5fYnVkZ2V0ID0gaW50KF9faW1wb3J0X18oIm9zIikuZW52aXJvbi5nZXQoIlRSQURJTkdBR0VOVFNfQkVBUl9JTlBVVF9UT0tFTl9CVURHRVQiLCAiNjAwMCIpKQogICAgICAgIGV4Y2VwdCBWYWx1ZUVycm9yOgogICAgICAgICAgICB0b2tlbl9idWRnZXQgPSA2MDAwCiAgICAgICAgdG9rZW5fYnVkZ2V0ID0gbWF4KDEwMDAsIG1pbih0b2tlbl9idWRnZXQsIDYwMDApKQoKICAgICAgICBmaXhlZF9wcm9tcHQgPSAoCiAgICAgICAgICAgICJZb3UgYXJlIGEgQmVhciBBbmFseXN0IG1ha2luZyB0aGUgY2FzZSBhZ2FpbnN0IGludmVzdGluZyBpbiB0aGUgIgogICAgICAgICAgICArIHRhcmdldF9sYWJlbAogICAgICAgICAgICArICIuIFByZXNlbnQgYSB3ZWxsLXJlYXNvbmVkIGFyZ3VtZW50IGVtcGhhc2l6aW5nIHJpc2tzLCBjaGFsbGVuZ2VzLCAiCiAgICAgICAgICAgICJuZWdhdGl2ZSBpbmRpY2F0b3JzLCBhbmQgZGlyZWN0IGNvdW50ZXJwb2ludHMgdG8gdGhlIGJ1bGwgYW5hbHlzdC5cXG5cXG4iCiAgICAgICAgKQogICAgICAgIHN1ZmZpeCA9ICgKICAgICAgICAgICAgIlxcblVzZSB0aGUgcmVzZWFyY2ggdG8gZGVsaXZlciBhIGNvbXBlbGxpbmcgYmVhciBhcmd1bWVudCBmb3IgdGhlICIKICAgICAgICAgICAgKyB0YXJnZXRfbGFiZWwKICAgICAgICAgICAgKyAiLiIKICAgICAgICAgICAgKyBnZXRfbGFuZ3VhZ2VfaW5zdHJ1Y3Rpb24oKQogICAgICAgICkKCiAgICAgICAgc2VjdGlvbnMgPSBbCiAgICAgICAgICAgICgiUmVzb3VyY2VzIGF2YWlsYWJsZSIsIGluc3RydW1lbnRfY29udGV4dCwgMS4wMCksCiAgICAgICAgICAgICgiTWFya2V0IHJlc2VhcmNoIHJlcG9ydCIsIG1hcmtldF9yZXNlYXJjaF9yZXBvcnQsIDEuMjUpLAogICAgICAgICAgICAoIlNvY2lhbCBtZWRpYSBzZW50aW1lbnQgcmVwb3J0Iiwgc2VudGltZW50X3JlcG9ydCwgMC45MCksCiAgICAgICAgICAgICgiTGF0ZXN0IHdvcmxkIGFmZmFpcnMgbmV3cyIsIG5ld3NfcmVwb3J0LCAxLjE1KSwKICAgICAgICAgICAgKGZ1bmRhbWVudGFsc19sYWJlbCwgZnVuZGFtZW50YWxzX3JlcG9ydCwgMC43MCksCiAgICAgICAgICAgICgiQ29udmVyc2F0aW9uIGhpc3Rvcnkgb2YgdGhlIGRlYmF0ZSIsIGhpc3RvcnksIDAuNTUpLAogICAgICAgICAgICAoIkxhc3QgYnVsbCBhcmd1bWVudCIsIGN1cnJlbnRfcmVzcG9uc2UsIDEuMDApLAogICAgICAgIF0KICAgICAgICB0b3RhbF93ZWlnaHQgPSBzdW0od2VpZ2h0IGZvciBfLCBfLCB3ZWlnaHQgaW4gc2VjdGlvbnMpCiAgICAgICAgYXZhaWxhYmxlX2NoYXJzID0gbWF4KDQwMDAsIHRva2VuX2J1ZGdldCAqIDQgLSBsZW4oZml4ZWRfcHJvbXB0KSAtIGxlbihzdWZmaXgpIC0gNTAwKQogICAgICAgIHJlbmRlcmVkID0gW10KCiAgICAgICAgZm9yIGxhYmVsLCB2YWx1ZSwgd2VpZ2h0IGluIHNlY3Rpb25zOgogICAgICAgICAgICB2YWx1ZSA9IHN0cih2YWx1ZSBvciAiIikuc3RyaXAoKQogICAgICAgICAgICBzZWN0aW9uX2J1ZGdldCA9IG1heCg2MDAsIGludChhdmFpbGFibGVfY2hhcnMgKiB3ZWlnaHQgLyB0b3RhbF93ZWlnaHQpKQogICAgICAgICAgICBpZiBsZW4odmFsdWUpID4gc2VjdGlvbl9idWRnZXQ6CiAgICAgICAgICAgICAgICBoZWFkID0gbWF4KDMwMCwgc2VjdGlvbl9idWRnZXQgLy8gMykKICAgICAgICAgICAgICAgIHRhaWwgPSBtYXgoMzAwLCBzZWN0aW9uX2J1ZGdldCAtIGhlYWQpCiAgICAgICAgICAgICAgICB2YWx1ZSA9IHZhbHVlWzpoZWFkXSArICJcXG4uLi5bY29udGV4dCB0cnVuY2F0ZWQgZm9yIEdyb3EgNksgaW5wdXQgYnVkZ2V0XS4uLlxcbiIgKyB2YWx1ZVstdGFpbDpdCiAgICAgICAgICAgIHJlbmRlcmVkLmFwcGVuZChmIntsYWJlbH06IHt2YWx1ZX0iKQoKICAgICAgICBwcm9tcHQgPSBmaXhlZF9wcm9tcHQgKyAiXFxuXFxuIi5qb2luKHJlbmRlcmVkKSArIHN1ZmZpeAogICAgICAgIGFwcHJveF90b2tlbnMgPSAobGVuKHByb21wdCkgKyAzKSAvLyA0CiAgICAgICAgcHJpbnQoZiJCRUFSIElOUFVUIEdVQVJEOiBjaGFycz17bGVuKHByb21wdCl9IGFwcHJveF90b2tlbnM9e2FwcHJveF90b2tlbnN9IGJ1ZGdldD17dG9rZW5fYnVkZ2V0fSIpCiAgICAgICAgaWYgYXBwcm94X3Rva2VucyA+IHRva2VuX2J1ZGdldDoKICAgICAgICAgICAgdGFyZ2V0X2NoYXJzID0gdG9rZW5fYnVkZ2V0ICogNAogICAgICAgICAgICBoZWFkID0gdGFyZ2V0X2NoYXJzIC8vIDIKICAgICAgICAgICAgdGFpbCA9IHRhcmdldF9jaGFycyAtIGhlYWQKICAgICAgICAgICAgcHJvbXB0ID0gcHJvbXB0WzpoZWFkXSArICJcXG4uLi5bZmluYWwgY29udGV4dCB0cmltXS4uLlxcbiIgKyBwcm9tcHRbLXRhaWw6XQogICAgICAgICAgICBwcmludChmIkJFQVIgSU5QVVQgR1VBUkQgRklOQUw6IGNoYXJzPXtsZW4ocHJvbXB0KX0gYXBwcm94X3Rva2Vucz17KGxlbihwcm9tcHQpICsgMykgLy8gNH0iKQoiIiIKdGV4dCA9IHRleHRbOnN0YXJ0XSArIHJlcGxhY2VtZW50ICsgdGV4dFtlbmQ6XQpwYXRoLndyaXRlX3RleHQodGV4dCwgZW5jb2Rpbmc9InV0Zi04IikKcHJpbnQoIkFwcGxpZWQgUkVBTCA2SyBCZWFyIFJlc2VhcmNoZXIgY29udGV4dCBndWFyZC4iKQo='))"
       - name: Verify guard before any Groq call
         working-directory: vendor/TradingAgents-btc-paper
         run: |
@@ -79,7 +73,6 @@ jobs:
           grep -n 'BEAR INPUT GUARD' tradingagents/agents/researchers/bear_researcher.py
           grep -n 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET' tradingagents/agents/researchers/bear_researcher.py
           grep -n 'response = llm.invoke(prompt)' tradingagents/agents/researchers/bear_researcher.py
-
       - name: Run one BTC historical paper smoke test through native TradingAgents
         working-directory: vendor/TradingAgents-btc-paper
         run: |
@@ -88,7 +81,6 @@ jobs:
           import os
           from tradingagents.graph.trading_graph import TradingAgentsGraph
           from tradingagents.default_config import DEFAULT_CONFIG
-
           ticker = 'BTC-USD'
           trade_date = '2026-01-15'
           config = DEFAULT_CONFIG.copy()
@@ -105,22 +97,15 @@ jobs:
           config['memory_log_path'] = os.environ['TRADINGAGENTS_MEMORY_LOG_PATH']
           os.makedirs(config['results_dir'], exist_ok=True)
           os.makedirs(config['data_cache_dir'], exist_ok=True)
-
           print(f'===== BTC PAPER SMOKE TEST: {ticker} @ {trade_date} =====')
-          ta = TradingAgentsGraph(
-              selected_analysts=('market', 'social', 'news', 'fundamentals'),
-              debug=False,
-              config=config,
-          )
+          ta = TradingAgentsGraph(selected_analysts=('market', 'social', 'news', 'fundamentals'), debug=False, config=config)
           _, decision = ta.propagate(ticker, trade_date, asset_type='crypto')
           print('AGENT DECISION:')
           print(decision if isinstance(decision, str) else json.dumps(decision, ensure_ascii=False, default=str))
           print('REAL MONEY TRADING: DISABLED')
-
           with open(os.path.join(config['results_dir'], 'btc_paper_smoke_result.json'), 'w', encoding='utf-8') as f:
               json.dump({'ticker': ticker, 'trade_date': trade_date, 'real_money': False, 'decision': decision}, f, ensure_ascii=False, indent=2, default=str)
           PY
-
       - name: Upload BTC paper smoke result
         uses: actions/upload-artifact@v4
         with:
