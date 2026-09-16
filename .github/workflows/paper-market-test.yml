@@ -1,0 +1,36 @@
+name: Paper Market Test - No Real Orders
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paper-market-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  paper-test:
+    name: Public market paper execution smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run public-market paper test
+        run: python scripts/paper_market_test.py
+
+      - name: Confirm live trading is hard-disabled in this test
+        run: |
+          grep -q "LIVE TRADING GATE: DISABLED" scripts/paper_market_test.py
+          echo "Live trading remains disabled."
