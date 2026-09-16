@@ -1,25 +1,25 @@
-name: TradingAgents v0.4.2 - Exact Upstream Source Test
+name: TradingAgents v0.4.0 - Exact Upstream Source Test
 
 on:
   push:
-    branches: [main, tradingagents-v0.4.2-test]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: tradingagents-v0.4.2-${{ github.ref }}
+  group: tradingagents-v0.4.0-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   TRADINGAGENTS_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
-  TRADINGAGENTS_SOURCE_LABEL: v0.4.2
-  SOURCE_DIR: vendor/TradingAgents-v0.4.2-test
+  TRADINGAGENTS_SOURCE_LABEL: v0.4.0
+  SOURCE_DIR: vendor/TradingAgents-v0.4.0-test
 
 jobs:
   full-source-test:
-    name: TradingAgents v0.4.2 exact upstream test (Python 3.12)
+    name: TradingAgents v0.4.0 exact upstream test (Python 3.12)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -27,7 +27,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch exact TradingAgents v0.4.2 source
+      - name: Fetch exact TradingAgents upstream source
         run: |
           rm -rf "$SOURCE_DIR"
           git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
@@ -36,9 +36,10 @@ jobs:
           test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
           test -f "$SOURCE_DIR/tradingagents/llm_clients/factory.py"
           test -f "$SOURCE_DIR/tests/test_provider_registry.py"
+          grep -q '^version = "0.4.0"' "$SOURCE_DIR/pyproject.toml"
           echo "Exact source label: $TRADINGAGENTS_SOURCE_LABEL"
           echo "Exact upstream commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
-          echo "Package metadata version (upstream commit): $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
+          echo "Package metadata version: $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
           echo "Repository source files: $(find "$SOURCE_DIR" -type f | wc -l)"
 
       - name: Set up Python 3.12
@@ -46,39 +47,39 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: vendor/TradingAgents-v0.4.2-test/pyproject.toml
+          cache-dependency-path: vendor/TradingAgents-v0.4.0-test/pyproject.toml
 
       - name: Install full project with development dependencies
-        working-directory: vendor/TradingAgents-v0.4.2-test
+        working-directory: vendor/TradingAgents-v0.4.0-test
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
       - name: Clean-install import check
-        working-directory: vendor/TradingAgents-v0.4.2-test
+        working-directory: vendor/TradingAgents-v0.4.0-test
         run: |
           python -c "import tradingagents, cli.main; print('clean import OK')"
 
       - name: Run complete test suite
-        working-directory: vendor/TradingAgents-v0.4.2-test
+        working-directory: vendor/TradingAgents-v0.4.0-test
         run: pytest -q
 
       - name: Run strict lint
-        working-directory: vendor/TradingAgents-v0.4.2-test
+        working-directory: vendor/TradingAgents-v0.4.0-test
         run: ruff check .
 
-      - name: Package exact v0.4.2 source artifact
+      - name: Package exact upstream source artifact
         run: |
           cd vendor
-          tar --exclude='.git' -czf TradingAgents-v0.4.2-exact-upstream-source.tar.gz TradingAgents-v0.4.2-test
-          sha256sum TradingAgents-v0.4.2-exact-upstream-source.tar.gz | tee TradingAgents-v0.4.2-exact-upstream-source.sha256
+          tar --exclude='.git' -czf TradingAgents-v0.4.0-exact-upstream-source.tar.gz TradingAgents-v0.4.0-test
+          sha256sum TradingAgents-v0.4.0-exact-upstream-source.tar.gz | tee TradingAgents-v0.4.0-exact-upstream-source.sha256
 
-      - name: Upload exact v0.4.2 source artifact
+      - name: Upload exact upstream source artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TradingAgents-v0.4.2-exact-upstream-source
+          name: TradingAgents-v0.4.0-exact-upstream-source
           path: |
-            vendor/TradingAgents-v0.4.2-exact-upstream-source.tar.gz
-            vendor/TradingAgents-v0.4.2-exact-upstream-source.sha256
+            vendor/TradingAgents-v0.4.0-exact-upstream-source.tar.gz
+            vendor/TradingAgents-v0.4.0-exact-upstream-source.sha256
           if-no-files-found: error
           retention-days: 30
