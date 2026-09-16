@@ -14,6 +14,7 @@ permissions:
 env:
   SOURCE_DIR: vendor/TradingAgents-v0.4.2-test
   TRADINGAGENTS_UPSTREAM_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
+  TRADINGAGENTS_SOURCE_LABEL: v0.4.2
   TRADINGAGENTS_LLM_PROVIDER: groq
   TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
   TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-120b
@@ -44,9 +45,10 @@ jobs:
           rm -rf "$SOURCE_DIR"
           git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
           git -C "$SOURCE_DIR" checkout --detach "$TRADINGAGENTS_UPSTREAM_COMMIT"
-          grep -q 'version = "0.4.2"' "$SOURCE_DIR/pyproject.toml"
+          test "$(git -C "$SOURCE_DIR" rev-parse HEAD)" = "$TRADINGAGENTS_UPSTREAM_COMMIT"
+          echo "TradingAgents source label: $TRADINGAGENTS_SOURCE_LABEL"
           echo "TradingAgents commit: $(git -C "$SOURCE_DIR" rev-parse HEAD)"
-          echo "TradingAgents version: $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
+          echo "Package metadata version (upstream commit): $(grep '^version = ' "$SOURCE_DIR/pyproject.toml")"
 
       - name: Verify paper-test prerequisites
         run: |
@@ -180,7 +182,7 @@ jobs:
           summary = {
               'mode': 'historical paper trading only',
               'real_money': False,
-              'tradingagents_version': '0.4.2',
+              'tradingagents_source_label': os.environ['TRADINGAGENTS_SOURCE_LABEL'],
               'tradingagents_commit': os.environ['TRADINGAGENTS_UPSTREAM_COMMIT'],
               'ticker': ticker,
               'samples': len(rows),
