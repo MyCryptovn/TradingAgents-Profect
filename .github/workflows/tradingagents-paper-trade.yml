@@ -23,6 +23,7 @@ env:
   TRADINGAGENTS_TEMPERATURE: '0.1'
   TRADINGAGENTS_LLM_MAX_RETRIES: '2'
   TRADINGAGENTS_MAX_TOKENS: '2048'
+  TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET: '6000'
   TRADINGAGENTS_OUTPUT_LANGUAGE: English
   TRADINGAGENTS_RESULTS_DIR: ${{ github.workspace }}/paper-results
   TRADINGAGENTS_CACHE_DIR: ${{ github.workspace }}/paper-cache
@@ -71,6 +72,104 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .
+
+      - name: Apply minimal Groq context guard
+        working-directory: vendor/TradingAgents-v0.4.2-test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('tradingagents/agents/researchers/bear_researcher.py')
+          text = path.read_text(encoding='utf-8')
+          marker = 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET'
+          if marker in text:
+              print('Bear researcher context guard already present; leaving source unchanged.')
+              raise SystemExit(0)
+
+          old = '''        prompt = f"""You are a Bear Analyst making the case against investing in the {target_label}. Your goal is to present a well-reasoned argument emphasizing risks, challenges, and negative indicators. Leverage the provided research and data to highlight potential downsides and counter bullish arguments effectively.\n\nKey points to focus on:\n\n- Risks and Challenges: Highlight factors like market saturation, financial instability, or macroeconomic threats that could hinder the stock's performance.\n- Competitive Weaknesses: Emphasize vulnerabilities such as weaker market positioning, declining innovation, or threats from competitors.\n- Negative Indicators: Use evidence from financial data, market trends, or recent adverse news to support your position.\n- Bull Counterpoints: Critically analyze the bull argument with specific data and sound reasoning, exposing weaknesses or over-optimistic assumptions.\n- Engagement: Present your argument in a conversational style, directly engaging with the bull analyst's points and debating effectively rather than simply listing facts.\n\nResources available:\n\n{instrument_context}\nMarket research report: {market_research_report}\nSocial media sentiment report: {sentiment_report}\nLatest world affairs news: {news_report}\n{fundamentals_label}: {fundamentals_report}\nConversation history of the debate: {history}\nLast bull argument: {current_response}\nUse this information to deliver a compelling bear argument, refute the bull's claims, and engage in a dynamic debate that demonstrates the risks and weaknesses of investing in the {target_label}.\n""" + get_language_instruction()'''
+
+          new = '''        # Groq returned HTTP 413 because the Bear Researcher prompt could grow to ~9.9K
+        # input tokens. Keep the native TradingAgents pipeline, but bound the assembled
+        # research context before the request is sent. Character budgeting is deliberately
+        # conservative (~4 chars/token) so the prompt remains below the 6K-token target.
+        token_budget = 6000
+        try:
+            token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))
+        except ValueError:
+            token_budget = 6000
+        token_budget = max(1000, min(token_budget, 6000))
+
+        sections = [
+            ('instrument', instrument_context),
+            ('market', market_research_report),
+            ('sentiment', sentiment_report),
+            ('news', news_report),
+            ('fundamentals', fundamentals_report),
+            ('history', history),
+            ('bull', current_response),
+        ]
+        fixed_prompt = f"""You are a Bear Analyst making the case against investing in the {target_label}. Your goal is to present a well-reasoned argument emphasizing risks, challenges, and negative indicators. Leverage the provided research and data to highlight potential downsides and counter bullish arguments effectively.\n\nKey points to focus on:\n\n- Risks and Challenges\n- Competitive Weaknesses\n- Negative Indicators\n- Bull Counterpoints\n- Engagement: directly address the bull analyst's points.\n\nUse the following research context. Preserve the most recent and decision-relevant evidence.\n"""
+        suffix = f"\nUse this information to deliver a compelling bear argument, refute the bull's claims, and engage in a dynamic debate that demonstrates the risks and weaknesses of investing in the {target_label}.\n""" + get_language_instruction()
+
+        # Reserve room for instructions/suffix and use a conservative 4 chars/token estimate.
+        available_chars = max(4000, (token_budget * 4) - len(fixed_prompt) - len(suffix))
+        weights = {
+            'instrument': 1.0,
+            'market': 1.25,
+            'sentiment': 0.9,
+            'news': 1.15,
+            'fundamentals': 0.7,
+            'history': 0.55,
+            'bull': 1.0,
+        }
+        total_weight = sum(weights[name] for name, _ in sections)
+
+        rendered = []
+        used_chars = 0
+        labels = {
+            'instrument': 'Resources available',
+            'market': 'Market research report',
+            'sentiment': 'Social media sentiment report',
+            'news': 'Latest world affairs news',
+            'fundamentals': fundamentals_label,
+            'history': 'Conversation history of the debate',
+            'bull': 'Last bull argument',
+        }
+        for name, value in sections:
+            value = str(value or '').strip()
+            budget = max(600, int(available_chars * weights[name] / total_weight))
+            if len(value) > budget:
+                # Keep both recent/end context and the beginning of the report.
+                head = max(300, budget // 3)
+                tail = max(300, budget - head)
+                value = value[:head] + '\\n...[context truncated for Groq 6K input budget]...\\n' + value[-tail:]
+            block = f"{labels[name]}: {value}"
+            rendered.append(block)
+            used_chars += len(block)
+
+        prompt = fixed_prompt + '\\n\\n' + '\\n'.join(rendered) + suffix
+        approx_tokens = (len(prompt) + 3) // 4
+        print(f'BEAR INPUT GUARD: chars={len(prompt)} approx_tokens={approx_tokens} budget={token_budget}')
+        if approx_tokens > token_budget:
+            # Final deterministic trim, retaining the beginning and end of the assembled prompt.
+            target_chars = token_budget * 4
+            head = target_chars // 2
+            tail = target_chars - head
+            prompt = prompt[:head] + '\\n...[final context trim]...\\n' + prompt[-tail:]
+            print(f'BEAR INPUT GUARD FINAL: chars={len(prompt)} approx_tokens={(len(prompt) + 3) // 4}')'''
+
+          if old not in text:
+              raise SystemExit('Expected upstream Bear Researcher prompt block was not found; refusing to patch.')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          print('Applied minimal Bear Researcher context guard: max 6000 approximate input tokens.')
+          PY
+
+      - name: Verify paper-test prerequisites after context guard
+        working-directory: vendor/TradingAgents-v0.4.2-test
+        run: |
+          python -m py_compile tradingagents/agents/researchers/bear_researcher.py
+          grep -n 'BEAR INPUT GUARD' tradingagents/agents/researchers/bear_researcher.py
 
       - name: Run historical paper trades
         working-directory: vendor/TradingAgents-v0.4.2-test
@@ -184,6 +283,7 @@ jobs:
               'real_money': False,
               'tradingagents_source_label': os.environ['TRADINGAGENTS_SOURCE_LABEL'],
               'tradingagents_commit': os.environ['TRADINGAGENTS_UPSTREAM_COMMIT'],
+              'bear_input_token_budget': int(os.environ['TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET']),
               'ticker': ticker,
               'samples': len(rows),
               'actionable_samples': len(actionable),
