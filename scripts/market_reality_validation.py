@@ -1,7 +1,8 @@
-"""Real-market paper validation using public Binance spot candles only.
+"""Real-market paper validation using Kraken public spot OHLC data only.
 
-No API key, wallet, or order endpoint is used. This is a market-data/execution
-baseline test, not a claim that the LLM strategy is profitable.
+No API key, wallet, or order endpoint is used. This validates public-market
+connectivity and a look-ahead-safe paper execution baseline. It is NOT a
+profitability claim for TradingAgents/LLMs and never places live orders.
 """
 
 from __future__ import annotations
@@ -14,19 +15,24 @@ import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 
-SYMBOLS = ("BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT")
-INTERVALS = ("15m", "1h")
-LIMIT = 1000
+PAIRS = {
+    "XBTUSD": "BTC/USD",
+    "ETHUSD": "ETH/USD",
+    "SOLUSD": "SOL/USD",
+    "XRPUSD": "XRP/USD",
+}
+INTERVALS = (15, 60)
 FEE = 0.001
 SLIPPAGE = 0.0005
 START_CASH = 10_000.0
-MIN_ROWS = 200
+MIN_ROWS = 180
+LOOKBACK = 120
 
 
 @dataclass
 class Result:
-    symbol: str
-    interval: str
+    pair: str
+    interval: int
     strategy_equity: float
     benchmark_equity: float
     max_drawdown: float
@@ -34,99 +40,128 @@ class Result:
     latest_age_minutes: float
 
 
-def fetch_klines(symbol: str, interval: str) -> list[list[float]]:
-    query = urllib.parse.urlencode({"symbol": symbol, "interval": interval, "limit": LIMIT})
-    url = f"https://api.binance.com/api/v3/klines?{query}"
+def fetch_ohlc(pair: str, interval: int) -> list[list[float]]:
+    query = urllib.parse.urlencode({"pair": pair, "interval": interval})
+    url = f"https://api.kraken.com/0/public/OHLC?{query}"
     request = urllib.request.Request(url, headers={"User-Agent": "TradingAgents-Profect/market-validation"})
     with urllib.request.urlopen(request, timeout=30) as response:
-        rows = json.load(response)
-    parsed = [[float(v) for v in row[:6]] for row in rows]
+        payload = json.load(response)
+    if payload.get("error"):
+        raise RuntimeError(f"Kraken {pair} {interval}m error: {payload['error']}")
+    result = payload["result"]
+    pair_key = next(key for key in result if key != "last")
+    rows = result[pair_key]
+    parsed = [[float(v) for v in row[:7]] for row in rows]
     if len(parsed) < MIN_ROWS:
-        raise RuntimeError(f"{symbol} {interval}: only {len(parsed)} candles")
-    return parsed
+        raise RuntimeError(f"{pair} {interval}m: only {len(parsed)} candles")
+    # Kraken can include the currently forming candle. Exclude it so the test
+    # only makes decisions from completed candles.
+    return parsed[:-1]
 
 
 def ema(values: list[float], period: int) -> float:
     alpha = 2.0 / (period + 1)
     value = values[0]
     for item in values[1:]:
-        value = alpha * item + (1 - alpha) * value
+        value = alpha * item + (1.0 - alpha) * value
     return value
 
 
-def signal(closes: list[float]) -> str:
+def evidence_score(closes: list[float]) -> float:
     if len(closes) < 60:
-        return "HOLD"
+        return 0.0
     fast = ema(closes[-30:], 12)
     slow = ema(closes[-60:], 26)
     recent = closes[-40:]
     returns = [math.log(recent[i] / recent[i - 1]) for i in range(1, len(recent))]
     vol = statistics.pstdev(returns) if len(returns) > 1 else 0.0
-    momentum = closes[-1] / closes[-20] - 1.0
     trend_gap = (fast - slow) / slow if slow else 0.0
-    evidence = trend_gap / vol if vol > 0 else 0.0
-    if evidence > 2.0 and momentum > 0:
+    return trend_gap / vol if vol > 0 else 0.0
+
+
+def adaptive_signal(closes: list[float]) -> str:
+    if len(closes) < LOOKBACK + 1:
+        return "HOLD"
+    current = evidence_score(closes)
+    history = []
+    start = max(60, len(closes) - LOOKBACK)
+    for end in range(start, len(closes)):
+        history.append(evidence_score(closes[:end]))
+    if len(history) < 40:
+        return "HOLD"
+    ordered = sorted(history)
+    low = ordered[max(0, int(len(ordered) * 0.20) - 1)]
+    high = ordered[min(len(ordered) - 1, int(len(ordered) * 0.80))]
+    momentum = closes[-1] / closes[-20] - 1.0
+    if current >= high and momentum > 0:
         return "BUY"
-    if evidence < -2.0 and momentum < 0:
+    if current <= low and momentum < 0:
         return "SELL"
     return "HOLD"
 
 
-def run(symbol: str, interval: str, rows: list[list[float]]) -> Result:
+def run(pair: str, interval: int, rows: list[list[float]]) -> Result:
     cash = START_CASH
     coin = 0.0
     peak = START_CASH
-    drawdown = 0.0
+    max_drawdown = 0.0
     trades = 0
     closes: list[float] = []
 
-    for row in rows:
-        close = row[4]
+    # Signal on completed candle t; execute at candle t+1 open.
+    for index in range(len(rows) - 1):
+        close = rows[index][4]
+        next_open = rows[index + 1][1]
         closes.append(close)
-        decision = signal(closes)
-        equity = cash + coin * close
+        decision = adaptive_signal(closes)
         if decision == "BUY" and coin == 0.0:
             spend = cash * 0.25
-            fill = close * (1 + SLIPPAGE)
-            coin = spend * (1 - FEE) / fill
+            fill = next_open * (1.0 + SLIPPAGE)
+            coin = spend * (1.0 - FEE) / fill
             cash -= spend
             trades += 1
         elif decision == "SELL" and coin > 0.0:
-            fill = close * (1 - SLIPPAGE)
-            cash += coin * fill * (1 - FEE)
+            fill = next_open * (1.0 - SLIPPAGE)
+            cash += coin * fill * (1.0 - FEE)
             coin = 0.0
             trades += 1
-        equity = cash + coin * close
+        equity = cash + coin * next_open
         peak = max(peak, equity)
-        drawdown = max(drawdown, (peak - equity) / peak if peak else 0.0)
+        max_drawdown = max(max_drawdown, (peak - equity) / peak if peak else 0.0)
 
-    final = cash + coin * closes[-1]
-    benchmark = START_CASH * closes[-1] / closes[0]
-    age_minutes = max(0.0, (time.time() * 1000 - rows[-1][6] if len(rows[-1]) > 6 else time.time() * 1000 - rows[-1][0]) / 60000)
-    return Result(symbol, interval, final, benchmark, drawdown, trades, age_minutes)
+    final_close = rows[-1][4]
+    final = cash + coin * final_close
+    benchmark = START_CASH * final_close / rows[0][1]
+    latest_age_minutes = max(0.0, (time.time() - rows[-1][0]) / 60.0)
+    return Result(pair, interval, final, benchmark, max_drawdown, trades, latest_age_minutes)
 
 
 def main() -> int:
     print("REAL-MARKET PAPER VALIDATION")
+    print("DATA SOURCE: KRAKEN PUBLIC SPOT OHLC")
     print("LIVE ORDERS: DISABLED")
-    print(f"symbols={','.join(SYMBOLS)} intervals={','.join(INTERVALS)} candles={LIMIT} fee={FEE:.4%} slippage={SLIPPAGE:.2%}")
+    print(
+        f"pairs={','.join(PAIRS)} intervals={','.join(map(str, INTERVALS))}m "
+        f"fee={FEE:.4%} slippage={SLIPPAGE:.2%} execution=next-open"
+    )
 
-    results: list[Result] = []
     for interval in INTERVALS:
-        for symbol in SYMBOLS:
-            rows = fetch_klines(symbol, interval)
-            result = run(symbol, interval, rows)
-            results.append(result)
-            strategy_pnl = result.strategy_equity / START_CASH - 1
-            benchmark_pnl = result.benchmark_equity / START_CASH - 1
+        for pair, label in PAIRS.items():
+            rows = fetch_ohlc(pair, interval)
+            result = run(pair, interval, rows)
+            strategy_pnl = result.strategy_equity / START_CASH - 1.0
+            benchmark_pnl = result.benchmark_equity / START_CASH - 1.0
             print(
-                f"{symbol:8} {interval:3} strategy={strategy_pnl:+.2%} "
+                f"{label:7} {interval:3}m strategy={strategy_pnl:+.2%} "
                 f"buy_hold={benchmark_pnl:+.2%} alpha={strategy_pnl - benchmark_pnl:+.2%} "
-                f"maxDD={result.max_drawdown:.2%} trades={result.trades}"
+                f"maxDD={result.max_drawdown:.2%} trades={result.trades} "
+                f"latest_age={result.latest_age_minutes:.1f}m"
             )
 
-    print("\nGATE: This validates live public market data, fees/slippage assumptions and paper execution mechanics.")
-    print("GATE: It does NOT prove TradingAgents/LLM profitability and does NOT enable live trading.")
+    print("\nGATE: Public real-market data and paper execution mechanics were exercised.")
+    print("GATE: Signals use adaptive rolling evidence; there is no fixed take-profit target.")
+    print("GATE: Decisions use completed candles and execute at the next candle open.")
+    print("GATE: This does NOT prove TradingAgents/LLM profitability.")
     print("GATE: Live trading remains DISABLED until sustained paper evidence is reviewed.")
     return 0
 
