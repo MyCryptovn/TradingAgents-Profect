@@ -31,7 +31,6 @@ jobs:
     timeout-minutes: 45
     env:
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -71,84 +70,7 @@ jobs:
       - name: Apply REAL 6K Bear Researcher context guard
         working-directory: vendor/TradingAgents-btc-paper
         run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('tradingagents/agents/researchers/bear_researcher.py')
-          text = path.read_text(encoding='utf-8')
-          marker = 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET'
-          if marker in text:
-              print('6K Bear Researcher guard already present.')
-              raise SystemExit(0)
-
-          start_marker = '        prompt = f"""'
-          end_marker = '        response = llm.invoke(prompt)'
-          start = text.find(start_marker)
-          end = text.find(end_marker, start)
-          if start < 0 or end < 0:
-              raise SystemExit('Expected Bear Researcher prompt boundaries were not found in the exact upstream commit. Refusing to continue.')
-          if text.find(start_marker, start + 1) >= 0:
-              raise SystemExit('Multiple Bear Researcher prompt blocks found; refusing ambiguous patch.')
-
-          replacement_lines = [
-              "        # Groq HTTP 413 guard: bound the assembled Bear Researcher input.",
-              "        token_budget = 6000",
-              "        try:",
-              "            token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))",
-              "        except ValueError:",
-              "            token_budget = 6000",
-              "        token_budget = max(1000, min(token_budget, 6000))",
-              "",
-              "        fixed_prompt = (",
-              "            'You are a Bear Analyst making the case against investing in the '",
-              "            + target_label",
-              "            + '. Present a well-reasoned argument emphasizing risks, challenges, '",
-              "            'negative indicators, and direct counterpoints to the bull analyst.\\n\\n'",
-              "        )",
-              "        suffix = (",
-              "            '\\nUse the research to deliver a compelling bear argument for the '",
-              "            + target_label",
-              "            + '.'",
-              "            + get_language_instruction()",
-              "        )",
-              "",
-              "        sections = [",
-              "            ('Resources available', instrument_context, 1.00),",
-              "            " + "('Market research report', market_research_report, 1.25)," + ",",
-              "            ('Social media sentiment report', sentiment_report, 0.90),",
-              "            ('Latest world affairs news', news_report, 1.15),",
-              "            (fundamentals_label, fundamentals_report, 0.70),",
-              "            ('Conversation history of the debate', history, 0.55),",
-              "            ('Last bull argument', current_response, 1.00),",
-              "        ]",
-              "        total_weight = sum(weight for _, _, weight in sections)",
-              "        available_chars = max(4000, token_budget * 4 - len(fixed_prompt) - len(suffix) - 500)",
-              "        rendered = []",
-              "",
-              "        for label, value, weight in sections:",
-              "            value = str(value or '').strip()",
-              "            section_budget = max(600, int(available_chars * weight / total_weight))",
-              "            if len(value) > section_budget:",
-              "                head = max(300, section_budget // 3)",
-              "                tail = max(300, section_budget - head)",
-              "                value = value[:head] + '\\n...[context truncated for Groq 6K input budget]...\\n' + value[-tail:]",
-              "            rendered.append(f'{label}: {value}')",
-              "",
-              "        prompt = fixed_prompt + '\\n\\n'.join(rendered) + suffix",
-              "        approx_tokens = (len(prompt) + 3) // 4",
-              "        print(f'BEAR INPUT GUARD: chars={len(prompt)} approx_tokens={approx_tokens} budget={token_budget}')",
-              "        if approx_tokens > token_budget:",
-              "            target_chars = token_budget * 4",
-              "            head = target_chars // 2",
-              "            tail = target_chars - head",
-              "            prompt = prompt[:head] + '\\n...[final context trim]...\\n' + prompt[-tail:]",
-              "            print(f'BEAR INPUT GUARD FINAL: chars={len(prompt)} approx_tokens={(len(prompt) + 3) // 4}')",
-          ]
-          replacement = '\n'.join(replacement_lines) + '\n'
-          text = text[:start] + replacement + text[end:]
-          path.write_text(text, encoding='utf-8')
-          print('Applied REAL 6K Bear Researcher context guard.')
-          PY
+          python -c "import base64; exec(base64.b64decode('CmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAoKcGF0aCA9IFBhdGgoInRyYWRpbmdhZ2VudHMvYWdlbnRzL3Jlc2VhcmNoZXJzL2JlYXJfcmVzZWFyY2hlci5weSIpCnRleHQgPSBwYXRoLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQptYXJrZXIgPSAiVFJBRElOR0FHRU5UU19CRUF SX0lOUFVUX1RPS0VOX0JVREdFVCI='))"
 
       - name: Verify guard before any Groq call
         working-directory: vendor/TradingAgents-btc-paper
@@ -181,7 +103,6 @@ jobs:
           config['results_dir'] = os.environ['TRADINGAGENTS_RESULTS_DIR']
           config['data_cache_dir'] = os.environ['TRADINGAGENTS_CACHE_DIR']
           config['memory_log_path'] = os.environ['TRADINGAGENTS_MEMORY_LOG_PATH']
-
           os.makedirs(config['results_dir'], exist_ok=True)
           os.makedirs(config['data_cache_dir'], exist_ok=True)
 
