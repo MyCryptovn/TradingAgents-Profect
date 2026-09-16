@@ -1,0 +1,196 @@
+name: TradingAgents Paper Trading Evaluation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tradingagents-paper-trade.yml'
+      - 'vendor/TradingAgents/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  SOURCE_DIR: vendor/TradingAgents
+  TRADINGAGENTS_LLM_PROVIDER: groq
+  TRADINGAGENTS_DEEP_THINK_LLM: llama-3.3-70b-versatile
+  TRADINGAGENTS_QUICK_THINK_LLM: llama-3.3-70b-versatile
+  TRADINGAGENTS_MAX_DEBATE_ROUNDS: '1'
+  TRADINGAGENTS_MAX_RISK_ROUNDS: '1'
+  TRADINGAGENTS_TEMPERATURE: '0.1'
+  TRADINGAGENTS_LLM_MAX_RETRIES: '2'
+  TRADINGAGENTS_MAX_TOKENS: '2048'
+  TRADINGAGENTS_OUTPUT_LANGUAGE: English
+  TRADINGAGENTS_RESULTS_DIR: ${{ github.workspace }}/paper-results
+  TRADINGAGENTS_CACHE_DIR: ${{ github.workspace }}/paper-cache
+  TRADINGAGENTS_MEMORY_LOG_PATH: ${{ github.workspace }}/paper-results/trading_memory.md
+
+jobs:
+  paper-trade:
+    name: BTC-USD TradingAgents paper evaluation
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify paper-test prerequisites
+        run: |
+          test -f "$SOURCE_DIR/pyproject.toml"
+          test -f "$SOURCE_DIR/tradingagents/graph/trading_graph.py"
+          test -n "$GROQ_API_KEY" || { echo 'GROQ_API_KEY GitHub Actions secret is required for the live-agent paper test.'; exit 1; }
+          echo 'REAL MONEY TRADING: DISABLED'
+          echo 'Exchange execution: DISABLED'
+          echo 'Mode: historical point-in-time paper evaluation'
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: vendor/TradingAgents/pyproject.toml
+
+      - name: Install TradingAgents
+        working-directory: vendor/TradingAgents
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run historical paper trades
+        working-directory: vendor/TradingAgents
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          import os
+          import re
+          from datetime import timedelta
+          import yfinance as yf
+          from tradingagents.graph.trading_graph import TradingAgentsGraph
+          from tradingagents.default_config import DEFAULT_CONFIG
+
+          ticker = 'BTC-USD'
+          dates = ['2026-01-15', '2026-03-16', '2026-06-15']
+          horizon = 5
+
+          config = DEFAULT_CONFIG.copy()
+          config['llm_provider'] = 'groq'
+          config['deep_think_llm'] = os.environ['TRADINGAGENTS_DEEP_THINK_LLM']
+          config['quick_think_llm'] = os.environ['TRADINGAGENTS_QUICK_THINK_LLM']
+          config['max_debate_rounds'] = 1
+          config['max_risk_discuss_rounds'] = 1
+          config['temperature'] = 0.1
+          config['llm_max_retries'] = 2
+          config['max_tokens'] = 2048
+          config['results_dir'] = os.environ['TRADINGAGENTS_RESULTS_DIR']
+          config['data_cache_dir'] = os.environ['TRADINGAGENTS_CACHE_DIR']
+          config['memory_log_path'] = os.environ['TRADINGAGENTS_MEMORY_LOG_PATH']
+
+          os.makedirs(config['results_dir'], exist_ok=True)
+          os.makedirs(config['data_cache_dir'], exist_ok=True)
+
+          ta = TradingAgentsGraph(
+              selected_analysts=('market', 'social', 'news', 'fundamentals'),
+              debug=False,
+              config=config,
+          )
+
+          rows = []
+          for trade_date in dates:
+              print(f'\n===== PAPER TRADE {ticker} @ {trade_date} =====')
+              _, decision = ta.propagate(ticker, trade_date, asset_type='crypto')
+              raw = decision if isinstance(decision, str) else json.dumps(decision, ensure_ascii=False, default=str)
+              print('AGENT DECISION:', raw)
+
+              # TradingAgents decisions are structured; tolerate minor formatting differences.
+              action = 'UNKNOWN'
+              if isinstance(decision, dict):
+                  for key in ('action', 'decision', 'signal'):
+                      value = decision.get(key)
+                      if value:
+                          action = str(value).upper()
+                          break
+              if action == 'UNKNOWN':
+                  m = re.search(r'\\b(BUY|SELL|HOLD)\\b', raw.upper())
+                  if m:
+                      action = m.group(1)
+
+              start = yf.Ticker(ticker).history(
+                  start=trade_date,
+                  end=(__import__('datetime').datetime.strptime(trade_date, '%Y-%m-%d') + timedelta(days=horizon + 7)).strftime('%Y-%m-%d'),
+                  auto_adjust=False,
+              )
+              if len(start) <= horizon:
+                  raise RuntimeError(f'Insufficient future bars for {trade_date}')
+
+              entry = float(start['Close'].iloc[0])
+              exit_price = float(start['Close'].iloc[horizon])
+              future_return = (exit_price - entry) / entry
+
+              if action == 'BUY':
+                  outcome = 'CORRECT' if future_return > 0 else 'WRONG'
+              elif action == 'SELL':
+                  outcome = 'CORRECT' if future_return < 0 else 'WRONG'
+              elif action == 'HOLD':
+                  outcome = 'NO_POSITION'
+              else:
+                  outcome = 'UNPARSED'
+
+              rows.append({
+                  'ticker': ticker,
+                  'trade_date': trade_date,
+                  'action': action,
+                  'entry_price': entry,
+                  'exit_price_5d': exit_price,
+                  'future_return_5d': future_return,
+                  'outcome': outcome,
+              })
+
+              print(f'ACTION={action} | 5D RETURN={future_return:.4%} | OUTCOME={outcome}')
+
+          out = os.path.join(config['results_dir'], 'paper_trade_results.csv')
+          with open(out, 'w', newline='', encoding='utf-8') as f:
+              writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+              writer.writeheader()
+              writer.writerows(rows)
+
+          actionable = [r for r in rows if r['action'] in ('BUY', 'SELL') and r['outcome'] in ('CORRECT', 'WRONG')]
+          correct = sum(r['outcome'] == 'CORRECT' for r in actionable)
+          accuracy = correct / len(actionable) if actionable else None
+          compounded = 1.0
+          for r in actionable:
+              if r['action'] == 'BUY':
+                  compounded *= 1 + r['future_return_5d']
+              elif r['action'] == 'SELL':
+                  compounded *= 1 - r['future_return_5d']
+
+          summary = {
+              'mode': 'historical paper trading only',
+              'real_money': False,
+              'ticker': ticker,
+              'samples': len(rows),
+              'actionable_samples': len(actionable),
+              'correct_actionable': correct,
+              'action_accuracy': accuracy,
+              'sequential_actionable_return': compounded - 1 if actionable else None,
+              'results_file': out,
+          }
+          with open(os.path.join(config['results_dir'], 'paper_trade_summary.json'), 'w', encoding='utf-8') as f:
+              json.dump(summary, f, indent=2)
+
+          print('\n===== PAPER TEST SUMMARY =====')
+          print(json.dumps(summary, indent=2))
+          print('REAL MONEY TRADING: DISABLED')
+          PY
+
+      - name: Upload paper-test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: tradingagents-paper-trade-results
+          path: paper-results/
+          if-no-files-found: error
+          retention-days: 30
