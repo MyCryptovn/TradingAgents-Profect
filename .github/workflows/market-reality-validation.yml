@@ -1,0 +1,33 @@
+name: Real Market Paper Validation - No Orders
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/market_reality_validation.py'
+      - '.github/workflows/market-reality-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run real-market paper validation
+        run: python scripts/market_reality_validation.py
+
+      - name: Verify live trading remains disabled
+        run: |
+          grep -q 'LIVE ORDERS: DISABLED' scripts/market_reality_validation.py
+          grep -q 'Live trading remains DISABLED' scripts/market_reality_validation.py
