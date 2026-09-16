@@ -14,8 +14,8 @@ permissions:
 env:
   SOURCE_DIR: vendor/TradingAgents
   TRADINGAGENTS_LLM_PROVIDER: groq
-  TRADINGAGENTS_DEEP_THINK_LLM: llama-3.3-70b-versatile
-  TRADINGAGENTS_QUICK_THINK_LLM: llama-3.3-70b-versatile
+  TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
+  TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-120b
   TRADINGAGENTS_MAX_DEBATE_ROUNDS: '1'
   TRADINGAGENTS_MAX_RISK_ROUNDS: '1'
   TRADINGAGENTS_TEMPERATURE: '0.1'
@@ -106,7 +106,6 @@ jobs:
               raw = decision if isinstance(decision, str) else json.dumps(decision, ensure_ascii=False, default=str)
               print('AGENT DECISION:', raw)
 
-              # TradingAgents decisions are structured; tolerate minor formatting differences.
               action = 'UNKNOWN'
               if isinstance(decision, dict):
                   for key in ('action', 'decision', 'signal'):
@@ -115,7 +114,7 @@ jobs:
                           action = str(value).upper()
                           break
               if action == 'UNKNOWN':
-                  m = re.search(r'\\b(BUY|SELL|HOLD)\\b', raw.upper())
+                  m = re.search(r'\b(BUY|SELL|HOLD)\b', raw.upper())
                   if m:
                       action = m.group(1)
 
