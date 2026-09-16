@@ -1,6 +1,8 @@
 name: Import pinned TradingAgents source
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
