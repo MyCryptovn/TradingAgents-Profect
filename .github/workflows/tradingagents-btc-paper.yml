@@ -72,7 +72,6 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
 
           path = Path('tradingagents/agents/researchers/bear_researcher.py')
           text = path.read_text(encoding='utf-8')
@@ -81,55 +80,86 @@ jobs:
               print('6K Bear Researcher guard already present.')
               raise SystemExit(0)
 
-          pattern = re.compile(r'(?ms)^(\s*)prompt = f"""You are a Bear Analyst.*?^\1""" \+ get_language_instruction\(\)')
-          match = pattern.search(text)
-          if not match:
-              raise SystemExit('Expected native Bear Researcher prompt was not found. Refusing to continue.')
+          start_marker = '        prompt = f"""'
+          end_marker = '        response = llm.invoke(prompt)'
+          start = text.find(start_marker)
+          end = text.find(end_marker, start)
+          if start < 0 or end < 0:
+              raise SystemExit('Expected Bear Researcher prompt boundaries were not found in the exact upstream commit. Refusing to continue.')
+          if text.find(start_marker, start + 1) >= 0:
+              raise SystemExit('Multiple Bear Researcher prompt blocks found; refusing ambiguous patch.')
 
-          indent = match.group(1)
-          replacement = f'''{indent}# Groq HTTP 413 guard: bound assembled Bear Researcher input to <= 6000 approximate tokens.
-          {indent}token_budget = 6000
-          {indent}try:
-          {indent}    token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))
-          {indent}except ValueError:
-          {indent}    token_budget = 6000
-          {indent}token_budget = max(1000, min(token_budget, 6000))
-          {indent}
-          {indent}sections = [
-          {indent}    ('instrument', instrument_context),
-          {indent}    ('market', market_research_report),
-          {indent}    ('sentiment', sentiment_report),
-          {indent}    ('news', news_report),
-          {indent}    ('fundamentals', fundamentals_report),
-          {indent}    ('history', history),
-          {indent}    ('bull', current_response),
-          {indent}]
-          {indent}fixed_prompt = f"""You are a Bear Analyst making the case against investing in the {{target_label}}. Present a well-reasoned argument emphasizing risks, challenges, and negative indicators. Use the research context below and directly address the bull analyst's claims.\n\n"""
-          {indent}suffix = f"\\nDeliver the bear argument for {{target_label}}." + get_language_instruction()
-          {indent}weights = {{'instrument': 1.0, 'market': 1.25, 'sentiment': 0.9, 'news': 1.15, 'fundamentals': 0.7, 'history': 0.55, 'bull': 1.0}}
-          {indent}labels = {{'instrument': 'Resources available', 'market': 'Market research report', 'sentiment': 'Social media sentiment report', 'news': 'Latest world affairs news', 'fundamentals': fundamentals_label, 'history': 'Conversation history of the debate', 'bull': 'Last bull argument'}}
-          {indent}total_weight = sum(weights.values())
-          {indent}available_chars = max(4000, token_budget * 4 - len(fixed_prompt) - len(suffix))
-          {indent}rendered = []
-          {indent}for name, value in sections:
-          {indent}    value = str(value or '').strip()
-          {indent}    budget = max(600, int(available_chars * weights[name] / total_weight))
-          {indent}    if len(value) > budget:
-          {indent}        head = max(300, budget // 3)
-          {indent}        tail = max(300, budget - head)
-          {indent}        value = value[:head] + '\\n...[context truncated for Groq 6K input budget]...\\n' + value[-tail:]
-          {indent}    rendered.append(f"{{labels[name]}}: {{value}}")
-          {indent}prompt = fixed_prompt + '\\n\\n' + '\\n'.join(rendered) + suffix
-          {indent}approx_tokens = (len(prompt) + 3) // 4
-          {indent}print(f'BEAR INPUT GUARD: chars={{len(prompt)}} approx_tokens={{approx_tokens}} budget={{token_budget}}')
-          {indent}if approx_tokens > token_budget:
-          {indent}    target_chars = token_budget * 4
-          {indent}    head = target_chars // 2
-          {indent}    tail = target_chars - head
-          {indent}    prompt = prompt[:head] + '\\n...[final context trim]...\\n' + prompt[-tail:]
-          {indent}    print(f'BEAR INPUT GUARD FINAL: chars={{len(prompt)}} approx_tokens={{(len(prompt) + 3) // 4}}')'''
+          replacement = '''        # Groq HTTP 413 guard: bound the assembled Bear Researcher input.
+          token_budget = 6000
+          try:
+              token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))
+          except ValueError:
+              token_budget = 6000
+          token_budget = max(1000, min(token_budget, 6000))
 
-          path.write_text(text[:match.start()] + replacement + text[match.end():], encoding='utf-8')
+          fixed_prompt = (
+              'You are a Bear Analyst making the case against investing in the '
+              + target_label
+              + '. Present a well-reasoned argument emphasizing risks, challenges, '
+              'negative indicators, and direct counterpoints to the bull analyst.\n\n'
+          )
+          suffix = (
+              '\nUse the research to deliver a compelling bear argument for the '
+              + target_label
+              + '.'
+              + get_language_instruction()
+          )
+
+          sections = [
+              ('Resources available', instrument_context, 1.00),
+              ('Market research report', market_research_report, 1.25),
+              ('Social media sentiment report', sentiment_report, 0.90),
+              ('Latest world affairs news', news_report, 1.15),
+              (fundamentals_label, fundamentals_report, 0.70),
+              ('Conversation history of the debate', history, 0.55),
+              ('Last bull argument', current_response, 1.00),
+          ]
+          total_weight = sum(weight for _, _, weight in sections)
+          available_chars = max(4000, token_budget * 4 - len(fixed_prompt) - len(suffix) - 500)
+          rendered = []
+
+          for label, value, weight in sections:
+              value = str(value or '').strip()
+              section_budget = max(600, int(available_chars * weight / total_weight))
+              if len(value) > section_budget:
+                  head = max(300, section_budget // 3)
+                  tail = max(300, section_budget - head)
+                  value = (
+                      value[:head]
+                      + '\n...[context truncated for Groq 6K input budget]...\n'
+                      + value[-tail:]
+                  )
+              rendered.append(f'{label}: {value}')
+
+          prompt = fixed_prompt + '\n\n'.join(rendered) + suffix
+          approx_tokens = (len(prompt) + 3) // 4
+          print(
+              f'BEAR INPUT GUARD: chars={len(prompt)} '
+              f'approx_tokens={approx_tokens} budget={token_budget}'
+          )
+
+          if approx_tokens > token_budget:
+              target_chars = token_budget * 4
+              head = target_chars // 2
+              tail = target_chars - head
+              prompt = (
+                  prompt[:head]
+                  + '\n...[final context trim]...\n'
+                  + prompt[-tail:]
+              )
+              print(
+                  f'BEAR INPUT GUARD FINAL: chars={len(prompt)} '
+                  f'approx_tokens={(len(prompt) + 3) // 4}'
+              )
+'''
+
+          text = text[:start] + replacement + text[end:]
+          path.write_text(text, encoding='utf-8')
           print('Applied REAL 6K Bear Researcher context guard.')
           PY
 
@@ -139,6 +169,7 @@ jobs:
           python -m py_compile tradingagents/agents/researchers/bear_researcher.py
           grep -n 'BEAR INPUT GUARD' tradingagents/agents/researchers/bear_researcher.py
           grep -n 'TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET' tradingagents/agents/researchers/bear_researcher.py
+          grep -n 'response = llm.invoke(prompt)' tradingagents/agents/researchers/bear_researcher.py
 
       - name: Run BTC historical paper evaluation through native TradingAgents
         working-directory: vendor/TradingAgents-btc-paper
@@ -217,7 +248,15 @@ jobs:
               else:
                   outcome = 'UNPARSED'
 
-              rows.append({'ticker': ticker, 'trade_date': trade_date, 'action': action, 'entry_price': entry, 'exit_price_5d': exit_price, 'future_return_5d': future_return, 'outcome': outcome})
+              rows.append({
+                  'ticker': ticker,
+                  'trade_date': trade_date,
+                  'action': action,
+                  'entry_price': entry,
+                  'exit_price_5d': exit_price,
+                  'future_return_5d': future_return,
+                  'outcome': outcome,
+              })
               print(f'ACTION={action} | 5D RETURN={future_return:.4%} | OUTCOME={outcome}')
 
           out = os.path.join(config['results_dir'], 'paper_trade_results.csv')
