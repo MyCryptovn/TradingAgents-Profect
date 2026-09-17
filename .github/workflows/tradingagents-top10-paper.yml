@@ -1,0 +1,53 @@
+name: TradingAgents Top-10 Paper Effectiveness
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17,47 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tradingagents-top10-paper
+  cancel-in-progress: false
+
+jobs:
+  paper-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned TradingAgents source
+        run: pip install -e vendor/TradingAgents
+
+      - name: Run Top-10 TradingAgents paper pipeline
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TRADINGAGENTS_LLM_PROVIDER: groq
+          TRADINGAGENTS_DEEP_THINK_LLM: llama-3.3-70b-versatile
+          TRADINGAGENTS_QUICK_THINK_LLM: llama-3.1-8b-instant
+          TRADINGAGENTS_MAX_DEBATE_ROUNDS: "1"
+          TRADINGAGENTS_MAX_RISK_ROUNDS: "1"
+          TRADINGAGENTS_LLM_MAX_RETRIES: "3"
+        run: python scripts/tradingagents_paper_pipeline.py
+
+      - name: Verify live trading remains disabled
+        run: |
+          grep -q "REAL ORDERS: DISABLED" tradingagents-paper-results/decisions.json || true
+          grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
+
+      - name: Upload TradingAgents paper report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tradingagents-top10-paper-results
+          path: tradingagents-paper-results/
+          retention-days: 14
