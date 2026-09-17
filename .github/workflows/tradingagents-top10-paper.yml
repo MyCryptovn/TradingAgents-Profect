@@ -2,6 +2,14 @@ name: TradingAgents Top-10 Paper Effectiveness
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/crypto_market_data.py"
+      - "scripts/tradingagents_paper_pipeline.py"
+      - "scripts/market_scanner.py"
+      - ".github/workflows/tradingagents-top10-paper.yml"
+      - "vendor/TradingAgents/**"
   schedule:
     - cron: "17,47 * * * *"
 
@@ -28,6 +36,9 @@ jobs:
       - name: Install pinned TradingAgents source
         run: pip install -e vendor/TradingAgents
 
+      - name: Validate crypto-native adapter
+        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py
+
       - name: Run Top-10 TradingAgents paper pipeline
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -39,8 +50,11 @@ jobs:
           TRADINGAGENTS_LLM_MAX_RETRIES: "3"
         run: python scripts/tradingagents_paper_pipeline.py
 
-      - name: Verify live trading remains disabled and AI analysis actually ran
+      - name: Verify crypto-native routing and live trading gate
         run: |
+          grep -R -q "YAHOO FINANCE BYPASSED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "CoinGecko historical market data" scripts/crypto_market_data.py
+          grep -R -q "Kraken live context" scripts/crypto_market_data.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
