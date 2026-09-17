@@ -124,12 +124,14 @@ def first_future_candle(pair: str, analyzed_at: str) -> list[float] | None:
     return None
 
 
-def evaluate_decision(pair: str, decision: str, analyzed_at: str) -> tuple[str | None, float | None, str | None, float | None, str]:
+def evaluate_decision(
+    pair: str, decision: str, analyzed_at: str
+) -> tuple[str | None, float | None, str | None, float | None, str, float | None]:
     if decision not in {"BUY", "OVERWEIGHT", "SELL", "UNDERWEIGHT"}:
-        return None, None, None, None, "NON_EXECUTABLE_DECISION"
+        return None, None, None, None, "NON_EXECUTABLE_DECISION", None
     candle = first_future_candle(pair, analyzed_at)
     if candle is None:
-        return None, None, None, None, "PENDING_NEXT_CANDLE"
+        return None, None, None, None, "PENDING_NEXT_CANDLE", None
     entry_time = datetime.fromtimestamp(float(candle[0]), tz=timezone.utc).isoformat()
     entry_price = float(candle[1])
     outcome_time = datetime.fromtimestamp(float(candle[0]) + INTERVAL_SECONDS, tz=timezone.utc).isoformat()
@@ -193,8 +195,14 @@ def main() -> int:
         if item.outcome_status == "ERROR":
             continue
         try:
-            result = evaluate_decision(item.symbol.replace("/", ""), item.decision, item.analyzed_at)
-            item.entry_time, item.entry_price, item.outcome_time, item.outcome_price, item.outcome_status, signed_return = result
+            (
+                item.entry_time,
+                item.entry_price,
+                item.outcome_time,
+                item.outcome_price,
+                item.outcome_status,
+                signed_return,
+            ) = evaluate_decision(item.symbol.replace("/", ""), item.decision, item.analyzed_at)
             if signed_return is not None:
                 item.return_pct = signed_return
             print(f"{item.rank:02d} {item.symbol:12} -> {item.decision:12} -> {item.outcome_status}")
