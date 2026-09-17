@@ -2,15 +2,18 @@
 
 The scanner supplies candidates; TradingAgents supplies BUY/SELL/HOLD/REVIEW.
 BUY/SELL are recorded as paper decisions only. No exchange credentials or live
-order APIs are used. Outcomes are measured from subsequent Kraken public candles.
+order APIs are used. Paper outcomes use the first completed Kraken candle that
+opens after the AI decision timestamp, avoiding look-ahead bias.
 """
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import subprocess
 import sys
+import time
 import urllib.parse
 import urllib.request
 from dataclasses import asdict, dataclass
@@ -20,8 +23,8 @@ from pathlib import Path
 TOP_N = 10
 OUT_DIR = Path("tradingagents-paper-results")
 KRAKEN_API = "https://api.kraken.com/0/public/"
-HOLDING_INTERVAL_MINUTES = 60
-OUTCOME_CANDLES = 4
+INTERVAL_MINUTES = 15
+INTERVAL_SECONDS = INTERVAL_MINUTES * 60
 
 
 @dataclass
@@ -31,8 +34,10 @@ class Decision:
     tradingagents_ticker: str
     decision: str
     analyzed_at: str
-    outcome_price: float | None = None
+    entry_time: str | None = None
     entry_price: float | None = None
+    outcome_time: str | None = None
+    outcome_price: float | None = None
     return_pct: float | None = None
     outcome_status: str = "PENDING"
     error: str | None = None
@@ -77,6 +82,8 @@ def run_scanner() -> list[str]:
 
 def to_yahoo_crypto(symbol: str) -> str:
     base = symbol.split("/", 1)[0].upper()
+    if base == "XBT":
+        base = "BTC"
     return f"{base}-USD"
 
 
@@ -85,7 +92,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     from tradingagents.graph.trading_graph import TradingAgentsGraph
 
     config = dict(DEFAULT_CONFIG)
-    config["llm_provider"] = os.getenv("TRADINGAGENTS_LLM_PROVIDER", config["llm_provider"])
+    config["llm_provider"] = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq")
     config["deep_think_llm"] = os.getenv("TRADINGAGENTS_DEEP_THINK_LLM", config["deep_think_llm"])
     config["quick_think_llm"] = os.getenv("TRADINGAGENTS_QUICK_THINK_LLM", config["quick_think_llm"])
     config["max_debate_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "1"))
@@ -100,8 +107,8 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     return str(signal).strip().upper()
 
 
-def latest_completed_ohlc(pair: str) -> list[list[float]]:
-    result = kraken_json("OHLC", {"pair": pair, "interval": str(HOLDING_INTERVAL_MINUTES)})
+def completed_ohlc(pair: str) -> list[list[float]]:
+    result = kraken_json("OHLC", {"pair": pair, "interval": str(INTERVAL_MINUTES)})
     key = next((k for k in result if k != "last"), None)
     if not key:
         return []
@@ -109,23 +116,52 @@ def latest_completed_ohlc(pair: str) -> list[list[float]]:
     return rows[:-1] if len(rows) > 1 else []
 
 
-def evaluate_decision(pair: str, decision: str) -> tuple[float | None, float | None, str]:
-    candles = latest_completed_ohlc(pair)
-    if len(candles) < OUTCOME_CANDLES + 1:
-        return None, None, "INSUFFICIENT_DATA"
-    entry = float(candles[-OUTCOME_CANDLES - 1][4])
-    outcome = float(candles[-1][4])
-    if decision in {"BUY", "OVERWEIGHT"}:
-        return entry, outcome, "MEASURED"
-    if decision in {"SELL", "UNDERWEIGHT"}:
-        return entry, outcome, "MEASURED"
-    return None, None, "NON_EXECUTABLE_DECISION"
+def first_future_candle(pair: str, analyzed_at: str) -> list[float] | None:
+    analyzed_ts = datetime.fromisoformat(analyzed_at).timestamp()
+    for row in completed_ohlc(pair):
+        if float(row[0]) > analyzed_ts:
+            return row
+    return None
+
+
+def evaluate_decision(pair: str, decision: str, analyzed_at: str) -> tuple[str | None, float | None, str | None, float | None, str]:
+    if decision not in {"BUY", "OVERWEIGHT", "SELL", "UNDERWEIGHT"}:
+        return None, None, None, None, "NON_EXECUTABLE_DECISION"
+    candle = first_future_candle(pair, analyzed_at)
+    if candle is None:
+        return None, None, None, None, "PENDING_NEXT_CANDLE"
+    entry_time = datetime.fromtimestamp(float(candle[0]), tz=timezone.utc).isoformat()
+    entry_price = float(candle[1])
+    outcome_time = datetime.fromtimestamp(float(candle[0]) + INTERVAL_SECONDS, tz=timezone.utc).isoformat()
+    outcome_price = float(candle[4])
+    raw_return = outcome_price / entry_price - 1.0
+    signed_return = raw_return if decision in {"BUY", "OVERWEIGHT"} else -raw_return
+    return entry_time, entry_price, outcome_time, outcome_price, "MEASURED", signed_return
+
+
+def wait_for_pending_candles(decisions: list[Decision]) -> None:
+    """Wait briefly so the first post-decision candle can close when practical."""
+    executable = [d for d in decisions if d.decision in {"BUY", "OVERWEIGHT", "SELL", "UNDERWEIGHT"}]
+    if not executable:
+        return
+    now = time.time()
+    waits = []
+    for d in executable:
+        ts = datetime.fromisoformat(d.analyzed_at).timestamp()
+        next_open = math.floor(ts / INTERVAL_SECONDS) * INTERVAL_SECONDS + INTERVAL_SECONDS
+        waits.append(max(0.0, next_open + INTERVAL_SECONDS - now))
+    wait_seconds = min(max(waits), 1800.0)
+    if wait_seconds > 0:
+        print(f"WAITING FOR NEXT COMPLETED {INTERVAL_MINUTES}M CANDLE: {wait_seconds:.0f}s")
+        time.sleep(wait_seconds)
 
 
 def main() -> int:
-    if not os.getenv("GROQ_API_KEY") and os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq") == "groq":
+    provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq")
+    if provider == "groq" and not os.getenv("GROQ_API_KEY"):
         print("TRADINGAGENTS PAPER PIPELINE: GROQ_API_KEY is not configured")
-        print("PAPER ORDERS: DISABLED UNTIL LLM PROVIDER IS CONFIGURED")
+        print("PAPER BUY/SELL: NOT RUN — LLM provider credential is required")
+        print("LIVE TRADING GATE: DISABLED")
         return 0
 
     OUT_DIR.mkdir(exist_ok=True)
@@ -144,30 +180,35 @@ def main() -> int:
         ticker = to_yahoo_crypto(symbol)
         item = Decision(rank, symbol, ticker, "REVIEW", datetime.now(timezone.utc).isoformat())
         try:
-            decision = run_tradingagents(ticker, trade_date)
-            item.decision = decision
-            pair = symbol.replace("/", "")
-            if decision in {"BUY", "OVERWEIGHT", "SELL", "UNDERWEIGHT"}:
-                entry, outcome, status = evaluate_decision(pair, decision)
-                item.entry_price = entry
-                item.outcome_price = outcome
-                item.outcome_status = status
-                if entry and outcome:
-                    raw_return = outcome / entry - 1.0
-                    item.return_pct = raw_return if decision in {"BUY", "OVERWEIGHT"} else -raw_return
-            print(f"{rank:02d} {symbol:12} -> {decision:12} -> {item.outcome_status}")
-        except Exception as exc:  # keep the remaining candidates testable
+            item.decision = run_tradingagents(ticker, trade_date)
+            print(f"{rank:02d} {symbol:12} -> {item.decision}")
+        except Exception as exc:
             item.error = f"{type(exc).__name__}: {exc}"
             item.outcome_status = "ERROR"
             print(f"{rank:02d} {symbol:12} -> ERROR -> {item.error}")
         decisions.append(item)
 
+    wait_for_pending_candles(decisions)
+    for item in decisions:
+        if item.outcome_status == "ERROR":
+            continue
+        try:
+            result = evaluate_decision(item.symbol.replace("/", ""), item.decision, item.analyzed_at)
+            item.entry_time, item.entry_price, item.outcome_time, item.outcome_price, item.outcome_status, signed_return = result
+            if signed_return is not None:
+                item.return_pct = signed_return
+            print(f"{item.rank:02d} {item.symbol:12} -> {item.decision:12} -> {item.outcome_status}")
+        except Exception as exc:
+            item.error = f"{type(exc).__name__}: {exc}"
+            item.outcome_status = "ERROR"
+
     payload = [asdict(item) for item in decisions]
     (OUT_DIR / "decisions.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    executed = [d for d in decisions if d.decision in {"BUY", "OVERWEIGHT", "SELL", "UNDERWEIGHT"}]
-    measured = [d for d in executed if d.return_pct is not None]
+    measured = [d for d in decisions if d.return_pct is not None]
     wins = [d for d in measured if d.return_pct > 0]
-    print(f"PAPER DECISIONS: {len(executed)} BUY/SELL-like, {len(measured)} measurable")
+    executable = [d for d in decisions if d.decision in {"BUY", "OVERWEIGHT", "SELL", "UNDERWEIGHT"}]
+    print(f"PAPER DECISIONS: {len(executable)} executable BUY/SELL-like decisions")
+    print(f"PAPER MEASURED: {len(measured)}")
     print(f"PAPER WIN RATE: {len(wins) / len(measured):.2%}" if measured else "PAPER WIN RATE: PENDING")
     print(f"RESULT FILE: {OUT_DIR / 'decisions.json'}")
     print("REVIEW DECISIONS: NEVER EXECUTED")
