@@ -32,18 +32,28 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           TRADINGAGENTS_LLM_PROVIDER: groq
-          TRADINGAGENTS_DEEP_THINK_LLM: llama-3.3-70b-versatile
-          TRADINGAGENTS_QUICK_THINK_LLM: llama-3.1-8b-instant
+          TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
+          TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-20b
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "1"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "1"
           TRADINGAGENTS_LLM_MAX_RETRIES: "3"
         run: python scripts/tradingagents_paper_pipeline.py
 
-      - name: Verify live trading remains disabled
+      - name: Verify live trading remains disabled and AI analysis actually ran
         run: |
-          grep -q "REAL ORDERS: DISABLED" tradingagents-paper-results/decisions.json || true
+          grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("tradingagents-paper-results/decisions.json")
+          rows = json.loads(p.read_text())
+          successful = [r for r in rows if r.get("outcome_status") != "ERROR"]
+          if not successful:
+              raise SystemExit("TradingAgents produced no successful analyses; failing the workflow instead of reporting a false green run.")
+          print(f"Successful TradingAgents analyses: {len(successful)}/{len(rows)}")
+          PY
 
       - name: Upload TradingAgents paper report
         uses: actions/upload-artifact@v4
