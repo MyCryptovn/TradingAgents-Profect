@@ -1,9 +1,8 @@
 """Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
 
-The scanner supplies candidates; TradingAgents supplies BUY/SELL/HOLD/REVIEW.
-BUY/SELL are recorded as paper decisions only. No exchange credentials or live
-order APIs are used. Paper outcomes use the first completed Kraken candle that
-opens after the AI decision timestamp, avoiding look-ahead bias.
+Crypto analysis uses a crypto-native overlay: CoinGecko historical/market data
+plus Kraken exchange-native live context. The pinned TradingAgents source remains
+unchanged. BUY/SELL are paper decisions only; live orders stay disabled.
 """
 from __future__ import annotations
 
@@ -80,7 +79,7 @@ def run_scanner() -> list[str]:
     return symbols[:TOP_N]
 
 
-def to_yahoo_crypto(symbol: str) -> str:
+def to_crypto_ticker(symbol: str) -> str:
     base = symbol.split("/", 1)[0].upper()
     if base == "XBT":
         base = "BTC"
@@ -88,8 +87,37 @@ def to_yahoo_crypto(symbol: str) -> str:
 
 
 def run_tradingagents(ticker: str, trade_date: str) -> str:
+    """Run TradingAgents with crypto-native market tools over the pinned source."""
     from tradingagents.default_config import DEFAULT_CONFIG
     from tradingagents.graph.trading_graph import TradingAgentsGraph
+    from tradingagents.agents.analysts import market_analyst as market_analyst_module
+    from tradingagents.graph import trading_graph as trading_graph_module
+    from scripts.crypto_market_data import (
+        crypto_identity,
+        get_indicators as crypto_get_indicators,
+        get_stock_data as crypto_get_stock_data,
+        get_verified_market_snapshot as crypto_get_verified_snapshot,
+    )
+    from tradingagents.agents.utils.agent_utils import build_instrument_context
+
+    # Overlay the stock-oriented tool names with crypto-native tools before the
+    # graph is constructed. This keeps the pinned upstream source intact while
+    # preventing crypto runs from touching Yahoo Finance market-data paths.
+    market_analyst_module.get_stock_data = crypto_get_stock_data
+    market_analyst_module.get_indicators = crypto_get_indicators
+    market_analyst_module.get_verified_market_snapshot = crypto_get_verified_snapshot
+    trading_graph_module.get_stock_data = crypto_get_stock_data
+    trading_graph_module.get_indicators = crypto_get_indicators
+    trading_graph_module.get_verified_market_snapshot = crypto_get_verified_snapshot
+
+    original_resolve_context = TradingAgentsGraph.resolve_instrument_context
+
+    def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
+        if asset_type == "crypto":
+            return build_instrument_context(symbol, asset_type, crypto_identity(symbol))
+        return original_resolve_context(self, symbol, asset_type)
+
+    TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
 
     config = dict(DEFAULT_CONFIG)
     config["llm_provider"] = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq")
@@ -98,11 +126,18 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     config["max_debate_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "1"))
     config["max_risk_discuss_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_RISK_ROUNDS", "1"))
     config["llm_max_retries"] = int(os.getenv("TRADINGAGENTS_LLM_MAX_RETRIES", "2"))
+
+    # Fundamentals are intentionally omitted for crypto: company balance sheets
+    # are not the correct data model. Macro/news/social analysts remain available.
     graph = TradingAgentsGraph(
-        selected_analysts=("market", "social", "news", "fundamentals"),
+        selected_analysts=("market", "social", "news"),
         debug=False,
         config=config,
     )
+    # The paper pipeline has its own point-in-time outcome evaluator. Do not let
+    # the upstream stock-oriented memory resolver make a Yahoo Finance call for
+    # crypto while resolving old lessons.
+    graph._resolve_pending_entries = lambda _ticker: None
     _, signal = graph.propagate(ticker, trade_date, asset_type="crypto")
     return str(signal).strip().upper()
 
@@ -172,14 +207,15 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: KRAKEN PUBLIC MARKET SCANNER")
+    print("DATA: KRAKEN SCANNER + COINGECKO HISTORY + KRAKEN LIVE CONTEXT")
     print("AI: TRADINGAGENTS")
+    print("CRYPTO DATA MODE: YAHOO FINANCE BYPASSED")
     print("PAPER BUY/SELL: ENABLED")
     print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
 
     for rank, symbol in enumerate(candidates, 1):
-        ticker = to_yahoo_crypto(symbol)
+        ticker = to_crypto_ticker(symbol)
         item = Decision(rank, symbol, ticker, "REVIEW", datetime.now(timezone.utc).isoformat())
         try:
             item.decision = run_tradingagents(ticker, trade_date)
