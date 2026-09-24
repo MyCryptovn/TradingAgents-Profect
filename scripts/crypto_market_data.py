@@ -40,7 +40,7 @@ def _get_json(base: str, path: str, params: dict[str, str] | None = None) -> dic
 
 def _base_symbol(symbol: str) -> str:
     base = symbol.upper().strip().replace("/USD", "").replace("-USD", "")
-    return "BTC" if base == "XBT" else base
+    return "BTC" if base == "BCH" else base
 
 
 @lru_cache(maxsize=512)
