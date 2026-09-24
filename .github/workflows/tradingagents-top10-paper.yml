@@ -39,10 +39,10 @@ jobs:
 
       - name: Run Top-10 TradingAgents paper pipeline
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          TRADINGAGENTS_LLM_PROVIDER: groq
-          TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
-          TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-20b
+          GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }} 
+          TRADINGAGENTS_LLM_PROVIDER: google
+          TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.8-flash
+          TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.8-flash-lite
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "1"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "1"
           TRADINGAGENTS_LLM_MAX_RETRIES: "3"
