@@ -15,8 +15,8 @@ import urllib.request
 from dataclasses import dataclass
 
 API = "https://api.kraken.com/0/public/"
-TOP_N = 3
-PREFILTER_N = 10
+TOP_N = 1
+PREFILTER_N = 5
 MIN_VOLUME_USD = 1_000_000.0
 TIMEFRAMES = (15, 60, 240)
 
@@ -60,7 +60,7 @@ def normalize_pair(name: str, info: dict) -> tuple[str, str] | None:
     if "/" not in wsname:
         return None
     base, quote = wsname.split("/", 1)
-    if quote not in {"USD", "ZUSD"}:
+    if quote not in {"USD", "ZUSD"}
         return None
     status = str(info.get("status") or "online").lower()
     if status not in {"online", "post_only"}:
