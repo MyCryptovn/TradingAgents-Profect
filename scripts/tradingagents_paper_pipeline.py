@@ -195,7 +195,7 @@ def wait_for_pending_candles(decisions: list[Decision]) -> None:
 
 
 def main() -> int:
-    provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq")
+    provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "google")
     if provider == "google" and not os.getenv("GOOGLE_API_KEY"):
         print("TRADINGAGENTS PAPER PIPELINE: GOOGLE_API_KEY is not configured")
         print("PAPER BUY/SELL: NOT RUN — LLM provider credential is required")
