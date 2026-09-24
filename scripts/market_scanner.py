@@ -1,4 +1,4 @@
-"""Broad real-market scanner with multi-timeframe validation.
+i"""Broad real-market scanner with multi-timeframe validation.
 
 Stage 1: Kraken AssetPairs + Ticker cheaply builds the liquid USD spot universe.
 Stage 2: the best pre-ranked markets are checked with completed OHLC candles on
@@ -18,7 +18,7 @@ API = "https://api.kraken.com/0/public/"
 TOP_N = 3
 PREFILTER_N = 10
 MIN_VOLUME_USD = 1_000_000.0
-TIMEFRAMES = (5, 15, 60, 120)
+TIMEFRAMES = (15, 60, 240)
 
 
 @dataclass
