@@ -42,6 +42,8 @@ jobs:
       - name: Run Top-10 TradingAgents paper pipeline
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
           TRADINGAGENTS_LLM_PROVIDER: groq
           TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
           TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-20b
@@ -53,9 +55,10 @@ jobs:
       - name: Verify crypto-native routing and live trading gate
         run: |
           grep -R -q "YAHOO FINANCE BYPASSED" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "Kraken Spot public OHLC" scripts/crypto_market_data.py
-          grep -R -q "Kraken live context" scripts/crypto_market_data.py
-          ! grep -R -q "CoinGecko" scripts/crypto_market_data.py
+          grep -R -q "CoinGecko API" scripts/crypto_market_data.py
+          grep -R -q "COINGECKO_API_KEY" scripts/crypto_market_data.py
+          grep -R -q "COINGECKO RATE LIMIT" scripts/crypto_market_data.py
+          ! grep -R -q "No CoinGecko dependency" scripts/crypto_market_data.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
