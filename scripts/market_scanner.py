@@ -1,4 +1,4 @@
-i"""Broad real-market scanner with multi-timeframe validation.
+"""Broad real-market scanner with multi-timeframe validation.
 
 Stage 1: Kraken AssetPairs + Ticker cheaply builds the liquid USD spot universe.
 Stage 2: the best pre-ranked markets are checked with completed OHLC candles on
