@@ -16,7 +16,7 @@ import urllib.request
 from dataclasses import dataclass
 
 PAIRS = {
-    "XBTUSD": "BTC/USD",
+    "BCHUSD": "BTC/USD",
     "ETHUSD": "ETH/USD",
     "SOLUSD": "SOL/USD",
     "XRPUSD": "XRP/USD",
