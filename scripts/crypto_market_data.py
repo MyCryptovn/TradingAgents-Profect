@@ -168,45 +168,13 @@ def _resolve_coin_id(symbol: str) -> str:
 
 
 @lru_cache(maxsize=256)
-def _ohlc(symbol: str) -> pd.DataFrame:
-    coin_id = _resolve_coin_id(symbol)
-    payload = _get_json(
-        f"coins/{urllib.parse.quote(coin_id, safe='')}/ohlc",
-        {"vs_currency": "usd", "days": "365"},
-    )
-    if not isinstance(payload, list) or len(payload) < 60:
-        raise RuntimeError(
-            f"CoinGecko returned insufficient OHLC history for {symbol}: "
-            f"{len(payload) if isinstance(payload, list) else 0} rows"
-        )
+def _history(symbol: str) -> pd.DataFrame:
+    """Build a daily price/volume history from one CoinGecko market-chart request.
 
-    rows = []
-    for row in payload:
-        if len(row) < 5:
-            continue
-        rows.append(
-            {
-                "Date": pd.to_datetime(float(row[0]), unit="ms", utc=True).tz_convert(None),
-                "Open": float(row[1]),
-                "High": float(row[2]),
-                "Low": float(row[3]),
-                "Close": float(row[4]),
-            }
-        )
-
-    df = (
-        pd.DataFrame(rows)
-        .sort_values("Date")
-        .drop_duplicates("Date")
-        .reset_index(drop=True)
-    )
-    if len(df) < 60:
-        raise RuntimeError(f"CoinGecko OHLC history too short for {symbol}")
-    return df.tail(MAX_HISTORY_ROWS).reset_index(drop=True)
-
-
-@lru_cache(maxsize=256)
-def _market_chart(symbol: str) -> dict:
+    CoinGecko's daily market-chart data is used as the stable free/demo-compatible
+    history source. OHLC fields are reconstructed from consecutive daily prices;
+    volume comes from CoinGecko's total_volumes series.
+    """
     coin_id = _resolve_coin_id(symbol)
     payload = _get_json(
         f"coins/{urllib.parse.quote(coin_id, safe='')}/market_chart",
@@ -216,27 +184,47 @@ def _market_chart(symbol: str) -> dict:
             "interval": "daily",
         },
     )
-    if not isinstance(payload, dict) or not payload.get("prices"):
-        raise RuntimeError(f"CoinGecko returned no market-chart data for {symbol}")
-    return payload
-
-
-def _history(symbol: str) -> pd.DataFrame:
-    df = _ohlc(symbol).copy()
-    chart = _market_chart(symbol)
+    prices = payload.get("prices") or []
+    volumes = payload.get("total_volumes") or []
+    if len(prices) < 60:
+        raise RuntimeError(
+            f"CoinGecko returned insufficient price history for {symbol}: {len(prices)} rows"
+        )
 
     volume_map: dict[pd.Timestamp, float] = {}
-    for timestamp, value in chart.get("total_volumes", []):
+    for timestamp, value in volumes:
         dt = pd.to_datetime(float(timestamp), unit="ms", utc=True).tz_convert(None)
         volume_map[dt.normalize()] = float(value)
 
-    df["Volume"] = [
-        volume_map.get(pd.Timestamp(dt).normalize(), math.nan)
-        for dt in df["Date"]
-    ]
-    df["Volume"] = df["Volume"].ffill().bfill().fillna(0.0)
-    return df
+    rows = []
+    previous_close: float | None = None
+    for timestamp, value in prices:
+        close = float(value)
+        if close <= 0:
+            continue
+        dt = pd.to_datetime(float(timestamp), unit="ms", utc=True).tz_convert(None)
+        open_price = previous_close if previous_close is not None else close
+        rows.append(
+            {
+                "Date": dt,
+                "Open": open_price,
+                "High": max(open_price, close),
+                "Low": min(open_price, close),
+                "Close": close,
+                "Volume": volume_map.get(dt.normalize(), 0.0),
+            }
+        )
+        previous_close = close
 
+    df = (
+        pd.DataFrame(rows)
+        .sort_values("Date")
+        .drop_duplicates("Date")
+        .reset_index(drop=True)
+    )
+    if len(df) < 60:
+        raise RuntimeError(f"CoinGecko history too short for {symbol}")
+    return df.tail(MAX_HISTORY_ROWS).reset_index(drop=True)
 
 def _indicators(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
@@ -314,7 +302,7 @@ def get_stock_data(
     return (
         f"# Crypto market data for {symbol.upper()}\n"
         f"# Provider: CoinGecko API\n"
-        f"# Timeframe: CoinGecko OHLC + market-chart daily data\n"
+        f"# Timeframe: CoinGecko market-chart daily data; OHLC reconstructed from daily closes\n"
         f"# Records: {len(df)}\n\n"
         + df[["Date", "Open", "High", "Low", "Close", "Volume"]].to_csv(index=False)
     )
