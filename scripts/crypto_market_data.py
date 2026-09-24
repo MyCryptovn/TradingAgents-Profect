@@ -67,10 +67,9 @@ def _coingecko_id(symbol: str) -> str:
 
 
 def _history(symbol: str, days: int = 365) -> pd.DataFrame:
-        days = min(days, 360)
     coin_id = _coingecko_id(symbol)
     now = int(time.time())
-    start = now - int(days * 86400)
+    start = now - int(min(days,360) * 86400)
     payload = _get_json(
         COINGECKO_API,
         f"coins/{urllib.parse.quote(coin_id)}/market_chart/range",
