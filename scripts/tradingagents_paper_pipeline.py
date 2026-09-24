@@ -121,7 +121,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
 
     config = dict(DEFAULT_CONFIG)
-    config["llm_provider"] = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq")
+    config["llm_provider"] = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "google")
     config["deep_think_llm"] = os.getenv("TRADINGAGENTS_DEEP_THINK_LLM", config["deep_think_llm"])
     config["quick_think_llm"] = os.getenv("TRADINGAGENTS_QUICK_THINK_LLM", config["quick_think_llm"])
     config["max_debate_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "1"))
@@ -196,8 +196,8 @@ def wait_for_pending_candles(decisions: list[Decision]) -> None:
 
 def main() -> int:
     provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "groq")
-    if provider == "groq" and not os.getenv("GROQ_API_KEY"):
-        print("TRADINGAGENTS PAPER PIPELINE: GROQ_API_KEY is not configured")
+    if provider == "google" and not os.getenv("GOOGLE_API_KEY"):
+        print("TRADINGAGENTS PAPER PIPELINE: GOOGLE_API_KEY is not configured")
         print("PAPER BUY/SELL: NOT RUN — LLM provider credential is required")
         print("LIVE TRADING GATE: DISABLED")
         return 0
