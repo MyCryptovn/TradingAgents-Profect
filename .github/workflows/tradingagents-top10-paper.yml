@@ -10,8 +10,6 @@ on:
       - "scripts/market_scanner.py"
       - ".github/workflows/tradingagents-top10-paper.yml"
       - "vendor/TradingAgents/**"
-  schedule:
-    - cron: "17,47 * * * *"
 
 permissions:
   contents: read
@@ -48,8 +46,7 @@ jobs:
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "1"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "1"
           TRADINGAGENTS_LLM_MAX_RETRIES: "3"
-        run: python scripts/tradingagents_paper_pipeline.py
-
+        run: python -m scripts.tradingagents_paper_pipeline
       - name: Verify crypto-native routing and live trading gate
         run: |
           grep -R -q "YAHOO FINANCE BYPASSED" scripts/tradingagents_paper_pipeline.py
