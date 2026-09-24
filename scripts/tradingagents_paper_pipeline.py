@@ -1,7 +1,7 @@
 """Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
 
-Crypto analysis uses a crypto-native overlay: CoinGecko historical/market data
-plus Kraken exchange-native live context. The pinned TradingAgents source remains
+Crypto analysis uses a crypto-native overlay: Kraken exchange-native historical
+OHLC plus live ticker/order-book context. The pinned TradingAgents source remains
 unchanged. BUY/SELL are paper decisions only; live orders stay disabled.
 """
 from __future__ import annotations
@@ -207,7 +207,7 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: KRAKEN SCANNER + COINGECKO HISTORY + KRAKEN LIVE CONTEXT")
+    print("DATA: KRAKEN SCANNER + KRAKEN HISTORICAL OHLC + KRAKEN LIVE CONTEXT")
     print("AI: TRADINGAGENTS")
     print("CRYPTO DATA MODE: YAHOO FINANCE BYPASSED")
     print("PAPER BUY/SELL: ENABLED")
