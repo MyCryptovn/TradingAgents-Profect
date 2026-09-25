@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: paper-ledger
+  group: tradingagents-top10-paper
 
 jobs:
   score:
