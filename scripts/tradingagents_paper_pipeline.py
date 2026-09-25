@@ -82,7 +82,7 @@ def run_scanner() -> list[str]:
 
 def to_crypto_ticker(symbol: str) -> str:
     base = symbol.split("/", 1)[0].upper()
-    if base == "XBT":
+    if base == "BCH":
         base = "BTC"
     return f"{base}-USD"
 
