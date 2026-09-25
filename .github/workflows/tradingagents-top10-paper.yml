@@ -70,8 +70,8 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
           TRADINGAGENTS_LLM_PROVIDER: google
-          TRADINGAGENTS_DEEP_THINK_LLM: gemini-2.5-flash-lite
-          TRADINGAGENTS_QUICK_THINK_LLM: gemini-2.5-flash-lite
+          TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.5-flash-lite
+          TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "3"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "3"
           TRADINGAGENTS_LLM_MAX_RETRIES: "6"
