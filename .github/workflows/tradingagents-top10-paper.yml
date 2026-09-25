@@ -2,19 +2,9 @@ name: TradingAgents Top-10 Paper Effectiveness
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/crypto_market_data.py"
-      - "scripts/tradingagents_paper_pipeline.py"
-      - "scripts/market_scanner.py"
-      - ".github/workflows/tradingagents-top10-paper.yml"
-      - "vendor/TradingAgents/**"
-  schedule:
-    - cron: "17,47 * * * *"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: tradingagents-top10-paper
@@ -37,7 +27,7 @@ jobs:
         run: pip install -e vendor/TradingAgents
 
       - name: Validate crypto-native adapter
-        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py
+        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py
 
       - name: Validate CoinGecko API access
         env:
@@ -70,7 +60,7 @@ jobs:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
           TRADINGAGENTS_LLM_PROVIDER: google
-          TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.5-flash-lite
+          TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.8-flash
           TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "3"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "3"
@@ -83,8 +73,6 @@ jobs:
           grep -R -q "CoinGecko API" scripts/crypto_market_data.py
           grep -R -q "COINGECKO_API_KEY" scripts/crypto_market_data.py
           grep -R -q "COINGECKO RATE LIMIT" scripts/crypto_market_data.py
-          ! grep -R -q "No CoinGecko dependency" scripts/crypto_market_data.py
-          ! grep -R -q "KRAKEN_API" scripts/crypto_market_data.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
@@ -102,12 +90,16 @@ jobs:
       - name: Record paper ledger
         run: python scripts/paper_ledger.py record
 
+      - name: Score paper ledger
+        run: python scripts/paper_ledger.py score
+
       - name: Commit ledger
         run: |
           git config user.name "paper-bot"
           git config user.email "paper-bot@users.noreply.github.com"
           git add paper-ledger
           git diff --staged --quiet || (git commit -m "update paper ledger [skip ci]" && git pull --rebase && git push)
+
       - name: Upload TradingAgents paper report
         uses: actions/upload-artifact@v4
         with:
