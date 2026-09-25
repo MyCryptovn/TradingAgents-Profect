@@ -3,7 +3,7 @@ name: TradingAgents Top-10 Paper Effectiveness
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 */3 * * *"
+    - cron: "15 */6 * * *"
 permissions:
   contents: write
 
@@ -63,8 +63,8 @@ jobs:
           TRADINGAGENTS_LLM_PROVIDER: google
           TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.8-flash
           TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
-          TRADINGAGENTS_MAX_DEBATE_ROUNDS: "3"
-          TRADINGAGENTS_MAX_RISK_ROUNDS: "3"
+          TRADINGAGENTS_MAX_DEBATE_ROUNDS: "2"
+          TRADINGAGENTS_MAX_RISK_ROUNDS: "2"
           TRADINGAGENTS_LLM_MAX_RETRIES: "6"
         run: python -m scripts.tradingagents_paper_pipeline
 
