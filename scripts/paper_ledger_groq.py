@@ -13,8 +13,8 @@ import urllib.request
 from datetime import datetime, timezone
 
 RESULT_FILE = os.getenv("RESULT_FILE", "tradingagents-paper-results/decisions.json")
-LEDGER = "paper-ledger/ledger.json"
-REPORT = "paper-ledger/report.md"
+LEDGER = "paper-ledger/ledger-groq.json"
+REPORT = "paper-ledger/report-groq.md"
 HORIZON_H = float(os.getenv("HORIZON_HOURS", "24"))       # giữ lệnh tối đa
 SL = float(os.getenv("STOP_LOSS_PCT", "3")) / 100          # cắt lỗ
 TP = float(os.getenv("TAKE_PROFIT_PCT", "6")) / 100        # chốt lời
