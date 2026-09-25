@@ -33,12 +33,19 @@ class Trade:
 
 
 def fetch_klines(symbol: str) -> list[list[float]]:
-    params = urllib.parse.urlencode({"symbol": symbol, "interval": INTERVAL, "limit": LIMIT})
-    url = f"https://api.binance.com/api/v3/klines?{params}"
+    pair = symbol.upper().replace("/", "")
+    if pair.startswith("BTC"):
+        pair = "XBT" + pair[3:]
+    params = urllib.parse.urlencode({"pair": pair, "interval": "15"})
+    url = f"https://api.kraken.com/0/public/OHLC?{params}"
     with urllib.request.urlopen(url, timeout=20) as response:
         raw = json.load(response)
-    return [[float(row[0]), float(row[1]), float(row[2]), float(row[3]), float(row[4]), float(row[5])] for row in raw]
-
+    if raw.get("error"):
+        raise RuntimeError(f"Kraken error: {raw['error']}")
+    key = next(k for k in raw["result"] if k != "last")
+    rows = raw["result"][key]
+    # Kraken OHLC row: [time, open, high, low, close, vwap, volume, count]
+    return [[float(r[1]), float(r[2]), float(r[3]), float(r[4]), float(r[6])] for r in rows]
 
 def ema(values: list[float], period: int) -> float:
     alpha = 2.0 / (period + 1)
