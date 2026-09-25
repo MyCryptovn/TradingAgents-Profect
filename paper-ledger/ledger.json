@@ -1,3 +1,37 @@
 {
- "trades": []
+ "trades": [
+  {
+   "id": "36120879393-ONDO/USD",
+   "symbol": "ONDO/USD",
+   "pair": "ONDOUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790331301,
+   "entry": 0.55818,
+   "btc0": 84479.8,
+   "status": "open"
+  },
+  {
+   "id": "36120879393-LINK/USD",
+   "symbol": "LINK/USD",
+   "pair": "LINKUSD",
+   "action": "BUY",
+   "raw": "OVERWEIGHT",
+   "t0": 1790331302,
+   "entry": 14.05276,
+   "btc0": 84479.8,
+   "status": "open"
+  },
+  {
+   "id": "36120879393-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1790331302,
+   "entry": 4.9378,
+   "btc0": 84479.8,
+   "status": "open"
+  }
+ ]
 }
