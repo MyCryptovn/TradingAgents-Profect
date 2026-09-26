@@ -65,6 +65,17 @@
    "entry": 1.1713,
    "btc0": 84055.0,
    "status": "open"
+  },
+  {
+   "id": "36265182806-TAO/USD",
+   "symbol": "TAO/USD",
+   "pair": "TAOUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790450106,
+   "entry": 323.0192,
+   "btc0": 84017.0,
+   "status": "open"
   }
  ]
 }
