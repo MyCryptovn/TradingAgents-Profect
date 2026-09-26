@@ -54,6 +54,17 @@
    "entry": 1.1605,
    "btc0": 83978.3,
    "status": "open"
+  },
+  {
+   "id": "36243767048-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790427878,
+   "entry": 1.1713,
+   "btc0": 84055.0,
+   "status": "open"
   }
  ]
 }
