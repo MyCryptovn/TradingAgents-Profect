@@ -96,6 +96,17 @@
    "entry": 5.0736,
    "btc0": 84371.5,
    "status": "open"
+  },
+  {
+   "id": "36345464910-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "SELL",
+   "raw": "UNDERWEIGHT",
+   "t0": 1790540100,
+   "entry": 188.78,
+   "btc0": 84796.6,
+   "status": "open"
   }
  ]
 }
