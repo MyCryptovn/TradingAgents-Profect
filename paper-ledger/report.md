@@ -1,21 +1,22 @@
 # Báo cáo paper trading
-Cập nhật: 2026-09-27 20:15 UTC
+Cập nhật: 2026-09-27 22:52 UTC
 
-- Lệnh đã chốt: **1** | đang mở: 1 | HOLD đã chấm: 5
+- Lệnh đã chốt: **2** | đang mở: 0 | HOLD đã chấm: 5
 - Thiết lập: giữ tối đa 24h, SL 3%, TP 6%, chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **0.0%** (0/1)
-- PnL trung bình/lệnh: -0.217%
-- Tổng PnL (cộng dồn): **-0.22%**
+- Win rate: **0.0%** (0/2)
+- PnL trung bình/lệnh: -1.919%
+- Tổng PnL (cộng dồn): **-3.84%**
 - Profit factor: 0.00
-- Max drawdown: 0.22%
-- Benchmark (cùng hướng, cùng kỳ, theo BTC): -0.41%  -> bot THẮNG benchmark
+- Max drawdown: 3.84%
+- Benchmark (cùng hướng, cùng kỳ, theo BTC): -0.41%  -> bot THUA benchmark
 - ⚠️ Dưới 30 lệnh: chưa đủ ý nghĩa thống kê.
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| QNT/USD | SELL | 188.78 | 194.443 | SL | -3.62 |
 | LINK/USD | BUY | 14.0528 | 14.1094 | TIME | -0.22 |
 
 ## Quyết định HOLD

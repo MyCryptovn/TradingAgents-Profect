@@ -106,7 +106,12 @@
    "t0": 1790540100,
    "entry": 188.78,
    "btc0": 84796.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 194.4434,
+   "t1": 1790540100,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.0
   }
  ]
 }
