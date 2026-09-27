@@ -53,7 +53,10 @@
    "t0": 1790399519,
    "entry": 1.1605,
    "btc0": 83978.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.1659,
+   "t1": 1790485919.0,
+   "move_pct": 0.465
   },
   {
    "id": "36243767048-SUI/USD",
@@ -75,6 +78,17 @@
    "t0": 1790450106,
    "entry": 323.0192,
    "btc0": 84017.0,
+   "status": "open"
+  },
+  {
+   "id": "36296542054-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790486185,
+   "entry": 5.0736,
+   "btc0": 84371.5,
    "status": "open"
   }
  ]
