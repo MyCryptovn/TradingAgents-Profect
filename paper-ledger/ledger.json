@@ -95,7 +95,10 @@
    "t0": 1790486185,
    "entry": 5.0736,
    "btc0": 84371.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.2409,
+   "t1": 1790572585.0,
+   "move_pct": 3.297
   },
   {
    "id": "36345464910-QNT/USD",
@@ -112,6 +115,17 @@
    "reason": "SL",
    "pnl_pct": -3.62,
    "bench_pct": -0.0
+  },
+  {
+   "id": "36381187731-USDC/USD",
+   "symbol": "USDC/USD",
+   "pair": "USDCUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790572860,
+   "entry": 0.9998,
+   "btc0": 83239.2,
+   "status": "open"
   }
  ]
 }
