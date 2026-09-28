@@ -102,10 +102,27 @@ def _get_json(
 
 def _base_symbol(symbol: str) -> str:
     base = symbol.upper().strip().replace("/USD", "").replace("-USD", "")
-    return "BTC" if base == "XBT" else base
+    return "BTC" if base == "XBT" else base return {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
 
 
-@lru_cache(maxsize=1)
+def _top_market_match(base: str) -> list[dict]:
+    """Return the highest market-cap CoinGecko coin for a ticker symbol, or []."""
+    try:
+        rows = _get_json(
+            "coins/markets",
+            {
+                "vs_currency": "usd",
+                "symbols": base,
+                "order": "market_cap_desc",
+                "per_page": "5",
+            },
+        )
+    except Exception:
+        return []
+    if not isinstance(rows, list):
+        return []
+    rows = [r for r in rows if str(r.get("symbol", "")).lower() == base]
+    return rows[:1] @lru_cache(maxsize=1)
 def _coins_list() -> list[dict]:
     payload = _get_json("coins/list", {"include_platform": "false"})
     if not isinstance(payload, list):
@@ -152,11 +169,7 @@ def _resolve_coin_id(symbol: str) -> str:
     if base in aliases:
         return aliases[base]
 
-    matches = [
-        item
-        for item in _coins_list()
-        if str(item.get("symbol", "")).lower() == base
-    ]
+    matches = _top_market_match(base) or [
     if not matches:
         raise RuntimeError(f"CoinGecko coin id not found for {symbol}")
 
