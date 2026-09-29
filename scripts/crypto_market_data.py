@@ -102,7 +102,7 @@ def _get_json(
 
 def _base_symbol(symbol: str) -> str:
     base = symbol.upper().strip().replace("/USD", "").replace("-USD", "")
-    return "BTC" if base == "XBT" else base return {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
+    return {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
 
 
 def _top_market_match(base: str) -> list[dict]:
