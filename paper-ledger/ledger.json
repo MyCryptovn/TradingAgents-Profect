@@ -140,6 +140,17 @@
    "entry": 14.87865,
    "btc0": 82899.9,
    "status": "open"
+  },
+  {
+   "id": "36628319778-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790714740,
+   "entry": 4.9668,
+   "btc0": 83602.0,
+   "status": "open"
   }
  ]
 }
