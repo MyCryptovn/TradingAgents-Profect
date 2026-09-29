@@ -170,6 +170,10 @@ def _resolve_coin_id(symbol: str) -> str:
         return aliases[base]
 
     matches = _top_market_match(base) or [
+        item
+        for item in _coins_list()
+        if str(item.get("symbol", "")).lower() == base
+    ]
     if not matches:
         raise RuntimeError(f"CoinGecko coin id not found for {symbol}")
 
