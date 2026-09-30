@@ -122,7 +122,8 @@ def _top_market_match(base: str) -> list[dict]:
     if not isinstance(rows, list):
         return []
     rows = [r for r in rows if str(r.get("symbol", "")).lower() == base]
-    return rows[:1] @lru_cache(maxsize=1)
+    return rows[:1] 
+@lru_cache(maxsize=1)
 def _coins_list() -> list[dict]:
     payload = _get_json("coins/list", {"include_platform": "false"})
     if not isinstance(payload, list):
