@@ -159,6 +159,7 @@ def _resolve_coin_id(symbol: str) -> str:
         "near": "near",
         "apt": "aptos",
         "arb": "arbitrum",
+        "qnt": "quant-network",
         "op": "optimism",
         "fil": "filecoin",
         "inj": "injective-protocol",
