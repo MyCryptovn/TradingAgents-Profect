@@ -165,6 +165,28 @@
    "entry": 287.84,
    "btc0": 83093.4,
    "status": "open"
+  },
+  {
+   "id": "36679365729-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790750746,
+   "entry": 294.25,
+   "btc0": 82980.0,
+   "status": "open"
+  },
+  {
+   "id": "36679365729-HBAR/USD",
+   "symbol": "HBAR/USD",
+   "pair": "HBARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790750747,
+   "entry": 0.10485,
+   "btc0": 82980.0,
+   "status": "open"
   }
  ]
 }
