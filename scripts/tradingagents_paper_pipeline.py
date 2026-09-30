@@ -23,7 +23,7 @@ from pathlib import Path
 TOP_N = 10
 OUT_DIR = Path("tradingagents-paper-results")
 KRAKEN_API = "https://api.kraken.com/0/public/"
-INTERVAL_MINUTES = 15
+INTERVAL_MINUTES = 60
 INTERVAL_SECONDS = INTERVAL_MINUTES * 60
 
 
