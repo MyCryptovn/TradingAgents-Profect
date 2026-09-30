@@ -65,9 +65,9 @@ def adaptive_signal(closes: list[float]) -> str:
     momentum = closes[-1] / closes[-20] - 1.0
     # Adaptive z-like evidence, not a fixed profit target.
     trend_gap = (short - long) / long if long else 0.0
-    if trend_gap > vol * 2.0 and momentum > 0:
+    if trend_gap > vol * 1.0 and momentum > 0:
         return "BUY"
-    if trend_gap < -vol * 2.0 and momentum < 0:
+    if trend_gap < -vol * 1.0 and momentum < 0:
         return "SELL"
     return "HOLD"
 
