@@ -1,7 +1,7 @@
 """Safe public-market paper-trading smoke test.
 
-This intentionally does not place real orders and does not require exchange credentials.
-It downloads public Binance spot candles, runs an adaptive statistical baseline, and
+This intentionally does not place real orders and does not require exchange credentials
+It downloads public Kraken spot candles, runs an adaptive statistical baseline, and
 reports paper PnL, drawdown, trade count, and whether the run is eligible for a
 separate TradingAgents/LLM paper-analysis stage.
 """
@@ -16,10 +16,10 @@ import urllib.request
 from dataclasses import dataclass
 
 
-SYMBOLS = ("BTCUSDT", "ETHUSDT")
+SYMBOLS = ("XRPUSDT", "BTCUSDT", "ETHUSDT", "ADAUSDT", "DOGEUSDT", "LINKUSDT", "SOLUSDT", "LTCUSDT", "AVAXUSDT", "NEARUSDT", "ASTERUSDT", "MOVRUSDT", "QNTUSDT", "WLDUSDT", "WIFUSDT", "SHIBAUSDT")
 INTERVAL = "15m"
 LIMIT = 500
-FEE = 0.001
+FEE = 0.0026
 START_CASH = 10_000.0
 
 
@@ -33,9 +33,8 @@ class Trade:
 
 
 def fetch_klines(symbol: str) -> list[list[float]]:
-    pair = symbol.upper().replace("/", "")
-    if pair.startswith("BTC"):
-        pair = "XBT" + pair[3:]
+    pair = symbol.upper().replace("/", "").replace("USDT", "USD")
+pair = {"BTCUSD": "XBTUSD", "DOGEUSD": "XDGUSD"}.get(pair, pair)
     params = urllib.parse.urlencode({"pair": pair, "interval": "15"})
     url = f"https://api.kraken.com/0/public/OHLC?{params}"
     with urllib.request.urlopen(url, timeout=20) as response:
@@ -43,7 +42,7 @@ def fetch_klines(symbol: str) -> list[list[float]]:
     if raw.get("error"):
         raise RuntimeError(f"Kraken error: {raw['error']}")
     key = next(k for k in raw["result"] if k != "last")
-    rows = raw["result"][key]
+    rows = raw["result"][key][:-1][-LIMIT:]
     # Kraken OHLC row: [time, open, high, low, close, vwap, volume, count]
     return [[float(r[1]), float(r[2]), float(r[3]), float(r[4]), float(r[6])] for r in rows]
 
@@ -60,7 +59,8 @@ def adaptive_signal(closes: list[float]) -> str:
         return "HOLD"
     short = ema(closes[-30:], 12)
     long = ema(closes[-60:], 26)
-    returns = [math.log(closes[i] / closes[i - 1]) for i in range(1, len(closes[-40:]))]
+    recent = closes[-40:]
+    returns = [math.log(recent[i] / recent[i - 1]) for i in range(1, len(recent))]
     vol = statistics.pstdev(returns) if len(returns) > 1 else 0.0
     momentum = closes[-1] / closes[-20] - 1.0
     # Adaptive z-like evidence, not a fixed profit target.
@@ -111,14 +111,19 @@ def main() -> int:
     print("PAPER MARKET TEST - REAL ORDERS DISABLED")
     print(f"interval={INTERVAL} candles={LIMIT} fee={FEE:.4%}")
 
-    total_start = START_CASH * len(SYMBOLS)
+    total_start = 0.0
     total_final = 0.0
     all_trades: list[Trade] = []
 
     for symbol in SYMBOLS:
-        rows = fetch_klines(symbol)
+        try:
+            rows = fetch_klines(symbol)
+        except Exception as e:
+            print(f"{symbol}: bỏ qua ({e})")
+            continue
         final_equity, drawdown, trades = paper_run(symbol, rows)
         pnl = final_equity - START_CASH
+        total_start += START_CASH
         total_final += final_equity
         all_trades.extend(trades)
         print(f"{symbol}: final=${final_equity:,.2f} pnl=${pnl:,.2f} drawdown={drawdown:.2%} trades={len(trades)}")
