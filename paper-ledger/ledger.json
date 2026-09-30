@@ -253,6 +253,28 @@
    "entry": 5.2621,
    "btc0": 83840.1,
    "status": "open"
+  },
+  {
+   "id": "36756732373-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790792540,
+   "entry": 5.3941,
+   "btc0": 83928.0,
+   "status": "open"
+  },
+  {
+   "id": "36756732373-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790792540,
+   "entry": 296.0,
+   "btc0": 83928.0,
+   "status": "open"
   }
  ]
 }
