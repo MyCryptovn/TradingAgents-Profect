@@ -63,6 +63,7 @@ def run_scanner() -> list[str]:
         text=True,
     )
     lines = proc.stdout.splitlines()
+    print(proc.stdout)
     symbols: list[str] = []
     in_top = False
     for line in lines:
