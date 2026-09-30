@@ -101,7 +101,11 @@ def _get_json(
 
 
 def _base_symbol(symbol: str) -> str:
-    base = symbol.upper().strip().replace("/USD", "").replace("USD", "")
+    base = symbol.upper().strip()
+    for sep in ("/", "-"):
+        base = base.split(sep, 1)[0]
+    if base.endswith("USD") and len(base) > 3:
+        base = base[:-3]
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
 
 
