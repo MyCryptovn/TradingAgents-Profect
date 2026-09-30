@@ -34,7 +34,7 @@ class Trade:
 
 def fetch_klines(symbol: str) -> list[list[float]]:
     pair = symbol.upper().replace("/", "").replace("USDT", "USD")
-    pair = {"BTCUSD": "XBTUSD", "DOGEUSD": "XDGUSD"}.get(pair, pair)
+    pair = {"XBTUSD", "XDGUSD"}.get(pair, pair)
     params = urllib.parse.urlencode({"pair": pair, "interval": "15"})
     url = f"https://api.kraken.com/0/public/OHLC?{params}"
     with urllib.request.urlopen(url, timeout=20) as response:
