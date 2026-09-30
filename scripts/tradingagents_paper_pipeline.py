@@ -222,7 +222,8 @@ def main() -> int:
             item.decision = run_tradingagents(ticker, trade_date)
             print(f"{rank:02d} {symbol:12} -> {item.decision}")
         except Exception as exc:
-            item.error = f"{type(exc).__name__}: {exc}"
+            import traceback
+            traceback.print_exc() item.error = "{type(exc).__name__}: {exc}"
             item.outcome_status = "ERROR"
             print(f"{rank:02d} {symbol:12} -> ERROR -> {item.error}")
         decisions.append(item)
