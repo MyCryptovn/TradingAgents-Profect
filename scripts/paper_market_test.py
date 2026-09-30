@@ -60,7 +60,7 @@ def adaptive_signal(closes: list[float]) -> str:
     short = ema(closes[-30:], 12)
     long = ema(closes[-60:], 26)
     recent = closes[-40:]
-    returns = [math.log(recent[i] / recent[i - 1]) for i in range(1, len(recent))]
+    returns = [math.log(recent[i] / recent[i - 1]) for i in range(1, len(recent)) if recent[i] > 0 and recent[i - 1] > 0]
     vol = statistics.pstdev(returns) if len(returns) > 1 else 0.0
     momentum = closes[-1] / closes[-20] - 1.0
     # Adaptive z-like evidence, not a fixed profit target.
@@ -118,10 +118,10 @@ def main() -> int:
     for symbol in SYMBOLS:
         try:
             rows = fetch_klines(symbol)
+            final_equity, drawdown, trades = paper_run(symbol, rows)
         except Exception as e:
             print(f"{symbol}: bỏ qua ({e})")
             continue
-        final_equity, drawdown, trades = paper_run(symbol, rows)
         pnl = final_equity - START_CASH
         total_start += START_CASH
         total_final += final_equity
