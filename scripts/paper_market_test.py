@@ -16,7 +16,7 @@ import urllib.request
 from dataclasses import dataclass
 
 
-SYMBOLS = ("XRPUSDT", "BTCUSDT", "ETHUSDT", "ADAUSDT", "DOGEUSDT", "LINKUSDT", "SOLUSDT", "LTCUSDT", "AVAXUSDT", "NEARUSDT", "ASTERUSDT", "MOVRUSDT", "QNTUSDT", "WLDUSDT", "WIFUSDT", "SHIBAUSDT")
+SYMBOLS = ("XRPUSDT", "BTCUSDT", "ETHUSDT", "ADAUSDT", "DOGEUSDT", "LINKUSDT", "SOLUSDT", "LTCUSDT", "AVAXUSDT", "NEARUSDT", "ASTERUSDT", "QNTUSDT", "WLDUSDT", "WIFUSDT")
 INTERVAL = "15m"
 LIMIT = 500
 FEE = 0.0026
@@ -34,7 +34,7 @@ class Trade:
 
 def fetch_klines(symbol: str) -> list[list[float]]:
     pair = symbol.upper().replace("/", "").replace("USDT", "USD")
-    pair = {"XBTUSD", "XDGUSD"}.get(pair, pair)
+    pair = {"BTCUSD": "XBTUSD", "DOGEUSD": "XDGUSD"}.get(pair, pair)
     params = urllib.parse.urlencode({"pair": pair, "interval": "15"})
     url = f"https://api.kraken.com/0/public/OHLC?{params}"
     with urllib.request.urlopen(url, timeout=20) as response:
