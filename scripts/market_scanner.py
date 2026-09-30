@@ -16,7 +16,7 @@ from dataclasses import dataclass
 
 API = "https://api.kraken.com/0/public/"
 TOP_N = 2
-PREFILTER_N = 5
+PREFILTER_N = 10
 MIN_VOLUME_USD = 1_000_000.0
 TIMEFRAMES = (15, 60, 240)
 
@@ -134,6 +134,24 @@ def timeframe_features(candles: list[list[float]]) -> tuple[float, float, float]
     return normalized_trend, momentum, volume_ratio
 
 
+def spike_score(pair: str) -> float:
+    try:
+        candles = fetch_ohlc(pair, 5)
+    except Exception:
+        return 0.0
+    if len(candles) < 60:
+        return 0.0
+    vols = [float(r[6]) for r in candles]
+    closes = [float(r[4]) for r in candles]
+    avg_vol = sum(vols[-49:-1]) / 48
+    if avg_vol <= 0:
+        return 0.0
+    if closes[-1] * vols[-1] < 20_000:
+        return 0.0
+    move = closes[-1] / closes[-4] - 1.0
+    if move <= 0:
+        return 0.0
+    return min(vols[-1] / avg_vol, 8.0) / 8.0
 def main() -> int:
     started = time.time()
     rows = ticker_rows()
@@ -199,8 +217,9 @@ def main() -> int:
         trend_rank = percentile(trend_values, trend)
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
-        score = (0.25 * liquidity + 0.15 * tightness + 0.25 * trend_rank
-                 + 0.15 * momentum_rank + 0.20 * quality_rank)
+        spike = spike_score(pair)
+        score = (0.20 * liquidity + 0.10 * tightness + 0.20 * trend_rank
+                 + 0.15 * momentum_rank + 0.15 * quality_rank + 0.20 * spike)
         candidates.append(Candidate(pair, wsname, price, volume_usd, spread_bps, score,
                                     trends[0], trends[1], trends[2], quality))
 
