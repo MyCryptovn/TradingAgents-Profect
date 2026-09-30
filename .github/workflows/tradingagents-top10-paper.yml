@@ -60,6 +60,7 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
           COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           TRADINGAGENTS_LLM_PROVIDER: google
           TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.5-flash-lite
           TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
