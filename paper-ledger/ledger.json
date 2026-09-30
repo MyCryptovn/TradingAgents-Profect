@@ -153,7 +153,10 @@
    "t0": 1790714740,
    "entry": 4.9668,
    "btc0": 83602.0,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.3474,
+   "t1": 1790801140.0,
+   "move_pct": 7.663
   },
   {
    "id": "36677103311-QNT/USD",
@@ -274,6 +277,28 @@
    "t0": 1790792540,
    "entry": 296.0,
    "btc0": 83928.0,
+   "status": "open"
+  },
+  {
+   "id": "36774977000-NIGHT/USD",
+   "symbol": "NIGHT/USD",
+   "pair": "NIGHTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790801632,
+   "entry": 0.03787,
+   "btc0": 83677.6,
+   "status": "open"
+  },
+  {
+   "id": "36774977000-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790801632,
+   "entry": 5.3474,
+   "btc0": 83677.6,
    "status": "open"
   }
  ]
