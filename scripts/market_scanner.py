@@ -152,6 +152,8 @@ def spike_score(pair: str) -> float:
     if move <= 0:
         return 0.0
     return min(vols[-1] / avg_vol, 8.0) / 8.0
+
+
 def main() -> int:
     started = time.time()
     rows = ticker_rows()
@@ -218,6 +220,7 @@ def main() -> int:
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
+        print(f"SPIKE {pair}: {spike:.2f} quality={quality:.2f}")
         score = (0.20 * liquidity + 0.10 * tightness + 0.20 * trend_rank
                  + 0.15 * momentum_rank + 0.15 * quality_rank + 0.20 * spike)
         candidates.append(Candidate(pair, wsname, price, volume_usd, spread_bps, score,
