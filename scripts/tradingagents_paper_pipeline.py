@@ -1,4 +1,4 @@
-"""Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
+y"""Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
 
 Crypto analysis uses a CoinGecko-native overlay for historical OHLC/market data
 and live market context. Kraken remains only the separate paper-outcome evaluator.
@@ -61,6 +61,7 @@ def run_scanner() -> list[str]:
         check=True,
         capture_output=True,
         text=True,
+        timeout=300,
     )
     lines = proc.stdout.splitlines()
     print(proc.stdout)
@@ -83,8 +84,7 @@ def run_scanner() -> list[str]:
 
 def to_crypto_ticker(symbol: str) -> str:
     base = symbol.split("/", 1)[0].upper()
-    if base == "XBT":
-        base = "BTC"
+    base = {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
     return f"{base}-USD"
 
 
@@ -132,7 +132,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     # Fundamentals are intentionally omitted for crypto: company balance sheets
     # are not the correct data model. Macro/news/social analysts remain available.
     graph = TradingAgentsGraph(
-        selected_analysts=("market", "social", "news"),
+        selected_analysts=("market", "news"),
         debug=False,
         config=config,
     )
