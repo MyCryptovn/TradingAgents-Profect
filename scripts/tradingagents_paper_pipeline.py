@@ -1,4 +1,4 @@
-y"""Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
+"""Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
 
 Crypto analysis uses a CoinGecko-native overlay for historical OHLC/market data
 and live market context. Kraken remains only the separate paper-outcome evaluator.
