@@ -300,6 +300,28 @@
    "entry": 5.3474,
    "btc0": 83677.6,
    "status": "open"
+  },
+  {
+   "id": "36821876213-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790834371,
+   "entry": 5.4764,
+   "btc0": 84228.7,
+   "status": "open"
+  },
+  {
+   "id": "36821876213-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790834371,
+   "entry": 2715.67,
+   "btc0": 84228.7,
+   "status": "open"
   }
  ]
 }
