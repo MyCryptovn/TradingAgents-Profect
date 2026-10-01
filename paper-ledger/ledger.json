@@ -349,6 +349,28 @@
    "entry": 2715.67,
    "btc0": 84228.7,
    "status": "open"
+  },
+  {
+   "id": "36884041424-MON/USD",
+   "symbol": "MON/USD",
+   "pair": "MONUSD",
+   "action": "BUY",
+   "raw": "OVERWEIGHT",
+   "t0": 1790870285,
+   "entry": 0.03279,
+   "btc0": 84138.2,
+   "status": "open"
+  },
+  {
+   "id": "36884041424-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790870285,
+   "entry": 84138.2,
+   "btc0": 84138.2,
+   "status": "open"
   }
  ]
 }
