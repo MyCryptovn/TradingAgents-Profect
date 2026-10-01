@@ -202,7 +202,7 @@ def report(led):
         L += ["", "## Quyết định HOLD",
               f"- Sau {HORIZON_H:g}h, giá biến động ≥ {SL*100:g}% ở {len(big)}/{len(hd)} lần "
               f"(có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)",
-              f"- Biến động tuyệt đối trung bình: {sum(abs(h['move_pct']) for h in hd) / len(hd):.2f}%"].
+              f"- Biến động tuyệt đối trung bình: {sum(abs(h['move_pct']) for h in hd) / len(hd):.2f}%"]
         up = [h for h in big if h["move_pct"] > 0]
         down = [h for h in big if h["move_pct"] < 0]
         L += [f"- Trong số đó: tăng ≥ {SL*100:g}% = {len(up)} lần (HOLD bỏ lỡ BUY), "
