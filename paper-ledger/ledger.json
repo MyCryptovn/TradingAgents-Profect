@@ -321,7 +321,10 @@
    "t0": 1790801632,
    "entry": 0.03787,
    "btc0": 83677.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.03927,
+   "t1": 1790888032.0,
+   "move_pct": 3.697
   },
   {
    "id": "36774977000-NEAR/USD",
@@ -332,7 +335,10 @@
    "t0": 1790801632,
    "entry": 5.3474,
    "btc0": 83677.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 4.8462,
+   "t1": 1790888032.0,
+   "move_pct": -9.373
   },
   {
    "id": "36821876213-NEAR/USD",
@@ -381,6 +387,28 @@
    "t0": 1790870285,
    "entry": 84138.2,
    "btc0": 84138.2,
+   "status": "open"
+  },
+  {
+   "id": "36925608199-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790888591,
+   "entry": 84604.8,
+   "btc0": 84604.8,
+   "status": "open"
+  },
+  {
+   "id": "36925608199-MON/USD",
+   "symbol": "MON/USD",
+   "pair": "MONUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790888592,
+   "entry": 0.03399,
+   "btc0": 84604.8,
    "status": "open"
   }
  ]
