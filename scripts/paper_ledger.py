@@ -140,10 +140,13 @@ def settle(t):
     e = t["entry"]
     sl, tp = e * (1 - d * SL), e * (1 + d * TP)
     exit_px = reason = t1 = None
+    best = 0.0
     for c in candles(t["pair"], t["t0"]):
         ts, hi, lo = int(c[0]), float(c[2]), float(c[3])
         if ts >= end:
             break
+        fav = (hi / e - 1) if d == 1 else (1 - lo / e)
+        best = max(best, fav)
         sl_hit = lo <= sl if d == 1 else hi >= sl
         tp_hit = hi >= tp if d == 1 else lo <= tp
         if sl_hit:  # cùng nến chạm cả hai -> tính SL (thận trọng)
@@ -159,7 +162,8 @@ def settle(t):
     b1 = price_at("XBTUSD", t1)
     t.update(status="closed", exit=exit_px, t1=t1, reason=reason,
              pnl_pct=round((d * (exit_px / e - 1) - COST) * 100, 3),
-             bench_pct=round(d * (b1 / t["btc0"] - 1) * 100, 3))
+             bench_pct=round(d * (b1 / t["btc0"] - 1) * 100, 3),
+             mfe_pct=round(best * 100, 3))
 
 
 def report(led):
