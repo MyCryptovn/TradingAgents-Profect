@@ -432,6 +432,28 @@
    "entry": 2724.31,
    "btc0": 85454.0,
    "status": "open"
+  },
+  {
+   "id": "36970240521-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790920060,
+   "entry": 86032.9,
+   "btc0": 86032.9,
+   "status": "open"
+  },
+  {
+   "id": "36970240521-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790920060,
+   "entry": 0.005862,
+   "btc0": 86032.9,
+   "status": "open"
   }
  ]
 }
