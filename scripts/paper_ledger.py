@@ -201,6 +201,9 @@ def report(led):
         for t in cl[-10:][::-1]:
             L.append(f"| {t['symbol']} | {t['action']} | {t['entry']:.6g} | {t['exit']:.6g} | "
                      f"{t['reason']} | {t['pnl_pct']:+.2f} |")
+        mf = [t["mfe_pct"] for t in cl if "mfe_pct" in t]
+        if mf:
+            L.append(f"- Lãi tối đa từng đạt (trung bình): {sum(mf) / len(mf):.2f}% ({len(mf)} lệnh)")
     if hd:
         big = [h for h in hd if abs(h["move_pct"]) >= SL * 100]
         L += ["", "## Quyết định HOLD",
