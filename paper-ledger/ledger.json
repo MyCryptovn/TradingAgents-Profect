@@ -349,7 +349,10 @@
    "t0": 1790834371,
    "entry": 5.4764,
    "btc0": 84228.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 4.9881,
+   "t1": 1790920771.0,
+   "move_pct": -8.916
   },
   {
    "id": "36821876213-ETH/USD",
@@ -360,7 +363,10 @@
    "t0": 1790834371,
    "entry": 2715.67,
    "btc0": 84228.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 2719.38,
+   "t1": 1790920771.0,
+   "move_pct": 0.137
   },
   {
    "id": "36884041424-MON/USD",
@@ -453,6 +459,28 @@
    "t0": 1790920060,
    "entry": 0.005862,
    "btc0": 86032.9,
+   "status": "open"
+  },
+  {
+   "id": "36989676264-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1790933309,
+   "entry": 86104.1,
+   "btc0": 86104.1,
+   "status": "open"
+  },
+  {
+   "id": "36989676264-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790933309,
+   "entry": 2745.01,
+   "btc0": 86104.1,
    "status": "open"
   }
  ]
