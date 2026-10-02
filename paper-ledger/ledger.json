@@ -482,6 +482,28 @@
    "entry": 2745.01,
    "btc0": 86104.1,
    "status": "open"
+  },
+  {
+   "id": "36995123091-AAVE/USD",
+   "symbol": "AAVE/USD",
+   "pair": "AAVEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790936877,
+   "entry": 184.34,
+   "btc0": 86308.7,
+   "status": "open"
+  },
+  {
+   "id": "36995123091-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790936878,
+   "entry": 86308.7,
+   "btc0": 86308.7,
+   "status": "open"
   }
  ]
 }
