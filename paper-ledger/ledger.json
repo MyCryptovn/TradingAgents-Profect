@@ -529,6 +529,28 @@
    "entry": 2724.52,
    "btc0": 85908.3,
    "status": "open"
+  },
+  {
+   "id": "37062803403-NIGHT/USD",
+   "symbol": "NIGHT/USD",
+   "pair": "NIGHTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790974334,
+   "entry": 0.04682,
+   "btc0": 84442.4,
+   "status": "open"
+  },
+  {
+   "id": "37062803403-GBP/USD",
+   "symbol": "GBP/USD",
+   "pair": "GBPUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1790974334,
+   "entry": 1.32372,
+   "btc0": 84442.4,
+   "status": "open"
   }
  ]
 }
