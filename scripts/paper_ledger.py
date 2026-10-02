@@ -82,7 +82,7 @@ def extract(data):
         raw = str(next((it[k] for k in ("decision", "action", "rating", "signal", "final_decision")
                         if it.get(k)), "HOLD")).upper()
         act = "BUY" if ("BUY" in raw or "OVERWEIGHT" in raw) else \
-              "SELL" if ("SELL" in raw or "UNDERWEIGHT" in raw) else "HOLD"
+                        "SELL" if ("SELL" in raw or "UNDERWEIGHT" in raw) else "HOLD"
         if sym:
             out.append((str(sym), act, raw))
     return out
@@ -134,7 +134,7 @@ def settle(t):
         if now() < end:
             return
         px = price_at(t["pair"], end)
-        t.update(status="closed", exit=px, t1=end, move_pct=round((px / t["entry"] - 1) * 100, 3))
+        t.update(status="closed", exit=px, t1=end, move_pct=round((px / t["entry"] - 1) * 100, 3)),
         return
     d = 1 if t["action"] == "BUY" else -1  # SELL = mô phỏng short
     e = t["entry"]
