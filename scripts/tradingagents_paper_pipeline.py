@@ -229,6 +229,7 @@ def main() -> int:
             item.outcome_status = "ERROR"
             print(f"{rank:02d} {symbol:12} -> ERROR -> {item.error}")
         decisions.append(item)
+        time.sleep(75)
 
     wait_for_pending_candles(decisions)
     for item in decisions:
