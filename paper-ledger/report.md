@@ -1,7 +1,7 @@
 # Báo cáo paper trading
-Cập nhật: 2026-10-02 14:51 UTC
+Cập nhật: 2026-10-02 20:28 UTC
 
-- Lệnh đã chốt: **3** | đang mở: 0 | HOLD đã chấm: 24
+- Lệnh đã chốt: **3** | đang mở: 0 | HOLD đã chấm: 25
 - Thiết lập: giữ tối đa 24h, SL 3%, TP 6%, chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
@@ -21,7 +21,7 @@ Cập nhật: 2026-10-02 14:51 UTC
 | LINK/USD | BUY | 14.0528 | 14.1094 | TIME | -0.22 |
 
 ## Quyết định HOLD
-- Sau 24h, giá biến động ≥ 3% ở 14/24 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
-- Biến động tuyệt đối trung bình: 4.66%
+- Sau 24h, giá biến động ≥ 3% ở 14/25 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
+- Biến động tuyệt đối trung bình: 4.53%
 - Trong số đó: tăng ≥ 3% = 5 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 9 lần (HOLD tránh được lỗ)
-- Biến động trung bình có dấu: -2.12%
+- Biến động trung bình có dấu: -1.98%
