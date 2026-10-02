@@ -410,6 +410,28 @@
    "entry": 0.03399,
    "btc0": 84604.8,
    "status": "open"
+  },
+  {
+   "id": "36958120265-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790910160,
+   "entry": 85454.0,
+   "btc0": 85454.0,
+   "status": "open"
+  },
+  {
+   "id": "36958120265-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1790910160,
+   "entry": 2724.31,
+   "btc0": 85454.0,
+   "status": "open"
   }
  ]
 }
