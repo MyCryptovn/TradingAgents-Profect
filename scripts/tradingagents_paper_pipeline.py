@@ -189,7 +189,7 @@ def wait_for_pending_candles(decisions: list[Decision]) -> None:
         ts = datetime.fromisoformat(d.analyzed_at).timestamp()
         next_open = math.floor(ts / INTERVAL_SECONDS) * INTERVAL_SECONDS + INTERVAL_SECONDS
         waits.append(max(0.0, next_open + INTERVAL_SECONDS - now))
-    wait_seconds = min(max(waits), 1800.0)
+    wait_seconds = min(max(waits), 60.0)
     if wait_seconds > 0:
         print(f"WAITING FOR NEXT COMPLETED {INTERVAL_MINUTES}M CANDLE: {wait_seconds:.0f}s")
         time.sleep(wait_seconds)
