@@ -563,6 +563,28 @@
    "entry": 1.32372,
    "btc0": 84442.4,
    "status": "open"
+  },
+  {
+   "id": "37098904654-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791004506,
+   "entry": 84552.2,
+   "btc0": 84552.2,
+   "status": "open"
+  },
+  {
+   "id": "37098904654-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791004506,
+   "entry": 248.48,
+   "btc0": 84552.2,
+   "status": "open"
   }
  ]
 }
