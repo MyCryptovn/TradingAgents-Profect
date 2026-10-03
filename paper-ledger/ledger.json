@@ -463,7 +463,10 @@
    "t0": 1790920060,
    "entry": 86032.9,
    "btc0": 86032.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 84634.7,
+   "t1": 1791006460.0,
+   "move_pct": -1.625
   },
   {
    "id": "36970240521-PUMP/USD",
@@ -474,7 +477,10 @@
    "t0": 1790920060,
    "entry": 0.005862,
    "btc0": 86032.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.005478,
+   "t1": 1791006460.0,
+   "move_pct": -6.551
   },
   {
    "id": "36989676264-XBT/USD",
@@ -485,7 +491,10 @@
    "t0": 1790933309,
    "entry": 86104.1,
    "btc0": 86104.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 84585.4,
+   "t1": 1791019709.0,
+   "move_pct": -1.764
   },
   {
    "id": "36989676264-ETH/USD",
@@ -496,7 +505,10 @@
    "t0": 1790933309,
    "entry": 2745.01,
    "btc0": 86104.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 2684.11,
+   "t1": 1791019709.0,
+   "move_pct": -2.219
   },
   {
    "id": "36995123091-AAVE/USD",
@@ -507,7 +519,10 @@
    "t0": 1790936877,
    "entry": 184.34,
    "btc0": 86308.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 181.25,
+   "t1": 1791023277.0,
+   "move_pct": -1.676
   },
   {
    "id": "36995123091-XBT/USD",
@@ -518,7 +533,10 @@
    "t0": 1790936878,
    "entry": 86308.7,
    "btc0": 86308.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 84563.5,
+   "t1": 1791023278.0,
+   "move_pct": -2.022
   },
   {
    "id": "37022147746-XBT/USD",
@@ -606,6 +624,28 @@
    "t0": 1791005375,
    "entry": 251.64,
    "btc0": 84608.8,
+   "status": "open"
+  },
+  {
+   "id": "37122834347-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791030682,
+   "entry": 84836.7,
+   "btc0": 84836.7,
+   "status": "open"
+  },
+  {
+   "id": "37122834347-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791030682,
+   "entry": 11.1,
+   "btc0": 84836.7,
    "status": "open"
   }
  ]
