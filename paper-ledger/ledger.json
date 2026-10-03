@@ -575,7 +575,10 @@
    "t0": 1790974334,
    "entry": 0.04682,
    "btc0": 84442.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.04854,
+   "t1": 1791060734.0,
+   "move_pct": 3.674
   },
   {
    "id": "37062803403-GBP/USD",
@@ -586,7 +589,10 @@
    "t0": 1790974334,
    "entry": 1.32372,
    "btc0": 84442.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.32256,
+   "t1": 1791060734.0,
+   "move_pct": -0.088
   },
   {
    "id": "37098904654-XBT/USD",
@@ -718,6 +724,28 @@
    "t0": 1791055366,
    "entry": 11.124,
    "btc0": 84833.1,
+   "status": "open"
+  },
+  {
+   "id": "37160675521-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791069068,
+   "entry": 0.006298,
+   "btc0": 84749.1,
+   "status": "open"
+  },
+  {
+   "id": "37160675521-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791069068,
+   "entry": 258.72,
+   "btc0": 84749.1,
    "status": "open"
   }
  ]
