@@ -697,6 +697,28 @@
    "entry": 84801.7,
    "btc0": 84801.7,
    "status": "open"
+  },
+  {
+   "id": "37147213223-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791055366,
+   "entry": 0.006325,
+   "btc0": 84833.1,
+   "status": "open"
+  },
+  {
+   "id": "37147213223-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791055366,
+   "entry": 11.124,
+   "btc0": 84833.1,
+   "status": "open"
   }
  ]
 }
