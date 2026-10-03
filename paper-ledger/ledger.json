@@ -647,6 +647,28 @@
    "entry": 11.1,
    "btc0": 84836.7,
    "status": "open"
+  },
+  {
+   "id": "37126161130-ZRO/USD",
+   "symbol": "ZRO/USD",
+   "pair": "ZROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791034358,
+   "entry": 2.074,
+   "btc0": 84806.8,
+   "status": "open"
+  },
+  {
+   "id": "37126161130-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791034358,
+   "entry": 84806.8,
+   "btc0": 84806.8,
+   "status": "open"
   }
  ]
 }
