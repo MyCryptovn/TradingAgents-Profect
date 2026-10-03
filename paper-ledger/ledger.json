@@ -547,7 +547,10 @@
    "t0": 1790952675,
    "entry": 85908.3,
    "btc0": 85908.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 84841.9,
+   "t1": 1791039075.0,
+   "move_pct": -1.241
   },
   {
    "id": "37022147746-ETH/USD",
@@ -558,7 +561,10 @@
    "t0": 1790952675,
    "entry": 2724.52,
    "btc0": 85908.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 2683.04,
+   "t1": 1791039075.0,
+   "move_pct": -1.522
   },
   {
    "id": "37062803403-NIGHT/USD",
@@ -668,6 +674,28 @@
    "t0": 1791034358,
    "entry": 84806.8,
    "btc0": 84806.8,
+   "status": "open"
+  },
+  {
+   "id": "37136843070-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791045127,
+   "entry": 1.1715,
+   "btc0": 84801.7,
+   "status": "open"
+  },
+  {
+   "id": "37136843070-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791045127,
+   "entry": 84801.7,
+   "btc0": 84801.7,
    "status": "open"
   }
  ]
