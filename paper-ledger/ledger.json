@@ -747,6 +747,39 @@
    "entry": 258.72,
    "btc0": 84749.1,
    "status": "open"
+  },
+  {
+   "id": "37173237256-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791083866,
+   "entry": 0.006389,
+   "btc0": 84796.7,
+   "status": "open"
+  },
+  {
+   "id": "37173237256-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791083867,
+   "entry": 1.1783,
+   "btc0": 84796.7,
+   "status": "open"
+  },
+  {
+   "id": "37173237256-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791083867,
+   "entry": 120.25,
+   "btc0": 84796.7,
+   "status": "open"
   }
  ]
 }
