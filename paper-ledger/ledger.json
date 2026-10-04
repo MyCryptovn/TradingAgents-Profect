@@ -715,7 +715,10 @@
    "t0": 1791045127,
    "entry": 1.1715,
    "btc0": 84801.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.2338,
+   "t1": 1791131527.0,
+   "move_pct": 5.318
   },
   {
    "id": "37136843070-XBT/USD",
@@ -726,7 +729,10 @@
    "t0": 1791045127,
    "entry": 84801.7,
    "btc0": 84801.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 85330.6,
+   "t1": 1791131527.0,
+   "move_pct": 0.624
   },
   {
    "id": "37147213223-PUMP/USD",
@@ -737,7 +743,10 @@
    "t0": 1791055366,
    "entry": 0.006325,
    "btc0": 84833.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.00645,
+   "t1": 1791141766.0,
+   "move_pct": 1.976
   },
   {
    "id": "37147213223-AVAX/USD",
@@ -748,7 +757,10 @@
    "t0": 1791055366,
    "entry": 11.124,
    "btc0": 84833.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 11.097,
+   "t1": 1791141766.0,
+   "move_pct": -0.243
   },
   {
    "id": "37160675521-PUMP/USD",
@@ -825,7 +837,13 @@
    "t0": 1791089415,
    "entry": 0.006388,
    "btc0": 84805.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.00677128,
+   "t1": 1791131400,
+   "reason": "TP",
+   "pnl_pct": 5.38,
+   "bench_pct": 0.507,
+   "mfe_pct": 6.45
   },
   {
    "id": "37177704620-NIGHT/USD",
@@ -1001,6 +1019,39 @@
    "t0": 1791126841,
    "entry": 121.9,
    "btc0": 85308.9,
+   "status": "open"
+  },
+  {
+   "id": "37229177438-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791143371,
+   "entry": 85439.5,
+   "btc0": 85439.5,
+   "status": "open"
+  },
+  {
+   "id": "37229177438-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791143372,
+   "entry": 0.006446,
+   "btc0": 85439.5,
+   "status": "open"
+  },
+  {
+   "id": "37229177438-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791143372,
+   "entry": 121.39,
+   "btc0": 85439.5,
    "status": "open"
   }
  ]
