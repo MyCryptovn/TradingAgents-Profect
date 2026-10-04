@@ -780,6 +780,39 @@
    "entry": 120.25,
    "btc0": 84796.7,
    "status": "open"
+  },
+  {
+   "id": "37177704620-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791089414,
+   "entry": 269.21,
+   "btc0": 84805.7,
+   "status": "open"
+  },
+  {
+   "id": "37177704620-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "BUY",
+   "raw": "OVERWEIGHT",
+   "t0": 1791089415,
+   "entry": 0.006388,
+   "btc0": 84805.7,
+   "status": "open"
+  },
+  {
+   "id": "37177704620-NIGHT/USD",
+   "symbol": "NIGHT/USD",
+   "pair": "NIGHTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791089415,
+   "entry": 0.04904,
+   "btc0": 84805.7,
+   "status": "open"
   }
  ]
 }
