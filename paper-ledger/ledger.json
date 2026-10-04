@@ -771,7 +771,10 @@
    "t0": 1791069068,
    "entry": 0.006298,
    "btc0": 84749.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006535,
+   "t1": 1791155468.0,
+   "move_pct": 3.763
   },
   {
    "id": "37160675521-QNT/USD",
@@ -782,7 +785,10 @@
    "t0": 1791069068,
    "entry": 258.72,
    "btc0": 84749.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 250.8,
+   "t1": 1791155468.0,
+   "move_pct": -3.061
   },
   {
    "id": "37173237256-PUMP/USD",
@@ -1052,6 +1058,39 @@
    "t0": 1791143372,
    "entry": 121.39,
    "btc0": 85439.5,
+   "status": "open"
+  },
+  {
+   "id": "37242983306-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791156492,
+   "entry": 86749.9,
+   "btc0": 86749.9,
+   "status": "open"
+  },
+  {
+   "id": "37242983306-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791156493,
+   "entry": 0.006499,
+   "btc0": 86749.9,
+   "status": "open"
+  },
+  {
+   "id": "37242983306-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791156493,
+   "entry": 0.262613,
+   "btc0": 86749.9,
    "status": "open"
   }
  ]
