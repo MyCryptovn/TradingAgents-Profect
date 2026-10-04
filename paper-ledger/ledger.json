@@ -858,6 +858,39 @@
    "entry": 265.9,
    "btc0": 84916.6,
    "status": "open"
+  },
+  {
+   "id": "37184840077-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791098140,
+   "entry": 0.006429,
+   "btc0": 84978.5,
+   "status": "open"
+  },
+  {
+   "id": "37184840077-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791098140,
+   "entry": 121.18,
+   "btc0": 84978.5,
+   "status": "open"
+  },
+  {
+   "id": "37184840077-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791098140,
+   "entry": 89.67,
+   "btc0": 84978.5,
+   "status": "open"
   }
  ]
 }
