@@ -603,7 +603,10 @@
    "t0": 1791004506,
    "entry": 84552.2,
    "btc0": 84552.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 84849.3,
+   "t1": 1791090906.0,
+   "move_pct": 0.351
   },
   {
    "id": "37098904654-QNT/USD",
@@ -614,7 +617,10 @@
    "t0": 1791004506,
    "entry": 248.48,
    "btc0": 84552.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 266.94,
+   "t1": 1791090906.0,
+   "move_pct": 7.429
   },
   {
    "id": "37099627724-XBT/USD",
@@ -625,7 +631,10 @@
    "t0": 1791005375,
    "entry": 84608.8,
    "btc0": 84608.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 84849.3,
+   "t1": 1791091775.0,
+   "move_pct": 0.284
   },
   {
    "id": "37099627724-QNT/USD",
@@ -636,7 +645,10 @@
    "t0": 1791005375,
    "entry": 251.64,
    "btc0": 84608.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 266.94,
+   "t1": 1791091775.0,
+   "move_pct": 6.08
   },
   {
    "id": "37122834347-XBT/USD",
@@ -812,6 +824,39 @@
    "t0": 1791089415,
    "entry": 0.04904,
    "btc0": 84805.7,
+   "status": "open"
+  },
+  {
+   "id": "37181419316-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791094036,
+   "entry": 0.006464,
+   "btc0": 84916.6,
+   "status": "open"
+  },
+  {
+   "id": "37181419316-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791094036,
+   "entry": 120.82,
+   "btc0": 84916.6,
+   "status": "open"
+  },
+  {
+   "id": "37181419316-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791094036,
+   "entry": 265.9,
+   "btc0": 84916.6,
    "status": "open"
   }
  ]
