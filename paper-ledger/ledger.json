@@ -659,7 +659,10 @@
    "t0": 1791030682,
    "entry": 84836.7,
    "btc0": 84836.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 85193.6,
+   "t1": 1791117082.0,
+   "move_pct": 0.421
   },
   {
    "id": "37122834347-AVAX/USD",
@@ -670,7 +673,10 @@
    "t0": 1791030682,
    "entry": 11.1,
    "btc0": 84836.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 10.989,
+   "t1": 1791117082.0,
+   "move_pct": -1.0
   },
   {
    "id": "37126161130-ZRO/USD",
@@ -681,7 +687,10 @@
    "t0": 1791034358,
    "entry": 2.074,
    "btc0": 84806.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.988,
+   "t1": 1791120758.0,
+   "move_pct": -4.147
   },
   {
    "id": "37126161130-XBT/USD",
@@ -692,7 +701,10 @@
    "t0": 1791034358,
    "entry": 84806.8,
    "btc0": 84806.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 85213.4,
+   "t1": 1791120758.0,
+   "move_pct": 0.479
   },
   {
    "id": "37136843070-SUI/USD",
@@ -923,6 +935,39 @@
    "t0": 1791108119,
    "entry": 0.04999,
    "btc0": 85215.1,
+   "status": "open"
+  },
+  {
+   "id": "37208012361-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791123288,
+   "entry": 85186.4,
+   "btc0": 85186.4,
+   "status": "open"
+  },
+  {
+   "id": "37208012361-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791123288,
+   "entry": 121.61,
+   "btc0": 85186.4,
+   "status": "open"
+  },
+  {
+   "id": "37208012361-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791123288,
+   "entry": 2696.41,
+   "btc0": 85186.4,
    "status": "open"
   }
  ]
