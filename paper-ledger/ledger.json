@@ -969,6 +969,39 @@
    "entry": 2696.41,
    "btc0": 85186.4,
    "status": "open"
+  },
+  {
+   "id": "37211715675-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791126840,
+   "entry": 85308.9,
+   "btc0": 85308.9,
+   "status": "open"
+  },
+  {
+   "id": "37211715675-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791126841,
+   "entry": 1.2259,
+   "btc0": 85308.9,
+   "status": "open"
+  },
+  {
+   "id": "37211715675-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791126841,
+   "entry": 121.9,
+   "btc0": 85308.9,
+   "status": "open"
   }
  ]
 }
