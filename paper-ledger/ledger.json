@@ -891,6 +891,39 @@
    "entry": 89.67,
    "btc0": 84978.5,
    "status": "open"
+  },
+  {
+   "id": "37193604083-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791108119,
+   "entry": 2701.67,
+   "btc0": 85215.1,
+   "status": "open"
+  },
+  {
+   "id": "37193604083-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791108119,
+   "entry": 121.26,
+   "btc0": 85215.1,
+   "status": "open"
+  },
+  {
+   "id": "37193604083-NIGHT/USD",
+   "symbol": "NIGHT/USD",
+   "pair": "NIGHTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791108119,
+   "entry": 0.04999,
+   "btc0": 85215.1,
+   "status": "open"
   }
  ]
 }
