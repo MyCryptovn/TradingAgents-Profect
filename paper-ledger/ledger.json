@@ -886,7 +886,10 @@
    "t0": 1791094036,
    "entry": 0.006464,
    "btc0": 84916.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006454,
+   "t1": 1791180436.0,
+   "move_pct": -0.155
   },
   {
    "id": "37181419316-SOL/USD",
@@ -897,7 +900,10 @@
    "t0": 1791094036,
    "entry": 120.82,
    "btc0": 84916.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 120.84,
+   "t1": 1791180436.0,
+   "move_pct": 0.017
   },
   {
    "id": "37181419316-QNT/USD",
@@ -908,7 +914,10 @@
    "t0": 1791094036,
    "entry": 265.9,
    "btc0": 84916.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 251.98,
+   "t1": 1791180436.0,
+   "move_pct": -5.235
   },
   {
    "id": "37184840077-PUMP/USD",
@@ -919,7 +928,10 @@
    "t0": 1791098140,
    "entry": 0.006429,
    "btc0": 84978.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006418,
+   "t1": 1791184540.0,
+   "move_pct": -0.171
   },
   {
    "id": "37184840077-SOL/USD",
@@ -930,7 +942,10 @@
    "t0": 1791098140,
    "entry": 121.18,
    "btc0": 84978.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 121.58,
+   "t1": 1791184540.0,
+   "move_pct": 0.33
   },
   {
    "id": "37184840077-HYPE/USD",
@@ -941,7 +956,10 @@
    "t0": 1791098140,
    "entry": 89.67,
    "btc0": 84978.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 92.03,
+   "t1": 1791184540.0,
+   "move_pct": 2.632
   },
   {
    "id": "37193604083-ETH/USD",
@@ -952,7 +970,10 @@
    "t0": 1791108119,
    "entry": 2701.67,
    "btc0": 85215.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 2716.54,
+   "t1": 1791194519.0,
+   "move_pct": 0.55
   },
   {
    "id": "37193604083-SOL/USD",
@@ -963,7 +984,10 @@
    "t0": 1791108119,
    "entry": 121.26,
    "btc0": 85215.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 120.63,
+   "t1": 1791194519.0,
+   "move_pct": -0.52
   },
   {
    "id": "37193604083-NIGHT/USD",
@@ -974,7 +998,10 @@
    "t0": 1791108119,
    "entry": 0.04999,
    "btc0": 85215.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.047,
+   "t1": 1791194519.0,
+   "move_pct": -5.981
   },
   {
    "id": "37208012361-XBT/USD",
@@ -1139,6 +1166,39 @@
    "t0": 1791176936,
    "entry": 0.267558,
    "btc0": 85523.5,
+   "status": "open"
+  },
+  {
+   "id": "37305374293-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791201447,
+   "entry": 0.272457,
+   "btc0": 86129.4,
+   "status": "open"
+  },
+  {
+   "id": "37305374293-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791201447,
+   "entry": 93.5,
+   "btc0": 86129.4,
+   "status": "open"
+  },
+  {
+   "id": "37305374293-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791201447,
+   "entry": 1.2407,
+   "btc0": 86129.4,
    "status": "open"
   }
  ]
