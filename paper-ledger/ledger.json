@@ -1012,7 +1012,10 @@
    "t0": 1791123288,
    "entry": 85186.4,
    "btc0": 85186.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 86618.0,
+   "t1": 1791209688.0,
+   "move_pct": 1.681
   },
   {
    "id": "37208012361-SOL/USD",
@@ -1023,7 +1026,10 @@
    "t0": 1791123288,
    "entry": 121.61,
    "btc0": 85186.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 121.01,
+   "t1": 1791209688.0,
+   "move_pct": -0.493
   },
   {
    "id": "37208012361-ETH/USD",
@@ -1034,7 +1040,10 @@
    "t0": 1791123288,
    "entry": 2696.41,
    "btc0": 85186.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 2727.87,
+   "t1": 1791209688.0,
+   "move_pct": 1.167
   },
   {
    "id": "37211715675-XBT/USD",
@@ -1045,7 +1054,10 @@
    "t0": 1791126840,
    "entry": 85308.9,
    "btc0": 85308.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 85504.5,
+   "t1": 1791213240.0,
+   "move_pct": 0.229
   },
   {
    "id": "37211715675-SUI/USD",
@@ -1056,7 +1068,10 @@
    "t0": 1791126841,
    "entry": 1.2259,
    "btc0": 85308.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.1901,
+   "t1": 1791213241.0,
+   "move_pct": -2.92
   },
   {
    "id": "37211715675-SOL/USD",
@@ -1067,7 +1082,10 @@
    "t0": 1791126841,
    "entry": 121.9,
    "btc0": 85308.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 119.62,
+   "t1": 1791213241.0,
+   "move_pct": -1.87
   },
   {
    "id": "37229177438-XBT/USD",
@@ -1199,6 +1217,39 @@
    "t0": 1791201447,
    "entry": 1.2407,
    "btc0": 86129.4,
+   "status": "open"
+  },
+  {
+   "id": "37346445549-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791220715,
+   "entry": 93.38,
+   "btc0": 85324.1,
+   "status": "open"
+  },
+  {
+   "id": "37346445549-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791220715,
+   "entry": 0.26505,
+   "btc0": 85324.1,
+   "status": "open"
+  },
+  {
+   "id": "37346445549-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791220715,
+   "entry": 85324.1,
+   "btc0": 85324.1,
    "status": "open"
   }
  ]
