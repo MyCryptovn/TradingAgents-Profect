@@ -799,7 +799,10 @@
    "t0": 1791083866,
    "entry": 0.006389,
    "btc0": 84796.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006405,
+   "t1": 1791170266.0,
+   "move_pct": 0.25
   },
   {
    "id": "37173237256-SUI/USD",
@@ -810,7 +813,10 @@
    "t0": 1791083867,
    "entry": 1.1783,
    "btc0": 84796.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.2337,
+   "t1": 1791170267.0,
+   "move_pct": 4.702
   },
   {
    "id": "37173237256-SOL/USD",
@@ -821,7 +827,10 @@
    "t0": 1791083867,
    "entry": 120.25,
    "btc0": 84796.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 121.02,
+   "t1": 1791170267.0,
+   "move_pct": 0.64
   },
   {
    "id": "37177704620-QNT/USD",
@@ -832,7 +841,10 @@
    "t0": 1791089414,
    "entry": 269.21,
    "btc0": 84805.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 248.88,
+   "t1": 1791175814.0,
+   "move_pct": -7.552
   },
   {
    "id": "37177704620-PUMP/USD",
@@ -860,7 +872,10 @@
    "t0": 1791089415,
    "entry": 0.04904,
    "btc0": 84805.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.04515,
+   "t1": 1791175815.0,
+   "move_pct": -7.932
   },
   {
    "id": "37181419316-PUMP/USD",
@@ -1091,6 +1106,39 @@
    "t0": 1791156493,
    "entry": 0.262613,
    "btc0": 86749.9,
+   "status": "open"
+  },
+  {
+   "id": "37265906230-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791176936,
+   "entry": 85523.5,
+   "btc0": 85523.5,
+   "status": "open"
+  },
+  {
+   "id": "37265906230-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791176936,
+   "entry": 1.2169,
+   "btc0": 85523.5,
+   "status": "open"
+  },
+  {
+   "id": "37265906230-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791176936,
+   "entry": 0.267558,
+   "btc0": 85523.5,
    "status": "open"
   }
  ]
