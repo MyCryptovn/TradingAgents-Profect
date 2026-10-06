@@ -1222,7 +1222,10 @@
    "t0": 1791201447,
    "entry": 0.272457,
    "btc0": 86129.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.279513,
+   "t1": 1791287847.0,
+   "move_pct": 2.59
   },
   {
    "id": "37305374293-HYPE/USD",
@@ -1233,7 +1236,10 @@
    "t0": 1791201447,
    "entry": 93.5,
    "btc0": 86129.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 93.72,
+   "t1": 1791287847.0,
+   "move_pct": 0.235
   },
   {
    "id": "37305374293-SUI/USD",
@@ -1244,7 +1250,10 @@
    "t0": 1791201447,
    "entry": 1.2407,
    "btc0": 86129.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.2052,
+   "t1": 1791287847.0,
+   "move_pct": -2.861
   },
   {
    "id": "37346445549-HYPE/USD",
@@ -1255,7 +1264,10 @@
    "t0": 1791220715,
    "entry": 93.38,
    "btc0": 85324.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 91.59,
+   "t1": 1791307115.0,
+   "move_pct": -1.917
   },
   {
    "id": "37346445549-ADA/USD",
@@ -1266,7 +1278,10 @@
    "t0": 1791220715,
    "entry": 0.26505,
    "btc0": 85324.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.272812,
+   "t1": 1791307115.0,
+   "move_pct": 2.929
   },
   {
    "id": "37346445549-XBT/USD",
@@ -1277,7 +1292,10 @@
    "t0": 1791220715,
    "entry": 85324.1,
    "btc0": 85324.1,
-   "status": "open"
+   "status": "closed",
+   "exit": 85624.8,
+   "t1": 1791307115.0,
+   "move_pct": 0.352
   },
   {
    "id": "37393764435-HYPE/USD",
@@ -1388,8 +1406,14 @@
    "t0": 1791256307,
    "entry": 5.2661,
    "btc0": 85523.0,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 5.108117,
+   "t1": 1791296100,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": 0.914,
+   "mfe_pct": 1.259
   },
   {
    "id": "37407160832-AVAX/USD",
@@ -1526,8 +1550,14 @@
    "t0": 1791285120,
    "entry": 5.2416,
    "btc0": 86099.9,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 5.084352,
+   "t1": 1791297000,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.102,
+   "mfe_pct": 0.63
   },
   {
    "id": "37453744352-AVAX/USD",
@@ -1618,8 +1648,14 @@
    "t0": 1791286463,
    "entry": 5.249,
    "btc0": 86274.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 5.09153,
+   "t1": 1791297000,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.304,
+   "mfe_pct": 0.299
   },
   {
    "id": "37455556119-AVAX/USD",
@@ -1664,6 +1700,98 @@
    "t0": 1791286463,
    "entry": 86274.6,
    "btc0": 86274.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37511171755-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791312386,
+   "entry": 11.47,
+   "btc0": 85579.2,
+   "status": "open"
+  },
+  {
+   "id": "37511171755-AVAX/USD-BASE",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791312386,
+   "entry": 11.47,
+   "btc0": 85579.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37511171755-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791312386,
+   "entry": 120.97,
+   "btc0": 85579.2,
+   "status": "open"
+  },
+  {
+   "id": "37511171755-SOL/USD-BASE",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791312386,
+   "entry": 120.97,
+   "btc0": 85579.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37511171755-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791312386,
+   "entry": 0.27163,
+   "btc0": 85579.2,
+   "status": "open"
+  },
+  {
+   "id": "37511171755-ADA/USD-BASE",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791312386,
+   "entry": 0.27163,
+   "btc0": 85579.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37511171755-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791312386,
+   "entry": 257.01,
+   "btc0": 85579.2,
+   "status": "open"
+  },
+  {
+   "id": "37511171755-QNT/USD-BASE",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791312386,
+   "entry": 257.01,
+   "btc0": 85579.2,
    "status": "open",
    "base": true
   }
