@@ -1574,6 +1574,98 @@
    "btc0": 86099.9,
    "status": "open",
    "base": true
+  },
+  {
+   "id": "37455556119-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791286463,
+   "entry": 0.277962,
+   "btc0": 86274.6,
+   "status": "open"
+  },
+  {
+   "id": "37455556119-ADA/USD-BASE",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791286463,
+   "entry": 0.277962,
+   "btc0": 86274.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37455556119-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791286463,
+   "entry": 5.249,
+   "btc0": 86274.6,
+   "status": "open"
+  },
+  {
+   "id": "37455556119-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791286463,
+   "entry": 5.249,
+   "btc0": 86274.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37455556119-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791286463,
+   "entry": 11.406,
+   "btc0": 86274.6,
+   "status": "open"
+  },
+  {
+   "id": "37455556119-AVAX/USD-BASE",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791286463,
+   "entry": 11.406,
+   "btc0": 86274.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37455556119-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791286463,
+   "entry": 86274.6,
+   "btc0": 86274.6,
+   "status": "open"
+  },
+  {
+   "id": "37455556119-XBT/USD-BASE",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791286463,
+   "entry": 86274.6,
+   "btc0": 86274.6,
+   "status": "open",
+   "base": true
   }
  ]
 }
