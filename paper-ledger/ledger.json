@@ -1180,7 +1180,10 @@
    "t0": 1791176936,
    "entry": 85523.5,
    "btc0": 85523.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 85681.5,
+   "t1": 1791263336.0,
+   "move_pct": 0.185
   },
   {
    "id": "37265906230-SUI/USD",
@@ -1191,7 +1194,10 @@
    "t0": 1791176936,
    "entry": 1.2169,
    "btc0": 85523.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.1945,
+   "t1": 1791263336.0,
+   "move_pct": -1.841
   },
   {
    "id": "37265906230-ADA/USD",
@@ -1202,7 +1208,10 @@
    "t0": 1791176936,
    "entry": 0.267558,
    "btc0": 85523.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.271421,
+   "t1": 1791263336.0,
+   "move_pct": 1.444
   },
   {
    "id": "37305374293-ADA/USD",
@@ -1402,6 +1411,75 @@
    "t0": 1791256307,
    "entry": 11.146,
    "btc0": 85523.0,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37424477591-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791268939,
+   "entry": 11.351,
+   "btc0": 85285.4,
+   "status": "open"
+  },
+  {
+   "id": "37424477591-AVAX/USD-BASE",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791268939,
+   "entry": 11.351,
+   "btc0": 85285.4,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37424477591-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791268939,
+   "entry": 5.1715,
+   "btc0": 85285.4,
+   "status": "open"
+  },
+  {
+   "id": "37424477591-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791268939,
+   "entry": 5.1715,
+   "btc0": 85285.4,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37424477591-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791268940,
+   "entry": 0.269352,
+   "btc0": 85285.4,
+   "status": "open"
+  },
+  {
+   "id": "37424477591-ADA/USD-BASE",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791268940,
+   "entry": 0.269352,
+   "btc0": 85285.4,
    "status": "open",
    "base": true
   }
