@@ -1335,6 +1335,75 @@
    "entry": 85922.7,
    "btc0": 85922.7,
    "status": "open"
+  },
+  {
+   "id": "37407160832-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791256306,
+   "entry": 93.82,
+   "btc0": 85523.0,
+   "status": "open"
+  },
+  {
+   "id": "37407160832-HYPE/USD-BASE",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791256306,
+   "entry": 93.82,
+   "btc0": 85523.0,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37407160832-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791256307,
+   "entry": 5.2661,
+   "btc0": 85523.0,
+   "status": "open"
+  },
+  {
+   "id": "37407160832-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791256307,
+   "entry": 5.2661,
+   "btc0": 85523.0,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37407160832-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791256307,
+   "entry": 11.146,
+   "btc0": 85523.0,
+   "status": "open"
+  },
+  {
+   "id": "37407160832-AVAX/USD-BASE",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791256307,
+   "entry": 11.146,
+   "btc0": 85523.0,
+   "status": "open",
+   "base": true
   }
  ]
 }
