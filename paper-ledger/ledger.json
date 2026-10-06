@@ -1096,7 +1096,10 @@
    "t0": 1791143371,
    "entry": 85439.5,
    "btc0": 85439.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 85730.2,
+   "t1": 1791229771.0,
+   "move_pct": 0.34
   },
   {
    "id": "37229177438-PUMP/USD",
@@ -1107,7 +1110,10 @@
    "t0": 1791143372,
    "entry": 0.006446,
    "btc0": 85439.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006345,
+   "t1": 1791229772.0,
+   "move_pct": -1.567
   },
   {
    "id": "37229177438-SOL/USD",
@@ -1118,7 +1124,10 @@
    "t0": 1791143372,
    "entry": 121.39,
    "btc0": 85439.5,
-   "status": "open"
+   "status": "closed",
+   "exit": 120.28,
+   "t1": 1791229772.0,
+   "move_pct": -0.914
   },
   {
    "id": "37242983306-XBT/USD",
@@ -1129,7 +1138,10 @@
    "t0": 1791156492,
    "entry": 86749.9,
    "btc0": 86749.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 85914.3,
+   "t1": 1791242892.0,
+   "move_pct": -0.963
   },
   {
    "id": "37242983306-PUMP/USD",
@@ -1140,7 +1152,10 @@
    "t0": 1791156493,
    "entry": 0.006499,
    "btc0": 86749.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006423,
+   "t1": 1791242893.0,
+   "move_pct": -1.169
   },
   {
    "id": "37242983306-ADA/USD",
@@ -1151,7 +1166,10 @@
    "t0": 1791156493,
    "entry": 0.262613,
    "btc0": 86749.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.271009,
+   "t1": 1791242893.0,
+   "move_pct": 3.197
   },
   {
    "id": "37265906230-XBT/USD",
@@ -1250,6 +1268,39 @@
    "t0": 1791220715,
    "entry": 85324.1,
    "btc0": 85324.1,
+   "status": "open"
+  },
+  {
+   "id": "37393764435-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791246701,
+   "entry": 94.54,
+   "btc0": 85864.4,
+   "status": "open"
+  },
+  {
+   "id": "37393764435-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791246701,
+   "entry": 0.270479,
+   "btc0": 85864.4,
+   "status": "open"
+  },
+  {
+   "id": "37393764435-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791246701,
+   "entry": 5.3367,
+   "btc0": 85864.4,
    "status": "open"
   }
  ]
