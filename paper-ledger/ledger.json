@@ -1302,6 +1302,39 @@
    "entry": 5.3367,
    "btc0": 85864.4,
    "status": "open"
+  },
+  {
+   "id": "37398539170-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791250008,
+   "entry": 94.32,
+   "btc0": 85922.7,
+   "status": "open"
+  },
+  {
+   "id": "37398539170-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791250008,
+   "entry": 5.2793,
+   "btc0": 85922.7,
+   "status": "open"
+  },
+  {
+   "id": "37398539170-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791250008,
+   "entry": 85922.7,
+   "btc0": 85922.7,
+   "status": "open"
   }
  ]
 }
