@@ -16,7 +16,7 @@ from dataclasses import dataclass
 
 API = "https://api.kraken.com/0/public/"
 TOP_N = 4
-PREFILTER_N = 10
+PREFILTER_N = 20
 MIN_VOLUME_USD = 1_000_000.0
 TIMEFRAMES = (15, 60, 240)
 
@@ -170,7 +170,7 @@ def main() -> int:
         tightness = 1.0 - percentile(spreads, r[4])
         activity = percentile(ranges, r[5])
         momentum = percentile(changes, r[6])
-        score = 0.45 * liquidity + 0.25 * tightness + 0.15 * activity + 0.15 * momentum
+        score = 0.25 * liquidity + 0.15 * tightness + 0.30 * activity + 0.30 * momentum
         pre.append((score, r))
     pre.sort(key=lambda x: x[0], reverse=True)
 
