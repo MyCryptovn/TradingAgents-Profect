@@ -125,6 +125,8 @@ def record():
         led["trades"].append({"id": tid, "symbol": sym, "pair": p, "action": act, "raw": raw,
                               "t0": now(), "entry": entry, "btc0": btc0, "status": "open"})
         print("Ghi:", sym, act, entry)
+        if any(t.get("base") and t["symbol"] == sym and t["status"] == "open" for t in led["trades"]):
+           continue
         base = dict(led["trades"][-1], id=tid + "-BASE", action="BUY", raw="BASELINE", base=True)
         led["trades"].append(base)
     save(led)
