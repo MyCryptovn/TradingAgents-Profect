@@ -1527,8 +1527,14 @@
    "t0": 1791285120,
    "entry": 0.276527,
    "btc0": 86099.9,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 0.26823119,
+   "t1": 1791323100,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.609,
+   "mfe_pct": 1.235
   },
   {
    "id": "37453744352-NEAR/USD",
@@ -1625,8 +1631,14 @@
    "t0": 1791286463,
    "entry": 0.277962,
    "btc0": 86274.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 0.26962314,
+   "t1": 1791314100,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.917,
+   "mfe_pct": 0.711
   },
   {
    "id": "37455556119-NEAR/USD",
@@ -1792,6 +1804,98 @@
    "t0": 1791312386,
    "entry": 257.01,
    "btc0": 85579.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37548815675-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791331441,
+   "entry": 11.597,
+   "btc0": 85509.8,
+   "status": "open"
+  },
+  {
+   "id": "37548815675-AVAX/USD-BASE",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791331441,
+   "entry": 11.597,
+   "btc0": 85509.8,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37548815675-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791331441,
+   "entry": 120.53,
+   "btc0": 85509.8,
+   "status": "open"
+  },
+  {
+   "id": "37548815675-SOL/USD-BASE",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791331441,
+   "entry": 120.53,
+   "btc0": 85509.8,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37548815675-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791331441,
+   "entry": 265.51,
+   "btc0": 85509.8,
+   "status": "open"
+  },
+  {
+   "id": "37548815675-QNT/USD-BASE",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791331441,
+   "entry": 265.51,
+   "btc0": 85509.8,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37548815675-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791331441,
+   "entry": 5.0728,
+   "btc0": 85509.8,
+   "status": "open"
+  },
+  {
+   "id": "37548815675-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791331441,
+   "entry": 5.0728,
+   "btc0": 85509.8,
    "status": "open",
    "base": true
   }

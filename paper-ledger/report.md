@@ -1,5 +1,5 @@
 # Báo cáo paper trading
-Cập nhật: 2026-10-06 18:46 UTC
+Cập nhật: 2026-10-07 00:04 UTC
 
 - Lệnh đã chốt: **4** | đang mở: 0 | HOLD đã chấm: 88
 - Thiết lập: giữ tối đa 24h, SL 3%, TP 6%, chi phí khứ hồi 0.62%
@@ -29,6 +29,6 @@ Cập nhật: 2026-10-06 18:46 UTC
 - Biến động trung bình có dấu: -0.86%
 
 ## Baseline (mua theo scanner, không qua hội đồng)
-- Số lệnh: 3 | Win rate: 0.0%
+- Số lệnh: 5 | Win rate: 0.0%
 - PnL trung bình/lệnh: -3.620%
-- Tổng PnL (cộng dồn): -10.86%
+- Tổng PnL (cộng dồn): -18.10%
