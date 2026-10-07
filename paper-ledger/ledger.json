@@ -2324,6 +2324,74 @@
    "entry": 1327.74,
    "btc0": 82990.3,
    "status": "open"
+  },
+  {
+   "id": "37645065274-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791388043,
+   "entry": 11.153,
+   "btc0": 83293.7,
+   "status": "open"
+  },
+  {
+   "id": "37645065274-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791388043,
+   "entry": 116.59,
+   "btc0": 83293.7,
+   "status": "open"
+  },
+  {
+   "id": "37645065274-SOL/USD-BASE",
+   "symbol": "SOL/USD",
+   "pair": "SOLUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791388043,
+   "entry": 116.59,
+   "btc0": 83293.7,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37645065274-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791388043,
+   "entry": 1329.59,
+   "btc0": 83293.7,
+   "status": "open"
+  },
+  {
+   "id": "37645065274-ZEUS/USD",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791388044,
+   "entry": 0.01441,
+   "btc0": 83293.7,
+   "status": "open"
+  },
+  {
+   "id": "37645065274-ZEUS/USD-BASE",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791388044,
+   "entry": 0.01441,
+   "btc0": 83293.7,
+   "status": "open",
+   "base": true
   }
  ]
 }
