@@ -1306,7 +1306,10 @@
    "t0": 1791246701,
    "entry": 94.54,
    "btc0": 85864.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 92.21,
+   "t1": 1791333101.0,
+   "move_pct": -2.465
   },
   {
    "id": "37393764435-ADA/USD",
@@ -1317,7 +1320,10 @@
    "t0": 1791246701,
    "entry": 0.270479,
    "btc0": 85864.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.267223,
+   "t1": 1791333101.0,
+   "move_pct": -1.204
   },
   {
    "id": "37393764435-NEAR/USD",
@@ -1328,7 +1334,10 @@
    "t0": 1791246701,
    "entry": 5.3367,
    "btc0": 85864.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.1354,
+   "t1": 1791333101.0,
+   "move_pct": -3.772
   },
   {
    "id": "37398539170-HYPE/USD",
@@ -1339,7 +1348,10 @@
    "t0": 1791250008,
    "entry": 94.32,
    "btc0": 85922.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 91.54,
+   "t1": 1791336408.0,
+   "move_pct": -2.947
   },
   {
    "id": "37398539170-NEAR/USD",
@@ -1350,7 +1362,10 @@
    "t0": 1791250008,
    "entry": 5.2793,
    "btc0": 85922.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.1003,
+   "t1": 1791336408.0,
+   "move_pct": -3.391
   },
   {
    "id": "37398539170-XBT/USD",
@@ -1361,7 +1376,10 @@
    "t0": 1791250008,
    "entry": 85922.7,
    "btc0": 85922.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 85257.3,
+   "t1": 1791336408.0,
+   "move_pct": -0.774
   },
   {
    "id": "37407160832-HYPE/USD",
@@ -1372,7 +1390,10 @@
    "t0": 1791256306,
    "entry": 93.82,
    "btc0": 85523.0,
-   "status": "open"
+   "status": "closed",
+   "exit": 90.7,
+   "t1": 1791342706.0,
+   "move_pct": -3.326
   },
   {
    "id": "37407160832-HYPE/USD-BASE",
@@ -1383,8 +1404,14 @@
    "t0": 1791256306,
    "entry": 93.82,
    "btc0": 85523.0,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 91.0054,
+   "t1": 1791337500,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.277,
+   "mfe_pct": 0.096
   },
   {
    "id": "37407160832-NEAR/USD",
@@ -1395,7 +1422,10 @@
    "t0": 1791256307,
    "entry": 5.2661,
    "btc0": 85523.0,
-   "status": "open"
+   "status": "closed",
+   "exit": 4.9387,
+   "t1": 1791342707.0,
+   "move_pct": -6.217
   },
   {
    "id": "37407160832-NEAR/USD-BASE",
@@ -1424,7 +1454,10 @@
    "t0": 1791256307,
    "entry": 11.146,
    "btc0": 85523.0,
-   "status": "open"
+   "status": "closed",
+   "exit": 10.95,
+   "t1": 1791342707.0,
+   "move_pct": -1.758
   },
   {
    "id": "37407160832-AVAX/USD-BASE",
@@ -1435,8 +1468,14 @@
    "t0": 1791256307,
    "entry": 11.146,
    "btc0": 85523.0,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 10.811620000000001,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.346,
+   "mfe_pct": 5.204
   },
   {
    "id": "37424477591-AVAX/USD",
@@ -1458,8 +1497,14 @@
    "t0": 1791268939,
    "entry": 11.351,
    "btc0": 85285.4,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 11.01047,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.071,
+   "mfe_pct": 3.304
   },
   {
    "id": "37424477591-NEAR/USD",
@@ -1481,8 +1526,14 @@
    "t0": 1791268939,
    "entry": 5.1715,
    "btc0": 85285.4,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 5.016355,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.071,
+   "mfe_pct": 3.111
   },
   {
    "id": "37424477591-ADA/USD",
@@ -1504,8 +1555,14 @@
    "t0": 1791268940,
    "entry": 0.269352,
    "btc0": 85285.4,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 0.26127143999999997,
+   "t1": 1791337500,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": 0.001,
+   "mfe_pct": 4.881
   },
   {
    "id": "37453744352-ADA/USD",
@@ -1585,8 +1642,14 @@
    "t0": 1791285121,
    "entry": 11.355,
    "btc0": 86099.9,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 11.01435,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -2.007,
+   "mfe_pct": 3.267
   },
   {
    "id": "37453744352-XBT/USD",
@@ -1689,8 +1752,14 @@
    "t0": 1791286463,
    "entry": 11.406,
    "btc0": 86274.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 11.06382,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -2.206,
+   "mfe_pct": 2.806
   },
   {
    "id": "37455556119-XBT/USD",
@@ -1712,8 +1781,14 @@
    "t0": 1791286463,
    "entry": 86274.6,
    "btc0": 86274.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 83686.36200000001,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -2.206,
+   "mfe_pct": 0.474
   },
   {
    "id": "37511171755-AVAX/USD",
@@ -1735,8 +1810,14 @@
    "t0": 1791312386,
    "entry": 11.47,
    "btc0": 85579.2,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 11.1259,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.411,
+   "mfe_pct": 2.232
   },
   {
    "id": "37511171755-SOL/USD",
@@ -1758,8 +1839,14 @@
    "t0": 1791312386,
    "entry": 120.97,
    "btc0": 85579.2,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 117.34089999999999,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.411,
+   "mfe_pct": 0.405
   },
   {
    "id": "37511171755-ADA/USD",
@@ -1781,8 +1868,14 @@
    "t0": 1791312386,
    "entry": 0.27163,
    "btc0": 85579.2,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 0.26348109999999997,
+   "t1": 1791336600,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.376,
+   "mfe_pct": 0.103
   },
   {
    "id": "37511171755-QNT/USD",
@@ -1827,8 +1920,14 @@
    "t0": 1791331441,
    "entry": 11.597,
    "btc0": 85509.8,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 11.249089999999999,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.331,
+   "mfe_pct": 0.492
   },
   {
    "id": "37548815675-SOL/USD",
@@ -1873,8 +1972,14 @@
    "t0": 1791331441,
    "entry": 265.51,
    "btc0": 85509.8,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 257.5447,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.331,
+   "mfe_pct": 1.687
   },
   {
    "id": "37548815675-NEAR/USD",
@@ -1896,6 +2001,104 @@
    "t0": 1791331441,
    "entry": 5.0728,
    "btc0": 85509.8,
+   "status": "closed",
+   "base": true,
+   "exit": 4.920616,
+   "t1": 1791338400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.331,
+   "mfe_pct": 1.741
+  },
+  {
+   "id": "37573635251-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791349375,
+   "entry": 0.006305,
+   "btc0": 84101.6,
+   "status": "open"
+  },
+  {
+   "id": "37573635251-PUMP/USD-BASE",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791349375,
+   "entry": 0.006305,
+   "btc0": 84101.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37573635251-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791349375,
+   "entry": 1318.84,
+   "btc0": 84101.6,
+   "status": "open"
+  },
+  {
+   "id": "37573635251-ZEC/USD-BASE",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791349375,
+   "entry": 1318.84,
+   "btc0": 84101.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37573635251-GBP/USD",
+   "symbol": "GBP/USD",
+   "pair": "GBPUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791349375,
+   "entry": 1.32456,
+   "btc0": 84101.6,
+   "status": "open"
+  },
+  {
+   "id": "37573635251-GBP/USD-BASE",
+   "symbol": "GBP/USD",
+   "pair": "GBPUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791349375,
+   "entry": 1.32456,
+   "btc0": 84101.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37573635251-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791349375,
+   "entry": 4.9591,
+   "btc0": 84101.6,
+   "status": "open"
+  },
+  {
+   "id": "37573635251-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791349375,
+   "entry": 4.9591,
+   "btc0": 84101.6,
    "status": "open",
    "base": true
   }
