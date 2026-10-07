@@ -1897,8 +1897,14 @@
    "t0": 1791312386,
    "entry": 257.01,
    "btc0": 85579.2,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 249.29969999999997,
+   "t1": 1791349200,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.757,
+   "mfe_pct": 5.05
   },
   {
    "id": "37548815675-AVAX/USD",
@@ -2099,6 +2105,98 @@
    "t0": 1791349375,
    "entry": 4.9591,
    "btc0": 84101.6,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37579605547-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791353669,
+   "entry": 0.006476,
+   "btc0": 84272.2,
+   "status": "open"
+  },
+  {
+   "id": "37579605547-PUMP/USD-BASE",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791353669,
+   "entry": 0.006476,
+   "btc0": 84272.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37579605547-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791353669,
+   "entry": 11.249,
+   "btc0": 84272.2,
+   "status": "open"
+  },
+  {
+   "id": "37579605547-AVAX/USD-BASE",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791353669,
+   "entry": 11.249,
+   "btc0": 84272.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37579605547-SAND/USD",
+   "symbol": "SAND/USD",
+   "pair": "SANDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791353669,
+   "entry": 0.0745,
+   "btc0": 84272.2,
+   "status": "open"
+  },
+  {
+   "id": "37579605547-SAND/USD-BASE",
+   "symbol": "SAND/USD",
+   "pair": "SANDUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791353669,
+   "entry": 0.0745,
+   "btc0": 84272.2,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37579605547-GBP/USD",
+   "symbol": "GBP/USD",
+   "pair": "GBPUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791353669,
+   "entry": 1.3244,
+   "btc0": 84272.2,
+   "status": "open"
+  },
+  {
+   "id": "37579605547-GBP/USD-BASE",
+   "symbol": "GBP/USD",
+   "pair": "GBPUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791353669,
+   "entry": 1.3244,
+   "btc0": 84272.2,
    "status": "open",
    "base": true
   }
