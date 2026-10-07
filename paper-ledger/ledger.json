@@ -1838,7 +1838,10 @@
    "t0": 1791312386,
    "entry": 11.47,
    "btc0": 85579.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 11.222,
+   "t1": 1791398786.0,
+   "move_pct": -2.162
   },
   {
    "id": "37511171755-AVAX/USD-BASE",
@@ -1867,7 +1870,10 @@
    "t0": 1791312386,
    "entry": 120.97,
    "btc0": 85579.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 116.06,
+   "t1": 1791398786.0,
+   "move_pct": -4.059
   },
   {
    "id": "37511171755-SOL/USD-BASE",
@@ -1896,7 +1902,10 @@
    "t0": 1791312386,
    "entry": 0.27163,
    "btc0": 85579.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.256654,
+   "t1": 1791398786.0,
+   "move_pct": -5.513
   },
   {
    "id": "37511171755-ADA/USD-BASE",
@@ -1925,7 +1934,10 @@
    "t0": 1791312386,
    "entry": 257.01,
    "btc0": 85579.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 252.1,
+   "t1": 1791398786.0,
+   "move_pct": -1.91
   },
   {
    "id": "37511171755-QNT/USD-BASE",
@@ -2156,8 +2168,14 @@
    "t0": 1791349375,
    "entry": 4.9591,
    "btc0": 84101.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 5.256646000000001,
+   "t1": 1791396900,
+   "reason": "TP",
+   "pnl_pct": 5.38,
+   "bench_pct": -0.958,
+   "mfe_pct": 6.257
   },
   {
    "id": "37579605547-PUMP/USD",
@@ -2390,8 +2408,82 @@
    "t0": 1791388044,
    "entry": 0.01441,
    "btc0": 83293.7,
+   "status": "closed",
+   "base": true,
+   "exit": 0.0139777,
+   "t1": 1791388800,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": 0.146,
+   "mfe_pct": 0.0
+  },
+  {
+   "id": "37688615797-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791408952,
+   "entry": 5.2802,
+   "btc0": 83248.4,
+   "status": "open"
+  },
+  {
+   "id": "37688615797-RAY/USD",
+   "symbol": "RAY/USD",
+   "pair": "RAYUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791408953,
+   "entry": 2.476,
+   "btc0": 83248.4,
+   "status": "open"
+  },
+  {
+   "id": "37688615797-RAY/USD-BASE",
+   "symbol": "RAY/USD",
+   "pair": "RAYUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791408953,
+   "entry": 2.476,
+   "btc0": 83248.4,
    "status": "open",
    "base": true
+  },
+  {
+   "id": "37688615797-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791408953,
+   "entry": 0.006176,
+   "btc0": 83248.4,
+   "status": "open"
+  },
+  {
+   "id": "37688615797-PUMP/USD-BASE",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791408953,
+   "entry": 0.006176,
+   "btc0": 83248.4,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37688615797-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791408953,
+   "entry": 11.155,
+   "btc0": 83248.4,
+   "status": "open"
   }
  ]
 }
