@@ -2577,8 +2577,14 @@
    "t0": 1791429300,
    "entry": 5.3,
    "btc0": 82860.9,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 5.141,
+   "t1": 1791456300,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.249,
+   "mfe_pct": 5.562
   },
   {
    "id": "37721044765-INJ/USD",
@@ -2734,6 +2740,99 @@
    "status": "open",
    "spread": 0.0006986555359493858,
    "base": true
+  },
+  {
+   "id": "37770173909-ZEUS/USD",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791459523,
+   "entry": 0.01249,
+   "btc0": 82449.9,
+   "status": "open",
+   "spread": 0.007980845969672737
+  },
+  {
+   "id": "37770173909-ZEUS/USD-BASE",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791459523,
+   "entry": 0.01249,
+   "btc0": 82449.9,
+   "status": "closed",
+   "spread": 0.007980845969672737,
+   "base": true,
+   "exit": 0.0132394,
+   "t1": 1791459000,
+   "reason": "TP",
+   "pnl_pct": 4.582,
+   "bench_pct": 0.054,
+   "mfe_pct": 6.245
+  },
+  {
+   "id": "37770173909-MET/USD",
+   "symbol": "MET/USD",
+   "pair": "METUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791459523,
+   "entry": 0.4774,
+   "btc0": 82449.9,
+   "status": "open",
+   "spread": 0.0020964360587002115
+  },
+  {
+   "id": "37770173909-MET/USD-BASE",
+   "symbol": "MET/USD",
+   "pair": "METUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791459523,
+   "entry": 0.4774,
+   "btc0": 82449.9,
+   "status": "open",
+   "spread": 0.0020964360587002115,
+   "base": true
+  },
+  {
+   "id": "37770173909-RAY/USD",
+   "symbol": "RAY/USD",
+   "pair": "RAYUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791459523,
+   "entry": 2.447,
+   "btc0": 82449.9,
+   "status": "open",
+   "spread": 0.0016346546791990205
+  },
+  {
+   "id": "37770173909-RAY/USD-BASE",
+   "symbol": "RAY/USD",
+   "pair": "RAYUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791459523,
+   "entry": 2.447,
+   "btc0": 82449.9,
+   "status": "open",
+   "spread": 0.0016346546791990205,
+   "base": true
+  },
+  {
+   "id": "37770173909-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791459524,
+   "entry": 5.0734,
+   "btc0": 82449.9,
+   "status": "open",
+   "spread": 0.0004731488052992145
   }
  ]
 }
