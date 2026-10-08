@@ -2350,7 +2350,10 @@
    "t0": 1791382807,
    "entry": 0.006251,
    "btc0": 82990.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.005817,
+   "t1": 1791469207.0,
+   "move_pct": -6.943
   },
   {
    "id": "37633971988-NEAR/USD",
@@ -2361,7 +2364,10 @@
    "t0": 1791382807,
    "entry": 5.0217,
    "btc0": 82990.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.0241,
+   "t1": 1791469207.0,
+   "move_pct": 0.048
   },
   {
    "id": "37633971988-ZEUS/USD",
@@ -2372,7 +2378,10 @@
    "t0": 1791382808,
    "entry": 0.01545,
    "btc0": 82990.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.012,
+   "t1": 1791469208.0,
+   "move_pct": -22.33
   },
   {
    "id": "37633971988-ZEUS/USD-BASE",
@@ -2401,7 +2410,10 @@
    "t0": 1791382808,
    "entry": 1327.74,
    "btc0": 82990.3,
-   "status": "open"
+   "status": "closed",
+   "exit": 1210.94,
+   "t1": 1791469208.0,
+   "move_pct": -8.797
   },
   {
    "id": "37645065274-AVAX/USD",
@@ -2412,7 +2424,10 @@
    "t0": 1791388043,
    "entry": 11.153,
    "btc0": 83293.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 10.105,
+   "t1": 1791474443.0,
+   "move_pct": -9.397
   },
   {
    "id": "37645065274-SOL/USD",
@@ -2423,7 +2438,10 @@
    "t0": 1791388043,
    "entry": 116.59,
    "btc0": 83293.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 109.52,
+   "t1": 1791474443.0,
+   "move_pct": -6.064
   },
   {
    "id": "37645065274-SOL/USD-BASE",
@@ -2434,8 +2452,14 @@
    "t0": 1791388043,
    "entry": 116.59,
    "btc0": 83293.7,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 113.0923,
+   "t1": 1791459900,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.876,
+   "mfe_pct": 0.506
   },
   {
    "id": "37645065274-ZEC/USD",
@@ -2446,7 +2470,10 @@
    "t0": 1791388043,
    "entry": 1329.59,
    "btc0": 83293.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 1137.85,
+   "t1": 1791474443.0,
+   "move_pct": -14.421
   },
   {
    "id": "37645065274-ZEUS/USD",
@@ -2457,7 +2484,10 @@
    "t0": 1791388044,
    "entry": 0.01441,
    "btc0": 83293.7,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.01178,
+   "t1": 1791474444.0,
+   "move_pct": -18.251
   },
   {
    "id": "37645065274-ZEUS/USD-BASE",
@@ -2606,8 +2636,14 @@
    "t0": 1791429301,
    "entry": 7.462,
    "btc0": 82860.9,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 7.23814,
+   "t1": 1791464400,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.732,
+   "mfe_pct": 0.027
   },
   {
    "id": "37721044765-ZEUS/USD",
@@ -2712,9 +2748,15 @@
    "t0": 1791440419,
    "entry": 1.1241,
    "btc0": 82785.6,
-   "status": "open",
+   "status": "closed",
    "spread": 8.895610016455897e-05,
-   "base": true
+   "base": true,
+   "exit": 1.0903770000000002,
+   "t1": 1791464400,
+   "reason": "SL",
+   "pnl_pct": -3.629,
+   "bench_pct": -0.642,
+   "mfe_pct": 1.406
   },
   {
    "id": "37736209148-XMR/USD",
@@ -2737,9 +2779,15 @@
    "t0": 1791440420,
    "entry": 558.6,
    "btc0": 82785.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006986555359493858,
-   "base": true
+   "base": true,
+   "exit": 541.842,
+   "t1": 1791460800,
+   "reason": "SL",
+   "pnl_pct": -3.69,
+   "bench_pct": -0.419,
+   "mfe_pct": 0.743
   },
   {
    "id": "37770173909-ZEUS/USD",
@@ -2793,9 +2841,15 @@
    "t0": 1791459523,
    "entry": 0.4774,
    "btc0": 82449.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0020964360587002115,
-   "base": true
+   "base": true,
+   "exit": 0.463078,
+   "t1": 1791462600,
+   "reason": "SL",
+   "pnl_pct": -3.83,
+   "bench_pct": -0.048,
+   "mfe_pct": 0.0
   },
   {
    "id": "37770173909-RAY/USD",
@@ -2818,9 +2872,15 @@
    "t0": 1791459523,
    "entry": 2.447,
    "btc0": 82449.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0016346546791990205,
-   "base": true
+   "base": true,
+   "exit": 2.37359,
+   "t1": 1791464400,
+   "reason": "SL",
+   "pnl_pct": -3.783,
+   "bench_pct": -0.237,
+   "mfe_pct": 1.349
   },
   {
    "id": "37770173909-NEAR/USD",
@@ -2833,6 +2893,106 @@
    "btc0": 82449.9,
    "status": "open",
    "spread": 0.0004731488052992145
+  },
+  {
+   "id": "37802669377-W/USD",
+   "symbol": "W/USD",
+   "pair": "WUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791474656,
+   "entry": 0.01525,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.0006555227794165581
+  },
+  {
+   "id": "37802669377-W/USD-BASE",
+   "symbol": "W/USD",
+   "pair": "WUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791474656,
+   "entry": 0.01525,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.0006555227794165581,
+   "base": true
+  },
+  {
+   "id": "37802669377-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791474656,
+   "entry": 0.0608,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.0009900990099010643
+  },
+  {
+   "id": "37802669377-STRK/USD-BASE",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791474656,
+   "entry": 0.0608,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.0009900990099010643,
+   "base": true
+  },
+  {
+   "id": "37802669377-ZEUS/USD",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "SELL",
+   "raw": "UNDERWEIGHT",
+   "t0": 1791474656,
+   "entry": 0.01178,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.007662835249042129
+  },
+  {
+   "id": "37802669377-ZEUS/USD-BASE",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791474656,
+   "entry": 0.01178,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.007662835249042129,
+   "base": true
+  },
+  {
+   "id": "37802669377-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791474656,
+   "entry": 4.7214,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.0004869837707365034
+  },
+  {
+   "id": "37802669377-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791474656,
+   "entry": 4.7214,
+   "btc0": 81431.2,
+   "status": "open",
+   "spread": 0.0004869837707365034,
+   "base": true
   }
  ]
 }
