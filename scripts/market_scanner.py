@@ -164,6 +164,8 @@ def main() -> int:
     spreads = [r[4] for r in rows]
     ranges = [r[5] for r in rows]
     changes = [r[6] for r in rows]
+    top_change = sorted(rows, key=lambda r: r[6], reverse=True)[:10]
+    print("TOP GAINERS 24H:", [(r[1], round(r[6] * 100, 1), round(r[3])) for r in top_change])
     pre = []
     for r in rows:
         liquidity = percentile(volumes, math.log1p(r[3]))
