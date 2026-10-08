@@ -1966,7 +1966,10 @@
    "t0": 1791331441,
    "entry": 11.597,
    "btc0": 85509.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 11.104,
+   "t1": 1791417841.0,
+   "move_pct": -4.251
   },
   {
    "id": "37548815675-AVAX/USD-BASE",
@@ -1995,7 +1998,10 @@
    "t0": 1791331441,
    "entry": 120.53,
    "btc0": 85509.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 116.24,
+   "t1": 1791417841.0,
+   "move_pct": -3.559
   },
   {
    "id": "37548815675-SOL/USD-BASE",
@@ -2024,7 +2030,10 @@
    "t0": 1791331441,
    "entry": 265.51,
    "btc0": 85509.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 254.56,
+   "t1": 1791417841.0,
+   "move_pct": -4.124
   },
   {
    "id": "37548815675-QNT/USD-BASE",
@@ -2053,7 +2062,10 @@
    "t0": 1791331441,
    "entry": 5.0728,
    "btc0": 85509.8,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.3396,
+   "t1": 1791417841.0,
+   "move_pct": 5.259
   },
   {
    "id": "37548815675-NEAR/USD-BASE",
@@ -2484,6 +2496,98 @@
    "entry": 11.155,
    "btc0": 83248.4,
    "status": "open"
+  },
+  {
+   "id": "37721044765-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791429300,
+   "entry": 5.3,
+   "btc0": 82860.9,
+   "status": "open"
+  },
+  {
+   "id": "37721044765-NEAR/USD-BASE",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791429300,
+   "entry": 5.3,
+   "btc0": 82860.9,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37721044765-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791429301,
+   "entry": 7.462,
+   "btc0": 82860.9,
+   "status": "open"
+  },
+  {
+   "id": "37721044765-INJ/USD-BASE",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791429301,
+   "entry": 7.462,
+   "btc0": 82860.9,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37721044765-ZEUS/USD",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791429301,
+   "entry": 0.01335,
+   "btc0": 82860.9,
+   "status": "open"
+  },
+  {
+   "id": "37721044765-ZEUS/USD-BASE",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791429301,
+   "entry": 0.01335,
+   "btc0": 82860.9,
+   "status": "open",
+   "base": true
+  },
+  {
+   "id": "37721044765-ZRO/USD",
+   "symbol": "ZRO/USD",
+   "pair": "ZROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791429301,
+   "entry": 2.189,
+   "btc0": 82860.9,
+   "status": "open"
+  },
+  {
+   "id": "37721044765-ZRO/USD-BASE",
+   "symbol": "ZRO/USD",
+   "pair": "ZROUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791429301,
+   "entry": 2.189,
+   "btc0": 82860.9,
+   "status": "open",
+   "base": true
   }
  ]
 }
