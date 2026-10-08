@@ -47,6 +47,10 @@ def price(pair):
     return float(next(iter(res.values()))["c"][0])
 
 
+def spread(pair):
+    t = next(iter(get("Ticker", pair=pair).values()))
+    a, b = float(t["a"][0]), float(t["b"][0])
+    return (a - b) / ((a + b) / 2)
 def price_at(pair, ts):
     rows = candles(pair, ts - 900)
     return float(rows[0][4]) if rows else price(pair)
@@ -119,11 +123,12 @@ def record():
         try:
             p = pair_of(sym)
             entry = price(p)
+            sp = spread(p)
         except Exception as e:
             print("Bỏ qua", sym, e)
             continue
         led["trades"].append({"id": tid, "symbol": sym, "pair": p, "action": act, "raw": raw,
-                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open"})
+                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp})
         print("Ghi:", sym, act, entry)
         if any(t.get("base") and t["symbol"] == sym and t["status"] == "open" for t in led["trades"]):
            continue
@@ -165,7 +170,7 @@ def settle(t):
         exit_px, reason, t1 = price_at(t["pair"], end), "TIME", end
     b1 = price_at("XBTUSD", t1)
     t.update(status="closed", exit=exit_px, t1=t1, reason=reason,
-             pnl_pct=round((d * (exit_px / e - 1) - COST) * 100, 3),
+             pnl_pct=round((d * (exit_px / e - 1) - COST - t.get("spread", 0)) * 100, 3),
              bench_pct=round(d * (b1 / t["btc0"] - 1) * 100, 3),
              mfe_pct=round(best * 100, 3))
 
@@ -201,8 +206,8 @@ def report(led):
               f"- Max drawdown: {dd:.2f}%",
               f"- Benchmark (cùng hướng, cùng kỳ, theo BTC): {bench:+.2f}%  "
               f"-> bot {'THẮNG' if sum(p) > bench else 'THUA'} benchmark"]
-        if len(cl) < 30:
-            L.append("- ⚠️ Dưới 30 lệnh: chưa đủ ý nghĩa thống kê.")
+        if len(cl) < 20:
+            L.append("- ⚠️ Dưới 20 lệnh: chưa đủ ý nghĩa thống kê.")
         L += ["", "## 10 lệnh gần nhất", "| Coin | Hướng | Vào | Ra | Lý do | PnL % |", "|---|---|---|---|---|---|"]
         for t in cl[-10:][::-1]:
             L.append(f"| {t['symbol']} | {t['action']} | {t['entry']:.6g} | {t['exit']:.6g} | "
