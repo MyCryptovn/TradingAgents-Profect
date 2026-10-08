@@ -2094,7 +2094,10 @@
    "t0": 1791349375,
    "entry": 0.006305,
    "btc0": 84101.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006031,
+   "t1": 1791435775.0,
+   "move_pct": -4.346
   },
   {
    "id": "37573635251-PUMP/USD-BASE",
@@ -2123,7 +2126,10 @@
    "t0": 1791349375,
    "entry": 1318.84,
    "btc0": 84101.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 1244.64,
+   "t1": 1791435775.0,
+   "move_pct": -5.626
   },
   {
    "id": "37573635251-ZEC/USD-BASE",
@@ -2134,8 +2140,14 @@
    "t0": 1791349375,
    "entry": 1318.84,
    "btc0": 84101.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 1279.2748,
+   "t1": 1791432900,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.712,
+   "mfe_pct": 2.109
   },
   {
    "id": "37573635251-GBP/USD",
@@ -2146,7 +2158,10 @@
    "t0": 1791349375,
    "entry": 1.32456,
    "btc0": 84101.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.32075,
+   "t1": 1791435775.0,
+   "move_pct": -0.288
   },
   {
    "id": "37573635251-GBP/USD-BASE",
@@ -2157,8 +2172,14 @@
    "t0": 1791349375,
    "entry": 1.32456,
    "btc0": 84101.6,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 1.32075,
+   "t1": 1791435775.0,
+   "reason": "TIME",
+   "pnl_pct": -0.908,
+   "bench_pct": -1.648,
+   "mfe_pct": 0.057
   },
   {
    "id": "37573635251-NEAR/USD",
@@ -2169,7 +2190,10 @@
    "t0": 1791349375,
    "entry": 4.9591,
    "btc0": 84101.6,
-   "status": "open"
+   "status": "closed",
+   "exit": 5.4372,
+   "t1": 1791435775.0,
+   "move_pct": 9.641
   },
   {
    "id": "37573635251-NEAR/USD-BASE",
@@ -2198,7 +2222,10 @@
    "t0": 1791353669,
    "entry": 0.006476,
    "btc0": 84272.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.006061,
+   "t1": 1791440069.0,
+   "move_pct": -6.408
   },
   {
    "id": "37579605547-PUMP/USD-BASE",
@@ -2227,7 +2254,10 @@
    "t0": 1791353669,
    "entry": 11.249,
    "btc0": 84272.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 10.856,
+   "t1": 1791440069.0,
+   "move_pct": -3.494
   },
   {
    "id": "37579605547-AVAX/USD-BASE",
@@ -2238,8 +2268,14 @@
    "t0": 1791353669,
    "entry": 11.249,
    "btc0": 84272.2,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 10.91153,
+   "t1": 1791432900,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -1.911,
+   "mfe_pct": 1.289
   },
   {
    "id": "37579605547-SAND/USD",
@@ -2250,7 +2286,10 @@
    "t0": 1791353669,
    "entry": 0.0745,
    "btc0": 84272.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.0739,
+   "t1": 1791440069.0,
+   "move_pct": -0.805
   },
   {
    "id": "37579605547-SAND/USD-BASE",
@@ -2279,7 +2318,10 @@
    "t0": 1791353669,
    "entry": 1.3244,
    "btc0": 84272.2,
-   "status": "open"
+   "status": "closed",
+   "exit": 1.31953,
+   "t1": 1791440069.0,
+   "move_pct": -0.368
   },
   {
    "id": "37579605547-GBP/USD-BASE",
@@ -2290,8 +2332,14 @@
    "t0": 1791353669,
    "entry": 1.3244,
    "btc0": 84272.2,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 1.31953,
+   "t1": 1791440069.0,
+   "reason": "TIME",
+   "pnl_pct": -0.988,
+   "bench_pct": -1.677,
+   "mfe_pct": 0.069
   },
   {
    "id": "37633971988-PUMP/USD",
@@ -2460,8 +2508,14 @@
    "t0": 1791408953,
    "entry": 2.476,
    "btc0": 83248.4,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 2.40172,
+   "t1": 1791432900,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.705,
+   "mfe_pct": 1.131
   },
   {
    "id": "37688615797-PUMP/USD",
@@ -2483,8 +2537,14 @@
    "t0": 1791408953,
    "entry": 0.006176,
    "btc0": 83248.4,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 0.00599072,
+   "t1": 1791432900,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.705,
+   "mfe_pct": 3.206
   },
   {
    "id": "37688615797-AVAX/USD",
@@ -2563,8 +2623,14 @@
    "t0": 1791429301,
    "entry": 0.01335,
    "btc0": 82860.9,
-   "status": "open",
-   "base": true
+   "status": "closed",
+   "base": true,
+   "exit": 0.012949500000000001,
+   "t1": 1791430200,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": 0.053,
+   "mfe_pct": 5.169
   },
   {
    "id": "37721044765-ZRO/USD",
@@ -2586,7 +2652,87 @@
    "t0": 1791429301,
    "entry": 2.189,
    "btc0": 82860.9,
+   "status": "closed",
+   "base": true,
+   "exit": 2.12333,
+   "t1": 1791432000,
+   "reason": "SL",
+   "pnl_pct": -3.62,
+   "bench_pct": -0.196,
+   "mfe_pct": 0.594
+  },
+  {
+   "id": "37736209148-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791440419,
+   "entry": 5.4533,
+   "btc0": 82785.6,
    "status": "open",
+   "spread": 0.00016508157781313995
+  },
+  {
+   "id": "37736209148-ZEUS/USD",
+   "symbol": "ZEUS/USD",
+   "pair": "ZEUSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791440419,
+   "entry": 0.01606,
+   "btc0": 82785.6,
+   "status": "open",
+   "spread": 0.00500312695434648
+  },
+  {
+   "id": "37736209148-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791440419,
+   "entry": 1.1241,
+   "btc0": 82785.6,
+   "status": "open",
+   "spread": 8.895610016455897e-05
+  },
+  {
+   "id": "37736209148-SUI/USD-BASE",
+   "symbol": "SUI/USD",
+   "pair": "SUIUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791440419,
+   "entry": 1.1241,
+   "btc0": 82785.6,
+   "status": "open",
+   "spread": 8.895610016455897e-05,
+   "base": true
+  },
+  {
+   "id": "37736209148-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791440420,
+   "entry": 558.6,
+   "btc0": 82785.6,
+   "status": "open",
+   "spread": 0.0006986555359493858
+  },
+  {
+   "id": "37736209148-XMR/USD-BASE",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "BUY",
+   "raw": "BASELINE",
+   "t0": 1791440420,
+   "entry": 558.6,
+   "btc0": 82785.6,
+   "status": "open",
+   "spread": 0.0006986555359493858,
    "base": true
   }
  ]
