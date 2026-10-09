@@ -60,7 +60,7 @@ def normalize_pair(name: str, info: dict) -> tuple[str, str] | None:
     if "/" not in wsname:
         return None
     base, quote = wsname.split("/", 1)
-    if quote not in {"USD", "ZUSD"} or base.upper() in {"USDC", "USDT", "DAI", "PYUSD", "USDG", "RLUSD", "TUSD", "FDUSD", "EURC", "EURT", "GBP", "EUR", "AUD", "CAD", "CHF", "JPY"}:
+    if quote not in {"USD", "ZUSD"} or base.upper() in {"USDC", "USDT", "DAI", "PYUSD", "USDG", "RLUSD", "TUSD", "FDUSD", "EURC", "EURT", "GBP", "EUR", "AUD", "CAD", "CHF", "JPY","US"}:
         return None
     status = str(info.get("status") or "online").lower()
     if status not in {"online", "post_only"}:
