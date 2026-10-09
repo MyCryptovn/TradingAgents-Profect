@@ -3222,6 +3222,54 @@
    "btc0": 82360.2,
    "status": "open",
    "spread": 0.0010425490323841369
+  },
+  {
+   "id": "37899026736-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791531439,
+   "entry": 0.07057,
+   "btc0": 82533.3,
+   "status": "open",
+   "spread": 0.0008491367110105363
+  },
+  {
+   "id": "37899026736-RLC/USD",
+   "symbol": "RLC/USD",
+   "pair": "RLCUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791531439,
+   "entry": 1.2187,
+   "btc0": 82533.3,
+   "status": "open",
+   "spread": 0.0032900148050666257
+  },
+  {
+   "id": "37899026736-W/USD",
+   "symbol": "W/USD",
+   "pair": "WUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791531439,
+   "entry": 0.01745,
+   "btc0": 82533.3,
+   "status": "open",
+   "spread": 0.0005729017473503061
+  },
+  {
+   "id": "37899026736-US/USD",
+   "symbol": "US/USD",
+   "pair": "USUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791531440,
+   "entry": 0.02511,
+   "btc0": 82533.3,
+   "status": "open",
+   "spread": 0.0019884668920263047
   }
  ]
 }
