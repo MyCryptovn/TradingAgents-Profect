@@ -3335,6 +3335,54 @@
    "btc0": 83179.1,
    "status": "open",
    "spread": 0.004813032210292365
+  },
+  {
+   "id": "37950932328-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791559842,
+   "entry": 0.07316,
+   "btc0": 82861.0,
+   "status": "open",
+   "spread": 0.0006834802815938008
+  },
+  {
+   "id": "37950932328-DRV/USD",
+   "symbol": "DRV/USD",
+   "pair": "DRVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791559842,
+   "entry": 0.55774,
+   "btc0": 82861.0,
+   "status": "open",
+   "spread": 0.003988286653611914
+  },
+  {
+   "id": "37950932328-ATOM/USD",
+   "symbol": "ATOM/USD",
+   "pair": "ATOMUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791559842,
+   "entry": 1.9593,
+   "btc0": 82861.0,
+   "status": "open",
+   "spread": 0.0008666173884229158
+  },
+  {
+   "id": "37950932328-W/USD",
+   "symbol": "W/USD",
+   "pair": "WUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791559842,
+   "entry": 0.01717,
+   "btc0": 82861.0,
+   "status": "open",
+   "spread": 0.00116550116550132
   }
  ]
 }
