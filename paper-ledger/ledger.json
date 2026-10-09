@@ -3440,6 +3440,54 @@
    "btc0": 82369.8,
    "status": "open",
    "spread": 0.0019303586012323294
+  },
+  {
+   "id": "37990382757-ATOM/USD",
+   "symbol": "ATOM/USD",
+   "pair": "ATOMUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791580062,
+   "entry": 2.0267,
+   "btc0": 82512.0,
+   "status": "open",
+   "spread": 0.0009863878477016077
+  },
+  {
+   "id": "37990382757-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791580062,
+   "entry": 0.13401,
+   "btc0": 82512.0,
+   "status": "open",
+   "spread": 0.0005972377752892626
+  },
+  {
+   "id": "37990382757-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791580062,
+   "entry": 0.06891,
+   "btc0": 82512.0,
+   "status": "open",
+   "spread": 0.0008674280757554504
+  },
+  {
+   "id": "37990382757-DRV/USD",
+   "symbol": "DRV/USD",
+   "pair": "DRVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791580063,
+   "entry": 0.48192,
+   "btc0": 82512.0,
+   "status": "open",
+   "spread": 0.0022227992729161577
   }
  ]
 }
