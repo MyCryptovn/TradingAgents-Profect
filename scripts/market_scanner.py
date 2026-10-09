@@ -156,7 +156,7 @@ def spike_score(pair: str) -> float:
 
 def main() -> int:
     started = time.time()
-    rows = ticker_rows()
+    rows = ticker_rows()print(len(rows))
     if not rows:
         raise RuntimeError("No qualifying USD spot markets were returned")
 
@@ -172,9 +172,9 @@ def main() -> int:
         tightness = 1.0 - percentile(spreads, r[4])
         activity = percentile(ranges, r[5])
         momentum = percentile(changes, r[6])
-        score = 0.25 * liquidity + 0.15 * tightness + 0.30 * activity + 0.30 * momentum
+        score = 0.10 * liquidity + 0.10 * tightness + 0.40 * activity + 0.30 * momentum
         pre.append((score, r))
-    pre.sort(key=lambda x: x[0], reverse=True)
+    pre.sort(key=lambda x: x[0], reverse=True)print("PRE:", [r[1] for _, r in pre[:PREFILTER_N]])
 
     validated = []
     failures = 0
@@ -223,8 +223,8 @@ def main() -> int:
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
         print(f"SPIKE {pair}: {spike:.2f} quality={quality:.2f}")
-        score = (0.20 * liquidity + 0.10 * tightness + 0.20 * trend_rank
-                 + 0.15 * momentum_rank + 0.15 * quality_rank + 0.20 * spike)
+        score = (0.10 * liquidity + 0.10 * tightness + 0.20 * trend_rank
+                 + 0.15 * momentum_rank + 0.15 * quality_rank + 0.30 * spike)
         candidates.append(Candidate(pair, wsname, price, volume_usd, spread_bps, score,
                                     trends[0], trends[1], trends[2], quality))
 
