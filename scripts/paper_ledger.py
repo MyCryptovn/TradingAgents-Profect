@@ -130,10 +130,6 @@ def record():
         led["trades"].append({"id": tid, "symbol": sym, "pair": p, "action": act, "raw": raw,
                               "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp})
         print("Ghi:", sym, act, entry)
-        if any(t.get("base") and t["symbol"] == sym and t["status"] == "open" for t in led["trades"]):
-           continue
-        base = dict(led["trades"][-1], id=tid + "-BASE", action="BUY", raw="BASELINE", base=True)
-        led["trades"].append(base)
     save(led)
 
 
@@ -168,10 +164,8 @@ def settle(t):
         if now() < end:
             return
         exit_px, reason, t1 = price_at(t["pair"], end), "TIME", end
-    b1 = price_at("XBTUSD", t1)
     t.update(status="closed", exit=exit_px, t1=t1, reason=reason,
              pnl_pct=round((d * (exit_px / e - 1) - COST - t.get("spread", 0)) * 100, 3),
-             bench_pct=round(d * (b1 / t["btc0"] - 1) * 100, 3),
              mfe_pct=round(best * 100, 3))
 
 
@@ -226,14 +220,6 @@ def report(led):
         L += [f"- Trong số đó: tăng ≥ {SL*100:g}% = {len(up)} lần (HOLD bỏ lỡ BUY), "
               f"giảm ≥ {SL*100:g}% = {len(down)} lần (HOLD tránh được lỗ)",
               f"- Biến động trung bình có dấu: {sum(h['move_pct'] for h in hd) / len(hd):+.2f}%"]
-    bc = [t for t in B if t["status"] == "closed"]
-    if bc:
-        bp = [t["pnl_pct"] for t in bc]
-        bw = [x for x in bp if x > 0]
-        L += ["", "## Baseline (mua theo scanner, không qua hội đồng)",
-              f"- Số lệnh: {len(bc)} | Win rate: {len(bw) / len(bp) * 100:.1f}%",
-              f"- PnL trung bình/lệnh: {sum(bp) / len(bp):+.3f}%",
-              f"- Tổng PnL (cộng dồn): {sum(bp):+.2f}%"]
     text = "\n".join(L) + "\n"
     os.makedirs("paper-ledger", exist_ok=True)
     with open(REPORT, "w") as f:
