@@ -173,7 +173,7 @@ def main() -> int:
         tightness = 1.0 - percentile(spreads, r[4])
         activity = percentile(ranges, r[5])
         momentum = percentile(changes, r[6])
-        score = 0.10 * liquidity + 0.10 * tightness + 0.40 * activity + 0.30 * momentum
+        score = 0.10 * liquidity + 0.10 * tightness + 0.40 * activity + 0.40 * momentum
         pre.append((score, r))
     pre.sort(key=lambda x: x[0], reverse=True)
     print("PRE:", [r[1] for _, r in pre[:PREFILTER_N]])
