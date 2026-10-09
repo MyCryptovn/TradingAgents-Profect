@@ -2516,7 +2516,10 @@
    "t0": 1791408952,
    "entry": 5.2802,
    "btc0": 83248.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 4.5258,
+   "t1": 1791495352.0,
+   "move_pct": -14.287
   },
   {
    "id": "37688615797-RAY/USD",
@@ -2527,7 +2530,10 @@
    "t0": 1791408953,
    "entry": 2.476,
    "btc0": 83248.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 2.322,
+   "t1": 1791495353.0,
+   "move_pct": -6.22
   },
   {
    "id": "37688615797-RAY/USD-BASE",
@@ -2556,7 +2562,10 @@
    "t0": 1791408953,
    "entry": 0.006176,
    "btc0": 83248.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.005658,
+   "t1": 1791495353.0,
+   "move_pct": -8.387
   },
   {
    "id": "37688615797-PUMP/USD-BASE",
@@ -2585,7 +2594,10 @@
    "t0": 1791408953,
    "entry": 11.155,
    "btc0": 83248.4,
-   "status": "open"
+   "status": "closed",
+   "exit": 10.073,
+   "t1": 1791495353.0,
+   "move_pct": -9.7
   },
   {
    "id": "37721044765-NEAR/USD",
@@ -2596,7 +2608,10 @@
    "t0": 1791429300,
    "entry": 5.3,
    "btc0": 82860.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 4.6882,
+   "t1": 1791515700.0,
+   "move_pct": -11.543
   },
   {
    "id": "37721044765-NEAR/USD-BASE",
@@ -2625,7 +2640,10 @@
    "t0": 1791429301,
    "entry": 7.462,
    "btc0": 82860.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 6.953,
+   "t1": 1791515701.0,
+   "move_pct": -6.821
   },
   {
    "id": "37721044765-INJ/USD-BASE",
@@ -2654,7 +2672,10 @@
    "t0": 1791429301,
    "entry": 0.01335,
    "btc0": 82860.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 0.0109,
+   "t1": 1791515701.0,
+   "move_pct": -18.352
   },
   {
    "id": "37721044765-ZEUS/USD-BASE",
@@ -2683,7 +2704,10 @@
    "t0": 1791429301,
    "entry": 2.189,
    "btc0": 82860.9,
-   "status": "open"
+   "status": "closed",
+   "exit": 2.039,
+   "t1": 1791515701.0,
+   "move_pct": -6.852
   },
   {
    "id": "37721044765-ZRO/USD-BASE",
@@ -2712,8 +2736,11 @@
    "t0": 1791440419,
    "entry": 5.4533,
    "btc0": 82785.6,
-   "status": "open",
-   "spread": 0.00016508157781313995
+   "status": "closed",
+   "spread": 0.00016508157781313995,
+   "exit": 4.8481,
+   "t1": 1791526819.0,
+   "move_pct": -11.098
   },
   {
    "id": "37736209148-ZEUS/USD",
@@ -2724,8 +2751,11 @@
    "t0": 1791440419,
    "entry": 0.01606,
    "btc0": 82785.6,
-   "status": "open",
-   "spread": 0.00500312695434648
+   "status": "closed",
+   "spread": 0.00500312695434648,
+   "exit": 0.00897,
+   "t1": 1791526819.0,
+   "move_pct": -44.147
   },
   {
    "id": "37736209148-SUI/USD",
@@ -2736,8 +2766,11 @@
    "t0": 1791440419,
    "entry": 1.1241,
    "btc0": 82785.6,
-   "status": "open",
-   "spread": 8.895610016455897e-05
+   "status": "closed",
+   "spread": 8.895610016455897e-05,
+   "exit": 1.0686,
+   "t1": 1791526819.0,
+   "move_pct": -4.937
   },
   {
    "id": "37736209148-SUI/USD-BASE",
@@ -2767,8 +2800,11 @@
    "t0": 1791440420,
    "entry": 558.6,
    "btc0": 82785.6,
-   "status": "open",
-   "spread": 0.0006986555359493858
+   "status": "closed",
+   "spread": 0.0006986555359493858,
+   "exit": 539.29,
+   "t1": 1791526820.0,
+   "move_pct": -3.457
   },
   {
    "id": "37736209148-XMR/USD-BASE",
@@ -3070,9 +3106,14 @@
    "t0": 1791495318,
    "entry": 0.48129,
    "btc0": 81643.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003948257052314894,
-   "base": true
+   "base": true,
+   "exit": 0.46685129999999997,
+   "t1": 1791504900,
+   "reason": "SL",
+   "pnl_pct": -3.659,
+   "mfe_pct": 0.927
   },
   {
    "id": "37846211229-DRV/USD",
@@ -3095,9 +3136,14 @@
    "t0": 1791495319,
    "entry": 0.44149,
    "btc0": 81643.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002375216314342903,
-   "base": true
+   "base": true,
+   "exit": 0.4679794,
+   "t1": 1791504900,
+   "reason": "TP",
+   "pnl_pct": 5.142,
+   "mfe_pct": 6.021
   },
   {
    "id": "37846211229-PYTH/USD",
@@ -3120,9 +3166,62 @@
    "t0": 1791495319,
    "entry": 0.08305,
    "btc0": 81643.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0014417878168930553,
-   "base": true
+   "base": true,
+   "exit": 0.08055849999999999,
+   "t1": 1791504900,
+   "reason": "SL",
+   "pnl_pct": -3.764,
+   "mfe_pct": 1.228
+  },
+  {
+   "id": "37892481741-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791527043,
+   "entry": 0.06759,
+   "btc0": 82360.2,
+   "status": "open",
+   "spread": 0.0007407956144898807
+  },
+  {
+   "id": "37892481741-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791527043,
+   "entry": 4.8481,
+   "btc0": 82360.2,
+   "status": "open",
+   "spread": 2.0626424512578016e-05
+  },
+  {
+   "id": "37892481741-ONDO/USD",
+   "symbol": "ONDO/USD",
+   "pair": "ONDOUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791527043,
+   "entry": 0.48006,
+   "btc0": 82360.2,
+   "status": "open",
+   "spread": 0.0006041352012916254
+  },
+  {
+   "id": "37892481741-DRV/USD",
+   "symbol": "DRV/USD",
+   "pair": "DRVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791527043,
+   "entry": 0.4608,
+   "btc0": 82360.2,
+   "status": "open",
+   "spread": 0.0010425490323841369
   }
  ]
 }
