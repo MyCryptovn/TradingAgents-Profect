@@ -2951,8 +2951,11 @@
    "t0": 1791474656,
    "entry": 0.01525,
    "btc0": 81431.2,
-   "status": "open",
-   "spread": 0.0006555227794165581
+   "status": "closed",
+   "spread": 0.0006555227794165581,
+   "exit": 0.01754,
+   "t1": 1791561056.0,
+   "move_pct": 15.016
   },
   {
    "id": "37802669377-W/USD-BASE",
@@ -2982,8 +2985,11 @@
    "t0": 1791474656,
    "entry": 0.0608,
    "btc0": 81431.2,
-   "status": "open",
-   "spread": 0.0009900990099010643
+   "status": "closed",
+   "spread": 0.0009900990099010643,
+   "exit": 0.07535,
+   "t1": 1791561056.0,
+   "move_pct": 23.931
   },
   {
    "id": "37802669377-STRK/USD-BASE",
@@ -3050,8 +3056,11 @@
    "t0": 1791474656,
    "entry": 4.7214,
    "btc0": 81431.2,
-   "status": "open",
-   "spread": 0.0004869837707365034
+   "status": "closed",
+   "spread": 0.0004869837707365034,
+   "exit": 4.7497,
+   "t1": 1791561056.0,
+   "move_pct": 0.599
   },
   {
    "id": "37802669377-NEAR/USD-BASE",
@@ -3383,6 +3392,54 @@
    "btc0": 82861.0,
    "status": "open",
    "spread": 0.00116550116550132
+  },
+  {
+   "id": "37979880626-ATOM/USD",
+   "symbol": "ATOM/USD",
+   "pair": "ATOMUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791574422,
+   "entry": 2.0461,
+   "btc0": 82369.8,
+   "status": "open",
+   "spread": 0.0013185847190681633
+  },
+  {
+   "id": "37979880626-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791574422,
+   "entry": 0.07054,
+   "btc0": 82369.8,
+   "status": "open",
+   "spread": 0.00042568286626466475
+  },
+  {
+   "id": "37979880626-DRV/USD",
+   "symbol": "DRV/USD",
+   "pair": "DRVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791574422,
+   "entry": 0.49182,
+   "btc0": 82369.8,
+   "status": "open",
+   "spread": 0.00020392764647112282
+  },
+  {
+   "id": "37979880626-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791574423,
+   "entry": 0.1346,
+   "btc0": 82369.8,
+   "status": "open",
+   "spread": 0.0019303586012323294
   }
  ]
 }
