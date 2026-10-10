@@ -3090,8 +3090,11 @@
    "t0": 1791495318,
    "entry": 0.5086,
    "btc0": 81643.1,
-   "status": "open",
-   "spread": 0.0001964829551036231
+   "status": "closed",
+   "spread": 0.0001964829551036231,
+   "exit": 0.4756,
+   "t1": 1791581718.0,
+   "move_pct": -6.488
   },
   {
    "id": "37846211229-TIA/USD-BASE",
@@ -3120,8 +3123,11 @@
    "t0": 1791495318,
    "entry": 0.48129,
    "btc0": 81643.1,
-   "status": "open",
-   "spread": 0.0003948257052314894
+   "status": "closed",
+   "spread": 0.0003948257052314894,
+   "exit": 0.47989,
+   "t1": 1791581718.0,
+   "move_pct": -0.291
   },
   {
    "id": "37846211229-ONDO/USD-BASE",
@@ -3150,8 +3156,11 @@
    "t0": 1791495319,
    "entry": 0.44149,
    "btc0": 81643.1,
-   "status": "open",
-   "spread": 0.002375216314342903
+   "status": "closed",
+   "spread": 0.002375216314342903,
+   "exit": 0.49604,
+   "t1": 1791581719.0,
+   "move_pct": 12.356
   },
   {
    "id": "37846211229-DRV/USD-BASE",
@@ -3180,8 +3189,11 @@
    "t0": 1791495319,
    "entry": 0.08305,
    "btc0": 81643.1,
-   "status": "open",
-   "spread": 0.0014417878168930553
+   "status": "closed",
+   "spread": 0.0014417878168930553,
+   "exit": 0.08051,
+   "t1": 1791581719.0,
+   "move_pct": -3.058
   },
   {
    "id": "37846211229-PYTH/USD-BASE",
@@ -3488,6 +3500,54 @@
    "btc0": 82512.0,
    "status": "open",
    "spread": 0.0022227992729161577
+  },
+  {
+   "id": "38016948725-DRV/USD",
+   "symbol": "DRV/USD",
+   "pair": "DRVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791599918,
+   "entry": 0.54328,
+   "btc0": 82594.8,
+   "status": "open",
+   "spread": 0.0023220242153952565
+  },
+  {
+   "id": "38016948725-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791599918,
+   "entry": 0.0747,
+   "btc0": 82594.8,
+   "status": "open",
+   "spread": 0.000802675585284341
+  },
+  {
+   "id": "38016948725-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791599919,
+   "entry": 0.1375,
+   "btc0": 82594.8,
+   "status": "open",
+   "spread": 0.0005840268652357771
+  },
+  {
+   "id": "38016948725-DOT/USD",
+   "symbol": "DOT/USD",
+   "pair": "DOTUSD",
+   "action": "HOLD",
+   "raw": "REVIEW",
+   "t0": 1791599919,
+   "entry": 1.2743,
+   "btc0": 82594.8,
+   "status": "open",
+   "spread": 0.0005483959418699697
   }
  ]
 }
