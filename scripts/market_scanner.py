@@ -15,7 +15,7 @@ import urllib.request
 from dataclasses import dataclass
 
 API = "https://api.kraken.com/0/public/"
-TOP_N = 4
+TOP_N = 3
 PREFILTER_N = 20
 MIN_VOLUME_USD = 500_000.0
 TIMEFRAMES = (15, 60, 240)
