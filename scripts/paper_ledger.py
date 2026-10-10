@@ -112,6 +112,8 @@ def record():
         return
     with open(RESULT_FILE) as f:
         decisions = extract(json.load(f))
+    with open(RESULT_FILE) as f:
+        scans = {d.get("symbol"): d.get("scan", "") for d in json.load(f) if isinstance(d, dict)}
     led = load()
     known = {t["id"] for t in led["trades"]}
     run = os.getenv("GITHUB_RUN_ID", str(now()))
@@ -130,7 +132,7 @@ def record():
             print("Bỏ qua", sym, e)
             continue
         led["trades"].append({"id": tid, "symbol": sym, "pair": p, "action": act, "raw": raw,
-                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp})
+                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp, "scan": scans.get(sym, "") })
         print("Ghi:", sym, act, entry)
     save(led)
 
@@ -193,7 +195,7 @@ def report(led):
             peak = max(peak, eq)
             dd = max(dd, peak - eq)
         pf = f"{sum(w) / abs(sum(l)):.2f}" if l and sum(l) else "n/a"
-        bench = sum(t["bench_pct"] for t in cl)
+        bench = sum(t.get["bench_pct,0"] for t in cl)
         L += ["", "## Kết quả lệnh BUY/SELL",
               f"- Win rate: **{len(w) / len(p) * 100:.1f}%** ({len(w)}/{len(p)})",
               f"- PnL trung bình/lệnh: {sum(p) / len(p):+.3f}%",
