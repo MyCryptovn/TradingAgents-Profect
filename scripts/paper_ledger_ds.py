@@ -13,8 +13,8 @@ import urllib.request
 from datetime import datetime, timezone
 
 RESULT_FILE = os.getenv("RESULT_FILE", "tradingagents-paper-results/decisions.json")
-LEDGER = "paper-ledger/ledger.json"
-REPORT = "paper-ledger/report.md"
+LEDGER = "paper-ledger-ds/ledger.json"
+REPORT = "paper-ledger-ds/report.md"
 HORIZON_H = float(os.getenv("HORIZON_HOURS", "24"))       # giữ lệnh tối đa
 SL = float(os.getenv("STOP_LOSS_PCT", "3")) / 100          # cắt lỗ
 TP = float(os.getenv("TAKE_PROFIT_PCT", "6")) / 100        # chốt lời
@@ -101,7 +101,7 @@ def load():
 
 
 def save(led):
-    os.makedirs("paper-ledger", exist_ok=True)
+    os.makedirs("paper-ledger-ds", exist_ok=True)
     with open(LEDGER, "w") as f:
         json.dump(led, f, indent=1)
 
@@ -223,7 +223,7 @@ def report(led):
               f"giảm ≥ {SL*100:g}% = {len(down)} lần (HOLD tránh được lỗ)",
               f"- Biến động trung bình có dấu: {sum(h['move_pct'] for h in hd) / len(hd):+.2f}%"]
     text = "\n".join(L) + "\n"
-    os.makedirs("paper-ledger", exist_ok=True)
+    os.makedirs("paper-ledger-ds", exist_ok=True)
     with open(REPORT, "w") as f:
         f.write(text)
     summ = os.getenv("GITHUB_STEP_SUMMARY")
