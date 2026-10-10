@@ -54,7 +54,7 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
         raise RuntimeError(f"Kraken API error: {payload['error']}")
     return payload["result"]
 
-
+SCAN_INFO = {}
 def run_scanner() -> list[str]:
     proc = subprocess.run(
         [sys.executable, "scripts/market_scanner.py"],
@@ -77,6 +77,7 @@ def run_scanner() -> list[str]:
             match = re.match(r"^\s*\d+\s+(\S+)", line)
             if match:
                 symbols.append(match.group(1))
+                SCAN_INFO[match.group(1)] = line.strip()
     if not symbols:
         raise RuntimeError("Scanner produced no Top candidates")
     return symbols[:TOP_N]
@@ -253,6 +254,8 @@ def main() -> int:
             item.outcome_status = "ERROR"
 
     payload = [asdict(item) for item in decisions]
+    for p in payload:
+        p["scan"] = SCAN_INFO.get(p["symbol"], "")
     (OUT_DIR / "decisions.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
     measured = [d for d in decisions if d.return_pct is not None]
     wins = [d for d in measured if d.return_pct > 0]
