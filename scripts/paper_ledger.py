@@ -117,6 +117,8 @@ def record():
     run = os.getenv("GITHUB_RUN_ID", str(now()))
     btc0 = price("XBTUSD")
     for sym, act, raw in decisions:
+        if raw == "REVIEW":
+            continue
         tid = f"{run}-{sym}"
         if tid in known:
             continue
