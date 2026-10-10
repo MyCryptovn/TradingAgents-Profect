@@ -1,0 +1,107 @@
+name: TradingAgents Top-10 Paper Effectiveness DeepSeek
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "45 */4 * * *"
+permissions:
+  contents: write
+
+concurrency:
+  group: tradingagents-top10-paper-ds
+  cancel-in-progress: false
+
+jobs:
+  paper-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned TradingAgents source
+        run: pip install -e vendor/TradingAgents
+
+      - name: Validate crypto-native adapter
+        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger_ds.py
+
+      - name: Validate CoinGecko API access
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
+        run: |
+          python - <<'PY'
+          import os
+          import urllib.request
+          base = os.environ["COINGECKO_API_BASE_URL"].rstrip("/") + "/"
+          key = os.environ.get("COINGECKO_API_KEY", "").strip()
+          if not key:
+              raise SystemExit("COINGECKO_API_KEY GitHub Secret is missing.")
+          req = urllib.request.Request(
+              base + "ping",
+              headers={
+                  "Accept": "application/json",
+                  "User-Agent": "TradingAgents-Profect/coingecko-preflight",
+                  "x-cg-demo-api-key": key,
+              },
+          )
+          with urllib.request.urlopen(req, timeout=30) as response:
+              print("COINGECKO API PREFLIGHT:", response.read().decode("utf-8"))
+          PY
+      - name: Run Top-10 TradingAgents paper pipeline
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          TRADINGAGENTS_LLM_PROVIDER: deepseek
+          TRADINGAGENTS_DEEP_THINK_LLM: deepseek-v4-flash
+          TRADINGAGENTS_QUICK_THINK_LLM: deepseek-v4-flash
+          TRADINGAGENTS_MAX_DEBATE_ROUNDS: "2"
+          TRADINGAGENTS_MAX_RISK_ROUNDS: "2"
+          TRADINGAGENTS_LLM_MAX_RETRIES: "6"
+        run: python -m scripts.tradingagents_paper_pipeline
+
+      - name: Verify crypto-native routing and live trading gate
+        run: |
+          grep -R -q "YAHOO FINANCE BYPASSED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "CoinGecko API" scripts/crypto_market_data.py
+          grep -R -q "COINGECKO_API_KEY" scripts/crypto_market_data.py
+          grep -R -q "COINGECKO RATE LIMIT" scripts/crypto_market_data.py
+          grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("tradingagents-paper-results/decisions.json")
+          rows = json.loads(p.read_text())
+          successful = [r for r in rows if r.get("outcome_status") != "ERROR"]
+          if not successful:
+              raise SystemExit("TradingAgents produced no successful analyses; failing the workflow instead of reporting a false green run.")
+          print(f"Successful TradingAgents analyses: {len(successful)}/{len(rows)}")
+          PY
+      - name: Record paper ledger
+        run: python scripts/paper_ledger_ds.py record
+
+      - name: Score paper ledger
+        run: python scripts/paper_ledger_ds.py score
+
+      - name: Commit ledger
+        run: |
+          git config user.name "paper-bot"
+          git config user.email "paper-bot@users.noreply.github.com"
+          git add paper-ledger-ds
+          git diff --staged --quiet || (git commit -m "update paper ledger ds [skip ci]" && git pull --rebase && git push)
+      - name: Upload TradingAgents paper report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tradingagents-top10-paper-results-ds
+          path: tradingagents-paper-results/
+          retention-days: 14
