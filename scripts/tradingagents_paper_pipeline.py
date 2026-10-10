@@ -132,7 +132,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     # Fundamentals are intentionally omitted for crypto: company balance sheets
     # are not the correct data model. Macro/news/social analysts remain available.
     graph = TradingAgentsGraph(
-        selected_analysts=("market"),
+        selected_analysts=("market",),
         debug=False,
         config=config,
     )
