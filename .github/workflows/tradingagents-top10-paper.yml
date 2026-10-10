@@ -103,6 +103,7 @@ jobs:
           git diff --staged --quiet || (git commit -m "update paper ledger [skip ci]" && git pull --rebase && git push)
 
       - name: Upload TradingAgents paper report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tradingagents-top10-paper-results
