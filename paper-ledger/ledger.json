@@ -3716,6 +3716,42 @@
    "btc0": 83007.8,
    "status": "open",
    "spread": 0.0002816081703917276
+  },
+  {
+   "id": "38082385853-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791663149,
+   "entry": 0.10143,
+   "btc0": 82965.8,
+   "status": "open",
+   "spread": 0.0010845452304658514
+  },
+  {
+   "id": "38082385853-AERO/USD",
+   "symbol": "AERO/USD",
+   "pair": "AEROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791663149,
+   "entry": 0.932,
+   "btc0": 82965.8,
+   "status": "open",
+   "spread": 0.0011832410046791694
+  },
+  {
+   "id": "38082385853-CHIP/USD",
+   "symbol": "CHIP/USD",
+   "pair": "CHIPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791663150,
+   "entry": 0.0645,
+   "btc0": 82965.8,
+   "status": "open",
+   "spread": 0.005886909372579479
   }
  ]
 }
