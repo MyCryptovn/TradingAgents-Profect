@@ -195,7 +195,7 @@ def report(led):
             peak = max(peak, eq)
             dd = max(dd, peak - eq)
         pf = f"{sum(w) / abs(sum(l)):.2f}" if l and sum(l) else "n/a"
-        bench = sum(t.get["bench_pct,0"] for t in cl)
+        bench = sum(t.get("bench_pct,0") for t in cl)
         L += ["", "## Kết quả lệnh BUY/SELL",
               f"- Win rate: **{len(w) / len(p) * 100:.1f}%** ({len(w)}/{len(p)})",
               f"- PnL trung bình/lệnh: {sum(p) / len(p):+.3f}%",
