@@ -55,6 +55,7 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
     return payload["result"]
 
 SCAN_INFO = {}
+REASONS = {}
 def run_scanner() -> list[str]:
     proc = subprocess.run(
         [sys.executable, "scripts/market_scanner.py"],
@@ -141,7 +142,9 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     # the upstream stock-oriented memory resolver make a Yahoo Finance call for
     # crypto while resolving old lessons.
     graph._resolve_pending_entries = lambda _ticker: None
-    _, signal = graph.propagate(ticker, trade_date, asset_type="crypto")
+    state, signal = graph.propagate(ticker, trade_date, asset_type="crypto")
+    REASONS[ticker] = str(state.get("final_trade_decision", ""))[:1500]
+    print(f"REASON {ticker}: {REASONS[ticker][:600]}")
     return str(signal).strip().upper()
 
 
