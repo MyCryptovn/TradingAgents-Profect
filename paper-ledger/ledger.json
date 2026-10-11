@@ -3815,6 +3815,45 @@
    "status": "open",
    "spread": 0.0006364697146493412,
    "scan": "03 AERO/USD     price=$0.9407 vol24h=$2,432,176 spread=6.38bps mtf_score=0.5252 quality=0.6832 trend15=+0.44 trend1h=+1.95 trend4h=+0.35"
+  },
+  {
+   "id": "38116210971-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791698402,
+   "entry": 0.10915,
+   "btc0": 82966.1,
+   "status": "open",
+   "spread": 0.0025622254758418967,
+   "scan": "01 STRK/USD     price=$0.11043 vol24h=$17,559,782 spread=27.24bps mtf_score=0.5891 quality=0.7709 trend15=+0.38 trend1h=+1.49 trend4h=+1.20"
+  },
+  {
+   "id": "38116210971-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791698403,
+   "entry": 0.607,
+   "btc0": 82966.1,
+   "status": "open",
+   "spread": 0.00032959789057346404,
+   "scan": "02 TIA/USD      price=$0.6125 vol24h=$3,492,826 spread=4.90bps mtf_score=0.5792 quality=0.7405 trend15=+0.62 trend1h=+1.60 trend4h=+0.34"
+  },
+  {
+   "id": "38116210971-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791698403,
+   "entry": 0.14405,
+   "btc0": 82966.1,
+   "status": "open",
+   "spread": 0.0006942515967785962,
+   "scan": "03 BAT/USD      price=$0.1466 vol24h=$3,294,722 spread=7.49bps mtf_score=0.5572 quality=0.7872 trend15=+0.73 trend1h=+0.42 trend4h=+1.19"
   }
  ]
 }
