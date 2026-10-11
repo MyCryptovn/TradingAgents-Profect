@@ -224,7 +224,7 @@ def main() -> int:
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
-        pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] < trends[1]) else 0.0
+        pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
         print(f"SPIKE {pair}: {spike:.2f} quality={quality:.2f}")
         score = (0.10 * liquidity + 0.10 * tightness + 0.20 * trend_rank
                  + 0.15 * momentum_rank + 0.15 * quality_rank + 0.10 * spike + 0.20 * pullback)
