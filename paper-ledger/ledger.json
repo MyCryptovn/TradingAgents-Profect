@@ -3989,6 +3989,45 @@
    "status": "open",
    "spread": 0.0021801335331788183,
    "scan": "03 BAT/USD      price=$0.14438 vol24h=$2,133,039 spread=7.62bps mtf_score=0.4612 quality=0.7235 trend15=+0.07 trend1h=+0.60 trend4h=+1.31"
+  },
+  {
+   "id": "38160434821-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791740763,
+   "entry": 0.1166,
+   "btc0": 83872.2,
+   "status": "open",
+   "spread": 0.0011997600479904124,
+   "scan": "01 STRK/USD     price=$0.11757 vol24h=$15,444,988 spread=21.26bps mtf_score=0.5842 quality=0.8014 trend15=+0.79 trend1h=+1.36 trend4h=+1.42"
+  },
+  {
+   "id": "38160434821-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791740763,
+   "entry": 0.16026,
+   "btc0": 83872.2,
+   "status": "open",
+   "spread": 0.0008116122990478615,
+   "scan": "02 BAT/USD      price=$0.16119 vol24h=$2,765,802 spread=12.44bps mtf_score=0.5828 quality=0.8176 trend15=+0.88 trend1h=+0.48 trend4h=+1.24"
+  },
+  {
+   "id": "38160434821-S/USD",
+   "symbol": "S/USD",
+   "pair": "SUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791740764,
+   "entry": 0.0634,
+   "btc0": 83872.2,
+   "status": "open",
+   "spread": 0.0015785319652723423,
+   "scan": "03 S/USD        price=$0.0647 vol24h=$1,815,923 spread=15.47bps mtf_score=0.5345 quality=0.8184 trend15=+1.76 trend1h=+0.67 trend4h=+0.55"
   }
  ]
 }
