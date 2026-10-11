@@ -3687,8 +3687,11 @@
    "t0": 1791643027,
    "entry": 0.8976,
    "btc0": 82914.0,
-   "status": "open",
-   "spread": 0.0010002778549597243
+   "status": "closed",
+   "spread": 0.0010002778549597243,
+   "exit": 0.9639,
+   "t1": 1791729427.0,
+   "move_pct": 7.386
   },
   {
    "id": "38059807166-NEAR/USD",
@@ -3699,8 +3702,11 @@
    "t0": 1791643027,
    "entry": 5.4148,
    "btc0": 82914.0,
-   "status": "open",
-   "spread": 0.00029546461811211255
+   "status": "closed",
+   "spread": 0.00029546461811211255,
+   "exit": 5.3172,
+   "t1": 1791729427.0,
+   "move_pct": -1.802
   },
   {
    "id": "38059807166-STRK/USD",
@@ -3711,8 +3717,11 @@
    "t0": 1791643027,
    "entry": 0.07911,
    "btc0": 82914.0,
-   "status": "open",
-   "spread": 0.005049229992426124
+   "status": "closed",
+   "spread": 0.005049229992426124,
+   "exit": 0.11308,
+   "t1": 1791729427.0,
+   "move_pct": 42.94
   },
   {
    "id": "38080375023-STRK/USD",
@@ -3941,6 +3950,45 @@
    "status": "open",
    "spread": 0.0023721275018533335,
    "scan": "03 CHIP/USD     price=$0.06783 vol24h=$1,346,669 spread=23.62bps mtf_score=0.6748 quality=0.7864 trend15=+0.46 trend1h=+1.13 trend4h=+0.57"
+  },
+  {
+   "id": "38149205577-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791731044,
+   "entry": 0.11554,
+   "btc0": 83039.8,
+   "status": "open",
+   "spread": 0.0022454443388893373,
+   "scan": "01 STRK/USD     price=$0.11179 vol24h=$18,730,292 spread=8.94bps mtf_score=0.5968 quality=0.7631 trend15=+0.36 trend1h=+1.26 trend4h=+1.34"
+  },
+  {
+   "id": "38149205577-CHIP/USD",
+   "symbol": "CHIP/USD",
+   "pair": "CHIPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791731044,
+   "entry": 0.07028,
+   "btc0": 83039.8,
+   "status": "open",
+   "spread": 0.0031290001422272506,
+   "scan": "02 CHIP/USD     price=$0.06915 vol24h=$1,476,583 spread=24.56bps mtf_score=0.4691 quality=0.7989 trend15=+0.48 trend1h=+1.03 trend4h=+0.57"
+  },
+  {
+   "id": "38149205577-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791731044,
+   "entry": 0.14708,
+   "btc0": 83039.8,
+   "status": "open",
+   "spread": 0.0021801335331788183,
+   "scan": "03 BAT/USD      price=$0.14438 vol24h=$2,133,039 spread=7.62bps mtf_score=0.4612 quality=0.7235 trend15=+0.07 trend1h=+0.60 trend4h=+1.31"
   }
  ]
 }
