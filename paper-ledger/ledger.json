@@ -3642,8 +3642,11 @@
    "t0": 1791629903,
    "entry": 5.2473,
    "btc0": 82784.4,
-   "status": "open",
-   "spread": 0.0002095297960894313
+   "status": "closed",
+   "spread": 0.0002095297960894313,
+   "exit": 5.248,
+   "t1": 1791716303.0,
+   "move_pct": 0.013
   },
   {
    "id": "38046319926-DRV/USD",
@@ -3654,8 +3657,11 @@
    "t0": 1791629903,
    "entry": 0.53996,
    "btc0": 82784.4,
-   "status": "open",
-   "spread": 0.003278718891533772
+   "status": "closed",
+   "spread": 0.003278718891533772,
+   "exit": 0.50114,
+   "t1": 1791716303.0,
+   "move_pct": -7.189
   },
   {
    "id": "38046319926-ONDO/USD",
@@ -3666,8 +3672,11 @@
    "t0": 1791629903,
    "entry": 0.49284,
    "btc0": 82784.4,
-   "status": "open",
-   "spread": 0.000263640880560467
+   "status": "closed",
+   "spread": 0.000263640880560467,
+   "exit": 0.48104,
+   "t1": 1791716303.0,
+   "move_pct": -2.394
   },
   {
    "id": "38059807166-AERO/USD",
@@ -3854,6 +3863,45 @@
    "status": "open",
    "spread": 0.0006942515967785962,
    "scan": "03 BAT/USD      price=$0.1466 vol24h=$3,294,722 spread=7.49bps mtf_score=0.5572 quality=0.7872 trend15=+0.73 trend1h=+0.42 trend4h=+1.19"
+  },
+  {
+   "id": "38134078341-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791716925,
+   "entry": 0.11018,
+   "btc0": 82948.8,
+   "status": "open",
+   "spread": 0.001996913860397549,
+   "scan": "01 STRK/USD     price=$0.10939 vol24h=$18,182,771 spread=10.98bps mtf_score=0.5619 quality=0.7107 trend15=+0.01 trend1h=+1.38 trend4h=+1.27"
+  },
+  {
+   "id": "38134078341-AERO/USD",
+   "symbol": "AERO/USD",
+   "pair": "AEROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791716926,
+   "entry": 0.9712,
+   "btc0": 82948.8,
+   "status": "open",
+   "spread": 0.0008210180623973964,
+   "scan": "02 AERO/USD     price=$0.9659 vol24h=$2,584,064 spread=7.25bps mtf_score=0.5240 quality=0.7055 trend15=+0.91 trend1h=+1.87 trend4h=+0.46"
+  },
+  {
+   "id": "38134078341-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791716926,
+   "entry": 0.14414,
+   "btc0": 82948.8,
+   "status": "open",
+   "spread": 0.002926217515502012,
+   "scan": "03 BAT/USD      price=$0.14325 vol24h=$3,146,297 spread=13.26bps mtf_score=0.5170 quality=0.7621 trend15=+0.24 trend1h=+0.47 trend4h=+1.23"
   }
  ]
 }
