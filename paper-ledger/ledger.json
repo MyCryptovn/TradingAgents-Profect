@@ -3732,8 +3732,11 @@
    "t0": 1791661352,
    "entry": 0.10173,
    "btc0": 83007.8,
-   "status": "open",
-   "spread": 0.001668711656441616
+   "status": "closed",
+   "spread": 0.001668711656441616,
+   "exit": 0.11718,
+   "t1": 1791747752.0,
+   "move_pct": 15.187
   },
   {
    "id": "38080375023-AERO/USD",
@@ -3744,8 +3747,11 @@
    "t0": 1791661353,
    "entry": 0.9244,
    "btc0": 83007.8,
-   "status": "open",
-   "spread": 0.00032451728054515327
+   "status": "closed",
+   "spread": 0.00032451728054515327,
+   "exit": 0.9425,
+   "t1": 1791747753.0,
+   "move_pct": 1.958
   },
   {
    "id": "38080375023-NEAR/USD",
@@ -3756,8 +3762,11 @@
    "t0": 1791661353,
    "entry": 5.3254,
    "btc0": 83007.8,
-   "status": "open",
-   "spread": 0.0002816081703917276
+   "status": "closed",
+   "spread": 0.0002816081703917276,
+   "exit": 5.6799,
+   "t1": 1791747753.0,
+   "move_pct": 6.657
   },
   {
    "id": "38082385853-STRK/USD",
@@ -3768,8 +3777,11 @@
    "t0": 1791663149,
    "entry": 0.10143,
    "btc0": 82965.8,
-   "status": "open",
-   "spread": 0.0010845452304658514
+   "status": "closed",
+   "spread": 0.0010845452304658514,
+   "exit": 0.11804,
+   "t1": 1791749549.0,
+   "move_pct": 16.376
   },
   {
    "id": "38082385853-AERO/USD",
@@ -3780,8 +3792,11 @@
    "t0": 1791663149,
    "entry": 0.932,
    "btc0": 82965.8,
-   "status": "open",
-   "spread": 0.0011832410046791694
+   "status": "closed",
+   "spread": 0.0011832410046791694,
+   "exit": 0.9374,
+   "t1": 1791749549.0,
+   "move_pct": 0.579
   },
   {
    "id": "38082385853-CHIP/USD",
@@ -3792,8 +3807,11 @@
    "t0": 1791663150,
    "entry": 0.0645,
    "btc0": 82965.8,
-   "status": "open",
-   "spread": 0.005886909372579479
+   "status": "closed",
+   "spread": 0.005886909372579479,
+   "exit": 0.06924,
+   "t1": 1791749550.0,
+   "move_pct": 7.349
   },
   {
    "id": "38113495599-STRK/USD",
@@ -3999,9 +4017,14 @@
    "t0": 1791740763,
    "entry": 0.1166,
    "btc0": 83872.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0011997600479904124,
-   "scan": "01 STRK/USD     price=$0.11757 vol24h=$15,444,988 spread=21.26bps mtf_score=0.5842 quality=0.8014 trend15=+0.79 trend1h=+1.36 trend4h=+1.42"
+   "scan": "01 STRK/USD     price=$0.11757 vol24h=$15,444,988 spread=21.26bps mtf_score=0.5842 quality=0.8014 trend15=+0.79 trend1h=+1.36 trend4h=+1.42",
+   "exit": 0.113102,
+   "t1": 1791741600,
+   "reason": "SL",
+   "pnl_pct": -3.74,
+   "mfe_pct": 0.0
   },
   {
    "id": "38160434821-BAT/USD",
@@ -4012,9 +4035,14 @@
    "t0": 1791740763,
    "entry": 0.16026,
    "btc0": 83872.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008116122990478615,
-   "scan": "02 BAT/USD      price=$0.16119 vol24h=$2,765,802 spread=12.44bps mtf_score=0.5828 quality=0.8176 trend15=+0.88 trend1h=+0.48 trend4h=+1.24"
+   "scan": "02 BAT/USD      price=$0.16119 vol24h=$2,765,802 spread=12.44bps mtf_score=0.5828 quality=0.8176 trend15=+0.88 trend1h=+0.48 trend4h=+1.24",
+   "exit": 0.1554522,
+   "t1": 1791743400,
+   "reason": "SL",
+   "pnl_pct": -3.701,
+   "mfe_pct": 1.947
   },
   {
    "id": "38160434821-S/USD",
@@ -4025,9 +4053,40 @@
    "t0": 1791740764,
    "entry": 0.0634,
    "btc0": 83872.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0015785319652723423,
-   "scan": "03 S/USD        price=$0.0647 vol24h=$1,815,923 spread=15.47bps mtf_score=0.5345 quality=0.8184 trend15=+1.76 trend1h=+0.67 trend4h=+0.55"
+   "scan": "03 S/USD        price=$0.0647 vol24h=$1,815,923 spread=15.47bps mtf_score=0.5345 quality=0.8184 trend15=+1.76 trend1h=+0.67 trend4h=+0.55",
+   "exit": 0.067204,
+   "t1": 1791745200,
+   "reason": "TP",
+   "pnl_pct": 5.222,
+   "mfe_pct": 7.098
+  },
+  {
+   "id": "38171799469-S/USD",
+   "symbol": "S/USD",
+   "pair": "SUSD",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1791750539,
+   "entry": 0.0648,
+   "btc0": 83569.8,
+   "status": "open",
+   "spread": 0.0030816640986133393,
+   "scan": "02 S/USD        price=$0.0646 vol24h=$2,413,464 spread=30.96bps mtf_score=0.5258 quality=0.7611 trend15=+2.29 trend1h=+1.15 trend4h=+0.56"
+  },
+  {
+   "id": "38171799469-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791750539,
+   "entry": 0.15589,
+   "btc0": 83569.8,
+   "status": "open",
+   "spread": 0.001345593182327977,
+   "scan": "03 BAT/USD      price=$0.15718 vol24h=$2,881,609 spread=8.91bps mtf_score=0.5053 quality=0.8146 trend15=+0.75 trend1h=+0.52 trend4h=+1.24"
   }
  ]
 }
