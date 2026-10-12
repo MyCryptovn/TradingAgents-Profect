@@ -4127,7 +4127,8 @@
    "t1": 1791751500,
    "reason": "TP",
    "pnl_pct": 5.072,
-   "mfe_pct": 9.877
+   "mfe_pct": 9.877,
+   "trail_pnl_pct": 6.245
   },
   {
    "id": "38171799469-BAT/USD",
@@ -4145,7 +4146,8 @@
    "t1": 1791793800,
    "reason": "SL",
    "pnl_pct": -3.755,
-   "mfe_pct": 5.042
+   "mfe_pct": 5.042,
+   "trail_pnl_pct": -0.407
   },
   {
    "id": "38200897193-W/USD",
@@ -4280,9 +4282,14 @@
    "t0": 1791828593,
    "entry": 0.002305,
    "btc0": 82391.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002208968411751622,
-   "scan": "02 RSR/USD      price=$0.002264 vol24h=$1,029,608 spread=26.48bps mtf_score=0.6514 quality=0.6779 trend15=-0.24 trend1h=+0.83 trend4h=+0.30"
+   "scan": "02 RSR/USD      price=$0.002264 vol24h=$1,029,608 spread=26.48bps mtf_score=0.6514 quality=0.6779 trend15=-0.24 trend1h=+0.83 trend4h=+0.30",
+   "exit": 0.00223585,
+   "t1": 1791828900,
+   "reason": "SL",
+   "pnl_pct": -3.841,
+   "mfe_pct": 0.0
   },
   {
    "id": "38287830897-BAT/USD",
@@ -4296,6 +4303,32 @@
    "status": "open",
    "spread": 0.00032969569087746696,
    "scan": "03 BAT/USD      price=$0.1516 vol24h=$2,263,969 spread=15.83bps mtf_score=0.6412 quality=0.5361 trend15=-0.30 trend1h=+0.24 trend4h=+1.29"
+  },
+  {
+   "id": "38318659903-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791845695,
+   "entry": 0.09565,
+   "btc0": 82381.3,
+   "status": "open",
+   "spread": 1.0454181934138655e-05,
+   "scan": "01 CAP/USD      price=$0.095801 vol24h=$2,697,601 spread=8.55bps mtf_score=0.6410 quality=0.5344 trend15=-0.56 trend1h=+0.18 trend4h=+1.24"
+  },
+  {
+   "id": "38318659903-PLUME/USD",
+   "symbol": "PLUME/USD",
+   "pair": "PLUMEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791845695,
+   "entry": 0.02122,
+   "btc0": 82381.3,
+   "status": "open",
+   "spread": 0.000942063118228883,
+   "scan": "02 PLUME/USD    price=$0.02143 vol24h=$928,639 spread=9.34bps mtf_score=0.6020 quality=0.6047 trend15=-0.10 trend1h=+0.31 trend4h=+0.90"
   }
  ]
 }
