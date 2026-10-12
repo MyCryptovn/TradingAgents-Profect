@@ -105,21 +105,6 @@ def save(led):
     with open(LEDGER, "w") as f:
         json.dump(led, f, indent=1)
 
-
-def record():
-    if not os.path.exists(RESULT_FILE):
-        print("Không thấy", RESULT_FILE)
-        return
-    with open(RESULT_FILE) as f:
-        decisions = extract(json.load(f))
-    with open(RESULT_FILE) as f:
-        scans = {d.get("symbol"): d.get("scan", "") for d in json.load(f) if isinstance(d, dict)}
-    led = load()
-    known = {t["id"] for t in led["trades"]}
-    run = os.getenv("GITHUB_RUN_ID", str(now()))
-    btc0 = price("XBTUSD")
-    for sym, act, raw in decisions:
-        if raw == "REVIEW" or council_exit(led, sym, act):
 def council_exit(led, sym, act):
     op = [t for t in led["trades"] if t["symbol"] == sym and t["status"] == "open" and t["action"] != "HOLD"]
     if not op:
@@ -138,6 +123,20 @@ def council_exit(led, sym, act):
     t.update(status="closed", exit=px, t1=now(), reason="COUNCIL", pnl_pct=round((d * (px / t["entry"] - 1) - COST - t.get("spread", 0)) * 100, 3))
     print("Hội đồng đóng lệnh:", sym, t["action"], px)
     return True
+def record():
+    if not os.path.exists(RESULT_FILE):
+        print("Không thấy", RESULT_FILE)
+        return
+    with open(RESULT_FILE) as f:
+        decisions = extract(json.load(f))
+    with open(RESULT_FILE) as f:
+        scans = {d.get("symbol"): d.get("scan", "") for d in json.load(f) if isinstance(d, dict)}
+    led = load()
+    known = {t["id"] for t in led["trades"]}
+    run = os.getenv("GITHUB_RUN_ID", str(now()))
+    btc0 = price("XBTUSD")
+    for sym, act, raw in decisions:
+        if raw == "REVIEW" or council_exit(led, sym, act):
             continue
         
         tid = f"{run}-{sym}"
