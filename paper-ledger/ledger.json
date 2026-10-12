@@ -4194,6 +4194,19 @@
    "status": "open",
    "spread": 0.0016764459346186565,
    "scan": "02 W/USD        price=$0.02965 vol24h=$4,193,931 spread=10.12bps mtf_score=0.6324 quality=0.8263 trend15=+1.36 trend1h=+1.19 trend4h=+0.67"
+  },
+  {
+   "id": "38219408174-ZRO/USD",
+   "symbol": "ZRO/USD",
+   "pair": "ZROUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791792081,
+   "entry": 2.433,
+   "btc0": 83788.1,
+   "status": "open",
+   "spread": 0.0012353304508956613,
+   "scan": "03 ZRO/USD      price=$2.431 vol24h=$3,322,064 spread=8.23bps mtf_score=0.4820 quality=0.5100 trend15=+1.94 trend1h=+0.87 trend4h=-0.11"
   }
  ]
 }

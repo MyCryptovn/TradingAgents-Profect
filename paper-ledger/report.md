@@ -1,7 +1,7 @@
 # Báo cáo paper trading
-Cập nhật: 2026-10-12 07:20 UTC
+Cập nhật: 2026-10-12 08:01 UTC
 
-- Lệnh đã chốt: **10** | đang mở: 3 | HOLD đã chấm: 201
+- Lệnh đã chốt: **10** | đang mở: 4 | HOLD đã chấm: 201
 - Thiết lập: giữ tối đa 24h, SL 3%, TP 6%, chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
