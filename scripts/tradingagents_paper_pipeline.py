@@ -210,6 +210,11 @@ def main() -> int:
 
     OUT_DIR.mkdir(exist_ok=True)
     candidates = run_scanner()
+    try:
+        open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
+    except Exception:
+        open_syms = []
+    candidates = candidates + [s for s in open_syms if s not in candidates]
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
 
