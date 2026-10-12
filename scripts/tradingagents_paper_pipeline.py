@@ -90,7 +90,21 @@ def to_crypto_ticker(symbol: str) -> str:
     base = {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
     return f"{base}-USD"
 
-
+def flow_note(ticker):
+    pair = ticker.replace("-", "")
+    try:
+        res = kraken_json("Trades", {"pair": pair})
+        key = next(k for k in res if k != "last")
+        trades = res[key][-500:]
+        buy = sum(float(t[0]) * float(t[1]) for t in trades if t[3] == "b")
+        sell = sum(float(t[0]) * float(t[1]) for t in trades if t[3] == "s")
+        span = (float(trades[-1][2]) - float(trades[0][2])) / 60
+        book = next(iter(kraken_json("Depth", {"pair": pair, "count": "20"}).values()))
+        bids = sum(float(x[1]) for x in book["bids"])
+        asks = sum(float(x[1]) for x in book["asks"])
+        return f" MONEY FLOW (Kraken, last {span:.0f} minutes): taker buy ${buy:,.0f} vs taker sell ${sell:,.0f}, buy share {buy / max(buy + sell, 1):.0%}. Order book top 20 levels: bid volume {bids:,.0f} vs ask volume {asks:,.0f}."
+    except Exception:
+        return ""
 def run_tradingagents(ticker: str, trade_date: str) -> str:
     """Run TradingAgents with crypto-native market tools over the pinned source."""
     from tradingagents.default_config import DEFAULT_CONFIG
@@ -119,7 +133,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE
+            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
