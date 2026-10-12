@@ -154,7 +154,24 @@ def record():
         print("Ghi:", sym, act, entry)
     save(led)
 
-
+def trail_pnl(t):
+    end = t["t0"] + HORIZON_H * 3600
+    d = 1 if t["action"] == "BUY" else -1
+    e = t["entry"]
+    peak = e
+    exit_px = None
+    for c in candles(t["pair"], t["t0"]):
+        ts, hi, lo = int(c[0]), float(c[2]), float(c[3])
+        if ts >= end:
+            break
+        stop = peak * (1 - d * 0.03)
+        if (d == 1 and lo <= stop) or (d == -1 and hi >= stop):
+            exit_px = stop
+            break
+        peak = max(peak, hi) if d == 1 else min(peak, lo)
+    if exit_px is None:
+        exit_px = price_at(t["pair"], end)
+    return round((d * (exit_px / e - 1) - COST - t.get("spread", 0)) * 100, 3)
 def settle(t):
     end = t["t0"] + HORIZON_H * 3600
     if t["action"] == "HOLD":
@@ -252,7 +269,18 @@ def report(led):
             f.write(text)
     print(text)
 
-
+def fill_trail(led):
+    for t in led["trades"]:
+        if t["status"] != "closed" or t["action"] == "HOLD" or t.get("base"):
+            continue
+        if "trail_pnl_pct" in t:
+            continue
+        if now() < t["t0"] + HORIZON_H * 3600 or now() - t["t0"] > 6 * 86400:
+            continue
+        try:
+            t["trail_pnl_pct"] = trail_pnl(t)
+        except Exception as e:
+            print("Lỗi trail", t["id"], e)
 def score():
     led = load()
     for t in led["trades"]:
@@ -261,6 +289,7 @@ def score():
                 settle(t)
             except Exception as e:
                 print("Lỗi chấm", t["id"], e)
+    fill_trail(led)
     save(led)
     report(led)
 
