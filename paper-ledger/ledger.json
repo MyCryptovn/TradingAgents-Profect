@@ -3822,9 +3822,12 @@
    "t0": 1791695369,
    "entry": 0.10665,
    "btc0": 82950.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0018733608092917934,
-   "scan": "01 STRK/USD     price=$0.10543 vol24h=$16,670,108 spread=24.55bps mtf_score=0.6187 quality=0.8002 trend15=+0.67 trend1h=+1.49 trend4h=+1.20"
+   "scan": "01 STRK/USD     price=$0.10543 vol24h=$16,670,108 spread=24.55bps mtf_score=0.6187 quality=0.8002 trend15=+0.67 trend1h=+1.49 trend4h=+1.20",
+   "exit": 0.10605,
+   "t1": 1791781769.0,
+   "move_pct": -0.563
   },
   {
    "id": "38113495599-TIA/USD",
@@ -3835,9 +3838,12 @@
    "t0": 1791695369,
    "entry": 0.6134,
    "btc0": 82950.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006522093592044138,
-   "scan": "02 TIA/USD      price=$0.6021 vol24h=$3,344,886 spread=3.33bps mtf_score=0.5922 quality=0.7442 trend15=+0.83 trend1h=+1.60 trend4h=+0.34"
+   "scan": "02 TIA/USD      price=$0.6021 vol24h=$3,344,886 spread=3.33bps mtf_score=0.5922 quality=0.7442 trend15=+0.83 trend1h=+1.60 trend4h=+0.34",
+   "exit": 0.5923,
+   "t1": 1791781769.0,
+   "move_pct": -3.44
   },
   {
    "id": "38113495599-AERO/USD",
@@ -3848,9 +3854,12 @@
    "t0": 1791695369,
    "entry": 0.9424,
    "btc0": 82950.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006364697146493412,
-   "scan": "03 AERO/USD     price=$0.9407 vol24h=$2,432,176 spread=6.38bps mtf_score=0.5252 quality=0.6832 trend15=+0.44 trend1h=+1.95 trend4h=+0.35"
+   "scan": "03 AERO/USD     price=$0.9407 vol24h=$2,432,176 spread=6.38bps mtf_score=0.5252 quality=0.6832 trend15=+0.44 trend1h=+1.95 trend4h=+0.35",
+   "exit": 0.9393,
+   "t1": 1791781769.0,
+   "move_pct": -0.329
   },
   {
    "id": "38116210971-STRK/USD",
@@ -3861,9 +3870,12 @@
    "t0": 1791698402,
    "entry": 0.10915,
    "btc0": 82966.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0025622254758418967,
-   "scan": "01 STRK/USD     price=$0.11043 vol24h=$17,559,782 spread=27.24bps mtf_score=0.5891 quality=0.7709 trend15=+0.38 trend1h=+1.49 trend4h=+1.20"
+   "scan": "01 STRK/USD     price=$0.11043 vol24h=$17,559,782 spread=27.24bps mtf_score=0.5891 quality=0.7709 trend15=+0.38 trend1h=+1.49 trend4h=+1.20",
+   "exit": 0.10561,
+   "t1": 1791784802.0,
+   "move_pct": -3.243
   },
   {
    "id": "38116210971-TIA/USD",
@@ -3874,9 +3886,12 @@
    "t0": 1791698403,
    "entry": 0.607,
    "btc0": 82966.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00032959789057346404,
-   "scan": "02 TIA/USD      price=$0.6125 vol24h=$3,492,826 spread=4.90bps mtf_score=0.5792 quality=0.7405 trend15=+0.62 trend1h=+1.60 trend4h=+0.34"
+   "scan": "02 TIA/USD      price=$0.6125 vol24h=$3,492,826 spread=4.90bps mtf_score=0.5792 quality=0.7405 trend15=+0.62 trend1h=+1.60 trend4h=+0.34",
+   "exit": 0.5921,
+   "t1": 1791784803.0,
+   "move_pct": -2.455
   },
   {
    "id": "38116210971-BAT/USD",
@@ -3887,9 +3902,12 @@
    "t0": 1791698403,
    "entry": 0.14405,
    "btc0": 82966.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006942515967785962,
-   "scan": "03 BAT/USD      price=$0.1466 vol24h=$3,294,722 spread=7.49bps mtf_score=0.5572 quality=0.7872 trend15=+0.73 trend1h=+0.42 trend4h=+1.19"
+   "scan": "03 BAT/USD      price=$0.1466 vol24h=$3,294,722 spread=7.49bps mtf_score=0.5572 quality=0.7872 trend15=+0.73 trend1h=+0.42 trend4h=+1.19",
+   "exit": 0.16121,
+   "t1": 1791784803.0,
+   "move_pct": 11.913
   },
   {
    "id": "38134078341-STRK/USD",
@@ -4131,6 +4149,32 @@
    "status": "open",
    "spread": 0.0016228121015416214,
    "scan": "03 GRASS/USD    price=$0.8581 vol24h=$1,869,737 spread=26.84bps mtf_score=0.4882 quality=0.7026 trend15=+1.40 trend1h=+1.93 trend4h=+0.22"
+  },
+  {
+   "id": "38213302536-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791787450,
+   "entry": 0.5949,
+   "btc0": 83901.1,
+   "status": "open",
+   "spread": 0.0003361909564632341,
+   "scan": "01 TIA/USD      price=$0.5963 vol24h=$2,292,947 spread=1.68bps mtf_score=0.6395 quality=0.7990 trend15=+0.69 trend1h=+0.97 trend4h=+0.80"
+  },
+  {
+   "id": "38213302536-S/USD",
+   "symbol": "S/USD",
+   "pair": "SUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1791787450,
+   "entry": 0.0625,
+   "btc0": 83901.1,
+   "status": "open",
+   "spread": 0.0015987210231815008,
+   "scan": "02 S/USD        price=$0.0621 vol24h=$2,834,477 spread=16.12bps mtf_score=0.6092 quality=0.5664 trend15=-0.25 trend1h=+1.34 trend4h=+0.78"
   }
  ]
 }
