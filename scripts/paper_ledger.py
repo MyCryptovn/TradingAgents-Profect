@@ -119,8 +119,27 @@ def record():
     run = os.getenv("GITHUB_RUN_ID", str(now()))
     btc0 = price("XBTUSD")
     for sym, act, raw in decisions:
-        if raw == "REVIEW":
+        if raw == "REVIEW" or council_exit(led, sym, act):
+def council_exit(led, sym, act):
+    op = [t for t in led["trades"] if t["symbol"] == sym and t["status"] == "open" and t["action"] != "HOLD"]
+    if not op:
+        return False
+    t = op[0]
+    try:
+        settle(t)
+    except Exception:
+        pass
+    if t["status"] != "open":
+        return True
+    if (t["action"], act) not in (("BUY", "SELL"), ("SELL", "BUY")):
+        return True
+    px = price(t["pair"])
+    d = 1 if t["action"] == "BUY" else -1
+    t.update(status="closed", exit=px, t1=now(), reason="COUNCIL", pnl_pct=round((d * (px / t["entry"] - 1) - COST - t.get("spread", 0)) * 100, 3))
+    print("Hội đồng đóng lệnh:", sym, t["action"], px)
+    return True
             continue
+        
         tid = f"{run}-{sym}"
         if tid in known:
             continue
