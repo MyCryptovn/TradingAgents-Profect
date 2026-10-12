@@ -3919,9 +3919,12 @@
    "t0": 1791716925,
    "entry": 0.11018,
    "btc0": 82948.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.001996913860397549,
-   "scan": "01 STRK/USD     price=$0.10939 vol24h=$18,182,771 spread=10.98bps mtf_score=0.5619 quality=0.7107 trend15=+0.01 trend1h=+1.38 trend4h=+1.27"
+   "scan": "01 STRK/USD     price=$0.10939 vol24h=$18,182,771 spread=10.98bps mtf_score=0.5619 quality=0.7107 trend15=+0.01 trend1h=+1.38 trend4h=+1.27",
+   "exit": 0.10547,
+   "t1": 1791803325.0,
+   "move_pct": -4.275
   },
   {
    "id": "38134078341-AERO/USD",
@@ -3932,9 +3935,12 @@
    "t0": 1791716926,
    "entry": 0.9712,
    "btc0": 82948.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008210180623973964,
-   "scan": "02 AERO/USD     price=$0.9659 vol24h=$2,584,064 spread=7.25bps mtf_score=0.5240 quality=0.7055 trend15=+0.91 trend1h=+1.87 trend4h=+0.46"
+   "scan": "02 AERO/USD     price=$0.9659 vol24h=$2,584,064 spread=7.25bps mtf_score=0.5240 quality=0.7055 trend15=+0.91 trend1h=+1.87 trend4h=+0.46",
+   "exit": 0.9156,
+   "t1": 1791803326.0,
+   "move_pct": -5.725
   },
   {
    "id": "38134078341-BAT/USD",
@@ -3945,9 +3951,12 @@
    "t0": 1791716926,
    "entry": 0.14414,
    "btc0": 82948.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002926217515502012,
-   "scan": "03 BAT/USD      price=$0.14325 vol24h=$3,146,297 spread=13.26bps mtf_score=0.5170 quality=0.7621 trend15=+0.24 trend1h=+0.47 trend4h=+1.23"
+   "scan": "03 BAT/USD      price=$0.14325 vol24h=$3,146,297 spread=13.26bps mtf_score=0.5170 quality=0.7621 trend15=+0.24 trend1h=+0.47 trend4h=+1.23",
+   "exit": 0.14687,
+   "t1": 1791803326.0,
+   "move_pct": 1.894
   },
   {
    "id": "38142042698-STRK/USD",
@@ -4108,9 +4117,14 @@
    "t0": 1791750539,
    "entry": 0.15589,
    "btc0": 83569.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.001345593182327977,
-   "scan": "03 BAT/USD      price=$0.15718 vol24h=$2,881,609 spread=8.91bps mtf_score=0.5053 quality=0.8146 trend15=+0.75 trend1h=+0.52 trend4h=+1.24"
+   "scan": "03 BAT/USD      price=$0.15718 vol24h=$2,881,609 spread=8.91bps mtf_score=0.5053 quality=0.8146 trend15=+0.75 trend1h=+0.52 trend4h=+1.24",
+   "exit": 0.1512133,
+   "t1": 1791793800,
+   "reason": "SL",
+   "pnl_pct": -3.755,
+   "mfe_pct": 5.042
   },
   {
    "id": "38200897193-W/USD",
@@ -4191,9 +4205,14 @@
    "t0": 1791789655,
    "entry": 0.02978,
    "btc0": 84076.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0016764459346186565,
-   "scan": "02 W/USD        price=$0.02965 vol24h=$4,193,931 spread=10.12bps mtf_score=0.6324 quality=0.8263 trend15=+1.36 trend1h=+1.19 trend4h=+0.67"
+   "scan": "02 W/USD        price=$0.02965 vol24h=$4,193,931 spread=10.12bps mtf_score=0.6324 quality=0.8263 trend15=+1.36 trend1h=+1.19 trend4h=+0.67",
+   "exit": 0.031566800000000006,
+   "t1": 1791798300,
+   "reason": "TP",
+   "pnl_pct": 5.212,
+   "mfe_pct": 6.716
   },
   {
    "id": "38219408174-ZRO/USD",
@@ -4204,9 +4223,14 @@
    "t0": 1791792081,
    "entry": 2.433,
    "btc0": 83788.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0012353304508956613,
-   "scan": "03 ZRO/USD      price=$2.431 vol24h=$3,322,064 spread=8.23bps mtf_score=0.4820 quality=0.5100 trend15=+1.94 trend1h=+0.87 trend4h=-0.11"
+   "scan": "03 ZRO/USD      price=$2.431 vol24h=$3,322,064 spread=8.23bps mtf_score=0.4820 quality=0.5100 trend15=+1.94 trend1h=+0.87 trend4h=-0.11",
+   "exit": 2.36001,
+   "t1": 1791805500,
+   "reason": "SL",
+   "pnl_pct": -3.744,
+   "mfe_pct": 1.932
   }
  ]
 }
