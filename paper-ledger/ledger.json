@@ -4071,9 +4071,14 @@
    "t0": 1791750539,
    "entry": 0.0648,
    "btc0": 83569.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0030816640986133393,
-   "scan": "02 S/USD        price=$0.0646 vol24h=$2,413,464 spread=30.96bps mtf_score=0.5258 quality=0.7611 trend15=+2.29 trend1h=+1.15 trend4h=+0.56"
+   "scan": "02 S/USD        price=$0.0646 vol24h=$2,413,464 spread=30.96bps mtf_score=0.5258 quality=0.7611 trend15=+2.29 trend1h=+1.15 trend4h=+0.56",
+   "exit": 0.060911999999999994,
+   "t1": 1791751500,
+   "reason": "TP",
+   "pnl_pct": 5.072,
+   "mfe_pct": 9.877
   },
   {
    "id": "38171799469-BAT/USD",
@@ -4087,6 +4092,45 @@
    "status": "open",
    "spread": 0.001345593182327977,
    "scan": "03 BAT/USD      price=$0.15718 vol24h=$2,881,609 spread=8.91bps mtf_score=0.5053 quality=0.8146 trend15=+0.75 trend1h=+0.52 trend4h=+1.24"
+  },
+  {
+   "id": "38200897193-W/USD",
+   "symbol": "W/USD",
+   "pair": "WUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791777067,
+   "entry": 0.02819,
+   "btc0": 83549.9,
+   "status": "open",
+   "spread": 0.0014209591474245767,
+   "scan": "01 W/USD        price=$0.02847 vol24h=$2,845,913 spread=10.54bps mtf_score=0.5733 quality=0.8290 trend15=+1.25 trend1h=+0.75 trend4h=+0.66"
+  },
+  {
+   "id": "38200897193-FIL/USD",
+   "symbol": "FIL/USD",
+   "pair": "FILUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791777068,
+   "entry": 1.229,
+   "btc0": 83549.9,
+   "status": "open",
+   "spread": 0.0008126777732629921,
+   "scan": "02 FIL/USD      price=$1.229 vol24h=$2,416,351 spread=8.15bps mtf_score=0.4905 quality=0.7891 trend15=+0.92 trend1h=+0.93 trend4h=+0.30"
+  },
+  {
+   "id": "38200897193-GRASS/USD",
+   "symbol": "GRASS/USD",
+   "pair": "GRASSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791777068,
+   "entry": 0.862,
+   "btc0": 83549.9,
+   "status": "open",
+   "spread": 0.0016228121015416214,
+   "scan": "03 GRASS/USD    price=$0.8581 vol24h=$1,869,737 spread=26.84bps mtf_score=0.4882 quality=0.7026 trend15=+1.40 trend1h=+1.93 trend4h=+0.22"
   }
  ]
 }
