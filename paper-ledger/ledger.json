@@ -4158,9 +4158,12 @@
    "t0": 1791777067,
    "entry": 0.02819,
    "btc0": 83549.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0014209591474245767,
-   "scan": "01 W/USD        price=$0.02847 vol24h=$2,845,913 spread=10.54bps mtf_score=0.5733 quality=0.8290 trend15=+1.25 trend1h=+0.75 trend4h=+0.66"
+   "scan": "01 W/USD        price=$0.02847 vol24h=$2,845,913 spread=10.54bps mtf_score=0.5733 quality=0.8290 trend15=+1.25 trend1h=+0.75 trend4h=+0.66",
+   "exit": 0.01922,
+   "t1": 1791863467.0,
+   "move_pct": -31.82
   },
   {
    "id": "38200897193-FIL/USD",
@@ -4171,9 +4174,12 @@
    "t0": 1791777068,
    "entry": 1.229,
    "btc0": 83549.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008126777732629921,
-   "scan": "02 FIL/USD      price=$1.229 vol24h=$2,416,351 spread=8.15bps mtf_score=0.4905 quality=0.7891 trend15=+0.92 trend1h=+0.93 trend4h=+0.30"
+   "scan": "02 FIL/USD      price=$1.229 vol24h=$2,416,351 spread=8.15bps mtf_score=0.4905 quality=0.7891 trend15=+0.92 trend1h=+0.93 trend4h=+0.30",
+   "exit": 1.158,
+   "t1": 1791863468.0,
+   "move_pct": -5.777
   },
   {
    "id": "38200897193-GRASS/USD",
@@ -4184,9 +4190,12 @@
    "t0": 1791777068,
    "entry": 0.862,
    "btc0": 83549.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0016228121015416214,
-   "scan": "03 GRASS/USD    price=$0.8581 vol24h=$1,869,737 spread=26.84bps mtf_score=0.4882 quality=0.7026 trend15=+1.40 trend1h=+1.93 trend4h=+0.22"
+   "scan": "03 GRASS/USD    price=$0.8581 vol24h=$1,869,737 spread=26.84bps mtf_score=0.4882 quality=0.7026 trend15=+1.40 trend1h=+1.93 trend4h=+0.22",
+   "exit": 0.768,
+   "t1": 1791863468.0,
+   "move_pct": -10.905
   },
   {
    "id": "38213302536-TIA/USD",
@@ -4368,6 +4377,45 @@
    "status": "open",
    "spread": 0.0017226528854435129,
    "scan": "03 S/USD        price=$0.0575 vol24h=$931,414 spread=17.38bps mtf_score=0.7023 quality=0.5845 trend15=-0.08 trend1h=+0.13 trend4h=+1.17"
+  },
+  {
+   "id": "38355947460-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791873081,
+   "entry": 0.18039,
+   "btc0": 83595.2,
+   "status": "open",
+   "spread": 0.002720333102012438,
+   "scan": "01 BAT/USD      price=$0.17772 vol24h=$3,241,266 spread=6.19bps mtf_score=0.6360 quality=0.7886 trend15=+1.32 trend1h=+0.29 trend4h=+1.27"
+  },
+  {
+   "id": "38355947460-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791873081,
+   "entry": 0.6265,
+   "btc0": 83595.2,
+   "status": "open",
+   "spread": 0.00031913196106586557,
+   "scan": "02 TIA/USD      price=$0.6156 vol24h=$3,320,293 spread=1.62bps mtf_score=0.5669 quality=0.5110 trend15=+1.49 trend1h=-0.40 trend4h=+0.95"
+  },
+  {
+   "id": "38355947460-STX/USD",
+   "symbol": "STX/USD",
+   "pair": "STXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791873082,
+   "entry": 0.4292,
+   "btc0": 83595.2,
+   "status": "open",
+   "spread": 0.0006997084548105481,
+   "scan": "03 STX/USD      price=$0.426 vol24h=$2,685,794 spread=9.40bps mtf_score=0.5356 quality=0.8524 trend15=+0.39 trend1h=+0.70 trend4h=+0.28"
   }
  ]
 }
