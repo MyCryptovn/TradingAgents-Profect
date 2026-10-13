@@ -4459,6 +4459,45 @@
    "status": "open",
    "spread": 0.0007254261878854371,
    "scan": "03 STX/USD      price=$0.4198 vol24h=$2,919,791 spread=7.15bps mtf_score=0.5192 quality=0.8247 trend15=+0.26 trend1h=+0.57 trend4h=+0.32"
+  },
+  {
+   "id": "38393111836-STX/USD",
+   "symbol": "STX/USD",
+   "pair": "STXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791892722,
+   "entry": 0.4179,
+   "btc0": 83214.7,
+   "status": "open",
+   "spread": 0.0007181328545780178,
+   "scan": "01 STX/USD      price=$0.4197 vol24h=$2,954,879 spread=7.16bps mtf_score=0.6704 quality=0.6424 trend15=-0.08 trend1h=+0.57 trend4h=+0.32"
+  },
+  {
+   "id": "38393111836-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791892722,
+   "entry": 0.17564,
+   "btc0": 83214.7,
+   "status": "open",
+   "spread": 0.0018240893803795643,
+   "scan": "02 BAT/USD      price=$0.17498 vol24h=$3,462,102 spread=15.44bps mtf_score=0.5737 quality=0.7984 trend15=+0.73 trend1h=+0.78 trend4h=+1.29"
+  },
+  {
+   "id": "38393111836-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791892722,
+   "entry": 0.594,
+   "btc0": 83214.7,
+   "status": "open",
+   "spread": 0.0016849199663016023,
+   "scan": "03 TIA/USD      price=$0.5911 vol24h=$3,283,568 spread=21.97bps mtf_score=0.5201 quality=0.7379 trend15=+1.02 trend1h=+0.08 trend4h=+0.91"
   }
  ]
 }
