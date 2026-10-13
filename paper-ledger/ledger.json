@@ -4329,6 +4329,45 @@
    "status": "open",
    "spread": 0.000942063118228883,
    "scan": "02 PLUME/USD    price=$0.02143 vol24h=$928,639 spread=9.34bps mtf_score=0.6020 quality=0.6047 trend15=-0.10 trend1h=+0.31 trend4h=+0.90"
+  },
+  {
+   "id": "38335025558-STX/USD",
+   "symbol": "STX/USD",
+   "pair": "STXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791857440,
+   "entry": 0.4112,
+   "btc0": 82434.2,
+   "status": "open",
+   "spread": 0.0007300158170094231,
+   "scan": "01 STX/USD      price=$0.4154 vol24h=$1,982,607 spread=4.81bps mtf_score=0.7502 quality=0.6697 trend15=-0.05 trend1h=+0.57 trend4h=+0.25"
+  },
+  {
+   "id": "38335025558-PYTH/USD",
+   "symbol": "PYTH/USD",
+   "pair": "PYTHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791857440,
+   "entry": 0.08225,
+   "btc0": 82434.2,
+   "status": "open",
+   "spread": 0.0010941584098230243,
+   "scan": "02 PYTH/USD     price=$0.08265 vol24h=$2,134,168 spread=8.47bps mtf_score=0.7171 quality=0.5825 trend15=-0.81 trend1h=+0.37 trend4h=+0.27"
+  },
+  {
+   "id": "38335025558-S/USD",
+   "symbol": "S/USD",
+   "pair": "SUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791857440,
+   "entry": 0.058,
+   "btc0": 82434.2,
+   "status": "open",
+   "spread": 0.0017226528854435129,
+   "scan": "03 S/USD        price=$0.0575 vol24h=$931,414 spread=17.38bps mtf_score=0.7023 quality=0.5845 trend15=-0.08 trend1h=+0.13 trend4h=+1.17"
   }
  ]
 }
