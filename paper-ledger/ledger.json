@@ -4333,9 +4333,12 @@
    "t0": 1791845695,
    "entry": 0.09565,
    "btc0": 82381.3,
-   "status": "open",
+   "status": "closed",
    "spread": 1.0454181934138655e-05,
-   "scan": "01 CAP/USD      price=$0.095801 vol24h=$2,697,601 spread=8.55bps mtf_score=0.6410 quality=0.5344 trend15=-0.56 trend1h=+0.18 trend4h=+1.24"
+   "scan": "01 CAP/USD      price=$0.095801 vol24h=$2,697,601 spread=8.55bps mtf_score=0.6410 quality=0.5344 trend15=-0.56 trend1h=+0.18 trend4h=+1.24",
+   "exit": 0.088993,
+   "t1": 1791932095.0,
+   "move_pct": -6.96
   },
   {
    "id": "38318659903-PLUME/USD",
@@ -4346,9 +4349,12 @@
    "t0": 1791845695,
    "entry": 0.02122,
    "btc0": 82381.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000942063118228883,
-   "scan": "02 PLUME/USD    price=$0.02143 vol24h=$928,639 spread=9.34bps mtf_score=0.6020 quality=0.6047 trend15=-0.10 trend1h=+0.31 trend4h=+0.90"
+   "scan": "02 PLUME/USD    price=$0.02143 vol24h=$928,639 spread=9.34bps mtf_score=0.6020 quality=0.6047 trend15=-0.10 trend1h=+0.31 trend4h=+0.90",
+   "exit": 0.0208,
+   "t1": 1791932095.0,
+   "move_pct": -1.979
   },
   {
    "id": "38335025558-STX/USD",
