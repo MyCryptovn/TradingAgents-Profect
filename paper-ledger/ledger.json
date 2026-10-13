@@ -4213,7 +4213,8 @@
    "t1": 1791812700,
    "reason": "SL",
    "pnl_pct": -3.654,
-   "mfe_pct": 2.168
+   "mfe_pct": 2.168,
+   "trail_pnl_pct": -1.55
   },
   {
    "id": "38213302536-S/USD",
@@ -4231,7 +4232,8 @@
    "t1": 1791788400,
    "reason": "SL",
    "pnl_pct": -3.78,
-   "mfe_pct": 0.0
+   "mfe_pct": 0.0,
+   "trail_pnl_pct": -3.78
   },
   {
    "id": "38216253643-W/USD",
@@ -4249,7 +4251,8 @@
    "t1": 1791798300,
    "reason": "TP",
    "pnl_pct": 5.212,
-   "mfe_pct": 6.716
+   "mfe_pct": 6.716,
+   "trail_pnl_pct": -1.345
   },
   {
    "id": "38219408174-ZRO/USD",
@@ -4267,7 +4270,8 @@
    "t1": 1791805500,
    "reason": "SL",
    "pnl_pct": -3.744,
-   "mfe_pct": 1.932
+   "mfe_pct": 1.932,
+   "trail_pnl_pct": -1.87
   },
   {
    "id": "38287830897-W/USD",
@@ -4416,6 +4420,45 @@
    "status": "open",
    "spread": 0.0006997084548105481,
    "scan": "03 STX/USD      price=$0.426 vol24h=$2,685,794 spread=9.40bps mtf_score=0.5356 quality=0.8524 trend15=+0.39 trend1h=+0.70 trend4h=+0.28"
+  },
+  {
+   "id": "38387127635-BAT/USD",
+   "symbol": "BAT/USD",
+   "pair": "BATUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791889913,
+   "entry": 0.17344,
+   "btc0": 83174.4,
+   "status": "open",
+   "spread": 0.0017299042786298852,
+   "scan": "01 BAT/USD      price=$0.17276 vol24h=$3,395,436 spread=28.95bps mtf_score=0.5668 quality=0.8020 trend15=+1.18 trend1h=+0.78 trend4h=+1.29"
+  },
+  {
+   "id": "38387127635-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791889913,
+   "entry": 0.6002,
+   "btc0": 83174.4,
+   "status": "open",
+   "spread": 0.002162881623824919,
+   "scan": "02 TIA/USD      price=$0.6027 vol24h=$3,361,881 spread=13.30bps mtf_score=0.5339 quality=0.7167 trend15=+1.25 trend1h=+0.08 trend4h=+0.91"
+  },
+  {
+   "id": "38387127635-STX/USD",
+   "symbol": "STX/USD",
+   "pair": "STXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791889914,
+   "entry": 0.4134,
+   "btc0": 83174.4,
+   "status": "open",
+   "spread": 0.0007254261878854371,
+   "scan": "03 STX/USD      price=$0.4198 vol24h=$2,919,791 spread=7.15bps mtf_score=0.5192 quality=0.8247 trend15=+0.26 trend1h=+0.57 trend4h=+0.32"
   }
  ]
 }
