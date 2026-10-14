@@ -4669,6 +4669,32 @@
    "status": "open",
    "spread": 0.00024322023592354415,
    "scan": "03 PEPE/USD     price=$4.128e-06 vol24h=$1,292,367 spread=2.42bps mtf_score=0.6427 quality=0.6481 trend15=-0.24 trend1h=+0.54 trend4h=+0.23"
+  },
+  {
+   "id": "38630216860-STX/USD",
+   "symbol": "STX/USD",
+   "pair": "STXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792009222,
+   "entry": 0.4262,
+   "btc0": 81851.4,
+   "status": "open",
+   "spread": 0.00046915317851273274,
+   "scan": "01 STX/USD      price=$0.4265 vol24h=$1,594,008 spread=4.68bps mtf_score=0.6619 quality=0.5549 trend15=-0.66 trend1h=+0.09 trend4h=+0.59"
+  },
+  {
+   "id": "38630216860-PYTH/USD",
+   "symbol": "PYTH/USD",
+   "pair": "PYTHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792009223,
+   "entry": 0.0849,
+   "btc0": 81851.4,
+   "status": "open",
+   "spread": 0.002123392709685025,
+   "scan": "02 PYTH/USD     price=$0.08467 vol24h=$779,407 spread=21.28bps mtf_score=0.6320 quality=0.6426 trend15=-0.06 trend1h=+0.09 trend4h=+0.23"
   }
  ]
 }
