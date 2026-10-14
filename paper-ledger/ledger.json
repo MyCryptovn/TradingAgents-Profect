@@ -4695,6 +4695,32 @@
    "status": "open",
    "spread": 0.002123392709685025,
    "scan": "02 PYTH/USD     price=$0.08467 vol24h=$779,407 spread=21.28bps mtf_score=0.6320 quality=0.6426 trend15=-0.06 trend1h=+0.09 trend4h=+0.23"
+  },
+  {
+   "id": "38653203825-CT/USD",
+   "symbol": "CT/USD",
+   "pair": "CTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792020247,
+   "entry": 0.3733,
+   "btc0": 81449.1,
+   "status": "open",
+   "spread": 0.0008050449483430094,
+   "scan": "02 CT/USD       price=$0.3713 vol24h=$598,436 spread=8.09bps mtf_score=0.5696 quality=0.5922 trend15=-0.71 trend1h=+0.24 trend4h=+0.50"
+  },
+  {
+   "id": "38653203825-WAL/USD",
+   "symbol": "WAL/USD",
+   "pair": "WALUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792020248,
+   "entry": 0.06034,
+   "btc0": 81449.1,
+   "status": "open",
+   "spread": 0.0016545334215751631,
+   "scan": "03 WAL/USD      price=$0.06057 vol24h=$1,346,684 spread=19.80bps mtf_score=0.5377 quality=0.8145 trend15=+0.83 trend1h=+1.61 trend4h=+0.68"
   }
  ]
 }
