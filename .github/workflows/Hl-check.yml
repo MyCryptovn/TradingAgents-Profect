@@ -1,0 +1,35 @@
+name: Hyperliquid Connectivity Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check public API from GitHub runner
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.request
+          req = urllib.request.Request(
+              "https://api.hyperliquid.xyz/info",
+              data=json.dumps({"type": "allMids"}).encode(),
+              headers={"Content-Type": "application/json"},
+          )
+          with urllib.request.urlopen(req, timeout=30) as r:
+              mids = json.load(r)
+          print("OK, coins listed:", len(mids))
+          with open("paper-ledger/ledger.json") as f:
+              trades = json.load(f)["trades"]
+          bases = sorted({t["symbol"].split("/")[0] for t in trades})
+          on = [c for c in bases if c in mids]
+          off = [c for c in bases if c not in mids]
+          print("Coins in your ledger:", len(bases))
+          print("On Hyperliquid:", on)
+          print("Not listed:", off)
+          PY
