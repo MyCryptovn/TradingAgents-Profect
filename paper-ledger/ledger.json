@@ -4509,9 +4509,12 @@
    "t0": 1791892722,
    "entry": 0.4179,
    "btc0": 83214.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007181328545780178,
-   "scan": "01 STX/USD      price=$0.4197 vol24h=$2,954,879 spread=7.16bps mtf_score=0.6704 quality=0.6424 trend15=-0.08 trend1h=+0.57 trend4h=+0.32"
+   "scan": "01 STX/USD      price=$0.4197 vol24h=$2,954,879 spread=7.16bps mtf_score=0.6704 quality=0.6424 trend15=-0.08 trend1h=+0.57 trend4h=+0.32",
+   "exit": 0.438,
+   "t1": 1791979122.0,
+   "move_pct": 4.81
   },
   {
    "id": "38393111836-BAT/USD",
@@ -4522,9 +4525,12 @@
    "t0": 1791892722,
    "entry": 0.17564,
    "btc0": 83214.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0018240893803795643,
-   "scan": "02 BAT/USD      price=$0.17498 vol24h=$3,462,102 spread=15.44bps mtf_score=0.5737 quality=0.7984 trend15=+0.73 trend1h=+0.78 trend4h=+1.29"
+   "scan": "02 BAT/USD      price=$0.17498 vol24h=$3,462,102 spread=15.44bps mtf_score=0.5737 quality=0.7984 trend15=+0.73 trend1h=+0.78 trend4h=+1.29",
+   "exit": 0.1908,
+   "t1": 1791979122.0,
+   "move_pct": 8.631
   },
   {
    "id": "38393111836-TIA/USD",
@@ -4535,9 +4541,12 @@
    "t0": 1791892722,
    "entry": 0.594,
    "btc0": 83214.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0016849199663016023,
-   "scan": "03 TIA/USD      price=$0.5911 vol24h=$3,283,568 spread=21.97bps mtf_score=0.5201 quality=0.7379 trend15=+1.02 trend1h=+0.08 trend4h=+0.91"
+   "scan": "03 TIA/USD      price=$0.5911 vol24h=$3,283,568 spread=21.97bps mtf_score=0.5201 quality=0.7379 trend15=+1.02 trend1h=+0.08 trend4h=+0.91",
+   "exit": 0.5562,
+   "t1": 1791979122.0,
+   "move_pct": -6.364
   },
   {
    "id": "38512925933-BAT/USD",
@@ -4621,6 +4630,45 @@
    "status": "open",
    "spread": 0.0018315018315017571,
    "scan": "03 STX/USD      price=$0.4377 vol24h=$1,878,912 spread=9.13bps mtf_score=0.5572 quality=0.8072 trend15=+0.25 trend1h=+0.64 trend4h=+0.59"
+  },
+  {
+   "id": "38574583704-STX/USD",
+   "symbol": "STX/USD",
+   "pair": "STXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791986012,
+   "entry": 0.4275,
+   "btc0": 82723.0,
+   "status": "open",
+   "spread": 0.000468164794007569,
+   "scan": "01 STX/USD      price=$0.4277 vol24h=$1,786,255 spread=7.02bps mtf_score=0.6683 quality=0.6072 trend15=-0.20 trend1h=+0.50 trend4h=+0.66"
+  },
+  {
+   "id": "38574583704-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791986013,
+   "entry": 7.858,
+   "btc0": 82723.0,
+   "status": "open",
+   "spread": 0.0006362537379906972,
+   "scan": "02 INJ/USD      price=$7.903 vol24h=$5,025,954 spread=3.80bps mtf_score=0.6604 quality=0.5344 trend15=-1.15 trend1h=+0.68 trend4h=+0.60"
+  },
+  {
+   "id": "38574583704-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791986013,
+   "entry": 4.112e-06,
+   "btc0": 82723.0,
+   "status": "open",
+   "spread": 0.00024322023592354415,
+   "scan": "03 PEPE/USD     price=$4.128e-06 vol24h=$1,292,367 spread=2.42bps mtf_score=0.6427 quality=0.6481 trend15=-0.24 trend1h=+0.54 trend4h=+0.23"
   }
  ]
 }
