@@ -4559,6 +4559,32 @@
    "status": "open",
    "spread": 0.0008302200083022931,
    "scan": "03 FIL/USD      price=$1.198 vol24h=$2,087,490 spread=8.34bps mtf_score=0.5074 quality=0.6025 trend15=+0.47 trend1h=-0.19 trend4h=+0.38"
+  },
+  {
+   "id": "38514166019-FIL/USD",
+   "symbol": "FIL/USD",
+   "pair": "FILUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791954497,
+   "entry": 1.185,
+   "btc0": 83453.1,
+   "status": "open",
+   "spread": 0.0008435259384225136,
+   "scan": "02 FIL/USD      price=$1.199 vol24h=$2,114,628 spread=16.74bps mtf_score=0.5223 quality=0.6025 trend15=+0.47 trend1h=-0.19 trend4h=+0.38"
+  },
+  {
+   "id": "38514166019-S/USD",
+   "symbol": "S/USD",
+   "pair": "SUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1791954497,
+   "entry": 0.0572,
+   "btc0": 83453.1,
+   "status": "open",
+   "spread": 0.0034965034965034753,
+   "scan": "03 S/USD        price=$0.0594 vol24h=$3,121,079 spread=16.82bps mtf_score=0.5163 quality=0.5605 trend15=+1.15 trend1h=-0.10 trend4h=+1.01"
   }
  ]
 }
