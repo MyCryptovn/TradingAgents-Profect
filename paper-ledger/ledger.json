@@ -4855,6 +4855,32 @@
    "status": "open",
    "spread": 0.0008431872477967034,
    "scan": "02 VVV/USD      price=$24.962 vol24h=$5,071,148 spread=5.21bps mtf_score=0.5259 quality=0.5671 trend15=+1.45 trend1h=+0.05 trend4h=-0.09"
+  },
+  {
+   "id": "38797626791-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792094374,
+   "entry": 0.03288533,
+   "btc0": 82287.5,
+   "status": "open",
+   "spread": 0.0007203023871380512,
+   "scan": "01 AKE/USD      price=$0.03295716 vol24h=$2,566,336 spread=16.28bps mtf_score=0.5501 quality=0.8160 trend15=+0.55 trend1h=+0.91 trend4h=+0.15"
+  },
+  {
+   "id": "38797626791-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792094375,
+   "entry": 25.029,
+   "btc0": 82287.5,
+   "status": "open",
+   "spread": 0.0005588153115395102,
+   "scan": "02 VVV/USD      price=$25.048 vol24h=$5,695,773 spread=4.00bps mtf_score=0.5280 quality=0.5436 trend15=+1.50 trend1h=+0.33 trend4h=-0.09"
   }
  ]
 }
