@@ -4656,9 +4656,12 @@
    "t0": 1791986012,
    "entry": 0.4275,
    "btc0": 82723.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000468164794007569,
-   "scan": "01 STX/USD      price=$0.4277 vol24h=$1,786,255 spread=7.02bps mtf_score=0.6683 quality=0.6072 trend15=-0.20 trend1h=+0.50 trend4h=+0.66"
+   "scan": "01 STX/USD      price=$0.4277 vol24h=$1,786,255 spread=7.02bps mtf_score=0.6683 quality=0.6072 trend15=-0.20 trend1h=+0.50 trend4h=+0.66",
+   "exit": 0.3907,
+   "t1": 1792072412.0,
+   "move_pct": -8.608
   },
   {
    "id": "38574583704-INJ/USD",
@@ -4669,9 +4672,12 @@
    "t0": 1791986013,
    "entry": 7.858,
    "btc0": 82723.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006362537379906972,
-   "scan": "02 INJ/USD      price=$7.903 vol24h=$5,025,954 spread=3.80bps mtf_score=0.6604 quality=0.5344 trend15=-1.15 trend1h=+0.68 trend4h=+0.60"
+   "scan": "02 INJ/USD      price=$7.903 vol24h=$5,025,954 spread=3.80bps mtf_score=0.6604 quality=0.5344 trend15=-1.15 trend1h=+0.68 trend4h=+0.60",
+   "exit": 7.099,
+   "t1": 1792072413.0,
+   "move_pct": -9.659
   },
   {
    "id": "38574583704-PEPE/USD",
@@ -4682,9 +4688,12 @@
    "t0": 1791986013,
    "entry": 4.112e-06,
    "btc0": 82723.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00024322023592354415,
-   "scan": "03 PEPE/USD     price=$4.128e-06 vol24h=$1,292,367 spread=2.42bps mtf_score=0.6427 quality=0.6481 trend15=-0.24 trend1h=+0.54 trend4h=+0.23"
+   "scan": "03 PEPE/USD     price=$4.128e-06 vol24h=$1,292,367 spread=2.42bps mtf_score=0.6427 quality=0.6481 trend15=-0.24 trend1h=+0.54 trend4h=+0.23",
+   "exit": 3.871e-06,
+   "t1": 1792072413.0,
+   "move_pct": -5.861
   },
   {
    "id": "38630216860-STX/USD",
@@ -4820,6 +4829,32 @@
    "status": "open",
    "spread": 0.0011679382948130664,
    "scan": "03 AKE/USD      price=$0.03223828 vol24h=$1,448,254 spread=13.36bps mtf_score=0.5395 quality=0.7757 trend15=+1.07 trend1h=+0.90 trend4h=+0.02"
+  },
+  {
+   "id": "38773383592-ZEREBRO/USD",
+   "symbol": "ZEREBRO/USD",
+   "pair": "ZEREBROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792083849,
+   "entry": 0.05289,
+   "btc0": 81996.0,
+   "status": "open",
+   "spread": 0.004741583688952114,
+   "scan": "01 ZEREBRO/USD  price=$0.05297 vol24h=$1,037,867 spread=28.30bps mtf_score=0.5289 quality=0.8779 trend15=+0.72 trend1h=+1.14 trend4h=+0.83"
+  },
+  {
+   "id": "38773383592-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792083849,
+   "entry": 24.894,
+   "btc0": 81996.0,
+   "status": "open",
+   "spread": 0.0008431872477967034,
+   "scan": "02 VVV/USD      price=$24.962 vol24h=$5,071,148 spread=5.21bps mtf_score=0.5259 quality=0.5671 trend15=+1.45 trend1h=+0.05 trend4h=-0.09"
   }
  ]
 }
