@@ -126,6 +126,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     except ModuleNotFoundError:
         def candle_note(ticker: str) -> str:
             return f"[STUB] Candle note missing for {ticker}"
+    from scripts.hl_note import hl_note
 
 
     # Overlay the stock-oriented tool names with crypto-native tools before the
@@ -142,7 +143,15 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES
+            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES = (
+    " ENTRY RULES: Rate BUY only if ALL are true: "
+    "RSI is below 70, trend15 > 0, taker buy share >= 55%, "
+    "order book bid volume > ask volume, and Hyperliquid funding is not extremely positive (>0.001). "
+    "If any condition fails → HOLD. "
+    "Rate SELL only with the mirror conditions. "
+    "Never risk more than 1% of capital on a single trade. "
+    "Max holding time 24h, hard stop-loss 3%, take-profit 6%."
+)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
@@ -238,6 +247,24 @@ def main() -> int:
     except Exception:
         open_syms = []
     candidates = candidates + [s for s in open_syms if s not in candidates]
+    try:
+        open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
+    except Exception:
+        open_syms = []
+    candidates = candidates + [s for s in open_syms if s not in candidates]
+
+    # ========== RISK MANAGEMENT CỨNG ==========
+    MAX_OPEN_POSITIONS = 3
+
+    filtered_candidates = []
+    for sym in candidates:
+        if len(open_syms) >= MAX_OPEN_POSITIONS and sym not in open_syms:
+            print(f"SKIP {sym}: đã đạt max open positions ({MAX_OPEN_POSITIONS})")
+            continue
+        filtered_candidates.append(sym)
+    candidates = filtered_candidates
+    # ==========================================
+
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
 
