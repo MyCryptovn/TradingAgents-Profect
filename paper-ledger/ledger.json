@@ -4751,9 +4751,14 @@
    "t0": 1792040091,
    "entry": 0.08742,
    "btc0": 81592.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0013726835964311256,
-   "scan": "02 PYTH/USD     price=$0.08792 vol24h=$1,087,932 spread=11.39bps mtf_score=0.5267 quality=0.8385 trend15=+0.12 trend1h=+0.38 trend4h=+0.20"
+   "scan": "02 PYTH/USD     price=$0.08792 vol24h=$1,087,932 spread=11.39bps mtf_score=0.5267 quality=0.8385 trend15=+0.12 trend1h=+0.38 trend4h=+0.20",
+   "exit": 0.0847974,
+   "t1": 1792043100,
+   "reason": "SL",
+   "pnl_pct": -3.757,
+   "mfe_pct": 0.16
   },
   {
    "id": "38683185694-AKE/USD",
