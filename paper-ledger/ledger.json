@@ -4608,9 +4608,12 @@
    "t0": 1791954497,
    "entry": 1.185,
    "btc0": 83453.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008435259384225136,
-   "scan": "02 FIL/USD      price=$1.199 vol24h=$2,114,628 spread=16.74bps mtf_score=0.5223 quality=0.6025 trend15=+0.47 trend1h=-0.19 trend4h=+0.38"
+   "scan": "02 FIL/USD      price=$1.199 vol24h=$2,114,628 spread=16.74bps mtf_score=0.5223 quality=0.6025 trend15=+0.47 trend1h=-0.19 trend4h=+0.38",
+   "exit": 1.04,
+   "t1": 1792040897.0,
+   "move_pct": -12.236
   },
   {
    "id": "38514166019-S/USD",
@@ -4621,9 +4624,12 @@
    "t0": 1791954497,
    "entry": 0.0572,
    "btc0": 83453.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0034965034965034753,
-   "scan": "03 S/USD        price=$0.0594 vol24h=$3,121,079 spread=16.82bps mtf_score=0.5163 quality=0.5605 trend15=+1.15 trend1h=-0.10 trend4h=+1.01"
+   "scan": "03 S/USD        price=$0.0594 vol24h=$3,121,079 spread=16.82bps mtf_score=0.5163 quality=0.5605 trend15=+1.15 trend1h=-0.10 trend4h=+1.01",
+   "exit": 0.0545,
+   "t1": 1792040897.0,
+   "move_pct": -4.72
   },
   {
    "id": "38554328232-STX/USD",
@@ -4634,9 +4640,12 @@
    "t0": 1791976429,
    "entry": 0.4372,
    "btc0": 83362.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0018315018315017571,
-   "scan": "03 STX/USD      price=$0.4377 vol24h=$1,878,912 spread=9.13bps mtf_score=0.5572 quality=0.8072 trend15=+0.25 trend1h=+0.64 trend4h=+0.59"
+   "scan": "03 STX/USD      price=$0.4377 vol24h=$1,878,912 spread=9.13bps mtf_score=0.5572 quality=0.8072 trend15=+0.25 trend1h=+0.64 trend4h=+0.59",
+   "exit": 0.395,
+   "t1": 1792062829.0,
+   "move_pct": -9.652
   },
   {
    "id": "38574583704-STX/USD",
@@ -4772,6 +4781,45 @@
    "status": "open",
    "spread": 0.0019435583535144017,
    "scan": "03 AKE/USD      price=$0.02756528 vol24h=$668,924 spread=27.74bps mtf_score=0.4761 quality=0.5810 trend15=+0.22 trend1h=+0.84 trend4h=-0.33"
+  },
+  {
+   "id": "38742945983-PYTH/USD",
+   "symbol": "PYTH/USD",
+   "pair": "PYTHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792071391,
+   "entry": 0.0814,
+   "btc0": 80066.1,
+   "status": "open",
+   "spread": 0.0014709487619515688,
+   "scan": "01 PYTH/USD     price=$0.08119 vol24h=$1,506,592 spread=15.97bps mtf_score=0.6506 quality=0.6638 trend15=-0.10 trend1h=+0.50 trend4h=+0.18"
+  },
+  {
+   "id": "38742945983-ZK/USD",
+   "symbol": "ZK/USD",
+   "pair": "ZKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792071391,
+   "entry": 0.01635,
+   "btc0": 80066.1,
+   "status": "open",
+   "spread": 0.0043143297380585895,
+   "scan": "02 ZK/USD       price=$0.01611 vol24h=$524,519 spread=30.95bps mtf_score=0.6259 quality=0.6292 trend15=-0.15 trend1h=+0.38 trend4h=+0.80"
+  },
+  {
+   "id": "38742945983-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792071391,
+   "entry": 0.03200985,
+   "btc0": 80066.1,
+   "status": "open",
+   "spread": 0.0011679382948130664,
+   "scan": "03 AKE/USD      price=$0.03223828 vol24h=$1,448,254 spread=13.36bps mtf_score=0.5395 quality=0.7757 trend15=+1.07 trend1h=+0.90 trend4h=+0.02"
   }
  ]
 }
