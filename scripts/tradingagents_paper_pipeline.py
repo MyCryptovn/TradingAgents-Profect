@@ -143,14 +143,17 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES = (
-    " ENTRY RULES: Rate BUY only if ALL are true: "
-    "RSI is below 70, trend15 > 0, taker buy share >= 55%, "
-    "order book bid volume > ask volume, and Hyperliquid funding is not extremely positive (>0.001). "
-    "If any condition fails → HOLD. "
-    "Rate SELL only with the mirror conditions. "
-    "Never risk more than 1% of capital on a single trade. "
-    "Max holding time 24h, hard stop-loss 3%, take-profit 6%."
+            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES = SHORT_RULES = (
+    " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
+    "1) RSI14 on 5m or 15m is below 70, "
+    "2) trend15 from scanner is positive, "
+    "3) taker buy share in MONEY FLOW >= 55%, "
+    "4) order book bid volume > ask volume, "
+    "5) Hyperliquid funding is not extremely positive (> +0.001 per hour). "
+    "If ANY condition fails → HOLD. "
+    "Rate SELL only with the exact mirror conditions. "
+    "Never open a trade when 15m and 1h trends conflict. "
+    "Max risk 1% of capital per trade. Hard stop-loss 3%, take-profit 6%, max hold 24h."
 )
         return original_resolve_context(self, symbol, asset_type)
 
@@ -264,6 +267,23 @@ def main() -> int:
         filtered_candidates.append(sym)
     candidates = filtered_candidates
     # ==========================================
+
+    # ========== BỘ LỌC MTF_SCORE + VOLUME ==========
+    MIN_MTF_SCORE = 0.52          # chỉ phân tích khi điểm scanner đủ cao
+
+    high_quality = []
+    for sym in candidates:
+        scan_line = SCAN_INFO.get(sym, "")
+        # Lấy mtf_score từ dòng scanner (ví dụ: mtf_score=0.5379)
+        import re
+        m = re.search(r"mtf_score=([0-9.]+)", scan_line)
+        score = float(m.group(1)) if m else 0.0
+        if score < MIN_MTF_SCORE and sym not in open_syms:
+            print(f"SKIP {sym}: mtf_score {score:.4f} < {MIN_MTF_SCORE}")
+            continue
+        high_quality.append(sym)
+    candidates = high_quality
+    # ==============================================
 
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
