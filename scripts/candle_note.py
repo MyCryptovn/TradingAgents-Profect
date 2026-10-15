@@ -1,4 +1,4 @@
-"""Chỉ báo nến 1 phút và 5 phút cho lời nhắc của hội đồng."""
+"""Chỉ báo nến đa khung (1m,5m,15m,1h,4h) cho lời nhắc của hội đồng."""
 import json
 import urllib.parse
 import urllib.request
@@ -39,7 +39,7 @@ def _block(rows, label):
     vols = [float(c[6]) for c in rows]
     colors = "".join("G" if float(c[4]) >= float(c[1]) else "R" for c in rows[-5:])
     ema9 = _ema(closes[-40:], 9)
-    ema21 = _ema(closes[-60:], 21)
+    ema21 = _ema(closes[-60:] if len(closes) >= 60 else closes, 21)
     vr = (sum(vols[-3:]) / 3) / max(sum(vols[-15:-3]) / 12, 1e-12)
     ch = closes[-1] / closes[-7] - 1
     return (f" {label}: last close {closes[-1]:.6g}, EMA9 {ema9:.6g}, EMA21 {ema21:.6g}, "
@@ -54,11 +54,20 @@ def candle_note(ticker):
     try:
         r1 = _ohlc(pair, 1)
         r5 = _ohlc(pair, 5)
+        r15 = _ohlc(pair, 15)
+        r60 = _ohlc(pair, 60)
+        r4h = _ohlc(pair, 240)
         if len(r1) < 60 or len(r5) < 60:
             return ""
-        return (" REAL-TIME CANDLES (Kraken, completed candles only):" + _block(r1, "1-minute")
+        note = (" REAL-TIME CANDLES (Kraken, completed candles only):"
+                + _block(r1, "1-minute")
                 + _block(r5, "5-minute")
+                + _block(r15, "15-minute")
+                + _block(r60, "1-hour")
+                + _block(r4h, "4-hour")
                 + " Use these as timing confirmation: do not BUY if the last 3 one-minute candles"
-                " are all red and RSI14 is below 45; do not SELL if they are all green and RSI14 is above 55.")
+                " are all red and RSI14 is below 45; do not SELL if they are all green and RSI14 is above 55."
+                " Prefer setups where 15m and 1h and 4h trends agree with the scanner.")
+        return note
     except Exception:
         return ""
