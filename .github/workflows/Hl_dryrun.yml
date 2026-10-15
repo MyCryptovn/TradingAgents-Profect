@@ -1,0 +1,25 @@
+name: Hyperliquid Dry Run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dryrun:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Hyperliquid dry run
+        env:
+          NOTIONAL_USD: "20"
+        run: python -m scripts.hl_dryrun
