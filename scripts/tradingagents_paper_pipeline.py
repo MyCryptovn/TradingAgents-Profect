@@ -119,7 +119,14 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         get_verified_market_snapshot as crypto_get_verified_snapshot,
     )
     from tradingagents.agents.utils.agent_utils import build_instrument_context
-    from scripts.candle_note import candle_note
+    
+    # Safe import candle_note
+    try:
+        from scripts.candle_note import candle_note
+    except ModuleNotFoundError:
+        def candle_note(ticker: str) -> str:
+            return f"[STUB] Candle note missing for {ticker}"
+
 
     # Overlay the stock-oriented tool names with crypto-native tools before the
     # graph is constructed. This keeps the pinned upstream source intact while
