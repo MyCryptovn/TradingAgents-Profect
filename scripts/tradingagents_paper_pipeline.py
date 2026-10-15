@@ -56,8 +56,19 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
 
 SCAN_INFO = {}
 REASONS = {}
-SHORT_RULES = " ENTRY RULES: Rate BUY only if ALL are true: RSI is below 75, trend15 in the scanner snapshot is above 0, taker buy share in MONEY FLOW is at least 60 percent, and order book bid volume is higher than ask volume. If any condition fails, rate HOLD. Rate SELL only if the mirror conditions hold: trend15 below 0, taker buy share at most 40 percent, ask volume higher than bid volume."
 SHORT_NOTE = " TRADING HORIZON: this is a SHORT-TERM paper trade held at most 24 hours, stop loss 3 percent, take profit 6 percent. Do not judge on a 3-6 month view. Rate BUY when 1h and 4h trends are up and volume or money flow confirms, SELL when they are down with confirming volume. Overextension alone is not a reason for HOLD. Use HOLD when signals conflict or momentum is fading."
+SHORT_RULES = (
+    " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
+    "1) RSI14 on 5m or 15m is below 70, "
+    "2) trend15 from scanner is positive, "
+    "3) taker buy share in MONEY FLOW >= 55%, "
+    "4) order book bid volume > ask volume, "
+    "5) Hyperliquid funding is not extremely positive (> +0.001 per hour). "
+    "If ANY condition fails → HOLD. "
+    "Rate SELL only with the exact mirror conditions. "
+    "Never open a trade when 15m and 1h trends conflict. "
+    "Max risk 1% of capital per trade. Hard stop-loss 3%, take-profit 6%, max hold 24h."
+)
 def run_scanner() -> list[str]:
     proc = subprocess.run(
         [sys.executable, "scripts/market_scanner.py"],
@@ -143,18 +154,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES = SHORT_RULES = (
-    " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
-    "1) RSI14 on 5m or 15m is below 70, "
-    "2) trend15 from scanner is positive, "
-    "3) taker buy share in MONEY FLOW >= 55%, "
-    "4) order book bid volume > ask volume, "
-    "5) Hyperliquid funding is not extremely positive (> +0.001 per hour). "
-    "If ANY condition fails → HOLD. "
-    "Rate SELL only with the exact mirror conditions. "
-    "Never open a trade when 15m and 1h trends conflict. "
-    "Max risk 1% of capital per trade. Hard stop-loss 3%, take-profit 6%, max hold 24h."
-)
+            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
