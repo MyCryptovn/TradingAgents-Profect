@@ -4704,9 +4704,12 @@
    "t0": 1792009222,
    "entry": 0.4262,
    "btc0": 81851.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00046915317851273274,
-   "scan": "01 STX/USD      price=$0.4265 vol24h=$1,594,008 spread=4.68bps mtf_score=0.6619 quality=0.5549 trend15=-0.66 trend1h=+0.09 trend4h=+0.59"
+   "scan": "01 STX/USD      price=$0.4265 vol24h=$1,594,008 spread=4.68bps mtf_score=0.6619 quality=0.5549 trend15=-0.66 trend1h=+0.09 trend4h=+0.59",
+   "exit": 0.4014,
+   "t1": 1792095622.0,
+   "move_pct": -5.819
   },
   {
    "id": "38630216860-PYTH/USD",
@@ -4717,9 +4720,12 @@
    "t0": 1792009223,
    "entry": 0.0849,
    "btc0": 81851.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002123392709685025,
-   "scan": "02 PYTH/USD     price=$0.08467 vol24h=$779,407 spread=21.28bps mtf_score=0.6320 quality=0.6426 trend15=-0.06 trend1h=+0.09 trend4h=+0.23"
+   "scan": "02 PYTH/USD     price=$0.08467 vol24h=$779,407 spread=21.28bps mtf_score=0.6320 quality=0.6426 trend15=-0.06 trend1h=+0.09 trend4h=+0.23",
+   "exit": 0.09485,
+   "t1": 1792095623.0,
+   "move_pct": 11.72
   },
   {
    "id": "38653203825-CT/USD",
@@ -4881,6 +4887,32 @@
    "status": "open",
    "spread": 0.0005588153115395102,
    "scan": "02 VVV/USD      price=$25.048 vol24h=$5,695,773 spread=4.00bps mtf_score=0.5280 quality=0.5436 trend15=+1.50 trend1h=+0.33 trend4h=-0.09"
+  },
+  {
+   "id": "38821399539-ZEREBRO/USD",
+   "symbol": "ZEREBRO/USD",
+   "pair": "ZEREBROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792105833,
+   "entry": 0.05074,
+   "btc0": 82187.2,
+   "status": "open",
+   "spread": 0.002168128510889898,
+   "scan": "01 ZEREBRO/USD  price=$0.05052 vol24h=$988,246 spread=33.65bps mtf_score=0.5483 quality=0.6158 trend15=-0.07 trend1h=+1.11 trend4h=+0.90"
+  },
+  {
+   "id": "38821399539-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792105834,
+   "entry": 0.03320793,
+   "btc0": 82187.2,
+   "status": "open",
+   "spread": 0.0032326328893412105,
+   "scan": "02 AKE/USD      price=$0.03296835 vol24h=$2,541,961 spread=22.85bps mtf_score=0.5355 quality=0.6196 trend15=-0.07 trend1h=+0.89 trend4h=+0.29"
   }
  ]
 }
