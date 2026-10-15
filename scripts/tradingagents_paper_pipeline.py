@@ -119,6 +119,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         get_verified_market_snapshot as crypto_get_verified_snapshot,
     )
     from tradingagents.agents.utils.agent_utils import build_instrument_context
+    from scripts.candle_note import candle_note
 
     # Overlay the stock-oriented tool names with crypto-native tools before the
     # graph is constructed. This keeps the pinned upstream source intact while
@@ -134,7 +135,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES
+            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
