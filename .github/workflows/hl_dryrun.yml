@@ -2,12 +2,16 @@ name: Hyperliquid Dry Run
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["TradingAgents Top-10 Paper Effectiveness"]
+    types: [completed]
 
 permissions:
   contents: read
 
 jobs:
   dryrun:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -22,4 +26,4 @@ jobs:
       - name: Hyperliquid dry run
         env:
           NOTIONAL_USD: "20"
-        run: python -m scripts.hl_dryrun
+        run: python -m scripts.hl_dryrun | tee -a "$GITHUB_STEP_SUMMARY"
