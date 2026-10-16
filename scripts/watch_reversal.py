@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Canh gác đảo chiều: xem lệnh paper đang mở bằng nến 1m, 5m và dòng tiền Kraken."""
+"""Canh gác đảo chiều: xem lệnh paper đang mở bằng nến 1m, 5m và dòng tiền Kraken.
+WATCH_MODE=shadow (mặc định): chỉ ghi nhận tín hiệu, KHÔNG đóng lệnh.
+WATCH_MODE=close: đóng lệnh với lý do REVERSAL."""
 import json
 import os
 import time
@@ -7,6 +9,7 @@ import time
 from scripts.paper_ledger import COST, get, now, price, settle
 
 LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger/ledger.json")
+MODE = os.getenv("WATCH_MODE", "shadow")
 MIN_AGE = 1200
 GIVEBACK = 0.02
 
@@ -81,8 +84,14 @@ def check_reversal(t):
     print("Canh gác", t["symbol"], t["action"], info, "tín hiệu:", sum(hits))
     if sum(hits) < 2:
         return False
-    t.update(status="closed", exit=px, t1=now(), reason="REVERSAL",
-             pnl_pct=round((d * (px / e - 1) - COST - t.get("spread", 0)) * 100, 3), watch=info)
+    rev = round((d * (px / e - 1) - COST - t.get("spread", 0)) * 100, 3)
+    if MODE != "close":
+        if "rev_px" in t:
+            return False
+        t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
+        print("Tín hiệu đảo chiều (chỉ ghi nhận, chưa đóng)", t["symbol"], t["action"], px, rev)
+        return True
+    t.update(status="closed", exit=px, t1=now(), reason="REVERSAL", pnl_pct=rev, watch=info)
     print("Chốt sớm", t["symbol"], t["action"], px)
     return True
 
@@ -93,6 +102,9 @@ def main():
         return
     with open(LEDGER_PATH) as f:
         led = json.load(f)
+    open_n = sum(1 for t in led["trades"]
+                 if t["status"] == "open" and t["action"] != "HOLD" and not t.get("base"))
+    print(f"Canh gác (chế độ {MODE}): {open_n} lệnh đang mở")
     changed = False
     for t in led["trades"]:
         if t["status"] != "open" or t["action"] == "HOLD" or t.get("base"):
