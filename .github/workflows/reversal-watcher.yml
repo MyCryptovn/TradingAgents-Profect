@@ -25,6 +25,8 @@ jobs:
           python-version: "3.12"
 
       - name: Watch open paper trades
+        env:
+          WATCH_MODE: close
         run: python -m scripts.watch_reversal
 
       - name: Commit ledger
