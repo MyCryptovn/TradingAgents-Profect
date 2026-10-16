@@ -5170,6 +5170,48 @@
    "spread": 0.0005877167205406347,
    "scan": "03 TIA/USD      price=$0.6899 vol24h=$4,744,305 spread=4.35bps mtf_score=0.6065 quality=0.6079 trend15=+0.11 trend1h=+2.62 trend4h=+0.36",
    "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38955920358-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792180033,
+   "entry": 0.6757,
+   "btc0": 81271.6,
+   "status": "open",
+   "spread": 0.0004438198091575974,
+   "scan": "01 TIA/USD      price=$0.6747 vol24h=$4,676,273 spread=4.45bps mtf_score=0.7702 quality=0.4140 trend15=-0.32 trend1h=+2.56 trend4h=+0.36",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38955920358-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792180034,
+   "entry": 557.3,
+   "btc0": 81271.6,
+   "status": "open",
+   "spread": 0.0008075587498991367,
+   "scan": "02 XMR/USD      price=$558.49 vol24h=$3,259,596 spread=2.87bps mtf_score=0.7584 quality=0.5716 trend15=-0.50 trend1h=+0.60 trend4h=+0.47",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38955920358-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792180034,
+   "entry": 8.622,
+   "btc0": 81271.6,
+   "status": "open",
+   "spread": 0.000580080051046929,
+   "scan": "03 INJ/USD      price=$8.63 vol24h=$6,454,758 spread=5.79bps mtf_score=0.7024 quality=0.3948 trend15=-1.52 trend1h=+1.94 trend4h=+0.51",
+   "cfg": "v7-2026-10-16"
   }
  ]
 }
