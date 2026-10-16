@@ -150,7 +150,7 @@ def record():
             print("Bỏ qua", sym, e)
             continue
         led["trades"].append({"id": tid, "symbol": sym, "pair": p, "action": act, "raw": raw,
-                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp, "scan": scans.get(sym, "") })
+                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp, "scan": scans.get(sym, ""), "cfg": os.getenv("CONFIG_TAG", "v1")})
         print("Ghi:", sym, act, entry)
     save(led)
 
