@@ -4958,6 +4958,45 @@
    "status": "open",
    "spread": 0.0004992926687192594,
    "scan": "03 TIA/USD      price=$0.6041 vol24h=$2,893,976 spread=1.65bps mtf_score=0.6239 quality=0.7822 trend15=+0.32 trend1h=+0.85 trend4h=+0.15"
+  },
+  {
+   "id": "38851529390-PYTH/USD",
+   "symbol": "PYTH/USD",
+   "pair": "PYTHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792125872,
+   "entry": 0.09445,
+   "btc0": 81926.7,
+   "status": "open",
+   "spread": 0.001058425063505534,
+   "scan": "01 PYTH/USD     price=$0.09481 vol24h=$3,120,156 spread=16.86bps mtf_score=0.6641 quality=0.5919 trend15=-0.08 trend1h=+0.78 trend4h=+0.39"
+  },
+  {
+   "id": "38851529390-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792125873,
+   "entry": 9.13,
+   "btc0": 81926.7,
+   "status": "open",
+   "spread": 0.0007670812558215631,
+   "scan": "02 INJ/USD      price=$9.155 vol24h=$8,645,136 spread=9.82bps mtf_score=0.6040 quality=0.7504 trend15=+1.49 trend1h=+1.11 trend4h=+0.33"
+  },
+  {
+   "id": "38851529390-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792125873,
+   "entry": 0.6101,
+   "btc0": 81926.7,
+   "status": "open",
+   "spread": 0.0004916823731868672,
+   "scan": "03 TIA/USD      price=$0.6157 vol24h=$3,037,314 spread=3.24bps mtf_score=0.5985 quality=0.7857 trend15=+0.51 trend1h=+0.84 trend4h=+0.15"
   }
  ]
 }
