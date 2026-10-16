@@ -4768,9 +4768,12 @@
    "t0": 1792040091,
    "entry": 0.05674,
    "btc0": 81592.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004390201071209065,
-   "scan": "01 WAL/USD      price=$0.05895 vol24h=$1,499,618 spread=18.75bps mtf_score=0.7489 quality=0.6164 trend15=-0.07 trend1h=+1.40 trend4h=+1.02"
+   "scan": "01 WAL/USD      price=$0.05895 vol24h=$1,499,618 spread=18.75bps mtf_score=0.7489 quality=0.6164 trend15=-0.07 trend1h=+1.40 trend4h=+1.02",
+   "exit": 0.04695,
+   "t1": 1792126491.0,
+   "move_pct": -17.254
   },
   {
    "id": "38683185694-PYTH/USD",
@@ -4788,7 +4791,8 @@
    "t1": 1792043100,
    "reason": "SL",
    "pnl_pct": -3.757,
-   "mfe_pct": 0.16
+   "mfe_pct": 0.16,
+   "trail_pnl_pct": -3.602
   },
   {
    "id": "38683185694-AKE/USD",
@@ -4799,9 +4803,12 @@
    "t0": 1792040092,
    "entry": 0.02750115,
    "btc0": 81592.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0019435583535144017,
-   "scan": "03 AKE/USD      price=$0.02756528 vol24h=$668,924 spread=27.74bps mtf_score=0.4761 quality=0.5810 trend15=+0.22 trend1h=+0.84 trend4h=-0.33"
+   "scan": "03 AKE/USD      price=$0.02756528 vol24h=$668,924 spread=27.74bps mtf_score=0.4761 quality=0.5810 trend15=+0.22 trend1h=+0.84 trend4h=-0.33",
+   "exit": 0.03121486,
+   "t1": 1792126492.0,
+   "move_pct": 13.504
   },
   {
    "id": "38742945983-PYTH/USD",
@@ -4997,6 +5004,45 @@
    "status": "open",
    "spread": 0.0004916823731868672,
    "scan": "03 TIA/USD      price=$0.6157 vol24h=$3,037,314 spread=3.24bps mtf_score=0.5985 quality=0.7857 trend15=+0.51 trend1h=+0.84 trend4h=+0.15"
+  },
+  {
+   "id": "38853892833-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792127526,
+   "entry": 9.235,
+   "btc0": 82168.2,
+   "status": "open",
+   "spread": 0.000756797664738599,
+   "scan": "01 INJ/USD      price=$9.277 vol24h=$8,979,663 spread=9.71bps mtf_score=0.6447 quality=0.7413 trend15=+1.58 trend1h=+1.22 trend4h=+0.33"
+  },
+  {
+   "id": "38853892833-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792127526,
+   "entry": 0.6068,
+   "btc0": 82168.2,
+   "status": "open",
+   "spread": 0.00032959789057346404,
+   "scan": "02 TIA/USD      price=$0.612 vol24h=$3,037,261 spread=3.27bps mtf_score=0.6023 quality=0.7744 trend15=+0.68 trend1h=+0.84 trend4h=+0.15"
+  },
+  {
+   "id": "38853892833-TAO/USD",
+   "symbol": "TAO/USD",
+   "pair": "TAOUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792127526,
+   "entry": 286.637,
+   "btc0": 82168.2,
+   "status": "open",
+   "spread": 0.00042094154544834495,
+   "scan": "03 TAO/USD      price=$288.551 vol24h=$7,549,351 spread=3.26bps mtf_score=0.5510 quality=0.5964 trend15=+0.74 trend1h=+0.70 trend4h=-0.29"
   }
  ]
 }
