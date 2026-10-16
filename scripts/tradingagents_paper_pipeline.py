@@ -159,8 +159,9 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-    # Rule khác nhau cho alt nhỏ và coin thường
-        rules = (
+            # Rule khác nhau cho alt nhỏ và coin thường
+            if is_small_alt(symbol.replace("-", "/")):
+                rules = (
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
                     "1) RSI14 on 5m or 15m below 68, "
                     "2) trend15 positive, "
