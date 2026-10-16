@@ -304,6 +304,24 @@ def extra(led):
             f.write(text)
     print(text)
 
+def by_cfg(led):
+    cl = [t for t in led["trades"] if t["status"] == "closed" and t["action"] != "HOLD" and not t.get("base")]
+    groups = {}
+    for t in cl:
+        groups.setdefault(t.get("cfg", "cũ"), []).append(t["pnl_pct"])
+    L = ["", "## Kết quả theo phiên bản cấu hình"]
+    for tag, p in groups.items():
+        w = [x for x in p if x > 0]
+        l = [x for x in p if x <= 0]
+        pf = f"{sum(w) / abs(sum(l)):.2f}" if l and sum(l) else "n/a"
+        L.append(f"- {tag}: {len(p)} lệnh, thắng {len(w) / len(p) * 100:.0f}%, tổng {sum(p):+.2f}%, profit factor {pf}")
+    text = "\n".join(L) + "\n"
+    summ = os.getenv("GITHUB_STEP_SUMMARY")
+    if summ:
+        with open(summ, "a") as f:
+            f.write(text)
+    print(text)
+
 
 def score():
     led = load()
@@ -317,6 +335,7 @@ def score():
     save(led)
     report(led)
     extra(led)
+    by_cfg(led)
 
 
 if __name__ == "__main__":
