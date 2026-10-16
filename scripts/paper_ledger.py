@@ -281,6 +281,30 @@ def fill_trail(led):
             t["trail_pnl_pct"] = trail_pnl(t)
         except Exception as e:
             print("Lỗi trail", t["id"], e)
+
+
+def extra(led):
+    cl = [t for t in led["trades"] if t["status"] == "closed" and t["action"] != "HOLD" and not t.get("base")]
+    L = ["", "## Số đo phụ"]
+    sh = [t for t in cl if "rev_pnl_pct" in t]
+    if sh:
+        L.append(f"- Canh gác (chế độ bóng): {len(sh)} lệnh có tín hiệu đảo chiều. "
+                 f"Nếu đóng ngay: {sum(t['rev_pnl_pct'] for t in sh):+.2f}%, "
+                 f"thực tế: {sum(t['pnl_pct'] for t in sh):+.2f}%")
+    tr = [t for t in cl if "trail_pnl_pct" in t]
+    if tr:
+        L.append(f"- Trailing stop: {len(tr)} lệnh, tổng {sum(t['trail_pnl_pct'] for t in tr):+.2f}% "
+                 f"so với thực tế {sum(t['pnl_pct'] for t in tr):+.2f}%")
+    if len(L) == 2:
+        L.append("- Chưa có lệnh nào có số đo phụ.")
+    text = "\n".join(L) + "\n"
+    summ = os.getenv("GITHUB_STEP_SUMMARY")
+    if summ:
+        with open(summ, "a") as f:
+            f.write(text)
+    print(text)
+
+
 def score():
     led = load()
     for t in led["trades"]:
@@ -292,6 +316,7 @@ def score():
     fill_trail(led)
     save(led)
     report(led)
+    extra(led)
 
 
 if __name__ == "__main__":
