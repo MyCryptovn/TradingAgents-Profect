@@ -4819,9 +4819,12 @@
    "t0": 1792071391,
    "entry": 0.0814,
    "btc0": 80066.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0014709487619515688,
-   "scan": "01 PYTH/USD     price=$0.08119 vol24h=$1,506,592 spread=15.97bps mtf_score=0.6506 quality=0.6638 trend15=-0.10 trend1h=+0.50 trend4h=+0.18"
+   "scan": "01 PYTH/USD     price=$0.08119 vol24h=$1,506,592 spread=15.97bps mtf_score=0.6506 quality=0.6638 trend15=-0.10 trend1h=+0.50 trend4h=+0.18",
+   "exit": 0.08881,
+   "t1": 1792157791.0,
+   "move_pct": 9.103
   },
   {
    "id": "38742945983-ZK/USD",
@@ -4832,9 +4835,12 @@
    "t0": 1792071391,
    "entry": 0.01635,
    "btc0": 80066.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0043143297380585895,
-   "scan": "02 ZK/USD       price=$0.01611 vol24h=$524,519 spread=30.95bps mtf_score=0.6259 quality=0.6292 trend15=-0.15 trend1h=+0.38 trend4h=+0.80"
+   "scan": "02 ZK/USD       price=$0.01611 vol24h=$524,519 spread=30.95bps mtf_score=0.6259 quality=0.6292 trend15=-0.15 trend1h=+0.38 trend4h=+0.80",
+   "exit": 0.01713,
+   "t1": 1792157791.0,
+   "move_pct": 4.771
   },
   {
    "id": "38742945983-AKE/USD",
@@ -4845,9 +4851,12 @@
    "t0": 1792071391,
    "entry": 0.03200985,
    "btc0": 80066.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0011679382948130664,
-   "scan": "03 AKE/USD      price=$0.03223828 vol24h=$1,448,254 spread=13.36bps mtf_score=0.5395 quality=0.7757 trend15=+1.07 trend1h=+0.90 trend4h=+0.02"
+   "scan": "03 AKE/USD      price=$0.03223828 vol24h=$1,448,254 spread=13.36bps mtf_score=0.5395 quality=0.7757 trend15=+1.07 trend1h=+0.90 trend4h=+0.02",
+   "exit": 0.0293632,
+   "t1": 1792157791.0,
+   "move_pct": -8.268
   },
   {
    "id": "38773383592-ZEREBRO/USD",
@@ -4858,9 +4867,12 @@
    "t0": 1792083849,
    "entry": 0.05289,
    "btc0": 81996.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004741583688952114,
-   "scan": "01 ZEREBRO/USD  price=$0.05297 vol24h=$1,037,867 spread=28.30bps mtf_score=0.5289 quality=0.8779 trend15=+0.72 trend1h=+1.14 trend4h=+0.83"
+   "scan": "01 ZEREBRO/USD  price=$0.05297 vol24h=$1,037,867 spread=28.30bps mtf_score=0.5289 quality=0.8779 trend15=+0.72 trend1h=+1.14 trend4h=+0.83",
+   "exit": 0.03496,
+   "t1": 1792170249.0,
+   "move_pct": -33.901
   },
   {
    "id": "38773383592-VVV/USD",
@@ -4871,9 +4883,12 @@
    "t0": 1792083849,
    "entry": 24.894,
    "btc0": 81996.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008431872477967034,
-   "scan": "02 VVV/USD      price=$24.962 vol24h=$5,071,148 spread=5.21bps mtf_score=0.5259 quality=0.5671 trend15=+1.45 trend1h=+0.05 trend4h=-0.09"
+   "scan": "02 VVV/USD      price=$24.962 vol24h=$5,071,148 spread=5.21bps mtf_score=0.5259 quality=0.5671 trend15=+1.45 trend1h=+0.05 trend4h=-0.09",
+   "exit": 22.909,
+   "t1": 1792170249.0,
+   "move_pct": -7.974
   },
   {
    "id": "38797626791-AKE/USD",
@@ -5112,6 +5127,48 @@
    "status": "open",
    "spread": 0.000280662363177067,
    "scan": "02 TIA/USD      price=$0.7032 vol24h=$4,837,717 spread=5.68bps mtf_score=0.6036 quality=0.6696 trend15=+2.12 trend1h=+1.49 trend4h=+0.26",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38945216266-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792175336,
+   "entry": 8.542,
+   "btc0": 81291.9,
+   "status": "open",
+   "spread": 0.0005851717479081025,
+   "scan": "01 INJ/USD      price=$8.654 vol24h=$7,334,770 spread=5.77bps mtf_score=0.6871 quality=0.4061 trend15=-0.99 trend1h=+2.06 trend4h=+0.51",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38945216266-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792175336,
+   "entry": 554.07,
+   "btc0": 81291.9,
+   "status": "open",
+   "spread": 0.0003973055460242849,
+   "scan": "02 XMR/USD      price=$553.94 vol24h=$3,271,795 spread=7.40bps mtf_score=0.6529 quality=0.5334 trend15=-0.88 trend1h=+0.65 trend4h=+0.47",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38945216266-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792175336,
+   "entry": 0.6807,
+   "btc0": 81291.9,
+   "status": "open",
+   "spread": 0.0005877167205406347,
+   "scan": "03 TIA/USD      price=$0.6899 vol24h=$4,744,305 spread=4.35bps mtf_score=0.6065 quality=0.6079 trend15=+0.11 trend1h=+2.62 trend4h=+0.36",
    "cfg": "v7-2026-10-16"
   }
  ]
