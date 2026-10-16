@@ -20,6 +20,11 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
+# === CẤU HÌNH LỌC ALTCOIN NHỎ ===
+SMALL_ALT_VOLUME_USD = 1_000_000      # volume 24h dưới mức này coi là alt nhỏ
+SMALL_ALT_TAKER_BUY = 0.58            # yêu cầu taker buy cao hơn
+NORMAL_TAKER_BUY = 0.55
+
 TOP_N = 10
 OUT_DIR = Path("tradingagents-paper-results")
 KRAKEN_API = "https://api.kraken.com/0/public/"
@@ -154,7 +159,22 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            return build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + SHORT_RULES
+            # Rule khác nhau cho alt nhỏ và coin thường
+        rules = (
+                    " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
+                    "1) RSI14 on 5m or 15m below 68, "
+                    "2) trend15 positive, "
+                    "3) taker buy share >= 58%, "
+                    "4) order book bid volume clearly higher than ask, "
+                    "5) Hyperliquid funding not strongly positive. "
+                    "If ANY condition fails → HOLD. "
+                    "Prefer SELL when taker buy share <= 42% and 5m/15m weakness appears. "
+                    "Max risk 1%, hard SL 3%, let winners run with reversal guard."
+                )
+            else:
+                rules = SHORT_RULES
+                
+            return build (instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
@@ -234,6 +254,20 @@ def wait_for_pending_candles(decisions: list[Decision]) -> None:
         print(f"WAITING FOR NEXT COMPLETED {INTERVAL_MINUTES}M CANDLE: {wait_seconds:.0f}s")
         time.sleep(wait_seconds)
 
+def is_small_alt(symbol: str) -> bool:
+    """Nhận diện altcoin nhỏ dựa trên volume 24h từ scanner."""
+    scan_line = SCAN_INFO.get(symbol, "")
+    # Ví dụ dòng scanner: ... vol24h=$1,234,567 ...
+    import re
+    m = re.search(r"vol24h=\$([0-9,]+)", scan_line)
+    if not m:
+        return True   # không lấy được volume → coi như nhỏ cho an toàn
+    try:
+        vol = float(m.group(1).replace(",", ""))
+        return vol < SMALL_ALT_VOLUME_USD
+    except Exception:
+        return True
+
 
 def main() -> int:
     provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "google")
@@ -285,6 +319,17 @@ def main() -> int:
     candidates = high_quality
     # ==============================================
 
+    # ========== BỘ LỌC ALTCOIN NHỎ (AN TOÀN HƠN) ==========
+    safe_candidates = []
+    for sym in candidates:
+        if is_small_alt(sym):
+            print(f"SMALL ALT detected: {sym} → áp dụng rule chặt hơn")
+            # Có thể bỏ qua hoàn toàn nếu muốn cực an toàn:
+            # continue
+        safe_candidates.append(sym)
+    candidates = safe_candidates
+    # =====================================================
+    
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
 
