@@ -5043,6 +5043,48 @@
    "status": "open",
    "spread": 0.00042094154544834495,
    "scan": "03 TAO/USD      price=$288.551 vol24h=$7,549,351 spread=3.26bps mtf_score=0.5510 quality=0.5964 trend15=+0.74 trend1h=+0.70 trend4h=-0.29"
+  },
+  {
+   "id": "38875436941-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792140866,
+   "entry": 0.6846,
+   "btc0": 82186.6,
+   "status": "open",
+   "spread": 0.0002921413964358428,
+   "scan": "01 TIA/USD      price=$0.684 vol24h=$3,993,513 spread=2.93bps mtf_score=0.6249 quality=0.7210 trend15=+1.55 trend1h=+0.94 trend4h=+0.19",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38875436941-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792140866,
+   "entry": 9.191,
+   "btc0": 82186.6,
+   "status": "open",
+   "spread": 0.0005447513210218451,
+   "scan": "02 INJ/USD      price=$9.184 vol24h=$8,616,593 spread=6.54bps mtf_score=0.6217 quality=0.7353 trend15=+1.17 trend1h=+1.51 trend4h=+0.39",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "38875436941-AERO/USD",
+   "symbol": "AERO/USD",
+   "pair": "AEROUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792140867,
+   "entry": 0.942,
+   "btc0": 82186.6,
+   "status": "open",
+   "spread": 0.0009559721705879356,
+   "scan": "03 AERO/USD     price=$0.949 vol24h=$1,716,845 spread=5.27bps mtf_score=0.5472 quality=0.7547 trend15=+0.69 trend1h=+0.87 trend4h=+0.09",
+   "cfg": "v7-2026-10-16"
   }
  ]
 }
