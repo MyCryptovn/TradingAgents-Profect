@@ -5243,10 +5243,13 @@
    "t0": 1792180033,
    "entry": 0.6757,
    "btc0": 81271.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004438198091575974,
    "scan": "01 TIA/USD      price=$0.6747 vol24h=$4,676,273 spread=4.45bps mtf_score=0.7702 quality=0.4140 trend15=-0.32 trend1h=+2.56 trend4h=+0.36",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.6733,
+   "t1": 1792266433.0,
+   "move_pct": -0.355
   },
   {
    "id": "38955920358-XMR/USD",
@@ -5257,10 +5260,13 @@
    "t0": 1792180034,
    "entry": 557.3,
    "btc0": 81271.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008075587498991367,
    "scan": "02 XMR/USD      price=$558.49 vol24h=$3,259,596 spread=2.87bps mtf_score=0.7584 quality=0.5716 trend15=-0.50 trend1h=+0.60 trend4h=+0.47",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 562.07,
+   "t1": 1792266434.0,
+   "move_pct": 0.856
   },
   {
    "id": "38955920358-INJ/USD",
@@ -5271,10 +5277,13 @@
    "t0": 1792180034,
    "entry": 8.622,
    "btc0": 81271.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000580080051046929,
    "scan": "03 INJ/USD      price=$8.63 vol24h=$6,454,758 spread=5.79bps mtf_score=0.7024 quality=0.3948 trend15=-1.52 trend1h=+1.94 trend4h=+0.51",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 8.756,
+   "t1": 1792266434.0,
+   "move_pct": 1.554
   },
   {
    "id": "38978327357-INJ/USD",
@@ -5512,6 +5521,48 @@
    "status": "open",
    "spread": 0.0030770974873070163,
    "scan": "03 Q/USD        price=$0.123489 vol24h=$2,070,639 spread=64.80bps mtf_score=0.5636 quality=0.7994 trend15=+2.65 trend1h=+1.51 trend4h=+1.35",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39074830088-ICNT/USD",
+   "symbol": "ICNT/USD",
+   "pair": "ICNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792276212,
+   "entry": 0.1705,
+   "btc0": 81203.5,
+   "status": "open",
+   "spread": 0.0029197080291970827,
+   "scan": "01 ICNT/USD     price=$0.173 vol24h=$1,315,210 spread=69.73bps mtf_score=0.6973 quality=0.5136 trend15=-0.28 trend1h=+0.56 trend4h=+1.69",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39074830088-EIGEN/USD",
+   "symbol": "EIGEN/USD",
+   "pair": "EIGENUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792276212,
+   "entry": 0.2489,
+   "btc0": 81203.5,
+   "status": "open",
+   "spread": 0.0008019246190858289,
+   "scan": "02 EIGEN/USD    price=$0.2483 vol24h=$680,670 spread=8.04bps mtf_score=0.6058 quality=0.5930 trend15=-0.73 trend1h=+0.10 trend4h=+0.28",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39074830088-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792276212,
+   "entry": 0.1214,
+   "btc0": 81203.5,
+   "status": "open",
+   "spread": 0.0181223026082606,
+   "scan": "03 Q/USD        price=$0.121296 vol24h=$2,464,155 spread=58.39bps mtf_score=0.5594 quality=0.8010 trend15=+2.36 trend1h=+2.13 trend4h=+1.44",
    "cfg": "v7-2026-10-16"
   }
  ]
