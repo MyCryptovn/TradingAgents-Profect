@@ -5158,10 +5158,13 @@
    "t0": 1792157200,
    "entry": 9.136,
    "btc0": 81901.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005476751191192294,
    "scan": "01 INJ/USD      price=$9.119 vol24h=$9,017,842 spread=4.38bps mtf_score=0.6163 quality=0.6900 trend15=+0.14 trend1h=+1.74 trend4h=+0.45",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 8.536,
+   "t1": 1792243600.0,
+   "move_pct": -6.567
   },
   {
    "id": "38906715926-TIA/USD",
@@ -5172,10 +5175,13 @@
    "t0": 1792157200,
    "entry": 0.7131,
    "btc0": 81901.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000280662363177067,
    "scan": "02 TIA/USD      price=$0.7032 vol24h=$4,837,717 spread=5.68bps mtf_score=0.6036 quality=0.6696 trend15=+2.12 trend1h=+1.49 trend4h=+0.26",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.6727,
+   "t1": 1792243600.0,
+   "move_pct": -5.665
   },
   {
    "id": "38945216266-INJ/USD",
@@ -5413,6 +5419,48 @@
    "status": "open",
    "spread": 0.000300210147102939,
    "scan": "03 TIA/USD      price=$0.6681 vol24h=$4,445,683 spread=5.98bps mtf_score=0.6938 quality=0.4815 trend15=-1.02 trend1h=+1.22 trend4h=+0.89",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39046266688-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792252192,
+   "entry": 0.6544,
+   "btc0": 81315.4,
+   "status": "open",
+   "spread": 0.00030571690614487613,
+   "scan": "01 TIA/USD      price=$0.6599 vol24h=$4,265,209 spread=3.03bps mtf_score=0.7229 quality=0.4592 trend15=-1.48 trend1h=+0.87 trend4h=+0.89",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39046266688-ICNT/USD",
+   "symbol": "ICNT/USD",
+   "pair": "ICNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792252192,
+   "entry": 0.1912,
+   "btc0": 81315.4,
+   "status": "open",
+   "spread": 0.0015661707126077915,
+   "scan": "02 ICNT/USD     price=$0.1916 vol24h=$1,237,554 spread=10.47bps mtf_score=0.7156 quality=0.5021 trend15=-0.55 trend1h=+1.36 trend4h=+1.63",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39046266688-EIGEN/USD",
+   "symbol": "EIGEN/USD",
+   "pair": "EIGENUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792252193,
+   "entry": 0.2549,
+   "btc0": 81315.4,
+   "status": "open",
+   "spread": 0.0007843137254901096,
+   "scan": "03 EIGEN/USD    price=$0.2564 vol24h=$540,982 spread=3.90bps mtf_score=0.6603 quality=0.4838 trend15=-1.09 trend1h=+0.96 trend4h=+0.30",
    "cfg": "v7-2026-10-16"
   }
  ]
