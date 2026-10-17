@@ -64,7 +64,7 @@ REASONS = {}
 SHORT_NOTE = " TRADING HORIZON: this is a SHORT-TERM paper trade held at most 24 hours, stop loss 3 percent, take profit 6 percent. Do not judge on a 3-6 month view. Rate BUY when 1h and 4h trends are up and volume or money flow confirms, SELL when they are down with confirming volume. Overextension alone is not a reason for HOLD. Use HOLD when signals conflict or momentum is fading."
 SHORT_RULES = (
     " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
-    "1) RSI14 on 5m or 15m is below 70, "
+    "1) RSI14 on 5m or 15m is below 68, "
     "2) trend15 from scanner is positive, "
     "3) taker buy share in MONEY FLOW >= 55%, "
     "4) order book bid volume > ask volume, "
