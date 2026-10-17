@@ -1,0 +1,12 @@
+name: Polymarket Geoblock Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check GitHub runner IP
+        run: curl -s https://polymarket.com/api/geoblock
