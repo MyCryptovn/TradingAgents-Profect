@@ -4931,9 +4931,12 @@
    "t0": 1792105833,
    "entry": 0.05074,
    "btc0": 82187.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002168128510889898,
-   "scan": "01 ZEREBRO/USD  price=$0.05052 vol24h=$988,246 spread=33.65bps mtf_score=0.5483 quality=0.6158 trend15=-0.07 trend1h=+1.11 trend4h=+0.90"
+   "scan": "01 ZEREBRO/USD  price=$0.05052 vol24h=$988,246 spread=33.65bps mtf_score=0.5483 quality=0.6158 trend15=-0.07 trend1h=+1.11 trend4h=+0.90",
+   "exit": 0.0325,
+   "t1": 1792192233.0,
+   "move_pct": -35.948
   },
   {
    "id": "38821399539-AKE/USD",
@@ -4944,9 +4947,12 @@
    "t0": 1792105834,
    "entry": 0.03320793,
    "btc0": 82187.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0032326328893412105,
-   "scan": "02 AKE/USD      price=$0.03296835 vol24h=$2,541,961 spread=22.85bps mtf_score=0.5355 quality=0.6196 trend15=-0.07 trend1h=+0.89 trend4h=+0.29"
+   "scan": "02 AKE/USD      price=$0.03296835 vol24h=$2,541,961 spread=22.85bps mtf_score=0.5355 quality=0.6196 trend15=-0.07 trend1h=+0.89 trend4h=+0.29",
+   "exit": 0.02994929,
+   "t1": 1792192234.0,
+   "move_pct": -9.813
   },
   {
    "id": "38847558037-INJ/USD",
@@ -4957,9 +4963,12 @@
    "t0": 1792123115,
    "entry": 9.108,
    "btc0": 82043.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0009870044415198293,
-   "scan": "01 INJ/USD      price=$9.238 vol24h=$8,526,992 spread=9.75bps mtf_score=0.6416 quality=0.7434 trend15=+1.50 trend1h=+0.96 trend4h=+0.32"
+   "scan": "01 INJ/USD      price=$9.238 vol24h=$8,526,992 spread=9.75bps mtf_score=0.6416 quality=0.7434 trend15=+1.50 trend1h=+0.96 trend4h=+0.32",
+   "exit": 8.916,
+   "t1": 1792209515.0,
+   "move_pct": -2.108
   },
   {
    "id": "38847558037-PYTH/USD",
@@ -4970,9 +4979,12 @@
    "t0": 1792123115,
    "entry": 0.09466,
    "btc0": 82043.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0016891891891891203,
-   "scan": "02 PYTH/USD     price=$0.09399 vol24h=$3,126,260 spread=20.22bps mtf_score=0.6358 quality=0.5878 trend15=-0.26 trend1h=+0.82 trend4h=+0.35"
+   "scan": "02 PYTH/USD     price=$0.09399 vol24h=$3,126,260 spread=20.22bps mtf_score=0.6358 quality=0.5878 trend15=-0.26 trend1h=+0.82 trend4h=+0.35",
+   "exit": 0.08487,
+   "t1": 1792209515.0,
+   "move_pct": -10.342
   },
   {
    "id": "38847558037-TIA/USD",
@@ -4983,9 +4995,12 @@
    "t0": 1792123115,
    "entry": 0.6011,
    "btc0": 82043.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004992926687192594,
-   "scan": "03 TIA/USD      price=$0.6041 vol24h=$2,893,976 spread=1.65bps mtf_score=0.6239 quality=0.7822 trend15=+0.32 trend1h=+0.85 trend4h=+0.15"
+   "scan": "03 TIA/USD      price=$0.6041 vol24h=$2,893,976 spread=1.65bps mtf_score=0.6239 quality=0.7822 trend15=+0.32 trend1h=+0.85 trend4h=+0.15",
+   "exit": 0.733,
+   "t1": 1792209515.0,
+   "move_pct": 21.943
   },
   {
    "id": "38851529390-PYTH/USD",
@@ -5259,6 +5274,48 @@
    "status": "open",
    "spread": 0.0008065166545687947,
    "scan": "03 XMR/USD      price=$558.42 vol24h=$3,208,164 spread=4.30bps mtf_score=0.5539 quality=0.7961 trend15=+0.33 trend1h=+0.42 trend4h=+0.46",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39002997007-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792212044,
+   "entry": 0.754,
+   "btc0": 81442.5,
+   "status": "open",
+   "spread": 0.0011930801352157644,
+   "scan": "01 TIA/USD      price=$0.7486 vol24h=$5,023,194 spread=2.67bps mtf_score=0.6173 quality=0.7681 trend15=+0.97 trend1h=+1.42 trend4h=+0.72",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39002997007-ICNT/USD",
+   "symbol": "ICNT/USD",
+   "pair": "ICNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792212044,
+   "entry": 0.2142,
+   "btc0": 81442.5,
+   "status": "open",
+   "spread": 0.0023261223540358244,
+   "scan": "02 ICNT/USD     price=$0.2122 vol24h=$1,270,474 spread=4.71bps mtf_score=0.5882 quality=0.8338 trend15=+1.25 trend1h=+1.71 trend4h=+1.38",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39002997007-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792212044,
+   "entry": 8.922,
+   "btc0": 81442.5,
+   "status": "open",
+   "spread": 0.0006729475100942381,
+   "scan": "03 INJ/USD      price=$8.932 vol24h=$4,899,736 spread=6.74bps mtf_score=0.5542 quality=0.7927 trend15=+1.01 trend1h=+0.89 trend4h=+0.71",
    "cfg": "v7-2026-10-16"
   }
  ]
