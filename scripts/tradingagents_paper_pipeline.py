@@ -146,7 +146,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         from scripts.hl_note import hl_note
     except ModuleNotFoundError:
         def hl_note(ticker: str) -> str:
-           return ""
+            return ""
     try:
         from scripts.coinglass_note import coinglass_note
     except ModuleNotFoundError:
