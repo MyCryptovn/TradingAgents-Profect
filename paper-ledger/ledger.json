@@ -5666,6 +5666,34 @@
    "spread": 0.0006981397130815515,
    "scan": "03 XMR/USD      price=$591.14 vol24h=$6,344,289 spread=8.79bps mtf_score=0.5813 quality=0.7355 trend15=+1.92 trend1h=+0.77 trend4h=+0.54",
    "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39103575315-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792304945,
+   "entry": 0.135326,
+   "btc0": 81592.4,
+   "status": "open",
+   "spread": 0.0054701081841235415,
+   "scan": "01 Q/USD        price=$0.133631 vol24h=$3,819,205 spread=67.55bps mtf_score=0.7430 quality=0.5211 trend15=-0.18 trend1h=+1.93 trend4h=+1.80",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39103575315-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792304945,
+   "entry": 581.33,
+   "btc0": 81592.4,
+   "status": "open",
+   "spread": 0.0002752546105146714,
+   "scan": "02 XMR/USD      price=$582.88 vol24h=$6,550,231 spread=7.38bps mtf_score=0.5868 quality=0.7816 trend15=+1.40 trend1h=+0.74 trend4h=+0.54",
+   "cfg": "v7-2026-10-16"
   }
  ]
 }
