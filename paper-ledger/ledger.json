@@ -5624,6 +5624,48 @@
    "spread": 0.0015564202334630796,
    "scan": "03 SAND/USD     price=$0.0642 vol24h=$2,858,840 spread=15.56bps mtf_score=0.5567 quality=0.6315 trend15=+0.48 trend1h=+0.60 trend4h=-0.37",
    "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39100860156-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792302362,
+   "entry": 0.129485,
+   "btc0": 81586.6,
+   "status": "open",
+   "spread": 0.011921334574177588,
+   "scan": "01 Q/USD        price=$0.130439 vol24h=$3,690,944 spread=96.07bps mtf_score=0.7416 quality=0.5022 trend15=-0.16 trend1h=+2.17 trend4h=+1.80",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39100860156-ICNT/USD",
+   "symbol": "ICNT/USD",
+   "pair": "ICNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792302362,
+   "entry": 0.1936,
+   "btc0": 81586.6,
+   "status": "open",
+   "spread": 0.002591344908007258,
+   "scan": "02 ICNT/USD     price=$0.197 vol24h=$1,266,768 spread=45.84bps mtf_score=0.6886 quality=0.5294 trend15=-0.38 trend1h=+0.11 trend4h=+1.43",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39100860156-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792302362,
+   "entry": 587.34,
+   "btc0": 81586.6,
+   "status": "open",
+   "spread": 0.0006981397130815515,
+   "scan": "03 XMR/USD      price=$591.14 vol24h=$6,344,289 spread=8.79bps mtf_score=0.5813 quality=0.7355 trend15=+1.92 trend1h=+0.77 trend4h=+0.54",
+   "cfg": "v7-2026-10-16"
   }
  ]
 }
