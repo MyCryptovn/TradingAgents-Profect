@@ -5396,10 +5396,13 @@
    "t0": 1792226071,
    "entry": 0.7188,
    "btc0": 81586.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0002781254345709609,
    "scan": "01 TIA/USD      price=$0.7195 vol24h=$4,709,408 spread=2.78bps mtf_score=0.6099 quality=0.7636 trend15=+0.89 trend1h=+1.68 trend4h=+0.87",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.6421,
+   "t1": 1792312471.0,
+   "move_pct": -10.671
   },
   {
    "id": "39017565872-INJ/USD",
@@ -5410,10 +5413,13 @@
    "t0": 1792226071,
    "entry": 8.738,
    "btc0": 81586.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006846970215679822,
    "scan": "02 INJ/USD      price=$8.732 vol24h=$3,943,267 spread=5.72bps mtf_score=0.5507 quality=0.7951 trend15=+0.59 trend1h=+0.68 trend4h=+0.84",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 8.419,
+   "t1": 1792312471.0,
+   "move_pct": -3.651
   },
   {
    "id": "39031428190-INJ/USD",
@@ -5693,6 +5699,48 @@
    "status": "open",
    "spread": 0.0002752546105146714,
    "scan": "02 XMR/USD      price=$582.88 vol24h=$6,550,231 spread=7.38bps mtf_score=0.5868 quality=0.7816 trend15=+1.40 trend1h=+0.74 trend4h=+0.54",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39121869701-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792322076,
+   "entry": 580.66,
+   "btc0": 81983.3,
+   "status": "open",
+   "spread": 0.0013600640435219868,
+   "scan": "01 XMR/USD      price=$583.07 vol24h=$6,894,508 spread=5.83bps mtf_score=0.7954 quality=0.5773 trend15=-0.29 trend1h=+1.04 trend4h=+0.48",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39121869701-HBAR/USD",
+   "symbol": "HBAR/USD",
+   "pair": "HBARUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1792322076,
+   "entry": 0.08885,
+   "btc0": 81983.3,
+   "status": "open",
+   "spread": 0.0006755235307363712,
+   "scan": "02 HBAR/USD     price=$0.08833 vol24h=$3,816,496 spread=3.39bps mtf_score=0.6222 quality=0.5523 trend15=+0.82 trend1h=+0.65 trend4h=-0.58",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39121869701-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792322077,
+   "entry": 0.6441,
+   "btc0": 81983.3,
+   "status": "open",
+   "spread": 0.0004657300318248342,
+   "scan": "03 TIA/USD      price=$0.6395 vol24h=$3,181,326 spread=3.13bps mtf_score=0.5500 quality=0.4918 trend15=+0.69 trend1h=-1.13 trend4h=+0.84",
    "cfg": "v7-2026-10-16"
   }
  ]
