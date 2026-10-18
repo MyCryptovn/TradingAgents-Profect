@@ -22,8 +22,8 @@ from pathlib import Path
 
 # === CẤU HÌNH LỌC ALTCOIN NHỎ ===
 SMALL_ALT_VOLUME_USD = 1_000_000      # volume 24h dưới mức này coi là alt nhỏ
-SMALL_ALT_TAKER_BUY = 0.58            # yêu cầu taker buy cao hơn
-NORMAL_TAKER_BUY = 0.55
+SMALL_ALT_TAKER_BUY = 0.55            # yêu cầu taker buy cao hơn
+NORMAL_TAKER_BUY = 0.52
 
 TOP_N = 10
 OUT_DIR = Path("tradingagents-paper-results")
@@ -64,9 +64,9 @@ REASONS = {}
 SHORT_NOTE = " TRADING HORIZON: this is a SHORT-TERM paper trade held at most 24 hours, stop loss 3 percent, take profit 6 percent. Do not judge on a 3-6 month view. Rate BUY when 1h and 4h trends are up and volume or money flow confirms, SELL when they are down with confirming volume. Overextension alone is not a reason for HOLD. Use HOLD when signals conflict or momentum is fading."
 SHORT_RULES = (
     " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
-    "1) RSI14 on 5m or 15m is below 68, "
+    "1) RSI14 on 5m or 15m is below 72, "
     "2) trend15 from scanner is positive, "
-    "3) taker buy share in MONEY FLOW >= 55%, "
+    "3) taker buy share in MONEY FLOW >= 52%, "
     "4) order book bid volume > ask volume, "
     "5) Hyperliquid funding is not extremely positive (> +0.001 per hour). "
     "If ANY condition fails → HOLD. "
@@ -163,9 +163,9 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
             if is_small_alt(symbol.replace("-", "/")):
                 rules = (
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
-                    "1) RSI14 on 5m or 15m below 68, "
+                    "1) RSI14 on 5m or 15m below 72, "
                     "2) trend15 positive, "
-                    "3) taker buy share >= 58%, "
+                    "3) taker buy share >= 52%, "
                     "4) order book bid volume clearly higher than ask, "
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
