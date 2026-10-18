@@ -5294,10 +5294,13 @@
    "t0": 1792191628,
    "entry": 8.66,
    "btc0": 81677.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000577667379122986,
    "scan": "01 INJ/USD      price=$8.688 vol24h=$6,149,410 spread=4.60bps mtf_score=0.7268 quality=0.4391 trend15=-1.11 trend1h=+1.43 trend4h=+0.54",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 8.56,
+   "t1": 1792278028.0,
+   "move_pct": -1.155
   },
   {
    "id": "38978327357-TIA/USD",
@@ -5308,10 +5311,13 @@
    "t0": 1792191629,
    "entry": 0.6739,
    "btc0": 81677.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00029651593773162045,
    "scan": "02 TIA/USD      price=$0.6731 vol24h=$4,552,453 spread=4.46bps mtf_score=0.7135 quality=0.3899 trend15=-0.85 trend1h=+2.14 trend4h=+0.44",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.6453,
+   "t1": 1792278029.0,
+   "move_pct": -4.244
   },
   {
    "id": "38978327357-XMR/USD",
@@ -5322,10 +5328,13 @@
    "t0": 1792191629,
    "entry": 558.08,
    "btc0": 81677.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008065166545687947,
    "scan": "03 XMR/USD      price=$558.42 vol24h=$3,208,164 spread=4.30bps mtf_score=0.5539 quality=0.7961 trend15=+0.33 trend1h=+0.42 trend4h=+0.46",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 566.63,
+   "t1": 1792278029.0,
+   "move_pct": 1.532
   },
   {
    "id": "39002997007-TIA/USD",
@@ -5336,10 +5345,13 @@
    "t0": 1792212044,
    "entry": 0.754,
    "btc0": 81442.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0011930801352157644,
    "scan": "01 TIA/USD      price=$0.7486 vol24h=$5,023,194 spread=2.67bps mtf_score=0.6173 quality=0.7681 trend15=+0.97 trend1h=+1.42 trend4h=+0.72",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.63,
+   "t1": 1792298444.0,
+   "move_pct": -16.446
   },
   {
    "id": "39002997007-ICNT/USD",
@@ -5350,10 +5362,13 @@
    "t0": 1792212044,
    "entry": 0.2142,
    "btc0": 81442.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0023261223540358244,
    "scan": "02 ICNT/USD     price=$0.2122 vol24h=$1,270,474 spread=4.71bps mtf_score=0.5882 quality=0.8338 trend15=+1.25 trend1h=+1.71 trend4h=+1.38",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.1874,
+   "t1": 1792298444.0,
+   "move_pct": -12.512
   },
   {
    "id": "39002997007-INJ/USD",
@@ -5364,10 +5379,13 @@
    "t0": 1792212044,
    "entry": 8.922,
    "btc0": 81442.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006729475100942381,
    "scan": "03 INJ/USD      price=$8.932 vol24h=$4,899,736 spread=6.74bps mtf_score=0.5542 quality=0.7927 trend15=+1.01 trend1h=+0.89 trend4h=+0.71",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 8.53,
+   "t1": 1792298444.0,
+   "move_pct": -4.394
   },
   {
    "id": "39017565872-TIA/USD",
@@ -5563,6 +5581,48 @@
    "status": "open",
    "spread": 0.0181223026082606,
    "scan": "03 Q/USD        price=$0.121296 vol24h=$2,464,155 spread=58.39bps mtf_score=0.5594 quality=0.8010 trend15=+2.36 trend1h=+2.13 trend4h=+1.44",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39097854452-ICNT/USD",
+   "symbol": "ICNT/USD",
+   "pair": "ICNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792298812,
+   "entry": 0.1888,
+   "btc0": 81728.6,
+   "status": "open",
+   "spread": 0.0026546323334218237,
+   "scan": "01 ICNT/USD     price=$0.1854 vol24h=$1,249,121 spread=21.52bps mtf_score=0.6815 quality=0.4483 trend15=-1.17 trend1h=+0.21 trend4h=+1.43",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39097854452-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792298812,
+   "entry": 596.08,
+   "btc0": 81728.6,
+   "status": "open",
+   "spread": 0.0009062531467122539,
+   "scan": "02 XMR/USD      price=$596.09 vol24h=$6,288,902 spread=5.03bps mtf_score=0.6181 quality=0.6902 trend15=+2.41 trend1h=+0.63 trend4h=+0.54",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39097854452-SAND/USD",
+   "symbol": "SAND/USD",
+   "pair": "SANDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792298812,
+   "entry": 0.0645,
+   "btc0": 81728.6,
+   "status": "open",
+   "spread": 0.0015564202334630796,
+   "scan": "03 SAND/USD     price=$0.0642 vol24h=$2,858,840 spread=15.56bps mtf_score=0.5567 quality=0.6315 trend15=+0.48 trend1h=+0.60 trend4h=-0.37",
    "cfg": "v7-2026-10-16"
   }
  ]
