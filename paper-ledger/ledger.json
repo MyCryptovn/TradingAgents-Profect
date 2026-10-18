@@ -5583,10 +5583,13 @@
    "t0": 1792276212,
    "entry": 0.1705,
    "btc0": 81203.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0029197080291970827,
    "scan": "01 ICNT/USD     price=$0.173 vol24h=$1,315,210 spread=69.73bps mtf_score=0.6973 quality=0.5136 trend15=-0.28 trend1h=+0.56 trend4h=+1.69",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.1896,
+   "t1": 1792362612.0,
+   "move_pct": 11.202
   },
   {
    "id": "39074830088-EIGEN/USD",
@@ -5597,10 +5600,13 @@
    "t0": 1792276212,
    "entry": 0.2489,
    "btc0": 81203.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008019246190858289,
    "scan": "02 EIGEN/USD    price=$0.2483 vol24h=$680,670 spread=8.04bps mtf_score=0.6058 quality=0.5930 trend15=-0.73 trend1h=+0.10 trend4h=+0.28",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.232,
+   "t1": 1792362612.0,
+   "move_pct": -6.79
   },
   {
    "id": "39074830088-Q/USD",
@@ -5611,10 +5617,13 @@
    "t0": 1792276212,
    "entry": 0.1214,
    "btc0": 81203.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0181223026082606,
    "scan": "03 Q/USD        price=$0.121296 vol24h=$2,464,155 spread=58.39bps mtf_score=0.5594 quality=0.8010 trend15=+2.36 trend1h=+2.13 trend4h=+1.44",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.113633,
+   "t1": 1792362612.0,
+   "move_pct": -6.398
   },
   {
    "id": "39097854452-ICNT/USD",
@@ -5885,6 +5894,34 @@
    "status": "open",
    "spread": 0.002929618610132547,
    "scan": "03 Q/USD        price=$0.120415 vol24h=$2,939,864 spread=29.12bps mtf_score=0.5652 quality=0.6965 trend15=+0.32 trend1h=+0.71 trend4h=+1.89",
+   "cfg": "v8-2026-10-18"
+  },
+  {
+   "id": "39172285943-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792362766,
+   "entry": 590.89,
+   "btc0": 81446.3,
+   "status": "open",
+   "spread": 0.0006435224386115311,
+   "scan": "01 XMR/USD      price=$591.36 vol24h=$7,440,860 spread=8.12bps mtf_score=0.8242 quality=0.5981 trend15=-0.37 trend1h=+0.57 trend4h=+0.55",
+   "cfg": "v8-2026-10-18"
+  },
+  {
+   "id": "39172285943-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792362766,
+   "entry": 81446.3,
+   "btc0": 81446.3,
+   "status": "open",
+   "spread": 1.2278036128835982e-06,
+   "scan": "02 XBT/USD      price=$81,471.4 vol24h=$76,468,036 spread=0.01bps mtf_score=0.5285 quality=0.3413 trend15=-0.91 trend1h=-0.24 trend4h=-0.48",
    "cfg": "v8-2026-10-18"
   }
  ]
