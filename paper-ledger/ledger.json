@@ -5430,10 +5430,13 @@
    "t0": 1792239418,
    "entry": 8.663,
    "btc0": 81442.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006925207756232949,
    "scan": "01 INJ/USD      price=$8.672 vol24h=$3,191,394 spread=4.60bps mtf_score=0.7591 quality=0.5311 trend15=-0.46 trend1h=+0.38 trend4h=+0.94",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 8.311,
+   "t1": 1792325818.0,
+   "move_pct": -4.063
   },
   {
    "id": "39031428190-ICNT/USD",
@@ -5444,10 +5447,13 @@
    "t0": 1792239419,
    "entry": 0.1841,
    "btc0": 81442.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002713704206241522,
    "scan": "02 ICNT/USD     price=$0.1877 vol24h=$1,191,211 spread=31.98bps mtf_score=0.7097 quality=0.5291 trend15=-0.31 trend1h=+1.68 trend4h=+1.63",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.1901,
+   "t1": 1792325819.0,
+   "move_pct": 3.259
   },
   {
    "id": "39031428190-TIA/USD",
@@ -5458,10 +5464,13 @@
    "t0": 1792239419,
    "entry": 0.6663,
    "btc0": 81442.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000300210147102939,
    "scan": "03 TIA/USD      price=$0.6681 vol24h=$4,445,683 spread=5.98bps mtf_score=0.6938 quality=0.4815 trend15=-1.02 trend1h=+1.22 trend4h=+0.89",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.6451,
+   "t1": 1792325819.0,
+   "move_pct": -3.182
   },
   {
    "id": "39046266688-TIA/USD",
@@ -5741,6 +5750,34 @@
    "status": "open",
    "spread": 0.0004657300318248342,
    "scan": "03 TIA/USD      price=$0.6395 vol24h=$3,181,326 spread=3.13bps mtf_score=0.5500 quality=0.4918 trend15=+0.69 trend1h=-1.13 trend4h=+0.84",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39128096154-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792327509,
+   "entry": 582.52,
+   "btc0": 81832.8,
+   "status": "open",
+   "spread": 0.0004633960062129078,
+   "scan": "01 XMR/USD      price=$582.02 vol24h=$6,670,267 spread=6.53bps mtf_score=0.7478 quality=0.5609 trend15=-0.33 trend1h=+1.08 trend4h=+0.49",
+   "cfg": "v7-2026-10-16"
+  },
+  {
+   "id": "39128096154-AVA/USD",
+   "symbol": "AVA/USD",
+   "pair": "AVAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792327509,
+   "entry": 0.4278,
+   "btc0": 81832.8,
+   "status": "open",
+   "spread": 0.014035922445581103,
+   "scan": "02 AVA/USD      price=$0.4136 vol24h=$586,586 spread=48.66bps mtf_score=0.6630 quality=0.5445 trend15=-0.18 trend1h=+1.24 trend4h=+0.89",
    "cfg": "v7-2026-10-16"
   }
  ]
