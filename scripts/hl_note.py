@@ -115,6 +115,7 @@ def hl_note(ticker):
             f" HYPERLIQUID SNAPSHOT (public data): mark {mark:.6g}, 24h change {chg:+.1%},"
             f" funding {funding:+.4%} per hour (positive = longs pay shorts), premium {prem:+.3%},"
             f" open interest ${oi:,.0f}, 24h volume ${vol:,.0f}."
+            f"{funding_bias}{oi_bias}"
             f" Order book 0.5%: bids ${d5b:,.0f} vs asks ${d5a:,.0f} (ratio {d5b / max(d5a, 1):.2f});"
             f" 1%: bids ${d1b:,.0f} vs asks ${d1a:,.0f} (ratio {d1b / max(d1a, 1):.2f})."
             f" Largest bid wall ${bw[0] * bw[1]:,.0f} at {bw[2]:.2%} below mid, {bkeep:.0%} still present after 2.5s;"
@@ -125,7 +126,7 @@ def hl_note(ticker):
             + _candle_block(c1h, "HL 1h")
             + _candle_block(c4h, "HL 4h")
             + " Use HL candles + funding + OI together: prefer BUY only when short-term HL trend is up,"
-            " funding not extremely positive, and bid side of book is healthier."
+            " funding not extremely positive, and bid side of book is healthier." 
         )
         return note
     except Exception as ex:
