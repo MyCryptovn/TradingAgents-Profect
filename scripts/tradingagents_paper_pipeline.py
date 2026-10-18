@@ -142,7 +142,14 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     except ModuleNotFoundError:
         def candle_note(ticker: str) -> str:
             return f"[STUB] Candle note missing for {ticker}"
-    from scripts.hl_note import hl_note
+    try:
+        from scripts.hl_note import hl_note
+            def hl_note(ticker: str) -> str:
+    try:
+        from scripts.coinglass_note import coinglass_note
+    except ModuleNotFoundError:
+        def coinglass_note(ticker: str) -> str:
+            return ""
 
 
     # Overlay the stock-oriented tool names with crypto-native tools before the
@@ -174,7 +181,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + coinglass_note(symbol) " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
