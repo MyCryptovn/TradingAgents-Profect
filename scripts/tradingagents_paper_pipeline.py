@@ -144,7 +144,9 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
             return f"[STUB] Candle note missing for {ticker}"
     try:
         from scripts.hl_note import hl_note
-            def hl_note(ticker: str) -> str:
+    except ModuleNotFoundError:
+        def hl_note(ticker: str) -> str:
+           return ""
     try:
         from scripts.coinglass_note import coinglass_note
     except ModuleNotFoundError:
