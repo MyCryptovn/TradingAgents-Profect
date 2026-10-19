@@ -5634,10 +5634,13 @@
    "t0": 1792298812,
    "entry": 0.1888,
    "btc0": 81728.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0026546323334218237,
    "scan": "01 ICNT/USD     price=$0.1854 vol24h=$1,249,121 spread=21.52bps mtf_score=0.6815 quality=0.4483 trend15=-1.17 trend1h=+0.21 trend4h=+1.43",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.184,
+   "t1": 1792385212.0,
+   "move_pct": -2.542
   },
   {
    "id": "39097854452-XMR/USD",
@@ -5648,10 +5651,13 @@
    "t0": 1792298812,
    "entry": 596.08,
    "btc0": 81728.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0009062531467122539,
    "scan": "02 XMR/USD      price=$596.09 vol24h=$6,288,902 spread=5.03bps mtf_score=0.6181 quality=0.6902 trend15=+2.41 trend1h=+0.63 trend4h=+0.54",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 595.3,
+   "t1": 1792385212.0,
+   "move_pct": -0.131
   },
   {
    "id": "39097854452-SAND/USD",
@@ -5662,10 +5668,13 @@
    "t0": 1792298812,
    "entry": 0.0645,
    "btc0": 81728.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0015564202334630796,
    "scan": "03 SAND/USD     price=$0.0642 vol24h=$2,858,840 spread=15.56bps mtf_score=0.5567 quality=0.6315 trend15=+0.48 trend1h=+0.60 trend4h=-0.37",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.0628,
+   "t1": 1792385212.0,
+   "move_pct": -2.636
   },
   {
    "id": "39100860156-Q/USD",
@@ -5936,6 +5945,34 @@
    "status": "open",
    "spread": 0.004210169177860301,
    "scan": "01 Q/USD        price=$0.121673 vol24h=$1,878,619 spread=100.82bps mtf_score=0.8325 quality=0.4517 trend15=-0.45 trend1h=+0.30 trend4h=+2.03",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39201175629-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792385528,
+   "entry": 0.17409,
+   "btc0": 82727.5,
+   "status": "open",
+   "spread": 0.011742543716234255,
+   "scan": "01 Q/USD        price=$0.170104 vol24h=$2,492,163 spread=124.16bps mtf_score=0.5627 quality=0.7268 trend15=+0.90 trend1h=+0.31 trend4h=+1.90",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39201175629-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792385528,
+   "entry": 1169.74,
+   "btc0": 82727.5,
+   "status": "open",
+   "spread": 0.00018813710063626877,
+   "scan": "02 ZEC/USD      price=$1,171.59 vol24h=$32,840,229 spread=1.11bps mtf_score=0.5218 quality=0.3290 trend15=+1.94 trend1h=-0.40 trend4h=-0.44",
    "cfg": "v9-2026-10-19"
   }
  ]
