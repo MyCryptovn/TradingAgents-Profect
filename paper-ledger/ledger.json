@@ -6030,6 +6030,20 @@
    "spread": 0.0076063173807533494,
    "scan": "01 Q/USD        price=$0.126345 vol24h=$1,481,695 spread=81.37bps mtf_score=0.6289 quality=0.4403 trend15=-0.62 trend1h=+0.45 trend4h=+1.89",
    "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39279790448-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792424920,
+   "entry": 0.124672,
+   "btc0": 81935.8,
+   "status": "open",
+   "spread": 0.006819273251160602,
+   "scan": "01 Q/USD        price=$0.124672 vol24h=$1,278,122 spread=77.83bps mtf_score=0.5941 quality=0.4042 trend15=-0.99 trend1h=+0.43 trend4h=+1.89",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }
