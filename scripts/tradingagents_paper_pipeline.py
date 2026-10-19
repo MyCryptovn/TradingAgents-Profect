@@ -72,7 +72,7 @@ SHORT_RULES = (
     "If ANY condition fails → HOLD. "
     "Rate SELL only with the exact mirror conditions. "
     "Never open a trade when 15m and 1h trends conflict. "
-    "Max risk 1% of capital per trade. Hard stop-loss 3%, take-profit 6%, max hold 24h."
+    "Max risk 1% of capital per trade. Hard stop-loss 5%, take-profit 10%, max hold 24h."
 )
 def run_scanner() -> list[str]:
     proc = subprocess.run(
