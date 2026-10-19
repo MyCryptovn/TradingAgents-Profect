@@ -5770,10 +5770,13 @@
    "t0": 1792322076,
    "entry": 580.66,
    "btc0": 81983.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0013600640435219868,
    "scan": "01 XMR/USD      price=$583.07 vol24h=$6,894,508 spread=5.83bps mtf_score=0.7954 quality=0.5773 trend15=-0.29 trend1h=+1.04 trend4h=+0.48",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 587.93,
+   "t1": 1792408476.0,
+   "move_pct": 1.252
   },
   {
    "id": "39121869701-HBAR/USD",
@@ -5792,7 +5795,8 @@
    "t1": 1792332000,
    "reason": "SL",
    "pnl_pct": -3.688,
-   "mfe_pct": 0.81
+   "mfe_pct": 0.81,
+   "trail_pnl_pct": -2.902
   },
   {
    "id": "39121869701-TIA/USD",
@@ -5803,10 +5807,13 @@
    "t0": 1792322077,
    "entry": 0.6441,
    "btc0": 81983.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004657300318248342,
    "scan": "03 TIA/USD      price=$0.6395 vol24h=$3,181,326 spread=3.13bps mtf_score=0.5500 quality=0.4918 trend15=+0.69 trend1h=-1.13 trend4h=+0.84",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.608,
+   "t1": 1792408477.0,
+   "move_pct": -5.605
   },
   {
    "id": "39128096154-XMR/USD",
@@ -5817,10 +5824,13 @@
    "t0": 1792327509,
    "entry": 582.52,
    "btc0": 81832.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004633960062129078,
    "scan": "01 XMR/USD      price=$582.02 vol24h=$6,670,267 spread=6.53bps mtf_score=0.7478 quality=0.5609 trend15=-0.33 trend1h=+1.08 trend4h=+0.49",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 593.65,
+   "t1": 1792413909.0,
+   "move_pct": 1.911
   },
   {
    "id": "39128096154-AVA/USD",
@@ -5831,10 +5841,13 @@
    "t0": 1792327509,
    "entry": 0.4278,
    "btc0": 81832.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.014035922445581103,
    "scan": "02 AVA/USD      price=$0.4136 vol24h=$586,586 spread=48.66bps mtf_score=0.6630 quality=0.5445 trend15=-0.18 trend1h=+1.24 trend4h=+0.89",
-   "cfg": "v7-2026-10-16"
+   "cfg": "v7-2026-10-16",
+   "exit": 0.4073,
+   "t1": 1792413909.0,
+   "move_pct": -4.792
   },
   {
    "id": "39142956075-Q/USD",
@@ -6002,6 +6015,20 @@
    "status": "open",
    "spread": 0.0062094315796247706,
    "scan": "01 Q/USD        price=$0.123262 vol24h=$1,859,798 spread=70.30bps mtf_score=0.5434 quality=0.7023 trend15=+0.16 trend1h=+0.37 trend4h=+1.86",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39261462479-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792417173,
+   "entry": 0.126184,
+   "btc0": 82105.0,
+   "status": "open",
+   "spread": 0.0076063173807533494,
+   "scan": "01 Q/USD        price=$0.126345 vol24h=$1,481,695 spread=81.37bps mtf_score=0.6289 quality=0.4403 trend15=-0.62 trend1h=+0.45 trend4h=+1.89",
    "cfg": "v9-2026-10-19"
   }
  ]
