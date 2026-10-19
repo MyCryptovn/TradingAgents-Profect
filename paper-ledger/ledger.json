@@ -5923,6 +5923,20 @@
    "spread": 1.2278036128835982e-06,
    "scan": "02 XBT/USD      price=$81,471.4 vol24h=$76,468,036 spread=0.01bps mtf_score=0.5285 quality=0.3413 trend15=-0.91 trend1h=-0.24 trend4h=-0.48",
    "cfg": "v8-2026-10-18"
+  },
+  {
+   "id": "39193248734-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792379538,
+   "entry": 0.129585,
+   "btc0": 82534.7,
+   "status": "open",
+   "spread": 0.004210169177860301,
+   "scan": "01 Q/USD        price=$0.121673 vol24h=$1,878,619 spread=100.82bps mtf_score=0.8325 quality=0.4517 trend15=-0.45 trend1h=+0.30 trend4h=+2.03",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }
