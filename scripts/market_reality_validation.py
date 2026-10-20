@@ -147,8 +147,16 @@ def main() -> int:
 
     for interval in INTERVALS:
         for pair, label in PAIRS.items():
+        try: 
             rows = fetch_ohlc(pair, interval)
+            if len(rows) < 60:
+                print(f"{label} {interval}m: bỏ qua (thiếu nến)")
+                continue
             result = run(pair, interval, rows)
+        except Exception as e:
+                print(f"{label} {interval}m: bỏ qua ({e})")
+                continue
+            
             strategy_pnl = result.strategy_equity / START_CASH - 1.0
             benchmark_pnl = result.benchmark_equity / START_CASH - 1.0
             print(
