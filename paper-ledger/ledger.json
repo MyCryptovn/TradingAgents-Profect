@@ -6062,10 +6062,13 @@
    "t0": 1792417173,
    "entry": 0.126184,
    "btc0": 82105.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0076063173807533494,
    "scan": "01 Q/USD        price=$0.126345 vol24h=$1,481,695 spread=81.37bps mtf_score=0.6289 quality=0.4403 trend15=-0.62 trend1h=+0.45 trend4h=+1.89",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.127936,
+   "t1": 1792503573.0,
+   "move_pct": 1.388
   },
   {
    "id": "39279790448-Q/USD",
@@ -6076,10 +6079,13 @@
    "t0": 1792424920,
    "entry": 0.124672,
    "btc0": 81935.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.006819273251160602,
    "scan": "01 Q/USD        price=$0.124672 vol24h=$1,278,122 spread=77.83bps mtf_score=0.5941 quality=0.4042 trend15=-0.99 trend1h=+0.43 trend4h=+1.89",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.122436,
+   "t1": 1792511320.0,
+   "move_pct": -1.794
   },
   {
    "id": "39372174182-WLD/USD",
@@ -6149,6 +6155,48 @@
    "status": "open",
    "spread": 0.0005880623346075603,
    "scan": "03 INJ/USD      price=$8.508 vol24h=$4,750,007 spread=4.69bps mtf_score=0.5900 quality=0.6076 trend15=-0.21 trend1h=+0.47 trend4h=+0.23",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39445468466-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792512909,
+   "entry": 4.513e-06,
+   "btc0": 82446.9,
+   "status": "open",
+   "spread": 0.00022150847269900354,
+   "scan": "01 PEPE/USD     price=$4.538e-06 vol24h=$1,537,853 spread=4.41bps mtf_score=0.5817 quality=0.8149 trend15=+0.73 trend1h=+0.79 trend4h=+0.09",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39445468466-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792512909,
+   "entry": 0.5614,
+   "btc0": 82446.9,
+   "status": "open",
+   "spread": 0.000178110250244882,
+   "scan": "02 WLD/USD      price=$0.5758 vol24h=$4,616,267 spread=12.16bps mtf_score=0.5621 quality=0.7246 trend15=+1.06 trend1h=+1.62 trend4h=+0.05",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39445468466-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792512910,
+   "entry": 25.295,
+   "btc0": 82446.9,
+   "status": "open",
+   "spread": 0.0011060635986570116,
+   "scan": "03 VVV/USD      price=$26.131 vol24h=$3,660,449 spread=8.03bps mtf_score=0.5506 quality=0.8020 trend15=+0.49 trend1h=+0.79 trend4h=+0.20",
    "cfg": "v9-2026-10-19"
   }
  ]
