@@ -6198,6 +6198,34 @@
    "spread": 0.0011060635986570116,
    "scan": "03 VVV/USD      price=$26.131 vol24h=$3,660,449 spread=8.03bps mtf_score=0.5506 quality=0.8020 trend15=+0.49 trend1h=+0.79 trend4h=+0.20",
    "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39488358543-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792527022,
+   "entry": 4.59e-06,
+   "btc0": 82559.0,
+   "status": "open",
+   "spread": 0.00021779374931950313,
+   "scan": "01 PEPE/USD     price=$4.604e-06 vol24h=$2,972,033 spread=6.51bps mtf_score=0.5657 quality=0.7856 trend15=+1.33 trend1h=+1.23 trend4h=+0.41",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39488358543-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792527023,
+   "entry": 0.5832,
+   "btc0": 82559.0,
+   "status": "open",
+   "spread": 0.0008577064928382466,
+   "scan": "02 WLD/USD      price=$0.5795 vol24h=$5,319,106 spread=10.35bps mtf_score=0.5652 quality=0.7368 trend15=+1.25 trend1h=+1.55 trend4h=+0.36",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }
