@@ -6226,6 +6226,34 @@
    "spread": 0.0008577064928382466,
    "scan": "02 WLD/USD      price=$0.5795 vol24h=$5,319,106 spread=10.35bps mtf_score=0.5652 quality=0.7368 trend15=+1.25 trend1h=+1.55 trend4h=+0.36",
    "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39513448310-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792538407,
+   "entry": 4.558e-06,
+   "btc0": 82885.0,
+   "status": "open",
+   "spread": 0.00043927081045467826,
+   "scan": "01 PEPE/USD     price=$4.561e-06 vol24h=$3,117,282 spread=4.39bps mtf_score=0.5612 quality=0.7573 trend15=+0.87 trend1h=+1.46 trend4h=+0.41",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39513448310-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLDUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1792538407,
+   "entry": 0.5886,
+   "btc0": 82885.0,
+   "status": "open",
+   "spread": 0.00118936369042568,
+   "scan": "02 WLD/USD      price=$0.589 vol24h=$5,444,712 spread=13.56bps mtf_score=0.5337 quality=0.6962 trend15=+1.73 trend1h=+1.88 trend4h=+0.36",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }

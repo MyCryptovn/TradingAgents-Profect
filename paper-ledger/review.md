@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-20 20:10 UTC**
+- Thời điểm: **2026-10-20 23:20 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (2 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **18** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **1** |
 | Win rate | **33.3%** |
 | PnL trung bình / lệnh | **-0.571%** |
 | Tổng PnL | **-10.29%** |
@@ -58,6 +58,12 @@
 | BAT/USD | BUY | -3.75 | SL |
 | S/USD | BUY | -3.78 | SL |
 | S/USD | SELL | +5.07 | TP |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| WLD/USD | BUY | 0.5886 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
