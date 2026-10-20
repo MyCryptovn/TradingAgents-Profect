@@ -95,8 +95,11 @@ jobs:
         run: python scripts/paper_ledger.py record
 
       - name: Score paper ledger
-        run: python scripts/paper_ledger.py score
-
+        run: python scripts/paper_ledger.py score 
+      
+      - name: Paper review report
+        run: python scripts/paper_review.py
+      
       - name: Commit ledger
         run: |
           git config user.name "paper-bot"
