@@ -5858,10 +5858,13 @@
    "t0": 1792339751,
    "entry": 0.119145,
    "btc0": 81031.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004360331049749639,
    "scan": "01 Q/USD        price=$0.122533 vol24h=$3,779,963 spread=79.98bps mtf_score=0.7653 quality=0.5081 trend15=-0.19 trend1h=+0.79 trend4h=+1.89",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 0.12038,
+   "t1": 1792426151.0,
+   "move_pct": 1.037
   },
   {
    "id": "39142956075-ICNT/USD",
@@ -5872,10 +5875,13 @@
    "t0": 1792339751,
    "entry": 0.177,
    "btc0": 81031.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.007932011331444673,
    "scan": "02 ICNT/USD     price=$0.1795 vol24h=$768,686 spread=22.32bps mtf_score=0.6874 quality=0.4967 trend15=-0.38 trend1h=+0.09 trend4h=+1.39",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 0.1733,
+   "t1": 1792426151.0,
+   "move_pct": -2.09
   },
   {
    "id": "39142956075-XMR/USD",
@@ -5886,10 +5892,13 @@
    "t0": 1792339751,
    "entry": 587.39,
    "btc0": 81031.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000408677587439991,
    "scan": "03 XMR/USD      price=$581.55 vol24h=$6,904,206 spread=6.19bps mtf_score=0.6040 quality=0.7749 trend15=+0.11 trend1h=+0.80 trend4h=+0.54",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 590.56,
+   "t1": 1792426151.0,
+   "move_pct": 0.54
   },
   {
    "id": "39155183737-ICNT/USD",
@@ -5900,10 +5909,13 @@
    "t0": 1792349246,
    "entry": 0.1908,
    "btc0": 81084.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002089864158829591,
    "scan": "01 ICNT/USD     price=$0.1893 vol24h=$549,845 spread=31.40bps mtf_score=0.6630 quality=0.4773 trend15=-0.72 trend1h=+0.07 trend4h=+1.39",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 0.1717,
+   "t1": 1792435646.0,
+   "move_pct": -10.01
   },
   {
    "id": "39155183737-XMR/USD",
@@ -5914,10 +5926,13 @@
    "t0": 1792349246,
    "entry": 587.02,
    "btc0": 81084.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00047674992763631883,
    "scan": "02 XMR/USD      price=$587 vol24h=$7,143,283 spread=8.02bps mtf_score=0.5852 quality=0.8114 trend15=+0.34 trend1h=+0.75 trend4h=+0.54",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 582.65,
+   "t1": 1792435646.0,
+   "move_pct": -0.744
   },
   {
    "id": "39155183737-Q/USD",
@@ -5928,10 +5943,13 @@
    "t0": 1792349247,
    "entry": 0.120218,
    "btc0": 81084.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002929618610132547,
    "scan": "03 Q/USD        price=$0.120415 vol24h=$2,939,864 spread=29.12bps mtf_score=0.5652 quality=0.6965 trend15=+0.32 trend1h=+0.71 trend4h=+1.89",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 0.131268,
+   "t1": 1792435647.0,
+   "move_pct": 9.192
   },
   {
    "id": "39172285943-XMR/USD",
@@ -5942,10 +5960,13 @@
    "t0": 1792362766,
    "entry": 590.89,
    "btc0": 81446.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006435224386115311,
    "scan": "01 XMR/USD      price=$591.36 vol24h=$7,440,860 spread=8.12bps mtf_score=0.8242 quality=0.5981 trend15=-0.37 trend1h=+0.57 trend4h=+0.55",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 601.62,
+   "t1": 1792449166.0,
+   "move_pct": 1.816
   },
   {
    "id": "39172285943-XBT/USD",
@@ -5956,10 +5977,13 @@
    "t0": 1792362766,
    "entry": 81446.3,
    "btc0": 81446.3,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2278036128835982e-06,
    "scan": "02 XBT/USD      price=$81,471.4 vol24h=$76,468,036 spread=0.01bps mtf_score=0.5285 quality=0.3413 trend15=-0.91 trend1h=-0.24 trend4h=-0.48",
-   "cfg": "v8-2026-10-18"
+   "cfg": "v8-2026-10-18",
+   "exit": 81982.6,
+   "t1": 1792449166.0,
+   "move_pct": 0.658
   },
   {
    "id": "39193248734-Q/USD",
@@ -5970,10 +5994,13 @@
    "t0": 1792379538,
    "entry": 0.129585,
    "btc0": 82534.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004210169177860301,
    "scan": "01 Q/USD        price=$0.121673 vol24h=$1,878,619 spread=100.82bps mtf_score=0.8325 quality=0.4517 trend15=-0.45 trend1h=+0.30 trend4h=+2.03",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.123755,
+   "t1": 1792465938.0,
+   "move_pct": -4.499
   },
   {
    "id": "39201175629-Q/USD",
@@ -5984,10 +6011,13 @@
    "t0": 1792385528,
    "entry": 0.17409,
    "btc0": 82727.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.011742543716234255,
    "scan": "01 Q/USD        price=$0.170104 vol24h=$2,492,163 spread=124.16bps mtf_score=0.5627 quality=0.7268 trend15=+0.90 trend1h=+0.31 trend4h=+1.90",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.116605,
+   "t1": 1792471928.0,
+   "move_pct": -33.02
   },
   {
    "id": "39201175629-ZEC/USD",
@@ -5998,10 +6028,13 @@
    "t0": 1792385528,
    "entry": 1169.74,
    "btc0": 82727.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00018813710063626877,
    "scan": "02 ZEC/USD      price=$1,171.59 vol24h=$32,840,229 spread=1.11bps mtf_score=0.5218 quality=0.3290 trend15=+1.94 trend1h=-0.40 trend4h=-0.44",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 1148.45,
+   "t1": 1792471928.0,
+   "move_pct": -1.82
   },
   {
    "id": "39228059318-Q/USD",
@@ -6043,6 +6076,34 @@
    "status": "open",
    "spread": 0.006819273251160602,
    "scan": "01 Q/USD        price=$0.124672 vol24h=$1,278,122 spread=77.83bps mtf_score=0.5941 quality=0.4042 trend15=-0.99 trend1h=+0.43 trend4h=+1.89",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39372174182-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792472574,
+   "entry": 0.5424,
+   "btc0": 81977.0,
+   "status": "open",
+   "spread": 0.0005532503457814052,
+   "scan": "02 WLD/USD      price=$0.5428 vol24h=$3,505,540 spread=5.52bps mtf_score=0.5673 quality=0.5449 trend15=+1.03 trend1h=+1.44 trend4h=-0.10",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39372174182-ARB/USD",
+   "symbol": "ARB/USD",
+   "pair": "ARBUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792472574,
+   "entry": 0.1996,
+   "btc0": 81977.0,
+   "status": "open",
+   "spread": 0.00050087653393433,
+   "scan": "03 ARB/USD      price=$0.1998 vol24h=$2,850,605 spread=5.01bps mtf_score=0.5647 quality=0.7315 trend15=+0.74 trend1h=+1.26 trend4h=+0.12",
    "cfg": "v9-2026-10-19"
   }
  ]
