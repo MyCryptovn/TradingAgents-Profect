@@ -6045,10 +6045,13 @@
    "t0": 1792401245,
    "entry": 0.124132,
    "btc0": 82717.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0062094315796247706,
    "scan": "01 Q/USD        price=$0.123262 vol24h=$1,859,798 spread=70.30bps mtf_score=0.5434 quality=0.7023 trend15=+0.16 trend1h=+0.37 trend4h=+1.86",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.12608,
+   "t1": 1792487645.0,
+   "move_pct": 1.569
   },
   {
    "id": "39261462479-Q/USD",
@@ -6104,6 +6107,48 @@
    "status": "open",
    "spread": 0.00050087653393433,
    "scan": "03 ARB/USD      price=$0.1998 vol24h=$2,850,605 spread=5.01bps mtf_score=0.5647 quality=0.7315 trend15=+0.74 trend1h=+1.26 trend4h=+0.12",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39407014486-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792492032,
+   "entry": 611.43,
+   "btc0": 81474.1,
+   "status": "open",
+   "spread": 0.0002942041776992416,
+   "scan": "01 XMR/USD      price=$611.94 vol24h=$5,015,141 spread=4.25bps mtf_score=0.6107 quality=0.7794 trend15=+1.19 trend1h=+0.66 trend4h=+0.78",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39407014486-CRV/USD",
+   "symbol": "CRV/USD",
+   "pair": "CRVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792492032,
+   "entry": 0.36546,
+   "btc0": 81474.1,
+   "status": "open",
+   "spread": 0.0007932491759782608,
+   "scan": "02 CRV/USD      price=$0.36539 vol24h=$3,459,466 spread=5.19bps mtf_score=0.6049 quality=0.5153 trend15=-0.45 trend1h=+0.97 trend4h=+0.24",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39407014486-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792492032,
+   "entry": 8.502,
+   "btc0": 81474.1,
+   "status": "open",
+   "spread": 0.0005880623346075603,
+   "scan": "03 INJ/USD      price=$8.508 vol24h=$4,750,007 spread=4.69bps mtf_score=0.5900 quality=0.6076 trend15=-0.21 trend1h=+0.47 trend4h=+0.23",
    "cfg": "v9-2026-10-19"
   }
  ]
