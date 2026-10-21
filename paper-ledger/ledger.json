@@ -6096,10 +6096,13 @@
    "t0": 1792472574,
    "entry": 0.5424,
    "btc0": 81977.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005532503457814052,
    "scan": "02 WLD/USD      price=$0.5428 vol24h=$3,505,540 spread=5.52bps mtf_score=0.5673 quality=0.5449 trend15=+1.03 trend1h=+1.44 trend4h=-0.10",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.5856,
+   "t1": 1792558974.0,
+   "move_pct": 7.965
   },
   {
    "id": "39372174182-ARB/USD",
@@ -6110,10 +6113,13 @@
    "t0": 1792472574,
    "entry": 0.1996,
    "btc0": 81977.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00050087653393433,
    "scan": "03 ARB/USD      price=$0.1998 vol24h=$2,850,605 spread=5.01bps mtf_score=0.5647 quality=0.7315 trend15=+0.74 trend1h=+1.26 trend4h=+0.12",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.1901,
+   "t1": 1792558974.0,
+   "move_pct": -4.76
   },
   {
    "id": "39407014486-XMR/USD",
@@ -6286,6 +6292,34 @@
    "status": "open",
    "spread": 3.845931965454568e-05,
    "scan": "02 VVV/USD      price=$25.996 vol24h=$3,279,905 spread=3.46bps mtf_score=0.5310 quality=0.8019 trend15=+0.58 trend1h=+0.78 trend4h=+0.59",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39566707542-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792570400,
+   "entry": 1269.33,
+   "btc0": 83066.9,
+   "status": "open",
+   "spread": 0.0002126444702592938,
+   "scan": "01 ZEC/USD      price=$1,269.63 vol24h=$29,301,346 spread=2.84bps mtf_score=0.5629 quality=0.6850 trend15=+0.13 trend1h=+1.40 trend4h=+0.08",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39566707542-PENGU/USD",
+   "symbol": "PENGU/USD",
+   "pair": "PENGUUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792570401,
+   "entry": 0.008099,
+   "btc0": 83066.9,
+   "status": "open",
+   "spread": 0.0003706678198553816,
+   "scan": "02 PENGU/USD    price=$0.008085 vol24h=$2,269,139 spread=2.47bps mtf_score=0.5386 quality=0.7890 trend15=+0.44 trend1h=+1.07 trend4h=+0.19",
    "cfg": "v9-2026-10-19"
   }
  ]
