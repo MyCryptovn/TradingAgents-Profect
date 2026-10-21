@@ -6130,10 +6130,13 @@
    "t0": 1792492032,
    "entry": 611.43,
    "btc0": 81474.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0002942041776992416,
    "scan": "01 XMR/USD      price=$611.94 vol24h=$5,015,141 spread=4.25bps mtf_score=0.6107 quality=0.7794 trend15=+1.19 trend1h=+0.66 trend4h=+0.78",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 595.67,
+   "t1": 1792578432.0,
+   "move_pct": -2.578
   },
   {
    "id": "39407014486-CRV/USD",
@@ -6144,10 +6147,13 @@
    "t0": 1792492032,
    "entry": 0.36546,
    "btc0": 81474.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007932491759782608,
    "scan": "02 CRV/USD      price=$0.36539 vol24h=$3,459,466 spread=5.19bps mtf_score=0.6049 quality=0.5153 trend15=-0.45 trend1h=+0.97 trend4h=+0.24",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.38228,
+   "t1": 1792578432.0,
+   "move_pct": 4.602
   },
   {
    "id": "39407014486-INJ/USD",
@@ -6158,10 +6164,13 @@
    "t0": 1792492032,
    "entry": 8.502,
    "btc0": 81474.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005880623346075603,
    "scan": "03 INJ/USD      price=$8.508 vol24h=$4,750,007 spread=4.69bps mtf_score=0.5900 quality=0.6076 trend15=-0.21 trend1h=+0.47 trend4h=+0.23",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 8.698,
+   "t1": 1792578432.0,
+   "move_pct": 2.305
   },
   {
    "id": "39445468466-PEPE/USD",
@@ -6320,6 +6329,34 @@
    "status": "open",
    "spread": 0.0003706678198553816,
    "scan": "02 PENGU/USD    price=$0.008085 vol24h=$2,269,139 spread=2.47bps mtf_score=0.5386 quality=0.7890 trend15=+0.44 trend1h=+1.07 trend4h=+0.19",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39605836457-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792588661,
+   "entry": 1319.46,
+   "btc0": 83711.8,
+   "status": "open",
+   "spread": 0.0006364070277518302,
+   "scan": "01 ZEC/USD      price=$1,315.08 vol24h=$32,452,072 spread=3.65bps mtf_score=0.6530 quality=0.7108 trend15=+0.68 trend1h=+1.29 trend4h=+0.17",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39605836457-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792588661,
+   "entry": 4.628e-06,
+   "btc0": 83711.8,
+   "status": "open",
+   "spread": 0.00043280675178536035,
+   "scan": "02 PEPE/USD     price=$4.614e-06 vol24h=$3,192,515 spread=2.17bps mtf_score=0.6108 quality=0.8068 trend15=+0.75 trend1h=+0.94 trend4h=+0.77",
    "cfg": "v9-2026-10-19"
   }
  ]
