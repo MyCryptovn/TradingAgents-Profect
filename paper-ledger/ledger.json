@@ -6259,6 +6259,34 @@
    "reason": "REVERSAL_CUT",
    "pnl_pct": -1.385,
    "watch": "pnl=-1.38% give=1.3% flow=28%/76 5m=True 1m=False rsi=18 hits=3"
+  },
+  {
+   "id": "39546664650-COMP/USD",
+   "symbol": "COMP/USD",
+   "pair": "COMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792558887,
+   "entry": 25.85,
+   "btc0": 82748.2,
+   "status": "open",
+   "spread": 0.0011594202898551165,
+   "scan": "01 COMP/USD     price=$25.78 vol24h=$691,497 spread=3.88bps mtf_score=0.5756 quality=0.5908 trend15=-0.37 trend1h=+1.23 trend4h=+0.28",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39546664650-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792558887,
+   "entry": 26.002,
+   "btc0": 82748.2,
+   "status": "open",
+   "spread": 3.845931965454568e-05,
+   "scan": "02 VVV/USD      price=$25.996 vol24h=$3,279,905 spread=3.46bps mtf_score=0.5310 quality=0.8019 trend15=+0.58 trend1h=+0.78 trend4h=+0.59",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }
