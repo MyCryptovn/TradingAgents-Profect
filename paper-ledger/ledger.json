@@ -6358,6 +6358,48 @@
    "spread": 0.00043280675178536035,
    "scan": "02 PEPE/USD     price=$4.614e-06 vol24h=$3,192,515 spread=2.17bps mtf_score=0.6108 quality=0.8068 trend15=+0.75 trend1h=+0.94 trend4h=+0.77",
    "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39611549927-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792592251,
+   "entry": 4.622e-06,
+   "btc0": 83771.2,
+   "status": "open",
+   "spread": 0.0004330879168471525,
+   "scan": "01 PEPE/USD     price=$4.619e-06 vol24h=$3,251,179 spread=6.50bps mtf_score=0.5829 quality=0.8154 trend15=+0.77 trend1h=+0.94 trend4h=+0.77",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39611549927-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792592251,
+   "entry": 1304.37,
+   "btc0": 83771.2,
+   "status": "open",
+   "spread": 0.00047563155431780695,
+   "scan": "02 ZEC/USD      price=$1,312.29 vol24h=$33,494,808 spread=10.29bps mtf_score=0.5555 quality=0.7325 trend15=+0.92 trend1h=+1.29 trend4h=+0.17",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39611549927-MEW/USD",
+   "symbol": "MEW/USD",
+   "pair": "MEWUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792592252,
+   "entry": 0.000503,
+   "btc0": 83771.2,
+   "status": "open",
+   "spread": 0.001994017946161348,
+   "scan": "03 MEW/USD      price=$0.000509 vol24h=$503,702 spread=39.29bps mtf_score=0.5277 quality=0.6191 trend15=-0.23 trend1h=+1.48 trend4h=+0.26",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }
