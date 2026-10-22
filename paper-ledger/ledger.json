@@ -6371,10 +6371,13 @@
    "t0": 1792588661,
    "entry": 1319.46,
    "btc0": 83711.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006364070277518302,
    "scan": "01 ZEC/USD      price=$1,315.08 vol24h=$32,452,072 spread=3.65bps mtf_score=0.6530 quality=0.7108 trend15=+0.68 trend1h=+1.29 trend4h=+0.17",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 1244.1,
+   "t1": 1792675061.0,
+   "move_pct": -5.711
   },
   {
    "id": "39605836457-PEPE/USD",
@@ -6385,10 +6388,13 @@
    "t0": 1792588661,
    "entry": 4.628e-06,
    "btc0": 83711.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00043280675178536035,
    "scan": "02 PEPE/USD     price=$4.614e-06 vol24h=$3,192,515 spread=2.17bps mtf_score=0.6108 quality=0.8068 trend15=+0.75 trend1h=+0.94 trend4h=+0.77",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 4.5e-06,
+   "t1": 1792675061.0,
+   "move_pct": -2.766
   },
   {
    "id": "39611549927-PEPE/USD",
@@ -6570,6 +6576,20 @@
    "status": "open",
    "spread": 0.0006518067886664873,
    "scan": "03 DASH/USD     price=$50.753 vol24h=$3,606,353 spread=9.26bps mtf_score=0.6288 quality=0.6326 trend15=-0.47 trend1h=+0.05 trend4h=+0.44",
+   "cfg": "v10-2026-10-22"
+  },
+  {
+   "id": "39790337940-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792677751,
+   "entry": 27.281,
+   "btc0": 81706.8,
+   "status": "open",
+   "spread": 0.0008441141389118152,
+   "scan": "01 VVV/USD      price=$27.172 vol24h=$3,706,933 spread=9.57bps mtf_score=0.7370 quality=0.5724 trend15=-0.12 trend1h=+0.62 trend4h=+1.09",
    "cfg": "v10-2026-10-22"
   }
  ]

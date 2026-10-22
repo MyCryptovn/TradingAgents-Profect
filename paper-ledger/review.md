@@ -1,8 +1,8 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-22 11:24 UTC**
+- Thời điểm: **2026-10-22 14:02 UTC**
 - Ledger: `paper-ledger/ledger.json`
-- Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
+- Decisions file: `tradingagents-paper-results/decisions.json` (2 records)
 
 ## 1. Tổng quan hiệu suất
 
