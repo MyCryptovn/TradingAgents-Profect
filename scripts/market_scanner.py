@@ -224,9 +224,9 @@ def main() -> int:
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
-        # Long: 1h+4h lên, 15m dịu / âm → tránh đu đỉnh
+        # Long: 1h+4h lên, 15m dịu / âm, 1m lên nắm theo nhịp bơm xả → tránh đu đỉnh
         pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
-        # Short nhanh: 15m đã xuống rõ; 1h không được ngược mạnh lên
+        # Short nhanh: 1m đảo chiều theo nhịp bơm xả rõ; 15m đã xuống rõ; 1h không được ngược mạnh lên
         # Không bắt buộc 4h âm (tránh chậm nhịp bơm-xả)
         short_bias = 0.0
         if trends[0] < -0.15 and trends[1] <= 0.10:
