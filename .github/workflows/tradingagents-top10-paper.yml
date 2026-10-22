@@ -91,7 +91,7 @@ jobs:
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "v9-2026-10-19"
+          CONFIG_TAG: "v10-2026-10-22"
         run: python scripts/paper_ledger.py record
 
       - name: Score paper ledger
@@ -113,4 +113,4 @@ jobs:
         with:
           name: tradingagents-top10-paper-results
           path: tradingagents-paper-results/
-          retention-days: 14
+          retention-days: 7
