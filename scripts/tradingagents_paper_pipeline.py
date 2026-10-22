@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # === CẤU HÌNH LỌC ALTCOIN NHỎ ===
-SMALL_ALT_VOLUME_USD = 1_000_000      # volume 24h dưới mức này coi là alt nhỏ
+SMALL_ALT_VOLUME_USD = 500_000      # volume 24h dưới mức này coi là alt nhỏ
 SMALL_ALT_TAKER_BUY = 0.55            # yêu cầu taker buy cao hơn
 NORMAL_TAKER_BUY = 0.52
 
@@ -65,7 +65,7 @@ SHORT_NOTE = " TRADING HORIZON: this is a SHORT-TERM paper trade held at most 24
 SHORT_RULES = (
     " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met "
     " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
-    "1) RSI14 on 5m or 15m is below < 72, "
+    "1) RSI14 on 1m,5m or 15m is below < 72, "
     "2) trend15 from scanner is positive, "
     "3) taker buy share in MONEY FLOW >= 52%, "
     "4) order book bid volume > ask volume, "
@@ -175,13 +175,13 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 rules = (
                     " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met "
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
-                    "1) RSI14 on 5m or 15m below < 72, "
+                    "1) RSI14 on 1m,5m or 15m below < 72, "
                     "2) trend15 positive, "
                     "3) taker buy share >= 52%, "
                     "4) order book bid volume clearly higher than ask, "
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
-                    "Prefer SELL when taker buy share <= 42% and 5m/15m weakness appears. "
+                    "Prefer SELL when taker buy share <= 42% and 1m/5m/15m weakness appears. "
                     "Max risk 1%, hard SL 3%, let winners run with reversal guard."
                 )
             else:
