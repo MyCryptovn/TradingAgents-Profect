@@ -225,7 +225,7 @@ def main() -> int:
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
-        # Long: 1h+4h lên, 15m dịu / âm, 1m lên nắm theo nhịp bơm xả → tránh đu đỉnh
+        # Long: 1h+4h lên, 15m dịu / âm, 1m lên theo nhịp bơm xả → tránh đu đỉnh
         pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
         # Short nhanh: 1m đảo chiều theo nhịp bơm xả rõ; 15m đã xuống rõ; 1h không được ngược mạnh lên
         # Không bắt buộc 4h âm (tránh chậm nhịp bơm-xả)
@@ -233,7 +233,8 @@ def main() -> int:
         if trends[0] < -0.15 and trends[1] <= 0.10:
             short_bias = 1.0
         elif trends[0] < 0 and trends[1] < 0 and trends[2] < 0:
-            short_bias = 1.0  # short cấu trúc đầy đủ (cộng thêm)
+            short_bias = 1.0  
+        # short cấu trúc đầy đủ (cộng thêm)
         # Rank theo |trend| để coin giảm mạnh cũng có cửa vào Top
         abs_trend_rank = percentile([abs(v) for v in trend_values], abs(trend))
         print(f"SPIKE {pair}: {spike:.2f} quality={quality:.2f} short={short_bias:.0f} pullback={pullback:.0f}")
@@ -251,8 +252,8 @@ def main() -> int:
 
     candidates.sort(key=lambda x: x.score, reverse=True)
 
-    def is_short(c: Candidate) -> bool:
-        return (c.trend_15m < 0 and c.trend_1h < 0.05 and c.trend_4h < 0)
+def is_short(c: Candidate) -> bool:
+    return (c.trend_15m < 0 and c.trend_1h < 0 and c.trend_4h < 0)
 
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
@@ -281,7 +282,7 @@ def main() -> int:
     print(f"VALIDATED MARKETS: {len(candidates)}")
     print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
     for rank, c in enumerate(candidates[:TOP_N], 1):
-        bias = "short" if (c.trend_15m < 0 and c.trend_1h <= 0.05 and c.trend_4h < 0) else "long"
+        bias = "short" if (c.trend_15m < 0 and c.trend_1h < 0 and c.trend_4h < 0) else "long"
         print(f"{rank:02d} {c.symbol:12} price=${c.price:,.8g} vol24h=${c.volume_usd:,.0f} "
               f"spread={c.spread_bps:.2f}bps mtf_score={c.score:.4f} quality={c.quality:.4f} "
               f"trend15={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
