@@ -63,7 +63,7 @@ SCAN_INFO = {}
 REASONS = {}
 SHORT_NOTE = " TRADING HORIZON: this is a SHORT-TERM paper trade held at most 24 hours, stop loss 3 percent, take profit 6 percent. Do not judge on a 3-6 month view. Rate BUY when 1h and 4h trends are up and volume or money flow confirms, SELL when they are down with confirming volume. Overextension alone is not a reason for HOLD. Use HOLD when signals conflict or momentum is fading."
 SHORT_RULES = (
-    " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met.
+    " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met "
     " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
     "1) RSI14 on 5m or 15m is below < 72, "
     "2) trend15 from scanner is positive, "
@@ -173,7 +173,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
             # Rule khác nhau cho alt nhỏ và coin thường
             if is_small_alt(symbol.replace("-", "/")):
                 rules = (
-                    " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met.
+                    " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met "
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
                     "1) RSI14 on 5m or 15m below < 72, "
                     "2) trend15 positive, "
