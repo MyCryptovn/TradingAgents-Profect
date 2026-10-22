@@ -6503,6 +6503,34 @@
    "spread": 0.0009347716352895784,
    "scan": "03 VVV/USD      price=$26.812 vol24h=$3,533,143 spread=8.20bps mtf_score=0.5395 quality=0.7833 trend15=+0.55 trend1h=+0.99 trend4h=+0.80",
    "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39725038255-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792645273,
+   "entry": 614.02,
+   "btc0": 82826.4,
+   "status": "open",
+   "spread": 0.000667464367984635,
+   "scan": "01 XMR/USD      price=$613.04 vol24h=$8,705,515 spread=1.47bps mtf_score=0.7812 quality=0.5920 trend15=-0.32 trend1h=+0.41 trend4h=+0.69",
+   "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39725038255-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792645274,
+   "entry": 1291.3,
+   "btc0": 82826.4,
+   "status": "open",
+   "spread": 0.0004105774035241486,
+   "scan": "02 ZEC/USD      price=$1,288.08 vol24h=$36,030,299 spread=2.48bps mtf_score=0.7560 quality=0.4093 trend15=-1.13 trend1h=+1.71 trend4h=+0.65",
+   "cfg": "v9-2026-10-19"
   }
  ]
 }
