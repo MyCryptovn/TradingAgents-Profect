@@ -6303,10 +6303,13 @@
    "t0": 1792558887,
    "entry": 25.85,
    "btc0": 82748.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0011594202898551165,
    "scan": "01 COMP/USD     price=$25.78 vol24h=$691,497 spread=3.88bps mtf_score=0.5756 quality=0.5908 trend15=-0.37 trend1h=+1.23 trend4h=+0.28",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 25.22,
+   "t1": 1792645287.0,
+   "move_pct": -2.437
   },
   {
    "id": "39546664650-VVV/USD",
@@ -6317,10 +6320,13 @@
    "t0": 1792558887,
    "entry": 26.002,
    "btc0": 82748.2,
-   "status": "open",
+   "status": "closed",
    "spread": 3.845931965454568e-05,
    "scan": "02 VVV/USD      price=$25.996 vol24h=$3,279,905 spread=3.46bps mtf_score=0.5310 quality=0.8019 trend15=+0.58 trend1h=+0.78 trend4h=+0.59",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 27.515,
+   "t1": 1792645287.0,
+   "move_pct": 5.819
   },
   {
    "id": "39566707542-ZEC/USD",
@@ -6331,10 +6337,13 @@
    "t0": 1792570400,
    "entry": 1269.33,
    "btc0": 83066.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0002126444702592938,
    "scan": "01 ZEC/USD      price=$1,269.63 vol24h=$29,301,346 spread=2.84bps mtf_score=0.5629 quality=0.6850 trend15=+0.13 trend1h=+1.40 trend4h=+0.08",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 1275.56,
+   "t1": 1792656800.0,
+   "move_pct": 0.491
   },
   {
    "id": "39566707542-PENGU/USD",
@@ -6345,10 +6354,13 @@
    "t0": 1792570401,
    "entry": 0.008099,
    "btc0": 83066.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003706678198553816,
    "scan": "02 PENGU/USD    price=$0.008085 vol24h=$2,269,139 spread=2.47bps mtf_score=0.5386 quality=0.7890 trend15=+0.44 trend1h=+1.07 trend4h=+0.19",
-   "cfg": "v9-2026-10-19"
+   "cfg": "v9-2026-10-19",
+   "exit": 0.00783,
+   "t1": 1792656801.0,
+   "move_pct": -3.321
   },
   {
    "id": "39605836457-ZEC/USD",
@@ -6531,6 +6543,34 @@
    "spread": 0.0004105774035241486,
    "scan": "02 ZEC/USD      price=$1,288.08 vol24h=$36,030,299 spread=2.48bps mtf_score=0.7560 quality=0.4093 trend15=-1.13 trend1h=+1.71 trend4h=+0.65",
    "cfg": "v9-2026-10-19"
+  },
+  {
+   "id": "39769474804-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792668255,
+   "entry": 1253.36,
+   "btc0": 81778.9,
+   "status": "open",
+   "spread": 0.0002552974214959921,
+   "scan": "01 ZEC/USD      price=$1,251.7 vol24h=$41,058,857 spread=1.83bps mtf_score=0.6885 quality=0.4827 trend15=-1.27 trend1h=+0.19 trend4h=+0.76",
+   "cfg": "v10-2026-10-22"
+  },
+  {
+   "id": "39769474804-DASH/USD",
+   "symbol": "DASH/USD",
+   "pair": "DASHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792668256,
+   "entry": 50.68,
+   "btc0": 81778.9,
+   "status": "open",
+   "spread": 0.0006518067886664873,
+   "scan": "03 DASH/USD     price=$50.753 vol24h=$3,606,353 spread=9.26bps mtf_score=0.6288 quality=0.6326 trend15=-0.47 trend1h=+0.05 trend4h=+0.44",
+   "cfg": "v10-2026-10-22"
   }
  ]
 }
