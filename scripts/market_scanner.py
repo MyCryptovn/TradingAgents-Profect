@@ -29,6 +29,7 @@ class Candidate:
     volume_usd: float
     spread_bps: float
     score: float
+    trend_1m: float
     trend_15m: float
     trend_1h: float
     trend_4h: float
