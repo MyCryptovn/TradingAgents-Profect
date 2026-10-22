@@ -17,7 +17,7 @@ LEDGER = "paper-ledger/ledger.json"
 REPORT = "paper-ledger/report.md"
 HORIZON_H = float(os.getenv("HORIZON_HOURS", "24"))       # giữ lệnh tối đa
 SL = float(os.getenv("STOP_LOSS_PCT", "3")) / 100          # cắt lỗ
-TP = float(os.getenv("TAKE_PROFIT_PCT", "6")) / 100        # chốt lời
+TP = float(os.getenv("TAKE_PROFIT_PCT", "0")) / 100        # 0 = tắt TP cứng, để reversal chốt
 FEE = float(os.getenv("FEE_PCT", "0.26"))                  # phí taker mỗi chiều (%)
 SLIP = float(os.getenv("SLIPPAGE_PCT", "0.05"))            # trượt giá mỗi chiều (%)
 COST = 2 * (FEE + SLIP) / 100                              # chi phí khứ hồi
@@ -192,7 +192,7 @@ def settle(t):
         fav = (hi / e - 1) if d == 1 else (1 - lo / e)
         best = max(best, fav)
         sl_hit = lo <= sl if d == 1 else hi >= sl
-        tp_hit = hi >= tp if d == 1 else lo <= tp
+        tp_hit = (TP > 0) and (hi >= tp if d == 1 else lo <= tp)
         if sl_hit:  # cùng nến chạm cả hai -> tính SL (thận trọng)
             exit_px, reason, t1 = sl, "SL", ts
             break
@@ -218,7 +218,7 @@ def report(led):
     L = ["# Báo cáo paper trading",
          f"Cập nhật: {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC", "",
          f"- Lệnh đã chốt: **{len(cl)}** | đang mở: {len(op)} | HOLD đã chấm: {len(hd)}",
-         f"- Thiết lập: giữ tối đa {HORIZON_H:g}h, SL {SL*100:g}%, TP {TP*100:g}%, "
+         f"- Thiết lập: giữ tối đa {HORIZON_H:g}h, SL {SL*100:g}%, TP {'tắt' if TP <= 0 else f'{TP*100:g}%'} (reversal ưu tiên), "
          f"chi phí khứ hồi {COST*100:.2f}%"]
     if cl:
         p = [t["pnl_pct"] for t in cl]
