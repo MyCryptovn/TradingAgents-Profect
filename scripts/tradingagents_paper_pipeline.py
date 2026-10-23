@@ -315,7 +315,7 @@ def main() -> int:
     # ==========================================
 
     # ========== BỘ LỌC MTF_SCORE + VOLUME ==========
-    MIN_MTF_SCORE = 0.52          # chỉ phân tích khi điểm scanner đủ cao
+    MIN_MTF_SCORE = 0.35          # chỉ phân tích khi điểm scanner đủ cao
 
     high_quality = []
     for sym in candidates:
