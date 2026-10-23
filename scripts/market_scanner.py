@@ -247,7 +247,7 @@ def main() -> int:
             + 0.10 * spike
             + 0.16 * pullback
             + 0.16 * short_bias)
-        candidates.append(Candidate pair=pair, symbol=BTC/USD, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.0, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
+        candidates.append(Candidate pair=pair, symbol=str, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.0, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
 
     candidates.sort(key=lambda x: x.score, reverse=True)
 
