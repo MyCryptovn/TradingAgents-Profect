@@ -61,8 +61,7 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
 
 SCAN_INFO = {}
 REASONS = {}
-SHORT_NOTE = " conditions. "
-   ("Never open a trade when 15m and 1h trends conflict. "
+SHORT_NOTE = " conditions. "("Never open a trade when 15m and 1h trends conflict. "
     "Max risk 1% of capital per trade. Hard stop-loss 5%, take-profit 10%, max hold 24h."
     "Never force a LONG when evidence is short-biased, and never force a SHORT when evidence is long-biased."
 )
