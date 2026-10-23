@@ -247,7 +247,7 @@ def main() -> int:
             + 0.10 * spike
             + 0.16 * pullback
             + 0.16 * short_bias)
-        candidates.append(Candidate(pair, wsname, price, volume_usd, spread_bps, score,
+        candidates.append(Candidate(pair, symbol, price, volume_usd, spread_bps, score,
                                     trends[0], trends[1], trends[2], quality))
 
     candidates.sort(key=lambda x: x.score, reverse=True)
