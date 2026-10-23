@@ -61,20 +61,26 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
 
 SCAN_INFO = {}
 REASONS = {}
-SHORT_NOTE = " TRADING HORIZON: this is a SHORT-TERM paper trade held at most 24 hours, stop loss 3 percent, take profit 6 percent. Do not judge on a 3-6 month view. Rate BUY when 1h and 4h trends are up and volume or money flow confirms, SELL when they are down with confirming volume. Overextension alone is not a reason for HOLD. Use HOLD when signals conflict or momentum is fading."
-SHORT_RULES = (
-    " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met "
-    " ENTRY RULES (STRICT): Rate BUY only if ALL conditions are true: "
-    "1) RSI14 on 1m,5m or 15m is below < 72, "
-    "2) trend15 from scanner is positive, "
-    "3) taker buy share in MONEY FLOW >= 52%, "
-    "4) order book bid volume > ask volume, "
-    "5) Hyperliquid funding is not extremely positive (> +0.001 per hour). "
-    "If ANY condition fails → HOLD. "
-    "Rate SELL only with the exact mirror conditions. "
+SHORT_NOTE = " conditions. "
     "Never open a trade when 15m and 1h trends conflict. "
     "Max risk 1% of capital per trade. Hard stop-loss 5%, take-profit 10%, max hold 24h."
     "Never force a LONG when evidence is short-biased, and never force a SHORT when evidence is long-biased."
+)
+SHORT_RULES = (
+    " POSITION MODEL: Perpetual / paper futures. BUY = LONG, SELL = SHORT, HOLD = flat. "
+    "ENTRY BUY (LONG) if at least 3 of 4 are true: "
+    "(1) RSI14 on 5m or 15m below 72, "
+    "(2) trend15 from scanner above 0 OR trend1h above 0, "
+    "(3) taker buy share at least 50 percent, "
+    "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
+    "If fewer than 3 of the 4 conditions hold, rate HOLD. "
+    "ENTRY SELL (SHORT) if at least 3 of 4 are true: "
+    "(1) RSI14 on 5m or 15m above 28, "
+    "(2) trend15 below 0 OR trend1h below 0, "
+    "(3) taker buy share at most 50 percent, "
+    "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
+    "If fewer than 3 of the 4 conditions hold, rate HOLD. "
+    "Hard stop about 3 percent. Let winners run under reversal guard."
 )
 def run_scanner() -> list[str]:
     proc = subprocess.run(
@@ -182,7 +188,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
                     "Prefer SELL when taker buy share <= 42% and 1m/5m/15m weakness appears. "
-                    "Max risk 1%, hard SL 3%, let winners run with reversal guard."
+                    "Max risk 1%, hard SL 3%, let winners run with reversal
                 )
             else:
                 rules = SHORT_RULES
