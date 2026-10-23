@@ -1,4 +1,4 @@
-name: TradingAgents Top-10 Paper Effectiveness
+0name: TradingAgents Top-10 Paper Effectiveness
 
 on:
   workflow_dispatch:
@@ -84,14 +84,14 @@ jobs:
           p = Path("tradingagents-paper-results/decisions.json")
           rows = json.loads(p.read_text())
           successful = [r for r in rows if r.get("outcome_status") != "ERROR"]
-          if not successful:
+          if row and not successful:
               raise SystemExit("TradingAgents produced no successful analyses; failing the workflow instead of reporting a false green run.")
           print(f"Successful TradingAgents analyses: {len(successful)}/{len(rows)}")
           PY
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "v10-2026-10-22"
+          CONFIG_TAG: "v11-2026-10-23"
         run: python scripts/paper_ledger.py record
 
       - name: Score paper ledger
