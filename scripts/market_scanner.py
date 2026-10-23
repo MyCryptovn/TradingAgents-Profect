@@ -247,7 +247,7 @@ def main() -> int:
             + 0.10 * spike
             + 0.16 * pullback
             + 0.16 * short_bias)
-        candidates.append(Candidate pair=pair, symbol=str, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.0, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
+        candidates.append(Candidate pair=pair, symbol=wsname, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.0, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
 
     candidates.sort(key=lambda x: x.score, reverse=True)
 
@@ -281,10 +281,10 @@ def main() -> int:
     print(f"VALIDATED MARKETS: {len(candidates)}")
     print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
     for rank, c in enumerate(candidates[:TOP_N], 1):
-        bias = "short" if (c.trend_15m < 0 and c.trend_1h < 0 and c.trend_4h < 0) else "long"
+        bias = "short" if (c.trend_1m < 0 and c.trend_15m < 0 and c.trend_1h < 0 and c.trend_4h < 0) else "long"
         print(f"{rank:02d} {c.symbol:12} price=${c.price:,.8g} vol24h=${c.volume_usd:,.0f} "
               f"spread={c.spread_bps:.2f}bps mtf_score={c.score:.4f} quality={c.quality:.4f} "
-              f"trend1={c.trend_1m:+2f} trend15m={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
+              f"trend1={c.trend_1m:+.2f} trend15m={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
     print(f"SCANNER ELAPSED: {time.time() - started:.1f}s")
     print("NEXT GATE: Only these candidates should enter TradingAgents deep analysis.")
     print("NEXT GATE: Ranking is not a trade instruction; BUY/SELL/HOLD/REVIEW remains downstream.")
