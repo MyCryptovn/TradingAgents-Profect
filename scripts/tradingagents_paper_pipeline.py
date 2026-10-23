@@ -187,7 +187,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
                     "Prefer SELL when taker buy share <= 42% and 1m/5m/15m weakness appears. "
-                    "Max risk 1%, hard SL 3%, let winners run with reversal
+                    "Max risk about 1 percent of capital per trade. Hard stop-loss about 3 percent. No fixed take-profit required; exit on reversal or horizon.
                 )
             else:
                 rules = SHORT_RULES
