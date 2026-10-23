@@ -84,7 +84,7 @@ jobs:
           p = Path("tradingagents-paper-results/decisions.json")
           rows = json.loads(p.read_text())
           successful = [r for r in rows if r.get("outcome_status") != "ERROR"]
-          if row and not successful:
+          if rows and not successful:
               raise SystemExit("TradingAgents produced no successful analyses; failing the workflow instead of reporting a false green run.")
           print(f"Successful TradingAgents analyses: {len(successful)}/{len(rows)}")
           PY
