@@ -6626,10 +6626,13 @@
    "t0": 1792677751,
    "entry": 27.281,
    "btc0": 81706.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008441141389118152,
    "scan": "01 VVV/USD      price=$27.172 vol24h=$3,706,933 spread=9.57bps mtf_score=0.7370 quality=0.5724 trend15=-0.12 trend1h=+0.62 trend4h=+1.09",
-   "cfg": "v10-2026-10-22"
+   "cfg": "v10-2026-10-22",
+   "exit": 26.068,
+   "t1": 1792764151.0,
+   "move_pct": -4.446
   },
   {
    "id": "39958340560-SUI/USD",
@@ -6671,6 +6674,48 @@
    "status": "open",
    "spread": 0.0003666734569159188,
    "scan": "03 NEAR/USD     price=$4.9357 vol24h=$13,381,997 spread=3.04bps mtf_score=0.4734 quality=0.4224 trend15m=-0.37 trend1h=-0.72 trend4h=+0.11",
+   "cfg": "v11-2026-10-23"
+  },
+  {
+   "id": "40044725032-PAXG/USD",
+   "symbol": "PAXG/USD",
+   "pair": "PAXGUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792801986,
+   "entry": 3994.83,
+   "btc0": 80670.8,
+   "status": "open",
+   "spread": 5.506952527561044e-05,
+   "scan": "01 PAXG/USD     price=$3,994.45 vol24h=$2,613,987 spread=0.05bps mtf_score=0.5309 quality=0.3122 trend15m=-1.22 trend1h=-0.84 trend4h=-1.71",
+   "cfg": "v11-2026-10-23"
+  },
+  {
+   "id": "40044725032-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1792801986,
+   "entry": 4.552e-06,
+   "btc0": 80670.8,
+   "status": "open",
+   "spread": 0.00021980437410696818,
+   "scan": "02 PEPE/USD     price=$4.562e-06 vol24h=$6,307,138 spread=4.39bps mtf_score=0.5446 quality=0.4158 trend15m=-2.26 trend1h=+0.63 trend4h=+0.72",
+   "cfg": "v11-2026-10-23"
+  },
+  {
+   "id": "40044725032-BONK/USD",
+   "symbol": "BONK/USD",
+   "pair": "BONKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792801987,
+   "entry": 3.113e-06,
+   "btc0": 80670.8,
+   "status": "open",
+   "spread": 0.00032149172158819325,
+   "scan": "03 BONK/USD     price=$3.111e-06 vol24h=$1,753,322 spread=3.21bps mtf_score=0.5041 quality=0.5546 trend15m=-1.09 trend1h=+0.70 trend4h=+0.44",
    "cfg": "v11-2026-10-23"
   }
  ]

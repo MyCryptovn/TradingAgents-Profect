@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-23 13:16 UTC**
+- Thời điểm: **2026-10-24 00:33 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **19** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **1** |
 | Win rate | **31.6%** |
 | PnL trung bình / lệnh | **-0.614%** |
 | Tổng PnL | **-11.67%** |
@@ -59,6 +59,12 @@
 | W/USD | BUY | +5.21 | TP |
 | BAT/USD | BUY | -3.75 | SL |
 | S/USD | BUY | -3.78 | SL |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| PEPE/USD | BUY | 4.552e-06 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
