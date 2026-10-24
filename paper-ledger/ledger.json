@@ -6643,10 +6643,13 @@
    "t0": 1792761372,
    "entry": 0.9925,
    "btc0": 81560.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00010071000553903921,
    "scan": "01 SUI/USD      price=$0.9958 vol24h=$5,476,073 spread=1.00bps mtf_score=0.4185 quality=0.3065 trend15m=-0.05 trend1h=-0.47 trend4h=-0.10",
-   "cfg": "v11-2026-10-23"
+   "cfg": "v11-2026-10-23",
+   "exit": 0.9443,
+   "t1": 1792847772.0,
+   "move_pct": -4.856
   },
   {
    "id": "39958340560-PEPE/USD",
@@ -6657,10 +6660,13 @@
    "t0": 1792761372,
    "entry": 5.029e-06,
    "btc0": 81560.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00019870839542963768,
    "scan": "02 PEPE/USD     price=$5.049e-06 vol24h=$4,688,325 spread=1.98bps mtf_score=0.5187 quality=0.8131 trend15m=+1.75 trend1h=+0.66 trend4h=+0.85",
-   "cfg": "v11-2026-10-23"
+   "cfg": "v11-2026-10-23",
+   "exit": 4.41e-06,
+   "t1": 1792847772.0,
+   "move_pct": -12.309
   },
   {
    "id": "39958340560-NEAR/USD",
@@ -6671,10 +6677,13 @@
    "t0": 1792761372,
    "entry": 4.9017,
    "btc0": 81560.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003666734569159188,
    "scan": "03 NEAR/USD     price=$4.9357 vol24h=$13,381,997 spread=3.04bps mtf_score=0.4734 quality=0.4224 trend15m=-0.37 trend1h=-0.72 trend4h=+0.11",
-   "cfg": "v11-2026-10-23"
+   "cfg": "v11-2026-10-23",
+   "exit": 4.4318,
+   "t1": 1792847772.0,
+   "move_pct": -9.586
   },
   {
    "id": "40044725032-PAXG/USD",
@@ -6791,6 +6800,48 @@
    "status": "open",
    "spread": 0.002291388199350945,
    "scan": "03 USELESS/USD  price=$0.15588 vol24h=$1,508,854 spread=18.58bps mtf_score=0.4575 quality=0.6800 trend15m=-0.01 trend1h=+0.23 trend4h=+0.26",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40122410951-XRP/USD",
+   "symbol": "XRP/USD",
+   "pair": "XRPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792868240,
+   "entry": 1.28499,
+   "btc0": 80364.1,
+   "status": "open",
+   "spread": 7.782192010074445e-06,
+   "scan": "01 XRP/USD      price=$1.28286 vol24h=$24,818,016 spread=0.08bps mtf_score=0.5598 quality=0.3099 trend15m=-0.24 trend1h=-1.12 trend4h=-0.28",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40122410951-DOS/USD",
+   "symbol": "DOS/USD",
+   "pair": "DOSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792868240,
+   "entry": 0.2558,
+   "btc0": 80364.1,
+   "status": "open",
+   "spread": 0.0023446658851113303,
+   "scan": "02 DOS/USD      price=$0.2578 vol24h=$1,073,935 spread=19.34bps mtf_score=0.4775 quality=0.6103 trend15m=-0.01 trend1h=+0.35 trend4h=+1.15",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40122410951-BMT/USD",
+   "symbol": "BMT/USD",
+   "pair": "BMTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792868241,
+   "entry": 0.03675,
+   "btc0": 80364.1,
+   "status": "open",
+   "spread": 0.0019029495718363631,
+   "scan": "03 BMT/USD      price=$0.03671 vol24h=$1,310,584 spread=38.02bps mtf_score=0.4770 quality=0.6377 trend15m=-0.23 trend1h=+0.59 trend4h=+0.59",
    "cfg": "v12-2026-10-24"
   }
  ]
