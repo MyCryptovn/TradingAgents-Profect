@@ -6717,6 +6717,34 @@
    "spread": 0.00032149172158819325,
    "scan": "03 BONK/USD     price=$3.111e-06 vol24h=$1,753,322 spread=3.21bps mtf_score=0.5041 quality=0.5546 trend15m=-1.09 trend1h=+0.70 trend4h=+0.44",
    "cfg": "v11-2026-10-23"
+  },
+  {
+   "id": "40063297149-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792817403,
+   "entry": 0.00428,
+   "btc0": 80789.8,
+   "status": "open",
+   "spread": 0.0009337068160596788,
+   "scan": "01 PUMP/USD     price=$0.004279 vol24h=$3,894,415 spread=9.34bps mtf_score=0.5317 quality=0.3944 trend15m=-1.17 trend1h=-1.01 trend4h=+0.10",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40063297149-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792817403,
+   "entry": 0.03930812,
+   "btc0": 80789.8,
+   "status": "open",
+   "spread": 0.001342836496987043,
+   "scan": "03 AKE/USD      price=$0.03937289 vol24h=$2,390,060 spread=28.24bps mtf_score=0.4760 quality=0.5826 trend15m=-0.21 trend1h=+0.91 trend4h=+0.30",
+   "cfg": "v12-2026-10-24"
   }
  ]
 }
