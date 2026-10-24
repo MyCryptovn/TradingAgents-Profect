@@ -6750,6 +6750,48 @@
    "spread": 0.001342836496987043,
    "scan": "03 AKE/USD      price=$0.03937289 vol24h=$2,390,060 spread=28.24bps mtf_score=0.4760 quality=0.5826 trend15m=-0.21 trend1h=+0.91 trend4h=+0.30",
    "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40095071078-XBT/USD",
+   "symbol": "XBT/USD",
+   "pair": "XBTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792846363,
+   "entry": 80719.0,
+   "btc0": 80719.0,
+   "status": "open",
+   "spread": 1.2388142811906349e-06,
+   "scan": "01 XBT/USD      price=$80,676.3 vol24h=$108,121,458 spread=0.01bps mtf_score=0.6218 quality=0.3247 trend15m=-0.59 trend1h=-0.80 trend4h=-0.38",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40095071078-DOS/USD",
+   "symbol": "DOS/USD",
+   "pair": "DOSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792846363,
+   "entry": 0.2552,
+   "btc0": 80719.0,
+   "status": "open",
+   "spread": 0.0031311154598826726,
+   "scan": "02 DOS/USD      price=$0.2568 vol24h=$1,309,870 spread=23.44bps mtf_score=0.4747 quality=0.6151 trend15m=-0.29 trend1h=+0.55 trend4h=+0.98",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40095071078-USELESS/USD",
+   "symbol": "USELESS/USD",
+   "pair": "USELESSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792846363,
+   "entry": 0.15641,
+   "btc0": 80719.0,
+   "status": "open",
+   "spread": 0.002291388199350945,
+   "scan": "03 USELESS/USD  price=$0.15588 vol24h=$1,508,854 spread=18.58bps mtf_score=0.4575 quality=0.6800 trend15m=-0.01 trend1h=+0.23 trend4h=+0.26",
+   "cfg": "v12-2026-10-24"
   }
  ]
 }

@@ -1,21 +1,21 @@
 # Báo cáo paper trading
-Cập nhật: 2026-10-24 04:50 UTC
+Cập nhật: 2026-10-24 12:52 UTC
 
-- Lệnh đã chốt: **19** | đang mở: 1 | HOLD đã chấm: 349
+- Lệnh đã chốt: **20** | đang mở: 0 | HOLD đã chấm: 349
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **31.6%** (6/19)
-- PnL trung bình/lệnh: -0.614%
-- Tổng PnL (cộng dồn): **-11.67%**
-- Profit factor: 0.73
-- Max drawdown: 26.06%
+- Win rate: **30.0%** (6/20)
+- PnL trung bình/lệnh: -0.766%
+- Tổng PnL (cộng dồn): **-15.31%**
+- Profit factor: 0.67
+- Max drawdown: 29.70%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +1.53%  -> bot THUA benchmark
-- ⚠️ Dưới 20 lệnh: chưa đủ ý nghĩa thống kê.
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| PEPE/USD | BUY | 4.552e-06 | 4.41544e-06 | SL | -3.64 |
 | WLD/USD | BUY | 0.5886 | 0.5848 | REVERSAL_CUT | -1.39 |
 | HBAR/USD | BUY | 0.08885 | 0.0861845 | SL | -3.69 |
 | PYTH/USD | BUY | 0.08742 | 0.0847974 | SL | -3.76 |
@@ -25,8 +25,7 @@ Cập nhật: 2026-10-24 04:50 UTC
 | ZRO/USD | BUY | 2.433 | 2.36001 | SL | -3.74 |
 | W/USD | BUY | 0.02978 | 0.0315668 | TP | +5.21 |
 | BAT/USD | BUY | 0.15589 | 0.151213 | SL | -3.75 |
-| S/USD | BUY | 0.0625 | 0.060625 | SL | -3.78 |
-- Lãi tối đa từng đạt (trung bình): 3.34% (15 lệnh)
+- Lãi tối đa từng đạt (trung bình): 3.20% (16 lệnh)
 
 ## Quyết định HOLD
 - Sau 24h, giá biến động ≥ 3% ở 205/349 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
