@@ -6699,10 +6699,15 @@
    "t0": 1792801986,
    "entry": 4.552e-06,
    "btc0": 80670.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00021980437410696818,
    "scan": "02 PEPE/USD     price=$4.562e-06 vol24h=$6,307,138 spread=4.39bps mtf_score=0.5446 quality=0.4158 trend15m=-2.26 trend1h=+0.63 trend4h=+0.72",
-   "cfg": "v11-2026-10-23"
+   "cfg": "v11-2026-10-23",
+   "exit": 4.4154399999999995e-06,
+   "t1": 1792827900,
+   "reason": "SL",
+   "pnl_pct": -3.642,
+   "mfe_pct": 1.23
   },
   {
    "id": "40044725032-BONK/USD",
