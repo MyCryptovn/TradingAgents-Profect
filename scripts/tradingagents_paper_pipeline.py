@@ -61,9 +61,11 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
 
 SCAN_INFO = {}
 REASONS = {}
-SHORT_NOTE = " conditions. "("Never open a trade when 15m and 1h trends conflict. "
-    "Max risk 1% of capital per trade. Hard stop-loss 5%, take-profit 10%, max hold 24h."
-    "Never force a LONG when evidence is short-biased, and never force a SHORT when evidence is long-biased."
+SHORT_NOTE = (
+    " TRADING HORIZON: short-term paper, max hold about 48 hours, hard stop about 3 percent. "
+    "No fixed take-profit required; exit on reversal or horizon. "
+    "BUY = LONG, SELL = SHORT, HOLD = no new position. "
+    "Prefer action when 15m and flow align; do not require perfect agreement on every timeframe."
 )
 SHORT_RULES = (
     " POSITION MODEL: Perpetual / paper futures. BUY = LONG, SELL = SHORT, HOLD = flat. "
@@ -187,7 +189,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
                     "Prefer SELL when taker buy share <= 42% and 1m/5m/15m weakness appears. "
-                    "Max risk about 1 percent of capital per trade. Hard stop-loss about 3 percent. No fixed take-profit required; exit on reversal or horizon.
+                    "Max risk about 1 percent of capital per trade. Hard stop-loss about 3 percent. No fixed take-profit required; exit on reversal or horizon."
                 )
             else:
                 rules = SHORT_RULES
