@@ -22,8 +22,8 @@ from pathlib import Path
 
 # === CẤU HÌNH LỌC ALTCOIN NHỎ ===
 SMALL_ALT_VOLUME_USD = 500_000      # volume 24h dưới mức này coi là alt nhỏ
-SMALL_ALT_TAKER_BUY = 0.55            # yêu cầu taker buy cao hơn
-NORMAL_TAKER_BUY = 0.52
+SMALL_ALT_TAKER_BUY = 0.52            # yêu cầu taker buy cao hơn
+NORMAL_TAKER_BUY = 0.50
 
 TOP_N = 10
 OUT_DIR = Path("tradingagents-paper-results")
@@ -70,7 +70,7 @@ SHORT_NOTE = (
 SHORT_RULES = (
     " POSITION MODEL: Perpetual / paper futures. BUY = LONG, SELL = SHORT, HOLD = flat. "
     "ENTRY BUY (LONG) if at least 3 of 4 are true: "
-    "(1) RSI14 on 5m or 15m below 72, "
+    "(1) RSI14 on 5m or 15m below < 72, "
     "(2) trend15 from scanner above 0 OR trend1h above 0, "
     "(3) taker buy share at least 50 percent, "
     "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
@@ -78,7 +78,7 @@ SHORT_RULES = (
     "ENTRY SELL (SHORT) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m above 28, "
     "(2) trend15 below 0 OR trend1h below 0, "
-    "(3) taker buy share at most 50 percent, "
+    "(3) taker buy share at most => 50 percent, "
     "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
