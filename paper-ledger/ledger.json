@@ -6843,6 +6843,34 @@
    "spread": 0.0019029495718363631,
    "scan": "03 BMT/USD      price=$0.03671 vol24h=$1,310,584 spread=38.02bps mtf_score=0.4770 quality=0.6377 trend15m=-0.23 trend1h=+0.59 trend4h=+0.59",
    "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40138877179-BMT/USD",
+   "symbol": "BMT/USD",
+   "pair": "BMTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792881515,
+   "entry": 0.04014,
+   "btc0": 80498.4,
+   "status": "open",
+   "spread": 0.004510147832623393,
+   "scan": "02 BMT/USD      price=$0.03985 vol24h=$1,390,295 spread=35.05bps mtf_score=0.4000 quality=0.8209 trend15m=+0.34 trend1h=+0.43 trend4h=+0.61",
+   "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40138877179-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792881515,
+   "entry": 613.27,
+   "btc0": 80498.4,
+   "status": "open",
+   "spread": 0.0010278414513773817,
+   "scan": "03 XMR/USD      price=$610.19 vol24h=$4,405,286 spread=5.24bps mtf_score=0.3981 quality=0.7767 trend15m=+0.64 trend1h=+0.14 trend4h=+0.07",
+   "cfg": "v12-2026-10-24"
   }
  ]
 }
