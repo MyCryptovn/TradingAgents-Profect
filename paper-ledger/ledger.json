@@ -6694,10 +6694,13 @@
    "t0": 1792801986,
    "entry": 3994.83,
    "btc0": 80670.8,
-   "status": "open",
+   "status": "closed",
    "spread": 5.506952527561044e-05,
    "scan": "01 PAXG/USD     price=$3,994.45 vol24h=$2,613,987 spread=0.05bps mtf_score=0.5309 quality=0.3122 trend15m=-1.22 trend1h=-0.84 trend4h=-1.71",
-   "cfg": "v11-2026-10-23"
+   "cfg": "v11-2026-10-23",
+   "exit": 3996.91,
+   "t1": 1792888386.0,
+   "move_pct": 0.052
   },
   {
    "id": "40044725032-PEPE/USD",
@@ -6716,7 +6719,8 @@
    "t1": 1792827900,
    "reason": "SL",
    "pnl_pct": -3.642,
-   "mfe_pct": 1.23
+   "mfe_pct": 1.23,
+   "trail_pnl_pct": -2.449
   },
   {
    "id": "40044725032-BONK/USD",
@@ -6727,10 +6731,13 @@
    "t0": 1792801987,
    "entry": 3.113e-06,
    "btc0": 80670.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00032149172158819325,
    "scan": "03 BONK/USD     price=$3.111e-06 vol24h=$1,753,322 spread=3.21bps mtf_score=0.5041 quality=0.5546 trend15m=-1.09 trend1h=+0.70 trend4h=+0.44",
-   "cfg": "v11-2026-10-23"
+   "cfg": "v11-2026-10-23",
+   "exit": 3.157e-06,
+   "t1": 1792888387.0,
+   "move_pct": 1.413
   },
   {
    "id": "40063297149-PUMP/USD",
@@ -6741,10 +6748,13 @@
    "t0": 1792817403,
    "entry": 0.00428,
    "btc0": 80789.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0009337068160596788,
    "scan": "01 PUMP/USD     price=$0.004279 vol24h=$3,894,415 spread=9.34bps mtf_score=0.5317 quality=0.3944 trend15m=-1.17 trend1h=-1.01 trend4h=+0.10",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 0.004311,
+   "t1": 1792903803.0,
+   "move_pct": 0.724
   },
   {
    "id": "40063297149-AKE/USD",
@@ -6755,10 +6765,13 @@
    "t0": 1792817403,
    "entry": 0.03930812,
    "btc0": 80789.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.001342836496987043,
    "scan": "03 AKE/USD      price=$0.03937289 vol24h=$2,390,060 spread=28.24bps mtf_score=0.4760 quality=0.5826 trend15m=-0.21 trend1h=+0.91 trend4h=+0.30",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 0.03085782,
+   "t1": 1792903803.0,
+   "move_pct": -21.498
   },
   {
    "id": "40095071078-XBT/USD",
@@ -6871,6 +6884,20 @@
    "spread": 0.0010278414513773817,
    "scan": "03 XMR/USD      price=$610.19 vol24h=$4,405,286 spread=5.24bps mtf_score=0.3981 quality=0.7767 trend15m=+0.64 trend1h=+0.14 trend4h=+0.07",
    "cfg": "v12-2026-10-24"
+  },
+  {
+   "id": "40163085636-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792903903,
+   "entry": 0.082652,
+   "btc0": 80841.1,
+   "status": "open",
+   "spread": 0.003119294894270343,
+   "scan": "03 CAP/USD      price=$0.083439 vol24h=$1,716,723 spread=26.00bps mtf_score=0.4543 quality=0.8377 trend15m=+0.95 trend1h=+1.31 trend4h=+0.50",
+   "cfg": "v13-2026-10-25"
   }
  ]
 }
