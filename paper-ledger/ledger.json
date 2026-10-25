@@ -7100,10 +7100,15 @@
    "t0": 1792968400,
    "entry": 0.1694,
    "btc0": 80422.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0023113165614721395,
    "scan": "03 USELESS/USD  price=$0.16881 vol24h=$2,194,404 spread=9.48bps mtf_score=0.4301 quality=0.5546 trend15m=-0.69 trend1h=+0.40 trend4h=+0.54",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.164318,
+   "t1": 1792971000,
+   "reason": "SL",
+   "pnl_pct": -3.851,
+   "mfe_pct": 0.0
   }
  ]
 }
