@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-25 19:13 UTC**
+- Thời điểm: **2026-10-25 22:46 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (4 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **20** |
-| Lệnh đang mở | **1** |
+| Lệnh đang mở | **2** |
 | Win rate | **30.0%** |
 | PnL trung bình / lệnh | **-0.766%** |
 | Tổng PnL | **-15.31%** |
@@ -65,6 +65,7 @@
 | Symbol | Hướng | Entry | 
 |--------|-------|-------|
 | XDG/USD | SELL | 0.0762651 |
+| USELESS/USD | BUY | 0.1694 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 

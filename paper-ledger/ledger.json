@@ -6884,10 +6884,13 @@
    "t0": 1792881515,
    "entry": 0.04014,
    "btc0": 80498.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004510147832623393,
    "scan": "02 BMT/USD      price=$0.03985 vol24h=$1,390,295 spread=35.05bps mtf_score=0.4000 quality=0.8209 trend15m=+0.34 trend1h=+0.43 trend4h=+0.61",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 0.03331,
+   "t1": 1792967915.0,
+   "move_pct": -17.015
   },
   {
    "id": "40138877179-XMR/USD",
@@ -6898,10 +6901,13 @@
    "t0": 1792881515,
    "entry": 613.27,
    "btc0": 80498.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0010278414513773817,
    "scan": "03 XMR/USD      price=$610.19 vol24h=$4,405,286 spread=5.24bps mtf_score=0.3981 quality=0.7767 trend15m=+0.64 trend1h=+0.14 trend4h=+0.07",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 594.44,
+   "t1": 1792967915.0,
+   "move_pct": -3.07
   },
   {
    "id": "40163085636-CAP/USD",
@@ -7055,6 +7061,48 @@
    "status": "open",
    "spread": 0.0004799616030717014,
    "scan": "03 ENA/USD      price=$0.2082 vol24h=$2,870,109 spread=4.80bps mtf_score=0.4049 quality=0.7039 trend15m=+1.45 trend1h=+0.37 trend4h=+0.00",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40240937801-GRASS/USD",
+   "symbol": "GRASS/USD",
+   "pair": "GRASSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792968400,
+   "entry": 0.7384,
+   "btc0": 80422.8,
+   "status": "open",
+   "spread": 0.0030017737754127164,
+   "scan": "01 GRASS/USD    price=$0.7351 vol24h=$912,735 spread=24.48bps mtf_score=0.4758 quality=0.7989 trend15m=+0.91 trend1h=+0.98 trend4h=+0.47",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40240937801-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792968400,
+   "entry": 0.108735,
+   "btc0": 80422.8,
+   "status": "open",
+   "spread": 0.003719891264716883,
+   "scan": "02 CAP/USD      price=$0.108296 vol24h=$6,305,882 spread=39.24bps mtf_score=0.4364 quality=0.7547 trend15m=+0.88 trend1h=+2.23 trend4h=+1.11",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40240937801-USELESS/USD",
+   "symbol": "USELESS/USD",
+   "pair": "USELESSUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1792968400,
+   "entry": 0.1694,
+   "btc0": 80422.8,
+   "status": "open",
+   "spread": 0.0023113165614721395,
+   "scan": "03 USELESS/USD  price=$0.16881 vol24h=$2,194,404 spread=9.48bps mtf_score=0.4301 quality=0.5546 trend15m=-0.69 trend1h=+0.40 trend4h=+0.54",
    "cfg": "v13-2026-10-25"
   }
  ]
