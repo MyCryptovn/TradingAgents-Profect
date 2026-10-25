@@ -6898,6 +6898,34 @@
    "spread": 0.003119294894270343,
    "scan": "03 CAP/USD      price=$0.083439 vol24h=$1,716,723 spread=26.00bps mtf_score=0.4543 quality=0.8377 trend15m=+0.95 trend1h=+1.31 trend4h=+0.50",
    "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40165401412-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792906210,
+   "entry": 1212.01,
+   "btc0": 80720.5,
+   "status": "open",
+   "spread": 0.0005031322041728031,
+   "scan": "02 ZEC/USD      price=$1,213.72 vol24h=$16,532,208 spread=1.81bps mtf_score=0.4419 quality=0.6736 trend15m=+1.36 trend1h=+0.12 trend4h=+0.02",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40165401412-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792906211,
+   "entry": 0.085314,
+   "btc0": 80720.5,
+   "status": "open",
+   "spread": 0.0005390203890319955,
+   "scan": "03 CAP/USD      price=$0.084735 vol24h=$1,849,140 spread=23.26bps mtf_score=0.4383 quality=0.8337 trend15m=+0.91 trend1h=+1.39 trend4h=+0.50",
+   "cfg": "v13-2026-10-25"
   }
  ]
 }
