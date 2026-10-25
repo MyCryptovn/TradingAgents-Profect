@@ -6926,6 +6926,48 @@
    "spread": 0.0005390203890319955,
    "scan": "03 CAP/USD      price=$0.084735 vol24h=$1,849,140 spread=23.26bps mtf_score=0.4383 quality=0.8337 trend15m=+0.91 trend1h=+1.39 trend4h=+0.50",
    "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40181419877-XDG/USD",
+   "symbol": "XDG/USD",
+   "pair": "XDGUSD",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1792921566,
+   "entry": 0.0762651,
+   "btc0": 80179.5,
+   "status": "open",
+   "spread": 4.587369399236139e-05,
+   "scan": "01 XDG/USD      price=$0.0761472 vol24h=$4,601,047 spread=0.01bps mtf_score=0.5352 quality=0.3181 trend15m=-1.16 trend1h=-0.53 trend4h=-0.47",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40181419877-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792921566,
+   "entry": 601.02,
+   "btc0": 80179.5,
+   "status": "open",
+   "spread": 0.0005640532200803475,
+   "scan": "02 XMR/USD      price=$601.25 vol24h=$3,497,952 spread=2.99bps mtf_score=0.5036 quality=0.5266 trend15m=-0.92 trend1h=+0.61 trend4h=+0.02",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40181419877-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792921566,
+   "entry": 0.093694,
+   "btc0": 80179.5,
+   "status": "open",
+   "spread": 0.002345966004819872,
+   "scan": "03 CAP/USD      price=$0.094006 vol24h=$2,859,167 spread=41.54bps mtf_score=0.4802 quality=0.8128 trend15m=+1.18 trend1h=+1.62 trend4h=+0.64",
+   "cfg": "v13-2026-10-25"
   }
  ]
 }

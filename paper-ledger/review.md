@@ -1,15 +1,15 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-25 05:30 UTC**
+- Thời điểm: **2026-10-25 09:46 UTC**
 - Ledger: `paper-ledger/ledger.json`
-- Decisions file: `tradingagents-paper-results/decisions.json` (2 records)
+- Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
 
 ## 1. Tổng quan hiệu suất
 
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **20** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **1** |
 | Win rate | **30.0%** |
 | PnL trung bình / lệnh | **-0.766%** |
 | Tổng PnL | **-15.31%** |
@@ -59,6 +59,12 @@
 | ZRO/USD | BUY | -3.74 | SL |
 | W/USD | BUY | +5.21 | TP |
 | BAT/USD | BUY | -3.75 | SL |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| XDG/USD | SELL | 0.0762651 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
