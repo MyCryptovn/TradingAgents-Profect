@@ -6833,10 +6833,13 @@
    "t0": 1792868240,
    "entry": 1.28499,
    "btc0": 80364.1,
-   "status": "open",
+   "status": "closed",
    "spread": 7.782192010074445e-06,
    "scan": "01 XRP/USD      price=$1.28286 vol24h=$24,818,016 spread=0.08bps mtf_score=0.5598 quality=0.3099 trend15m=-0.24 trend1h=-1.12 trend4h=-0.28",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 1.29891,
+   "t1": 1792954640.0,
+   "move_pct": 1.083
   },
   {
    "id": "40122410951-DOS/USD",
@@ -6847,10 +6850,13 @@
    "t0": 1792868240,
    "entry": 0.2558,
    "btc0": 80364.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0023446658851113303,
    "scan": "02 DOS/USD      price=$0.2578 vol24h=$1,073,935 spread=19.34bps mtf_score=0.4775 quality=0.6103 trend15m=-0.01 trend1h=+0.35 trend4h=+1.15",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 0.2609,
+   "t1": 1792954640.0,
+   "move_pct": 1.994
   },
   {
    "id": "40122410951-BMT/USD",
@@ -6861,10 +6867,13 @@
    "t0": 1792868241,
    "entry": 0.03675,
    "btc0": 80364.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0019029495718363631,
    "scan": "03 BMT/USD      price=$0.03671 vol24h=$1,310,584 spread=38.02bps mtf_score=0.4770 quality=0.6377 trend15m=-0.23 trend1h=+0.59 trend4h=+0.59",
-   "cfg": "v12-2026-10-24"
+   "cfg": "v12-2026-10-24",
+   "exit": 0.03267,
+   "t1": 1792954641.0,
+   "move_pct": -11.102
   },
   {
    "id": "40138877179-BMT/USD",
@@ -7004,6 +7013,48 @@
    "status": "open",
    "spread": 6.787161405494643e-05,
    "scan": "03 BNB/USD      price=$737.77 vol24h=$1,064,884 spread=1.76bps mtf_score=0.4639 quality=0.5915 trend15m=-0.54 trend1h=+0.39 trend4h=+0.30",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40224261659-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792955635,
+   "entry": 0.107244,
+   "btc0": 80497.8,
+   "status": "open",
+   "spread": 0.0008511076089956251,
+   "scan": "01 CAP/USD      price=$0.106982 vol24h=$6,093,510 spread=23.34bps mtf_score=0.4523 quality=0.7924 trend15m=+0.99 trend1h=+2.10 trend4h=+0.87",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40224261659-APR/USD",
+   "symbol": "APR/USD",
+   "pair": "APRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792955636,
+   "entry": 0.04317,
+   "btc0": 80497.8,
+   "status": "open",
+   "spread": 0.002541296060991082,
+   "scan": "02 APR/USD      price=$0.04321 vol24h=$1,954,041 spread=46.35bps mtf_score=0.4147 quality=0.8058 trend15m=+0.74 trend1h=+0.59 trend4h=+0.06",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40224261659-ENA/USD",
+   "symbol": "ENA/USD",
+   "pair": "ENAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792955636,
+   "entry": 0.2082,
+   "btc0": 80497.8,
+   "status": "open",
+   "spread": 0.0004799616030717014,
+   "scan": "03 ENA/USD      price=$0.2082 vol24h=$2,870,109 spread=4.80bps mtf_score=0.4049 quality=0.7039 trend15m=+1.45 trend1h=+0.37 trend4h=+0.00",
    "cfg": "v13-2026-10-25"
   }
  ]
