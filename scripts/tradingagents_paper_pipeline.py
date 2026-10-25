@@ -2,7 +2,7 @@
 
 Crypto analysis uses a CoinGecko-native overlay for historical OHLC/market data
 and live market context. Kraken remains only the separate paper-outcome evaluator.
-The pinned TradingAgents source remains unchanged. BUY/SELL are paper decisions only;
+The pinned TradingAgents source remains unchanged. BUY=LONG/SELL=SHORT are paper decisions only;
 live orders stay disabled.
 """
 from __future__ import annotations
@@ -72,13 +72,13 @@ SHORT_RULES = (
     "ENTRY BUY (LONG) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m below < 72, "
     "(2) trend15 from scanner above 0 OR trend1h above 0, "
-    "(3) taker buy share at least 50 percent, "
+    "(3) taker buy share at least 52 percent, "
     "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "ENTRY SELL (SHORT) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m above 28, "
     "(2) trend15 below 0 OR trend1h below 0, "
-    "(3) taker buy share at most => 50 percent, "
+    "(3) taker buy share at most => 52 percent, "
     "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
@@ -286,6 +286,17 @@ def is_small_alt(symbol: str) -> bool:
         return vol < SMALL_ALT_VOLUME_USD
     except Exception:
         return True
+
+def run_with_retry(ticker, trade_date):
+    for attempt in range(3):
+        try:
+            return run_tradingagents(ticker, trade_date)
+        except Exception as exc:
+            if attempt < 2 and ("429" in str(exc) or "RESOURCE_EXHAUSTED" in str(exc)):
+                print(f"Gemini 429, chờ 65 giây rồi thử lại ({attempt + 1}/2)")
+                time.sleep(65)
+                continue
+            raise
 
 
 def main() -> int:
