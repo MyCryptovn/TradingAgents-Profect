@@ -364,10 +364,10 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: KRAKEN SCANNER + COINGECKO AI MARKET DATA + KRAKEN PAPER OUTCOME")
+    print("DATA: KRAKEN SCANNER + COINGECKO AI MARKET DATA + HYPERLIQUID NOTE + KRAKEN PAPER OUTCOME")
     print("AI: TRADINGAGENTS")
     print(f"LLM PROVIDER: {provider}")
-    print("CRYPTO DATA MODE: COINGECKO API + YAHOO FINANCE BYPASSED")
+    print("CRYPTO DATA MODE: COINGECKO API + YAHOO FINANCE BYPASSED + HL public info for funding/book/candles")
     print("PAPER BUY/SELL: ENABLED")
     print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
