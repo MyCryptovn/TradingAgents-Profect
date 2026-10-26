@@ -6918,10 +6918,13 @@
    "t0": 1792903903,
    "entry": 0.082652,
    "btc0": 80841.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.003119294894270343,
    "scan": "03 CAP/USD      price=$0.083439 vol24h=$1,716,723 spread=26.00bps mtf_score=0.4543 quality=0.8377 trend15m=+0.95 trend1h=+1.31 trend4h=+0.50",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.110489,
+   "t1": 1792990303.0,
+   "move_pct": 33.68
   },
   {
    "id": "40165401412-ZEC/USD",
@@ -7109,6 +7112,48 @@
    "reason": "SL",
    "pnl_pct": -3.851,
    "mfe_pct": 0.0
+  },
+  {
+   "id": "40271215424-DASH/USD",
+   "symbol": "DASH/USD",
+   "pair": "DASHUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792990874,
+   "entry": 51.092,
+   "btc0": 80012.9,
+   "status": "open",
+   "spread": 0.0007414344806057093,
+   "scan": "01 DASH/USD     price=$51.067 vol24h=$1,539,801 spread=0.20bps mtf_score=0.6721 quality=0.5147 trend15m=-1.24 trend1h=+0.01 trend4h=+0.15",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40271215424-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792990874,
+   "entry": 0.112468,
+   "btc0": 80012.9,
+   "status": "open",
+   "spread": 0.0031068581674863127,
+   "scan": "02 CAP/USD      price=$0.113472 vol24h=$6,161,209 spread=27.97bps mtf_score=0.4437 quality=0.7369 trend15m=+0.50 trend1h=+2.00 trend4h=+1.56",
+   "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40271215424-RLS/USD",
+   "symbol": "RLS/USD",
+   "pair": "RLSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1792990875,
+   "entry": 0.00313,
+   "btc0": 80012.9,
+   "status": "open",
+   "spread": 0.009569377990430648,
+   "scan": "03 RLS/USD      price=$0.00299 vol24h=$609,473 spread=100.84bps mtf_score=0.3704 quality=0.9035 trend15m=+1.05 trend1h=+0.85 trend4h=+0.49",
+   "cfg": "v13-2026-10-25"
   }
  ]
 }
