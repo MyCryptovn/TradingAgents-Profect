@@ -4,7 +4,7 @@ import urllib.parse
 import urllib.request
 
 API = "https://api.kraken.com/0/public/"
-
+API = "https://api.hyperliquid.xyz/info"
 
 def _ohlc(pair, interval):
     url = API + "OHLC?" + urllib.parse.urlencode({"pair": pair, "interval": interval})
