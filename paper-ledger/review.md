@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-26 10:47 UTC**
+- Thời điểm: **2026-10-26 15:50 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (4 records)
 
@@ -8,20 +8,20 @@
 
 | Chỉ số | Giá trị |
 |--------|---------|
-| Số lệnh đã đóng | **22** |
+| Số lệnh đã đóng | **23** |
 | Lệnh đang mở | **1** |
-| Win rate | **27.3%** |
-| PnL trung bình / lệnh | **-0.956%** |
-| Tổng PnL | **-21.03%** |
-| Profit Factor | **0.59** |
-| Max DD (xấp xỉ) | **35.42%** |
+| Win rate | **26.1%** |
+| PnL trung bình / lệnh | **-1.093%** |
+| Tổng PnL | **-25.15%** |
+| Profit Factor | **0.55** |
+| Max DD (xấp xỉ) | **39.54%** |
 | Benchmark BTC (tham chiếu) | **+1.53%** |
 
 ## 2. Phân loại lý do đóng lệnh
 
 | Lý do | Số lệnh |
 |-------|---------|
-| SL | 13 |
+| SL | 14 |
 | TP | 6 |
 | TIME | 2 |
 | REVERSAL | 1 |
@@ -30,14 +30,14 @@
 
 | Hướng | Số lệnh | Avg PnL | Tổng PnL |
 |-------|---------|---------|----------|
-| BUY | 18 | -1.402% | -25.23% |
+| BUY | 19 | -1.544% | -29.34% |
 | SELL | 4 | +1.049% | +4.20% |
 
 ## 4. Top 3 vấn đề
 
-1. Win rate thấp (27.3%).
-2. Profit Factor 0.59 < 1 → kỳ vọng âm.
-3. Max DD xấp xỉ 35.4% khá cao.
+1. Win rate thấp (26.1%).
+2. Profit Factor 0.55 < 1 → kỳ vọng âm.
+3. Max DD xấp xỉ 39.5% khá cao.
 
 ## 5. Top 3 điểm mạnh
 
@@ -49,6 +49,7 @@
 
 | Symbol | Hướng | PnL % | Lý do |
 |--------|-------|-------|-------|
+| XCN/USD | BUY | -4.12 | SL |
 | XDG/USD | SELL | -1.87 | TIME |
 | USELESS/USD | BUY | -3.85 | SL |
 | PEPE/USD | BUY | -3.64 | SL |
@@ -58,13 +59,12 @@
 | INJ/USD | BUY | -3.67 | SL |
 | RSR/USD | BUY | -3.84 | SL |
 | TIA/USD | BUY | -3.65 | SL |
-| ZRO/USD | BUY | -3.74 | SL |
 
 ## 7. Lệnh đang mở
 
 | Symbol | Hướng | Entry | 
 |--------|-------|-------|
-| XCN/USD | BUY | 0.00405 |
+| ENA/USD | BUY | 0.2108 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 

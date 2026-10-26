@@ -7023,10 +7023,13 @@
    "t0": 1792934400,
    "entry": 0.17471,
    "btc0": 80274.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0016046764857585102,
    "scan": "02 USELESS/USD  price=$0.1751 vol24h=$2,251,086 spread=14.89bps mtf_score=0.4689 quality=0.4969 trend15m=-0.77 trend1h=+1.10 trend4h=+0.53",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.157,
+   "t1": 1793020800.0,
+   "move_pct": -10.137
   },
   {
    "id": "40196546642-BNB/USD",
@@ -7037,10 +7040,13 @@
    "t0": 1792934401,
    "entry": 736.59,
    "btc0": 80274.0,
-   "status": "open",
+   "status": "closed",
    "spread": 6.787161405494643e-05,
    "scan": "03 BNB/USD      price=$737.77 vol24h=$1,064,884 spread=1.76bps mtf_score=0.4639 quality=0.5915 trend15m=-0.54 trend1h=+0.39 trend4h=+0.30",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 740.02,
+   "t1": 1793020801.0,
+   "move_pct": 0.466
   },
   {
    "id": "40224261659-CAP/USD",
@@ -7182,10 +7188,15 @@
    "t0": 1793011640,
    "entry": 0.00405,
    "btc0": 80316.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0049504950495049636,
    "scan": "01 XCN/USD      price=$0.00406 vol24h=$1,981,648 spread=49.26bps mtf_score=0.4515 quality=0.6130 trend15m=-0.72 trend1h=+0.14 trend4h=+0.03",
-   "cfg": "v14-2026-10-26"
+   "cfg": "v14-2026-10-26",
+   "exit": 0.0039285,
+   "t1": 1793016900,
+   "reason": "SL",
+   "pnl_pct": -4.115,
+   "mfe_pct": 0.0
   },
   {
    "id": "40308775586-RLS/USD",
@@ -7213,6 +7224,48 @@
    "status": "open",
    "spread": 0.0009606147934678469,
    "scan": "03 ENA/USD      price=$0.208 vol24h=$3,656,869 spread=9.62bps mtf_score=0.4091 quality=0.7430 trend15m=+0.13 trend1h=+0.93 trend4h=+0.05",
+   "cfg": "v14-2026-10-26"
+  },
+  {
+   "id": "40346189002-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793029802,
+   "entry": 4.368e-06,
+   "btc0": 80531.8,
+   "status": "open",
+   "spread": 0.00045819014891183287,
+   "scan": "01 PEPE/USD     price=$4.373e-06 vol24h=$2,240,972 spread=4.57bps mtf_score=0.3913 quality=0.3400 trend15m=-0.40 trend1h=-0.11 trend4h=-0.03",
+   "cfg": "v14-2026-10-26"
+  },
+  {
+   "id": "40346189002-ENA/USD",
+   "symbol": "ENA/USD",
+   "pair": "ENAUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793029802,
+   "entry": 0.2108,
+   "btc0": 80531.8,
+   "status": "open",
+   "spread": 0.0009496676163343102,
+   "scan": "02 ENA/USD      price=$0.2115 vol24h=$4,203,408 spread=9.47bps mtf_score=0.5856 quality=0.6288 trend15m=-0.02 trend1h=+0.80 trend4h=+0.12",
+   "cfg": "v14-2026-10-26"
+  },
+  {
+   "id": "40346189002-RLS/USD",
+   "symbol": "RLS/USD",
+   "pair": "RLSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793029802,
+   "entry": 0.00259,
+   "btc0": 80531.8,
+   "status": "open",
+   "spread": 0.007692307692307713,
+   "scan": "03 RLS/USD      price=$0.0027 vol24h=$675,890 spread=73.53bps mtf_score=0.5319 quality=0.6549 trend15m=-0.15 trend1h=+0.76 trend4h=+0.62",
    "cfg": "v14-2026-10-26"
   }
  ]
