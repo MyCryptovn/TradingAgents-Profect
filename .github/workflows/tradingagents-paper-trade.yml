@@ -12,9 +12,9 @@ permissions:
   contents: read
 
 env:
-  SOURCE_DIR: vendor/TradingAgents-v0.4.2-test
+  SOURCE_DIR: vendor/TradingAgents-v0.4.0-test
   TRADINGAGENTS_UPSTREAM_COMMIT: be952b8eccb49720509af544c6675233bc1f10d0
-  TRADINGAGENTS_SOURCE_LABEL: v0.4.2
+  TRADINGAGENTS_SOURCE_LABEL: v0.4.0
   TRADINGAGENTS_LLM_PROVIDER: groq
   TRADINGAGENTS_DEEP_THINK_LLM: openai/gpt-oss-120b
   TRADINGAGENTS_QUICK_THINK_LLM: openai/gpt-oss-120b
@@ -31,7 +31,7 @@ env:
 
 jobs:
   paper-trade:
-    name: BTC-USD TradingAgents v0.4.2 paper evaluation
+    name: BTC-USD TradingAgents v0.4.0 paper evaluation
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -41,7 +41,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch exact TradingAgents v0.4.2 source
+      - name: Fetch exact TradingAgents v0.4.0 source
         run: |
           rm -rf "$SOURCE_DIR"
           git clone --filter=blob:none https://github.com/TauricResearch/TradingAgents.git "$SOURCE_DIR"
@@ -97,7 +97,7 @@ jobs:
         try:
             token_budget = int(__import__('os').environ.get('TRADINGAGENTS_BEAR_INPUT_TOKEN_BUDGET', '6000'))
         except ValueError:
-            token_budget = 6000
+        token_budget = 6000
         token_budget = max(1000, min(token_budget, 6000))
 
         sections = [
