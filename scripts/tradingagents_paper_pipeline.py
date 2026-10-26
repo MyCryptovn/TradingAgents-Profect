@@ -62,10 +62,10 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
 SCAN_INFO = {}
 REASONS = {}
 SHORT_NOTE = (
-    " TRADING HORIZON: short-term paper, max hold about 48 hours, hard stop about 3 percent. "
+    " TRADING HORIZON: short-term paper, max hold about 24 hours, hard stop about 3 percent. "
     "No fixed take-profit required; exit on reversal or horizon. "
     "BUY = LONG, SELL = SHORT, HOLD = no new position. "
-    "Prefer action when 15m and flow align; do not require perfect agreement on every timeframe."
+    "Prefer action when 1m,15m and flow align; do not require perfect agreement on every timeframe."
 )
 SHORT_RULES = (
     " POSITION MODEL: Perpetual / paper futures. BUY = LONG, SELL = SHORT, HOLD = flat. "
@@ -280,7 +280,7 @@ def is_small_alt(symbol: str) -> bool:
     import re
     m = re.search(r"vol24h=\$([0-9,]+)", scan_line)
     if not m:
-        return True   # không lấy được volume → coi như nhỏ cho an toàn
+        return True   # không lấy được volume → bỏ cho an toàn
     try:
         vol = float(m.group(1).replace(",", ""))
         return vol < SMALL_ALT_VOLUME_USD
@@ -309,11 +309,6 @@ def main() -> int:
 
     OUT_DIR.mkdir(exist_ok=True)
     candidates = run_scanner()
-    try:
-        open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
-    except Exception:
-        open_syms = []
-    candidates = candidates + [s for s in open_syms if s not in candidates]
     try:
         open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
     except Exception:
@@ -376,7 +371,7 @@ def main() -> int:
         ticker = to_crypto_ticker(symbol)
         item = Decision(rank, symbol, ticker, "REVIEW", datetime.now(timezone.utc).isoformat())
         try:
-            item.decision = run_tradingagents(ticker, trade_date)
+            item.decision = run_with_retry(ticker, trade_date)
             print(f"{rank:02d} {symbol:12} -> {item.decision}")
         except Exception as exc:
             import traceback
