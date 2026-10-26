@@ -6935,10 +6935,13 @@
    "t0": 1792906210,
    "entry": 1212.01,
    "btc0": 80720.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005031322041728031,
    "scan": "02 ZEC/USD      price=$1,213.72 vol24h=$16,532,208 spread=1.81bps mtf_score=0.4419 quality=0.6736 trend15m=+1.36 trend1h=+0.12 trend4h=+0.02",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 1209.5,
+   "t1": 1792992610.0,
+   "move_pct": -0.207
   },
   {
    "id": "40165401412-CAP/USD",
@@ -6949,10 +6952,13 @@
    "t0": 1792906211,
    "entry": 0.085314,
    "btc0": 80720.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005390203890319955,
    "scan": "03 CAP/USD      price=$0.084735 vol24h=$1,849,140 spread=23.26bps mtf_score=0.4383 quality=0.8337 trend15m=+0.91 trend1h=+1.39 trend4h=+0.50",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.108748,
+   "t1": 1792992611.0,
+   "move_pct": 27.468
   },
   {
    "id": "40181419877-XDG/USD",
@@ -6963,10 +6969,16 @@
    "t0": 1792921566,
    "entry": 0.0762651,
    "btc0": 80179.5,
-   "status": "open",
+   "status": "closed",
    "spread": 4.587369399236139e-05,
    "scan": "01 XDG/USD      price=$0.0761472 vol24h=$4,601,047 spread=0.01bps mtf_score=0.5352 quality=0.3181 trend15m=-1.16 trend1h=-0.53 trend4h=-0.47",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.0772157,
+   "t1": 1793007966.0,
+   "reason": "TIME",
+   "pnl_pct": -1.871,
+   "mfe_pct": 0.479,
+   "trail_pnl_pct": -1.871
   },
   {
    "id": "40181419877-XMR/USD",
@@ -6977,10 +6989,13 @@
    "t0": 1792921566,
    "entry": 601.02,
    "btc0": 80179.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005640532200803475,
    "scan": "02 XMR/USD      price=$601.25 vol24h=$3,497,952 spread=2.99bps mtf_score=0.5036 quality=0.5266 trend15m=-0.92 trend1h=+0.61 trend4h=+0.02",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 590.07,
+   "t1": 1793007966.0,
+   "move_pct": -1.822
   },
   {
    "id": "40181419877-CAP/USD",
@@ -6991,10 +7006,13 @@
    "t0": 1792921566,
    "entry": 0.093694,
    "btc0": 80179.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002345966004819872,
    "scan": "03 CAP/USD      price=$0.094006 vol24h=$2,859,167 spread=41.54bps mtf_score=0.4802 quality=0.8128 trend15m=+1.18 trend1h=+1.62 trend4h=+0.64",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.083862,
+   "t1": 1793007966.0,
+   "move_pct": -10.494
   },
   {
    "id": "40196546642-USELESS/USD",
@@ -7154,6 +7172,48 @@
    "spread": 0.009569377990430648,
    "scan": "03 RLS/USD      price=$0.00299 vol24h=$609,473 spread=100.84bps mtf_score=0.3704 quality=0.9035 trend15m=+1.05 trend1h=+0.85 trend4h=+0.49",
    "cfg": "v13-2026-10-25"
+  },
+  {
+   "id": "40308775586-XCN/USD",
+   "symbol": "XCN/USD",
+   "pair": "XCNUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793011640,
+   "entry": 0.00405,
+   "btc0": 80316.0,
+   "status": "open",
+   "spread": 0.0049504950495049636,
+   "scan": "01 XCN/USD      price=$0.00406 vol24h=$1,981,648 spread=49.26bps mtf_score=0.4515 quality=0.6130 trend15m=-0.72 trend1h=+0.14 trend4h=+0.03",
+   "cfg": "v14-2026-10-26"
+  },
+  {
+   "id": "40308775586-RLS/USD",
+   "symbol": "RLS/USD",
+   "pair": "RLSUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793011640,
+   "entry": 0.00237,
+   "btc0": 80316.0,
+   "status": "open",
+   "spread": 0.00422832980972517,
+   "scan": "02 RLS/USD      price=$0.00239 vol24h=$547,021 spread=83.68bps mtf_score=0.4236 quality=0.6114 trend15m=-0.64 trend1h=+0.78 trend4h=+0.53",
+   "cfg": "v14-2026-10-26"
+  },
+  {
+   "id": "40308775586-ENA/USD",
+   "symbol": "ENA/USD",
+   "pair": "ENAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793011640,
+   "entry": 0.2084,
+   "btc0": 80316.0,
+   "status": "open",
+   "spread": 0.0009606147934678469,
+   "scan": "03 ENA/USD      price=$0.208 vol24h=$3,656,869 spread=9.62bps mtf_score=0.4091 quality=0.7430 trend15m=+0.13 trend1h=+0.93 trend4h=+0.05",
+   "cfg": "v14-2026-10-26"
   }
  ]
 }
