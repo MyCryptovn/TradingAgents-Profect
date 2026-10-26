@@ -225,9 +225,9 @@ def main() -> int:
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
-        # Long: 1h+4h lên dù còn âm, 15m dịu / lên, 1m lên theo nhịp bơm trên sàn → tránh đu đỉnh
+        # Long: 1h+4h lên dù còn âm, 15m lên, 1m lên theo nhịp bơm trên sàn → tránh đu đỉnh
         pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
-        # Short nhanh: 1m đảo chiều theo nhịp xả rõ; 15m đã xuống rõ; 1h không được ngược mạnh lên
+        # Short nhanh: 1m đảo chiều theo tín hiệu xả rõ; 15m xuống theo nến 1m ; 1h không được ngược mạnh lên
         # Không bắt buộc 4h âm (tránh chậm nhịp bơm-xả)
         short_bias = 0.0
         if trends[0] < -0.15 and trends[1] <= 0.10:
@@ -247,12 +247,12 @@ def main() -> int:
             + 0.10 * spike
             + 0.16 * pullback
             + 0.16 * short_bias)
-        candidates.append(Candidate(pair=pair, symbol=wsname, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.0, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
+        candidates.append(Candidate(pair=pair, symbol=wsname, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.05, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
 
     candidates.sort(key=lambda x: x.score, reverse=True)
 
     def is_short(c: Candidate) -> bool:
-        return (c.trend_15m < 0 and c.trend_1h < 0.05)
+        return (c.trend_15m < 0.05 and c.trend_1h < 0.05 and c.trend_4h < 0)
 
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
@@ -281,7 +281,7 @@ def main() -> int:
     print(f"VALIDATED MARKETS: {len(candidates)}")
     print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
     for rank, c in enumerate(candidates[:TOP_N], 1):
-        bias = "short" if (c.trend_15m < 0 and c.trend_1h < 0.05) else "long"
+        bias = "short" if (c.trend_15m < 0.05 and c.trend_1h < 0.05 c.trend_4h < 0) else "long"
         print(f"{rank:02d} {c.symbol:12} price=${c.price:,.8g} vol24h=${c.volume_usd:,.0f} "
               f"spread={c.spread_bps:.2f}bps mtf_score={c.score:.4f} quality={c.quality:.4f} "
               f"trend15m={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
