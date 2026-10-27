@@ -144,7 +144,7 @@ def check_reversal(t):
     # Ghi nhận hoặc đóng lệnh
     rev = round(pnl * 100, 3)
 
-    if MODE != "shadow":
+    if MODE != "close":
         if "rev_px" in t:
             return False
         t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
