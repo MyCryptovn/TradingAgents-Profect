@@ -174,7 +174,7 @@ def main() -> int:
         tightness = 1.0 - percentile(spreads, r[4])
         activity = percentile(ranges, r[5])
         momentum = percentile(changes, r[6])
-        score = 0.10 * liquidity + 0.10 * tightness + 0.40 * activity + 0.40 * momentum
+        score = 0.15 * liquidity + 0.15 * tightness + 0.35 * activity + 0.35 * momentum
         pre.append((score, r))
     pre.sort(key=lambda x: x[0], reverse=True)
     print("PRE:", [r[1] for _, r in pre[:PREFILTER_N]])
@@ -257,8 +257,8 @@ def main() -> int:
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
     mixed: list[Candidate] = []
-    if shorts:
-        mixed.append(shorts[0])
+    for c in shorts[:2]:
+        mixed.append(c)
     for c in longs:
         if len(mixed) >= TOP_N:
             break
