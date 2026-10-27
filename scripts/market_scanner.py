@@ -202,11 +202,12 @@ def main() -> int:
         trends = [f[0] for f in features]
         momenta = [f[1] for f in features]
         volume_ratios = [f[2] for f in features]
-        agreement = sum(1 for x in trends if x > 0) / 3.0
         trend_strength = sum(trends) / 3.0
         momentum_strength = sum(momenta) / 3.0
         activity_strength = sum(min(max(v, 0.0), 3.0) for v in volume_ratios) / 9.0
         consistency = 1.0 - min(1.0, (max(trends) - min(trends)) / 3.0)
+        signs = [1 if t > 0 else (-1 if t < 0 else 0) for t in trends]
+        agreement = abs(sum(signs)) / 3.0
         quality = 0.45 * agreement + 0.30 * consistency + 0.25 * activity_strength
         validated.append((quality, trend_strength, momentum_strength, row, trends))
 
