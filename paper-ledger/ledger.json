@@ -7327,10 +7327,15 @@
    "t0": 1793049195,
    "entry": 1219.79,
    "btc0": 79832.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00028698286712275817,
    "scan": "02 ZEC/USD      price=$1,220.94 vol24h=$24,246,735 spread=6.31bps mtf_score=0.4607 quality=0.6502 trend15m=-0.24 trend1h=+0.46 trend4h=+0.04",
-   "cfg": "v15-2026-10-27"
+   "cfg": "v15-2026-10-27",
+   "exit": 1295.89,
+   "t1": 1793132530,
+   "reason": "REVERSAL_PROFIT",
+   "pnl_pct": 5.59,
+   "watch": "pnl=+5.59% give=1.6% flow=37%/21 5m=True 1m=False rsi=37 hits=3"
   },
   {
    "id": "40400904753-NIGHT/USD",
