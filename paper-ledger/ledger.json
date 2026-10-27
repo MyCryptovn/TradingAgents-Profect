@@ -7456,10 +7456,15 @@
    "t0": 1793134340,
    "entry": 0.02257864,
    "btc0": 80695.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0022503571045405426,
    "scan": "02 AKE/USD      price=$0.02279402 vol24h=$1,158,217 spread=36.63bps mtf_score=0.4095 quality=0.8125 trend15m=-0.70 trend1h=-0.44 trend4h=-0.16",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.02151627,
+   "t1": 1793145213,
+   "reason": "REVERSAL_PROFIT",
+   "pnl_pct": 3.86,
+   "watch": "pnl=+3.86% give=0.5% flow=83%/16 5m=True 1m=False rsi=50 hits=2"
   },
   {
    "id": "40580551849-ZEC/USD",
