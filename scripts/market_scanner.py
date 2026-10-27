@@ -252,7 +252,7 @@ def main() -> int:
     candidates.sort(key=lambda x: x.score, reverse=True)
 
     def is_short(c: Candidate) -> bool:
-        return (c.trend_15m < 0.05 and c.trend_1h < 0.05 and c.trend_4h < 0)
+        return (c.trend_15m < 0 and c.trend_1h < 0.05 and c.trend_4h < 0)
 
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
