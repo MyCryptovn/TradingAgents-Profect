@@ -7267,10 +7267,13 @@
    "t0": 1793029802,
    "entry": 4.368e-06,
    "btc0": 80531.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00045819014891183287,
    "scan": "01 PEPE/USD     price=$4.373e-06 vol24h=$2,240,972 spread=4.57bps mtf_score=0.3913 quality=0.3400 trend15m=-0.40 trend1h=-0.11 trend4h=-0.03",
-   "cfg": "v14-2026-10-26"
+   "cfg": "v14-2026-10-26",
+   "exit": 4.404e-06,
+   "t1": 1793116202.0,
+   "move_pct": 0.824
   },
   {
    "id": "40346189002-ENA/USD",
@@ -7288,7 +7291,8 @@
    "exit": 0.2065,
    "t1": 1793049195,
    "reason": "COUNCIL",
-   "pnl_pct": -2.755
+   "pnl_pct": -2.755,
+   "trail_pnl_pct": -2.841
   },
   {
    "id": "40346189002-RLS/USD",
@@ -7299,10 +7303,13 @@
    "t0": 1793029802,
    "entry": 0.00259,
    "btc0": 80531.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.007692307692307713,
    "scan": "03 RLS/USD      price=$0.0027 vol24h=$675,890 spread=73.53bps mtf_score=0.5319 quality=0.6549 trend15m=-0.15 trend1h=+0.76 trend4h=+0.62",
-   "cfg": "v14-2026-10-26"
+   "cfg": "v14-2026-10-26",
+   "exit": 0.00264,
+   "t1": 1793116202.0,
+   "move_pct": 1.931
   },
   {
    "id": "40400904753-PEPE/USD",
@@ -7424,6 +7431,48 @@
    "status": "open",
    "spread": 0.00030396676630018436,
    "scan": "02 DOT/USD      price=$0.9888 vol24h=$892,448 spread=1.01bps mtf_score=0.4909 quality=0.6981 trend15m=-0.15 trend1h=-0.94 trend4h=-1.40",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40580551849-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793134340,
+   "entry": 199.79,
+   "btc0": 80695.6,
+   "status": "open",
+   "spread": 0.0004999750012499091,
+   "scan": "01 QNT/USD      price=$199.39 vol24h=$6,860,326 spread=6.02bps mtf_score=0.5793 quality=0.4538 trend15m=-0.43 trend1h=+0.01 trend4h=+0.45",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40580551849-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793134340,
+   "entry": 0.02257864,
+   "btc0": 80695.6,
+   "status": "open",
+   "spread": 0.0022503571045405426,
+   "scan": "02 AKE/USD      price=$0.02279402 vol24h=$1,158,217 spread=36.63bps mtf_score=0.4095 quality=0.8125 trend15m=-0.70 trend1h=-0.44 trend4h=-0.16",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40580551849-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZECUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793134340,
+   "entry": 1297.51,
+   "btc0": 80695.6,
+   "status": "open",
+   "spread": 7.707099394600332e-06,
+   "scan": "03 ZEC/USD      price=$1,293.49 vol24h=$20,047,041 spread=0.31bps mtf_score=0.4604 quality=0.7306 trend15m=+1.25 trend1h=+1.22 trend4h=+0.15",
    "cfg": "v18-2026-10-27"
   }
  ]
