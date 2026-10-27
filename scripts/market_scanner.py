@@ -173,8 +173,8 @@ def main() -> int:
         liquidity = percentile(volumes, math.log1p(r[3]))
         tightness = 1.0 - percentile(spreads, r[4])
         activity = percentile(ranges, r[5])
-        momentum = percentile(changes, r[6])
-        score = 0.15 * liquidity + 0.15 * tightness + 0.35 * activity + 0.35 * momentum
+        abs_move = percentile([abs(c) for c in changes], abs(r[6]))
+        score = 0.15 * liquidity + 0.15 * tightness + 0.35 * activity + 0.35 * abs_move
         pre.append((score, r))
     pre.sort(key=lambda x: x[0], reverse=True)
     print("PRE:", [r[1] for _, r in pre[:PREFILTER_N]])
@@ -252,7 +252,7 @@ def main() -> int:
     candidates.sort(key=lambda x: x.score, reverse=True)
 
     def is_short(c: Candidate) -> bool:
-        return (c.trend_15m < 0 and c.trend_1h < 0.05 and c.trend_4h < 0)
+        return (c.trend_15m < 0 and c.trend_1h <= 0.05 and c.trend_4h < 0)
 
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
@@ -281,7 +281,7 @@ def main() -> int:
     print(f"VALIDATED MARKETS: {len(candidates)}")
     print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
     for rank, c in enumerate(candidates[:TOP_N], 1):
-        bias = "short" if (c.trend_15m < 0 and c.trend_1h < 0.05 c.trend_4h < 0) else "long"
+        bias = "short" if (c.trend_15m < 0 and c.trend_1h <= 0.05 c.trend_4h < 0) else "long"
         print(f"{rank:02d} {c.symbol:12} price=${c.price:,.8g} vol24h=${c.volume_usd:,.0f} "
               f"spread={c.spread_bps:.2f}bps mtf_score={c.score:.4f} quality={c.quality:.4f} "
               f"trend15m={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
