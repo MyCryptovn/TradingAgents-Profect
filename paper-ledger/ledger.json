@@ -7221,7 +7221,8 @@
    "t1": 1793016900,
    "reason": "SL",
    "pnl_pct": -4.115,
-   "mfe_pct": 0.0
+   "mfe_pct": 0.0,
+   "trail_pnl_pct": -4.115
   },
   {
    "id": "40308775586-RLS/USD",
@@ -7232,10 +7233,13 @@
    "t0": 1793011640,
    "entry": 0.00237,
    "btc0": 80316.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00422832980972517,
    "scan": "02 RLS/USD      price=$0.00239 vol24h=$547,021 spread=83.68bps mtf_score=0.4236 quality=0.6114 trend15m=-0.64 trend1h=+0.78 trend4h=+0.53",
-   "cfg": "v14-2026-10-26"
+   "cfg": "v14-2026-10-26",
+   "exit": 0.00256,
+   "t1": 1793098040.0,
+   "move_pct": 8.017
   },
   {
    "id": "40308775586-ENA/USD",
@@ -7246,10 +7250,13 @@
    "t0": 1793011640,
    "entry": 0.2084,
    "btc0": 80316.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0009606147934678469,
    "scan": "03 ENA/USD      price=$0.208 vol24h=$3,656,869 spread=9.62bps mtf_score=0.4091 quality=0.7430 trend15m=+0.13 trend1h=+0.93 trend4h=+0.05",
-   "cfg": "v14-2026-10-26"
+   "cfg": "v14-2026-10-26",
+   "exit": 0.2033,
+   "t1": 1793098040.0,
+   "move_pct": -2.447
   },
   {
    "id": "40346189002-PEPE/USD",
@@ -7348,10 +7355,15 @@
    "t0": 1793095272,
    "entry": 4.4252,
    "btc0": 79641.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006550933508025677,
    "scan": "01 NEAR/USD     price=$4.423 vol24h=$17,058,806 spread=3.84bps mtf_score=0.4576 quality=0.2690 trend15m=-0.20 trend1h=-0.35 trend4h=-1.09",
-   "cfg": "v16-2026-10-27"
+   "cfg": "v16-2026-10-27",
+   "exit": 4.557956000000001,
+   "t1": 1793104200,
+   "reason": "SL",
+   "pnl_pct": -3.686,
+   "mfe_pct": 0.554
   },
   {
    "id": "40483886032-AVAX/USD",
@@ -7380,6 +7392,34 @@
    "spread": 0.0014973795857250935,
    "scan": "03 ENA/USD      price=$0.1989 vol24h=$3,902,345 spread=5.03bps mtf_score=0.4675 quality=0.5910 trend15m=-0.43 trend1h=+0.24 trend4h=+0.42",
    "cfg": "v16-2026-10-27"
+  },
+  {
+   "id": "40521849465-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793112120,
+   "entry": 0.4289,
+   "btc0": 80162.2,
+   "status": "open",
+   "spread": 0.0004654410053526495,
+   "scan": "01 WLD/USD      price=$0.4306 vol24h=$1,303,567 spread=2.32bps mtf_score=0.4942 quality=0.6827 trend15m=-0.36 trend1h=-0.55 trend4h=-1.83",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40521849465-DOT/USD",
+   "symbol": "DOT/USD",
+   "pair": "DOTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793112120,
+   "entry": 0.9864,
+   "btc0": 80162.2,
+   "status": "open",
+   "spread": 0.00030396676630018436,
+   "scan": "02 DOT/USD      price=$0.9888 vol24h=$892,448 spread=1.01bps mtf_score=0.4909 quality=0.6981 trend15m=-0.15 trend1h=-0.94 trend4h=-1.40",
+   "cfg": "v18-2026-10-27"
   }
  ]
 }
