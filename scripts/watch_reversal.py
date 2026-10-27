@@ -116,7 +116,7 @@ def check_reversal(t):
     # === LOGIC QUYẾT ĐỊNH ĐÓNG LỆNH ===
 
     # 1. Xu hướng vẫn còn rất khỏe + đang lãi → để chạy tiếp
-    if pnl > 0.035 and rs > STRONG_TREND_RSI and hits <= 1:
+    if pnl > 0.035 and rs > STRONG_TREND_RSI if d == 1 else rs < 100 - STRONG_TREND_RSI and hits <= 1:
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
 
@@ -144,7 +144,7 @@ def check_reversal(t):
     # Ghi nhận hoặc đóng lệnh
     rev = round(pnl * 100, 3)
 
-    if MODE != "close":
+    if MODE != "shadow":
         if "rev_px" in t:
             return False
         t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
