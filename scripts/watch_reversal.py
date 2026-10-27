@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
 Canh gác đảo chiều thông minh (bản nâng cấp).
-- Để người thắng chạy khi xu hướng còn khỏe.
-- Chủ động chốt khi xuất hiện tín hiệu đảo chiều rõ.
-- Chốt lãi khi thấy dòng tiền giao dịch đảo chiều.
+- Để lệnh thắng chạy khi xu hướng còn khỏe.
+- Chủ động chốt lãi khi xuất hiện tín hiệu đảo chiều rõ.
 - Bảo vệ vốn khi lệnh xấu.
 
 WATCH_MODE=shadow  : chỉ ghi nhận tín hiệu (mặc định)
@@ -24,7 +23,7 @@ MIN_AGE = 300                # giây (5 phút) mới bắt đầu canh
 GIVEBACK_SOFT = 0.018        # 1.8% từ đỉnh → cảnh báo
 GIVEBACK_HARD = 0.030        # 3% từ đỉnh → ưu tiên đóng
 PROFIT_LOCK = 0.030          # lãi ≥ 3% thì bắt đầu bảo vệ
-STRONG_TREND_RSI = 58        # RSI còn cao → coi như xu hướng còn khỏe
+STRONG_TREND_RSI = 55        # RSI còn cao → coi như xu hướng còn khỏe
 
 
 def ohlc(pair, interval):
@@ -103,7 +102,7 @@ def check_reversal(t):
     else:       # lệnh SELL
         trough = min([entry] + [float(c[3]) for c in since])
         give = (px - trough) / trough if trough > 0 else 0
-        s_flow = n5 >= 5 and share > 0.58
+        s_flow = n5 >= 5 and share > 0.55
         s_5m = all(float(c[4]) > float(c[1]) for c in last2) and c5[-1] > ema9
         s_1m = all(float(c[4]) > float(c[1]) for c in last3) and rs > 52
         s_structure = c5[-1] > ema21
