@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-26 21:13 UTC**
+- Thời điểm: **2026-10-27 10:01 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (4 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **24** |
-| Lệnh đang mở | **1** |
+| Lệnh đang mở | **2** |
 | Win rate | **25.0%** |
 | PnL trung bình / lệnh | **-1.163%** |
 | Tổng PnL | **-27.90%** |
@@ -66,6 +66,7 @@
 | Symbol | Hướng | Entry | 
 |--------|-------|-------|
 | ZEC/USD | BUY | 1219.79 |
+| NEAR/USD | SELL | 4.4252 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 

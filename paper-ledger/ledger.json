@@ -7108,10 +7108,13 @@
    "t0": 1792968400,
    "entry": 0.7384,
    "btc0": 80422.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0030017737754127164,
    "scan": "01 GRASS/USD    price=$0.7351 vol24h=$912,735 spread=24.48bps mtf_score=0.4758 quality=0.7989 trend15m=+0.91 trend1h=+0.98 trend4h=+0.47",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.6713,
+   "t1": 1793054800.0,
+   "move_pct": -9.087
   },
   {
    "id": "40240937801-CAP/USD",
@@ -7122,10 +7125,13 @@
    "t0": 1792968400,
    "entry": 0.108735,
    "btc0": 80422.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.003719891264716883,
    "scan": "02 CAP/USD      price=$0.108296 vol24h=$6,305,882 spread=39.24bps mtf_score=0.4364 quality=0.7547 trend15m=+0.88 trend1h=+2.23 trend4h=+1.11",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.09892,
+   "t1": 1793054800.0,
+   "move_pct": -9.027
   },
   {
    "id": "40240937801-USELESS/USD",
@@ -7144,7 +7150,8 @@
    "t1": 1792971000,
    "reason": "SL",
    "pnl_pct": -3.851,
-   "mfe_pct": 0.0
+   "mfe_pct": 0.0,
+   "trail_pnl_pct": -3.851
   },
   {
    "id": "40271215424-DASH/USD",
@@ -7155,10 +7162,13 @@
    "t0": 1792990874,
    "entry": 51.092,
    "btc0": 80012.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007414344806057093,
    "scan": "01 DASH/USD     price=$51.067 vol24h=$1,539,801 spread=0.20bps mtf_score=0.6721 quality=0.5147 trend15m=-1.24 trend1h=+0.01 trend4h=+0.15",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 54.741,
+   "t1": 1793077274.0,
+   "move_pct": 7.142
   },
   {
    "id": "40271215424-CAP/USD",
@@ -7169,10 +7179,13 @@
    "t0": 1792990874,
    "entry": 0.112468,
    "btc0": 80012.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0031068581674863127,
    "scan": "02 CAP/USD      price=$0.113472 vol24h=$6,161,209 spread=27.97bps mtf_score=0.4437 quality=0.7369 trend15m=+0.50 trend1h=+2.00 trend4h=+1.56",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.096712,
+   "t1": 1793077274.0,
+   "move_pct": -14.009
   },
   {
    "id": "40271215424-RLS/USD",
@@ -7183,10 +7196,13 @@
    "t0": 1792990875,
    "entry": 0.00313,
    "btc0": 80012.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.009569377990430648,
    "scan": "03 RLS/USD      price=$0.00299 vol24h=$609,473 spread=100.84bps mtf_score=0.3704 quality=0.9035 trend15m=+1.05 trend1h=+0.85 trend4h=+0.49",
-   "cfg": "v13-2026-10-25"
+   "cfg": "v13-2026-10-25",
+   "exit": 0.00265,
+   "t1": 1793077275.0,
+   "move_pct": -15.335
   },
   {
    "id": "40308775586-XCN/USD",
@@ -7322,6 +7338,48 @@
    "spread": 0.0002510985561832046,
    "scan": "03 NIGHT/USD    price=$0.03992 vol24h=$1,749,951 spread=2.51bps mtf_score=0.4176 quality=0.5702 trend15m=+1.06 trend1h=+0.80 trend4h=-0.45",
    "cfg": "v15-2026-10-27"
+  },
+  {
+   "id": "40483886032-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793095272,
+   "entry": 4.4252,
+   "btc0": 79641.8,
+   "status": "open",
+   "spread": 0.0006550933508025677,
+   "scan": "01 NEAR/USD     price=$4.423 vol24h=$17,058,806 spread=3.84bps mtf_score=0.4576 quality=0.2690 trend15m=-0.20 trend1h=-0.35 trend4h=-1.09",
+   "cfg": "v16-2026-10-27"
+  },
+  {
+   "id": "40483886032-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAXUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793095272,
+   "entry": 8.732,
+   "btc0": 79641.8,
+   "status": "open",
+   "spread": 0.0004582951420714435,
+   "scan": "02 AVAX/USD     price=$8.713 vol24h=$1,326,517 spread=3.44bps mtf_score=0.4362 quality=0.2657 trend15m=-0.73 trend1h=-0.28 trend4h=-1.18",
+   "cfg": "v16-2026-10-27"
+  },
+  {
+   "id": "40483886032-ENA/USD",
+   "symbol": "ENA/USD",
+   "pair": "ENAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793095272,
+   "entry": 0.2004,
+   "btc0": 79641.8,
+   "status": "open",
+   "spread": 0.0014973795857250935,
+   "scan": "03 ENA/USD      price=$0.1989 vol24h=$3,902,345 spread=5.03bps mtf_score=0.4675 quality=0.5910 trend15m=-0.43 trend1h=+0.24 trend4h=+0.42",
+   "cfg": "v16-2026-10-27"
   }
  ]
 }
