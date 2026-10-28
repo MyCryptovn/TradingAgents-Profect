@@ -7382,7 +7382,8 @@
    "t1": 1793104200,
    "reason": "SL",
    "pnl_pct": -3.686,
-   "mfe_pct": 0.554
+   "mfe_pct": 0.554,
+   "trail_pnl_pct": -3.115
   },
   {
    "id": "40483886032-AVAX/USD",
@@ -7393,10 +7394,13 @@
    "t0": 1793095272,
    "entry": 8.732,
    "btc0": 79641.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004582951420714435,
    "scan": "02 AVAX/USD     price=$8.713 vol24h=$1,326,517 spread=3.44bps mtf_score=0.4362 quality=0.2657 trend15m=-0.73 trend1h=-0.28 trend4h=-1.18",
-   "cfg": "v16-2026-10-27"
+   "cfg": "v16-2026-10-27",
+   "exit": 9.021,
+   "t1": 1793181672.0,
+   "move_pct": 3.31
   },
   {
    "id": "40483886032-ENA/USD",
@@ -7407,10 +7411,13 @@
    "t0": 1793095272,
    "entry": 0.2004,
    "btc0": 79641.8,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0014973795857250935,
    "scan": "03 ENA/USD      price=$0.1989 vol24h=$3,902,345 spread=5.03bps mtf_score=0.4675 quality=0.5910 trend15m=-0.43 trend1h=+0.24 trend4h=+0.42",
-   "cfg": "v16-2026-10-27"
+   "cfg": "v16-2026-10-27",
+   "exit": 0.2067,
+   "t1": 1793181672.0,
+   "move_pct": 3.144
   },
   {
    "id": "40521849465-WLD/USD",
@@ -7555,6 +7562,48 @@
    "status": "open",
    "spread": 0.00024405497338270593,
    "scan": "03 ZEC/USD      price=$1,312.83 vol24h=$22,711,336 spread=6.78bps mtf_score=0.4323 quality=0.7089 trend15m=+0.79 trend1h=+1.54 trend4h=+0.35",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40670181437-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793182894,
+   "entry": 24.336,
+   "btc0": 81418.2,
+   "status": "open",
+   "spread": 0.0009039733738751064,
+   "scan": "01 VVV/USD      price=$24.271 vol24h=$1,819,314 spread=8.26bps mtf_score=0.4712 quality=0.6010 trend15m=-2.38 trend1h=-0.23 trend4h=-0.15",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40670181437-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793182894,
+   "entry": 0.02005323,
+   "btc0": 81418.2,
+   "status": "open",
+   "spread": 0.004797420167422068,
+   "scan": "02 AKE/USD      price=$0.02033246 vol24h=$1,383,443 spread=35.89bps mtf_score=0.4210 quality=0.7541 trend15m=-1.01 trend1h=-0.79 trend4h=-0.39",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40670181437-AIN/USD",
+   "symbol": "AIN/USD",
+   "pair": "AINUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793182895,
+   "entry": 0.15422,
+   "btc0": 81418.2,
+   "status": "open",
+   "spread": 0.023240546218487493,
+   "scan": "03 AIN/USD      price=$0.14503 vol24h=$771,833 spread=129.83bps mtf_score=0.4701 quality=0.3685 trend15m=-0.13 trend1h=+1.78 trend4h=+1.87",
    "cfg": "v18-2026-10-27"
   }
  ]
