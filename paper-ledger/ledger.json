@@ -7653,6 +7653,48 @@
    "spread": 0.00012532113540937283,
    "scan": "03 HYPE/USD     price=$79.58 vol24h=$9,629,478 spread=1.26bps mtf_score=0.4604 quality=0.3507 trend15m=-1.07 trend1h=+1.09 trend4h=+0.42",
    "cfg": "v19-2026-10-28"
+  },
+  {
+   "id": "40712957170-Q/USD",
+   "symbol": "Q/USD",
+   "pair": "QUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793201632,
+   "entry": 0.059066,
+   "btc0": 80513.6,
+   "status": "open",
+   "spread": 0.004156819362732744,
+   "scan": "01 Q/USD        price=$0.057836 vol24h=$2,054,405 spread=50.02bps mtf_score=0.5456 quality=0.7206 trend15m=-0.30 trend1h=-1.55 trend4h=-0.05",
+   "cfg": "v19-2026-10-28"
+  },
+  {
+   "id": "40712957170-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793201632,
+   "entry": 194.21,
+   "btc0": 80513.6,
+   "status": "open",
+   "spread": 0.00061785603954281,
+   "scan": "02 QNT/USD      price=$193.97 vol24h=$4,830,963 spread=6.19bps mtf_score=0.4958 quality=0.4115 trend15m=-0.80 trend1h=-0.50 trend4h=+0.46",
+   "cfg": "v19-2026-10-28"
+  },
+  {
+   "id": "40712957170-APR/USD",
+   "symbol": "APR/USD",
+   "pair": "APRUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793201632,
+   "entry": 0.04762,
+   "btc0": 80513.6,
+   "status": "open",
+   "spread": 0.0018865946965726822,
+   "scan": "03 APR/USD      price=$0.04715 vol24h=$1,755,039 spread=29.64bps mtf_score=0.4842 quality=0.4379 trend15m=-0.61 trend1h=+0.72 trend4h=+0.72",
+   "cfg": "v19-2026-10-28"
   }
  ]
 }
