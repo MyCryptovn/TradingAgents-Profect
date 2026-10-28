@@ -97,7 +97,6 @@ def ticker_rows() -> list[tuple[str, str, float, float, float, float, float]]:
                 continue
             spread_bps = max(0.0, (ask - bid) / mid * 10_000.0)
             if spread_bps > 45.0:
-                failures += 1
                 continue
             range_pct = (high - low) / mid
             change_pct = last / open_price - 1.0
