@@ -96,12 +96,12 @@ def ticker_rows() -> list[tuple[str, str, float, float, float, float, float]]:
             if volume_usd < MIN_VOLUME_USD:
                 continue
             spread_bps = max(0.0, (ask - bid) / mid * 10_000.0)
+            if spread_bps > 45.0:
+            failures += 1
+                continue
             range_pct = (high - low) / mid
             change_pct = last / open_price - 1.0
             rows.append((pair, wsname, last, volume_usd, spread_bps, range_pct, change_pct))
-            if spread_bps > 45.0:
-            failures += 1
-            continue
         except (KeyError, TypeError, ValueError, ZeroDivisionError):
             continue
     return rows
