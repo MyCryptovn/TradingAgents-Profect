@@ -156,6 +156,11 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     except ModuleNotFoundError:
         def hl_note(ticker: str) -> str:
             return ""
+    try: 
+        from scripts.coinalyze_note import coinalyze_note
+    except Exception:
+        def coinalyze_note(ticker: str) -> str:
+            return ""
     try:
         from scripts.coinglass_note import coinglass_note
     except ModuleNotFoundError:
@@ -193,7 +198,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + coinglass_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + coinalyze_note(symbol) + coinglass_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
@@ -328,7 +333,7 @@ def main() -> int:
     # ==========================================
 
     # ========== BỘ LỌC MTF_SCORE + VOLUME ==========
-    MIN_MTF_SCORE = 0.35          # chỉ phân tích khi điểm scanner đủ cao
+    MIN_MTF_SCORE = 0.30          # chỉ phân tích khi điểm scanner đủ cao
 
     high_quality = []
     for sym in candidates:
@@ -349,8 +354,7 @@ def main() -> int:
     for sym in candidates:
         if is_small_alt(sym):
             print(f"SMALL ALT detected: {sym} → áp dụng rule chặt hơn")
-            # Có thể bỏ qua hoàn toàn nếu muốn cực an toàn:
-            # continue
+            continue
         safe_candidates.append(sym)
     candidates = safe_candidates
     # =====================================================
