@@ -320,35 +320,36 @@ def main() -> int:
         open_syms = []
     candidates = candidates + [s for s in open_syms if s not in candidates]
 
-    # ========== RISK MANAGEMENT CỨNG ==========
+    # ========== BỘ LỌC RỦI RO + CHẤT LƯỢNG ==========
     MAX_OPEN_POSITIONS = 3
+    MIN_MTF_SCORE = 0.28
+    MAX_SPREAD_BPS = 45.0
 
-    filtered_candidates = []
+    filtered: list[str] = []
     for sym in candidates:
+        # 1) Giới hạn số lệnh mở — vẫn cho phân tích lệnh đang mở
         if len(open_syms) >= MAX_OPEN_POSITIONS and sym not in open_syms:
-            print(f"SKIP {sym}: đã đạt max open positions ({MAX_OPEN_POSITIONS})")
+            print(f"SKIP {sym}: max open positions ({MAX_OPEN_POSITIONS})")
             continue
-        filtered_candidates.append(sym)
-    candidates = filtered_candidates
-    # ==========================================
 
-    # ========== BỘ LỌC MTF_SCORE + VOLUME ==========
-    MIN_MTF_SCORE = 0.30          # chỉ phân tích khi điểm scanner đủ cao
+        scan_line = SCAN_INFO.get(sym, "") or SCAN_INFO.get(sym.replace("-", "/"), "")
 
-    high_quality = []
-    for sym in candidates:
-        scan_line = SCAN_INFO.get(sym, "")
-        # Lấy mtf_score từ dòng scanner (ví dụ: mtf_score=0.5379)
+        # 2) mtf_score (lệnh đang mở thì không chặn)
         import re
         m = re.search(r"mtf_score=([0-9.]+)", scan_line)
         score = float(m.group(1)) if m else 0.0
         if score < MIN_MTF_SCORE and sym not in open_syms:
             print(f"SKIP {sym}: mtf_score {score:.4f} < {MIN_MTF_SCORE}")
             continue
-        high_quality.append(sym)
-    candidates = high_quality
-    # ==============================================
+        
+        # 3) Alt nhỏ: KHÔNG bỏ — chỉ log (rule chặt nằm trong resolve)
+        if is_small_alt(sym):
+            print(f"SMALL ALT: {sym} → rule chặt hơn trong resolve")
 
+        filtered.append(sym)
+
+    candidates = filtered
+    
     # ========== BỘ LỌC ALTCOIN NHỎ (AN TOÀN HƠN) ==========
     safe_candidates = []
     for sym in candidates:
