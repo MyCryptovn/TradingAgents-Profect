@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-28 10:21 UTC**
+- Thời điểm: **2026-10-28 15:06 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **27** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **1** |
 | Win rate | **29.6%** |
 | PnL trung bình / lệnh | **-0.820%** |
 | Tổng PnL | **-22.14%** |
@@ -60,6 +60,12 @@
 | PEPE/USD | BUY | -3.64 | SL |
 | WLD/USD | BUY | -1.39 | REVERSAL_CUT |
 | HBAR/USD | BUY | -3.69 | SL |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| INJ/USD | SELL | 7.793 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 

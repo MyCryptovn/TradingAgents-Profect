@@ -7428,10 +7428,13 @@
    "t0": 1793112120,
    "entry": 0.4289,
    "btc0": 80162.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004654410053526495,
    "scan": "01 WLD/USD      price=$0.4306 vol24h=$1,303,567 spread=2.32bps mtf_score=0.4942 quality=0.6827 trend15m=-0.36 trend1h=-0.55 trend4h=-1.83",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.4275,
+   "t1": 1793198520.0,
+   "move_pct": -0.326
   },
   {
    "id": "40521849465-DOT/USD",
@@ -7442,10 +7445,13 @@
    "t0": 1793112120,
    "entry": 0.9864,
    "btc0": 80162.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00030396676630018436,
    "scan": "02 DOT/USD      price=$0.9888 vol24h=$892,448 spread=1.01bps mtf_score=0.4909 quality=0.6981 trend15m=-0.15 trend1h=-0.94 trend4h=-1.40",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.9989,
+   "t1": 1793198520.0,
+   "move_pct": 1.267
   },
   {
    "id": "40580551849-QNT/USD",
@@ -7605,6 +7611,48 @@
    "spread": 0.023240546218487493,
    "scan": "03 AIN/USD      price=$0.14503 vol24h=$771,833 spread=129.83bps mtf_score=0.4701 quality=0.3685 trend15m=-0.13 trend1h=+1.78 trend4h=+1.87",
    "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40707976513-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJUSD",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793199965,
+   "entry": 7.793,
+   "btc0": 80523.6,
+   "status": "open",
+   "spread": 0.0007703171138785759,
+   "scan": "01 INJ/USD      price=$7.763 vol24h=$1,466,267 spread=5.15bps mtf_score=0.5079 quality=0.7675 trend15m=-0.76 trend1h=-0.06 trend4h=-0.14",
+   "cfg": "v19-2026-10-28"
+  },
+  {
+   "id": "40707976513-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVVUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793199965,
+   "entry": 23.994,
+   "btc0": 80523.6,
+   "status": "open",
+   "spread": 0.0007499375052079278,
+   "scan": "02 VVV/USD      price=$23.884 vol24h=$1,734,474 spread=9.19bps mtf_score=0.5075 quality=0.7705 trend15m=-0.24 trend1h=-0.78 trend4h=-0.15",
+   "cfg": "v19-2026-10-28"
+  },
+  {
+   "id": "40707976513-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793199966,
+   "entry": 79.79,
+   "btc0": 80523.6,
+   "status": "open",
+   "spread": 0.00012532113540937283,
+   "scan": "03 HYPE/USD     price=$79.58 vol24h=$9,629,478 spread=1.26bps mtf_score=0.4604 quality=0.3507 trend15m=-1.07 trend1h=+1.09 trend4h=+0.42",
+   "cfg": "v19-2026-10-28"
   }
  ]
 }
