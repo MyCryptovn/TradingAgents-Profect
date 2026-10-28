@@ -7695,6 +7695,48 @@
    "spread": 0.0018865946965726822,
    "scan": "03 APR/USD      price=$0.04715 vol24h=$1,755,039 spread=29.64bps mtf_score=0.4842 quality=0.4379 trend15m=-0.61 trend1h=+0.72 trend4h=+0.72",
    "cfg": "v19-2026-10-28"
+  },
+  {
+   "id": "40737635793-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793210300,
+   "entry": 0.202389,
+   "btc0": 80785.3,
+   "status": "open",
+   "spread": 0.000424815131322226,
+   "scan": "01 ADA/USD      price=$0.201493 vol24h=$3,156,902 spread=0.79bps mtf_score=0.6049 quality=0.7529 trend15m=-1.19 trend1h=-0.00 trend4h=-1.04",
+   "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40737635793-QNT/USD",
+   "symbol": "QNT/USD",
+   "pair": "QNTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793210300,
+   "entry": 193.26,
+   "btc0": 80785.3,
+   "status": "open",
+   "spread": 0.0006211180124223838,
+   "scan": "02 QNT/USD      price=$194.45 vol24h=$4,878,974 spread=1.54bps mtf_score=0.5339 quality=0.3838 trend15m=-1.14 trend1h=-0.51 trend4h=+0.38",
+   "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40737635793-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793210300,
+   "entry": 4.915e-06,
+   "btc0": 80785.3,
+   "status": "open",
+   "spread": 0.0008140008140008752,
+   "scan": "03 PEPE/USD     price=$4.865e-06 vol24h=$4,659,715 spread=6.16bps mtf_score=0.4952 quality=0.3816 trend15m=-0.33 trend1h=+1.22 trend4h=+0.09",
+   "cfg": "v20-2026-10-28"
   }
  ]
 }
