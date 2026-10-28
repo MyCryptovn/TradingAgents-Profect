@@ -99,6 +99,9 @@ def ticker_rows() -> list[tuple[str, str, float, float, float, float, float]]:
             range_pct = (high - low) / mid
             change_pct = last / open_price - 1.0
             rows.append((pair, wsname, last, volume_usd, spread_bps, range_pct, change_pct))
+            if spread_bps > 45.0:
+            failures += 1
+            continue
         except (KeyError, TypeError, ValueError, ZeroDivisionError):
             continue
     return rows
@@ -264,6 +267,9 @@ def main() -> int:
         if len(mixed) >= TOP_N:
             break
         mixed.append(c)
+    # Nếu Top đang có coin tốt để long → thay slot cuối bằng long mạnh nhất
+    if mixed and longs and all(is_short(c) for c in mixed):
+        mixed[-1] = longs[0]
     if len(mixed) < TOP_N:
         for c in candidates:
             if c not in mixed:
