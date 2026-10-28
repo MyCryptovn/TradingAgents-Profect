@@ -341,8 +341,14 @@ def main() -> int:
         if score < MIN_MTF_SCORE and sym not in open_syms:
             print(f"SKIP {sym}: mtf_score {score:.4f} < {MIN_MTF_SCORE}")
             continue
+
+        # 3) Spread quá rộng → book xấu, hay HOLD/lỗ
+        sp = re.search(r"spread=([0-9.]+)", scan_line)
+        if sp and sym not in open_syms and float(sp.group(1)) > 45.0:
+            print(f"SKIP {sym}: spread {float(sp.group(1)):.1f}bps > 45")
+            continue
         
-        # 3) Alt nhỏ: KHÔNG bỏ — chỉ log (rule chặt nằm trong resolve)
+        # 4) Alt nhỏ: KHÔNG bỏ — chỉ log (rule chặt nằm trong resolve)
         if is_small_alt(sym):
             print(f"SMALL ALT: {sym} → rule chặt hơn trong resolve")
 
