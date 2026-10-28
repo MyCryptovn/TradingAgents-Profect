@@ -7462,10 +7462,13 @@
    "t0": 1793134340,
    "entry": 199.79,
    "btc0": 80695.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004999750012499091,
    "scan": "01 QNT/USD      price=$199.39 vol24h=$6,860,326 spread=6.02bps mtf_score=0.5793 quality=0.4538 trend15m=-0.43 trend1h=+0.01 trend4h=+0.45",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 200.51,
+   "t1": 1793220740.0,
+   "move_pct": 0.36
   },
   {
    "id": "40580551849-AKE/USD",
@@ -7484,7 +7487,8 @@
    "t1": 1793145213,
    "reason": "REVERSAL_PROFIT",
    "pnl_pct": 3.86,
-   "watch": "pnl=+3.86% give=0.5% flow=83%/16 5m=True 1m=False rsi=50 hits=2"
+   "watch": "pnl=+3.86% give=0.5% flow=83%/16 5m=True 1m=False rsi=50 hits=2",
+   "trail_pnl_pct": 1.452
   },
   {
    "id": "40580551849-ZEC/USD",
@@ -7495,10 +7499,13 @@
    "t0": 1793134340,
    "entry": 1297.51,
    "btc0": 80695.6,
-   "status": "open",
+   "status": "closed",
    "spread": 7.707099394600332e-06,
    "scan": "03 ZEC/USD      price=$1,293.49 vol24h=$20,047,041 spread=0.31bps mtf_score=0.4604 quality=0.7306 trend15m=+1.25 trend1h=+1.22 trend4h=+0.15",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 1298.54,
+   "t1": 1793220740.0,
+   "move_pct": 0.079
   },
   {
    "id": "40615531399-AKE/USD",
@@ -7621,10 +7628,15 @@
    "t0": 1793199965,
    "entry": 7.793,
    "btc0": 80523.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007703171138785759,
    "scan": "01 INJ/USD      price=$7.763 vol24h=$1,466,267 spread=5.15bps mtf_score=0.5079 quality=0.7675 trend15m=-0.76 trend1h=-0.06 trend4h=-0.14",
-   "cfg": "v19-2026-10-28"
+   "cfg": "v19-2026-10-28",
+   "exit": 8.02679,
+   "t1": 1793216700,
+   "reason": "SL",
+   "pnl_pct": -3.697,
+   "mfe_pct": 1.501
   },
   {
    "id": "40707976513-VVV/USD",
@@ -7736,6 +7748,34 @@
    "status": "open",
    "spread": 0.0008140008140008752,
    "scan": "03 PEPE/USD     price=$4.865e-06 vol24h=$4,659,715 spread=6.16bps mtf_score=0.4952 quality=0.3816 trend15m=-0.33 trend1h=+1.22 trend4h=+0.09",
+   "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40769299638-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793222071,
+   "entry": 0.074161,
+   "btc0": 81297.5,
+   "status": "open",
+   "spread": 0.006301996531877647,
+   "scan": "01 CAP/USD      price=$0.073752 vol24h=$896,649 spread=35.59bps mtf_score=0.3085 quality=0.2229 trend15m=-2.72 trend1h=-1.02 trend4h=+0.36",
+   "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40769299638-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793222071,
+   "entry": 5.082e-06,
+   "btc0": 81297.5,
+   "status": "open",
+   "spread": 0.0005903768572273244,
+   "scan": "03 PEPE/USD     price=$5.123e-06 vol24h=$7,374,879 spread=5.86bps mtf_score=0.5235 quality=0.8073 trend15m=+0.22 trend1h=+1.12 trend4h=+0.23",
    "cfg": "v20-2026-10-28"
   }
  ]
