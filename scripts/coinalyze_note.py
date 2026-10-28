@@ -63,6 +63,12 @@ def _build(coin):
         text += f", taker buy share {share(cand[-6:]):.0%} (last 30m) and {share(cand):.0%} (last 60m)"
     text += f", liquidations last 4h: longs ${long_liq:,.0f} vs shorts ${short_liq:,.0f}."
     text += " Perpetual-futures data only; use as context, not as a standalone signal."
+    text = (
+            " COINALYZE (free futures snapshot): "
+            + "; ".join(parts)
+            + ". Use as secondary vs Hyperliquid."
+        )
+        print("coinalyze_note:", ticker, "->", text[:120])
     return text
 
 
