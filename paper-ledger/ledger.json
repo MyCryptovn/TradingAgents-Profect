@@ -7320,10 +7320,13 @@
    "t0": 1793049195,
    "entry": 4.264e-06,
    "btc0": 79832.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007036472381845437,
    "scan": "01 PEPE/USD     price=$4.284e-06 vol24h=$2,442,554 spread=7.01bps mtf_score=0.3822 quality=0.3052 trend15m=-0.79 trend1h=-0.28 trend4h=-0.09",
-   "cfg": "v15-2026-10-27"
+   "cfg": "v15-2026-10-27",
+   "exit": 4.498e-06,
+   "t1": 1793135595.0,
+   "move_pct": 5.488
   },
   {
    "id": "40400904753-ZEC/USD",
@@ -7342,7 +7345,8 @@
    "t1": 1793132530,
    "reason": "REVERSAL_PROFIT",
    "pnl_pct": 5.59,
-   "watch": "pnl=+5.59% give=1.6% flow=37%/21 5m=True 1m=False rsi=37 hits=3"
+   "watch": "pnl=+5.59% give=1.6% flow=37%/21 5m=True 1m=False rsi=37 hits=3",
+   "trail_pnl_pct": 5.59
   },
   {
    "id": "40400904753-NIGHT/USD",
@@ -7353,10 +7357,13 @@
    "t0": 1793049195,
    "entry": 0.03983,
    "btc0": 79832.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0002510985561832046,
    "scan": "03 NIGHT/USD    price=$0.03992 vol24h=$1,749,951 spread=2.51bps mtf_score=0.4176 quality=0.5702 trend15m=+1.06 trend1h=+0.80 trend4h=-0.45",
-   "cfg": "v15-2026-10-27"
+   "cfg": "v15-2026-10-27",
+   "exit": 0.04115,
+   "t1": 1793135595.0,
+   "move_pct": 3.314
   },
   {
    "id": "40483886032-NEAR/USD",
@@ -7478,6 +7485,48 @@
    "status": "open",
    "spread": 7.707099394600332e-06,
    "scan": "03 ZEC/USD      price=$1,293.49 vol24h=$20,047,041 spread=0.31bps mtf_score=0.4604 quality=0.7306 trend15m=+1.25 trend1h=+1.22 trend4h=+0.15",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40615531399-AKE/USD",
+   "symbol": "AKE/USD",
+   "pair": "AKEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793151513,
+   "entry": 0.02335187,
+   "btc0": 80822.7,
+   "status": "open",
+   "spread": 0.005700148195278191,
+   "scan": "01 AKE/USD      price=$0.02303003 vol24h=$1,340,115 spread=17.94bps mtf_score=0.4423 quality=0.7293 trend15m=-1.59 trend1h=-0.76 trend4h=-0.23",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40615531399-NIL/USD",
+   "symbol": "NIL/USD",
+   "pair": "NILUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793151514,
+   "entry": 0.0858,
+   "btc0": 80822.7,
+   "status": "open",
+   "spread": 0.002328288707799672,
+   "scan": "02 NIL/USD      price=$0.0858 vol24h=$877,604 spread=23.23bps mtf_score=0.4245 quality=0.4255 trend15m=-0.61 trend1h=+0.02 trend4h=+0.44",
+   "cfg": "v18-2026-10-27"
+  },
+  {
+   "id": "40615531399-CAP/USD",
+   "symbol": "CAP/USD",
+   "pair": "CAPUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793151514,
+   "entry": 0.097142,
+   "btc0": 80822.7,
+   "status": "open",
+   "spread": 0.004145606780007184,
+   "scan": "03 CAP/USD      price=$0.097477 vol24h=$1,063,920 spread=43.17bps mtf_score=0.5136 quality=0.4170 trend15m=-0.49 trend1h=+0.05 trend4h=+0.58",
    "cfg": "v18-2026-10-27"
   }
  ]
