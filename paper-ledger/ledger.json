@@ -7516,10 +7516,13 @@
    "t0": 1793151513,
    "entry": 0.02335187,
    "btc0": 80822.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.005700148195278191,
    "scan": "01 AKE/USD      price=$0.02303003 vol24h=$1,340,115 spread=17.94bps mtf_score=0.4423 quality=0.7293 trend15m=-1.59 trend1h=-0.76 trend4h=-0.23",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.02182911,
+   "t1": 1793237913.0,
+   "move_pct": -6.521
   },
   {
    "id": "40615531399-NIL/USD",
@@ -7530,10 +7533,13 @@
    "t0": 1793151514,
    "entry": 0.0858,
    "btc0": 80822.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.002328288707799672,
    "scan": "02 NIL/USD      price=$0.0858 vol24h=$877,604 spread=23.23bps mtf_score=0.4245 quality=0.4255 trend15m=-0.61 trend1h=+0.02 trend4h=+0.44",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.0759,
+   "t1": 1793237914.0,
+   "move_pct": -11.538
   },
   {
    "id": "40615531399-CAP/USD",
@@ -7544,10 +7550,13 @@
    "t0": 1793151514,
    "entry": 0.097142,
    "btc0": 80822.7,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004145606780007184,
    "scan": "03 CAP/USD      price=$0.097477 vol24h=$1,063,920 spread=43.17bps mtf_score=0.5136 quality=0.4170 trend15m=-0.49 trend1h=+0.05 trend4h=+0.58",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.072542,
+   "t1": 1793237914.0,
+   "move_pct": -25.324
   },
   {
    "id": "40639948379-Q/USD",
@@ -7558,10 +7567,13 @@
    "t0": 1793166725,
    "entry": 0.049036,
    "btc0": 80797.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00731549881661055,
    "scan": "01 Q/USD        price=$0.049091 vol24h=$1,313,962 spread=76.05bps mtf_score=0.4115 quality=0.8033 trend15m=-0.77 trend1h=-0.85 trend4h=-0.08",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.060193,
+   "t1": 1793253125.0,
+   "move_pct": 22.753
   },
   {
    "id": "40639948379-ZEC/USD",
@@ -7572,10 +7584,13 @@
    "t0": 1793166725,
    "entry": 1311.81,
    "btc0": 80797.9,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00024405497338270593,
    "scan": "03 ZEC/USD      price=$1,312.83 vol24h=$22,711,336 spread=6.78bps mtf_score=0.4323 quality=0.7089 trend15m=+0.79 trend1h=+1.54 trend4h=+0.35",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 1249.86,
+   "t1": 1793253125.0,
+   "move_pct": -4.722
   },
   {
    "id": "40670181437-VVV/USD",
@@ -7773,9 +7788,56 @@
    "t0": 1793222071,
    "entry": 5.082e-06,
    "btc0": 81297.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005903768572273244,
    "scan": "03 PEPE/USD     price=$5.123e-06 vol24h=$7,374,879 spread=5.86bps mtf_score=0.5235 quality=0.8073 trend15m=+0.22 trend1h=+1.12 trend4h=+0.23",
+   "cfg": "v20-2026-10-28",
+   "exit": 4.929539999999999e-06,
+   "t1": 1793240100,
+   "reason": "SL",
+   "pnl_pct": -3.679,
+   "mfe_pct": 1.279
+  },
+  {
+   "id": "40825861255-ADA/USD",
+   "symbol": "ADA/USD",
+   "pair": "ADAUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793253623,
+   "entry": 0.199027,
+   "btc0": 80124.2,
+   "status": "open",
+   "spread": 5.024406052404556e-06,
+   "scan": "01 ADA/USD      price=$0.199517 vol24h=$5,220,691 spread=3.96bps mtf_score=0.5928 quality=0.7508 trend15m=-1.14 trend1h=-0.21 trend4h=-0.61",
+   "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40825861255-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLDUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793253624,
+   "entry": 0.4192,
+   "btc0": 80124.2,
+   "status": "open",
+   "spread": 0.0007159050232669668,
+   "scan": "02 WLD/USD      price=$0.4191 vol24h=$1,563,270 spread=2.39bps mtf_score=0.5227 quality=0.6550 trend15m=-1.46 trend1h=-0.21 trend4h=-1.72",
+   "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40825861255-DOT/USD",
+   "symbol": "DOT/USD",
+   "pair": "DOTUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793253624,
+   "entry": 0.9823,
+   "btc0": 80124.2,
+   "status": "open",
+   "spread": 0.00010178635045039339,
+   "scan": "03 DOT/USD      price=$0.9834 vol24h=$2,733,968 spread=4.06bps mtf_score=0.5468 quality=0.3976 trend15m=-1.23 trend1h=+0.05 trend4h=-1.20",
    "cfg": "v20-2026-10-28"
   }
  ]
