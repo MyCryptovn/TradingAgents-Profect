@@ -5,7 +5,7 @@ Stage 2: the best pre-ranked markets are checked with completed OHLC candles on
 1m, 15m, 1h and 4h. Only data-quality-passing markets receive the final score.
 This is a ranking gate, not a trading signal. Live orders are disabled.
 """
-from __future__ import annotations
+from scripts.hl_feeder import compute_1m_features
 
 import json
 import math
@@ -243,25 +243,23 @@ def main() -> int:
             failures += 1
             continue
 
-        # --- 1m riêng ---
+        # --- 1m từ Hyperliquid ---
         try:
             base = wsname.split("/")[0].upper()
-            base = {"XBT": "BTC"}.get(base, base)
+            base = {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
 
-        feat_hl = compute_1m_features(base)
+            feat_hl = compute_1m_features(base)
             if feat_hl is None:
                 failures += 1
                 continue
 
-        trend_1m = feat_hl["trend_1m"]
-        momentum_1m = feat_hl["momentum_1m"]
-        vol_spike_1m = feat_hl["vol_spike_1m"]
-        imbalance = feat_hl["imbalance"]
-        funding = feat_hl["funding"]
-            if feat_1m is None:
-                failures += 1
-                continue
-        except Exception:
+            trend_1m = feat_hl["trend_1m"]
+            momentum_1m = feat_hl["momentum_1m"]
+            vol_spike_1m = feat_hl["vol_spike_1m"]
+            imbalance = feat_hl.get("imbalance", 0.0)
+            funding = feat_hl.get("funding", 0.0)
+        except Exception as e:
+            print(f"HL 1m error {wsname}: {e}")
             failures += 1
             continue
 
@@ -319,8 +317,9 @@ def main() -> int:
 
         abs_trend_rank = percentile([abs(v) for v in trend_values], abs(trend))
 
-        print(f"SPIKE {pair}: {spike:.2f} | 1m_trend={trend_1m:+.3f} vol_spike={vol_spike_1m:.2f} "
-              f"quality={quality:.2f} short={short_bias:.0f} pullback={pullback:.0f} confirm1m={one_min_confirm:.2f}")
+        print(f"SPIKE {pair}: {spike:.2f} | 1m={trend_1m:+.3f} vol1m={vol_spike_1m:.2f} "
+              f"imb={imbalance:+.2f} fund={funding:.5f} | quality={quality:.2f} "
+              f"short={short_bias:.0f} pullback={pullback:.0f}")
 
         score = (
             0.10 * liquidity
