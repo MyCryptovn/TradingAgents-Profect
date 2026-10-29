@@ -1,9 +1,9 @@
-"""Broad real-market scanner with multi-timeframe validation + Hyperliquid 1m features.
+"""Broad real-market scanner with multi-timeframe validation.
 
-Stage 1: Kraken AssetPairs + Ticker builds the liquid USD spot universe.
-Stage 2: Best pre-ranked markets are validated with 15m/1h/4h candles from Kraken
-         and 1m features from Hyperliquid.
-This is a ranking gate only. Live orders are disabled.
+Stage 1: Kraken AssetPairs + Ticker cheaply builds the liquid USD spot universe.
+Stage 2: the best pre-ranked markets are checked with completed OHLC candles on
+15m, 1h and 4h. Only data-quality-passing markets receive the final score.
+This is a ranking gate, not a trading signal. Live orders are disabled.
 """
 from __future__ import annotations
 
@@ -13,8 +13,6 @@ import time
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
-
-from scripts.hl_feeder import compute_1m_features
 
 API = "https://api.kraken.com/0/public/"
 TOP_N = 3
@@ -32,10 +30,6 @@ class Candidate:
     spread_bps: float
     score: float
     trend_1m: float
-    momentum_1m: float
-    vol_spike_1m: float
-    imbalance: float
-    funding: float
     trend_15m: float
     trend_1h: float
     trend_4h: float
@@ -67,10 +61,7 @@ def normalize_pair(name: str, info: dict) -> tuple[str, str] | None:
     if "/" not in wsname:
         return None
     base, quote = wsname.split("/", 1)
-    if quote not in {"USD", "ZUSD"} or base.upper() in {
-        "USDC", "USDT", "DAI", "PYUSD", "USDG", "RLUSD", "TUSD", "FDUSD",
-        "EURC", "EURT", "GBP", "LIGHTER", "EUR", "AUD", "CAD", "CHF", "JPY", "US"
-    }:
+    if quote not in {"USD", "ZUSD"} or base.upper() in {"USDC", "USDT", "DAI", "PYUSD", "USDG", "RLUSD", "TUSD", "FDUSD", "EURC", "EURT", "GBP", "LIGHTER", "EUR", "AUD", "CAD", "CHF", "JPY","US"}:
         return None
     status = str(info.get("status") or "online").lower()
     if status not in {"online", "post_only"}:
@@ -94,12 +85,9 @@ def ticker_rows() -> list[tuple[str, str, float, float, float, float, float]]:
         if not ticker:
             continue
         try:
-            ask = float(ticker["a"][0])
-            bid = float(ticker["b"][0])
-            last = float(ticker["c"][0])
-            high = float(ticker["h"][1])
-            low = float(ticker["l"][1])
-            base_volume = float(ticker["v"][1])
+            ask = float(ticker["a"][0]); bid = float(ticker["b"][0])
+            last = float(ticker["c"][0]); high = float(ticker["h"][1])
+            low = float(ticker["l"][1]); base_volume = float(ticker["v"][1])
             open_price = float(ticker["o"])
             if min(ask, bid, last, high, low, base_volume, open_price) <= 0:
                 continue
@@ -124,6 +112,7 @@ def fetch_ohlc(pair: str, interval: int) -> list[list[float]]:
     if not key:
         return []
     rows = result[key]
+    # Kraken can return a final still-forming candle. Drop it deliberately.
     return rows[:-1] if len(rows) > 1 else []
 
 
@@ -181,7 +170,6 @@ def main() -> int:
     changes = [r[6] for r in rows]
     top_change = sorted(rows, key=lambda r: r[6], reverse=True)[:10]
     print("TOP GAINERS 24H:", [(r[1], round(r[6] * 100, 1), round(r[3])) for r in top_change])
-
     pre = []
     for r in rows:
         liquidity = percentile(volumes, math.log1p(r[3]))
@@ -195,13 +183,10 @@ def main() -> int:
 
     validated = []
     failures = 0
-
     for _, row in pre[:PREFILTER_N]:
         pair, wsname, price, volume_usd, spread_bps, _, _ = row
         features = []
         failed = False
-
-        # Multi-timeframe từ Kraken (15m / 1h / 4h)
         for interval in TIMEFRAMES:
             try:
                 candles = fetch_ohlc(pair, interval)
@@ -213,35 +198,12 @@ def main() -> int:
             except Exception:
                 failed = True
                 break
-
         if failed:
             failures += 1
             continue
-
-        # 1m + orderflow từ Hyperliquid
-        try:
-            base = wsname.split("/")[0].upper()
-            base = {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
-
-            feat_hl = compute_1m_features(base)
-            if feat_hl is None:
-                failures += 1
-                continue
-
-            trend_1m = feat_hl["trend_1m"]
-            momentum_1m = feat_hl["momentum_1m"]
-            vol_spike_1m = feat_hl["vol_spike_1m"]
-            imbalance = feat_hl.get("imbalance", 0.0)
-            funding = feat_hl.get("funding", 0.0)
-        except Exception as e:
-            print(f"HL 1m error {wsname}: {e}")
-            failures += 1
-            continue
-
         trends = [f[0] for f in features]
         momenta = [f[1] for f in features]
         volume_ratios = [f[2] for f in features]
-
         trend_strength = sum(trends) / 3.0
         momentum_strength = sum(momenta) / 3.0
         activity_strength = sum(min(max(v, 0.0), 3.0) for v in volume_ratios) / 9.0
@@ -249,11 +211,7 @@ def main() -> int:
         signs = [1 if t > 0 else (-1 if t < 0 else 0) for t in trends]
         agreement = abs(sum(signs)) / 3.0
         quality = 0.45 * agreement + 0.30 * consistency + 0.25 * activity_strength
-
-        validated.append((
-            quality, trend_strength, momentum_strength, row,
-            trends, trend_1m, momentum_1m, vol_spike_1m, imbalance, funding
-        ))
+        validated.append((quality, trend_strength, momentum_strength, row, trends))
 
     if not validated:
         raise RuntimeError("No prefiltered markets passed multi-timeframe data-quality validation")
@@ -261,9 +219,8 @@ def main() -> int:
     trend_values = [x[1] for x in validated]
     momentum_values = [x[2] for x in validated]
     quality_values = [x[0] for x in validated]
-
     candidates = []
-    for quality, trend, momentum, row, trends, trend_1m, momentum_1m, vol_spike_1m, imbalance, funding in validated:
+    for quality, trend, momentum, row, trends in validated:
         pair, wsname, price, volume_usd, spread_bps, _, _ = row
         liquidity = percentile(volumes, math.log1p(volume_usd))
         tightness = 1.0 - percentile(spreads, spread_bps)
@@ -271,64 +228,34 @@ def main() -> int:
         momentum_rank = percentile(momentum_values, momentum)
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
-
+        # Long: 1h+4h lên dù còn âm, 15m lên, 1m lên theo nhịp bơm trên sàn → tránh đu đỉnh
         pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
-
+        # Short nhanh: 1m đảo chiều theo tín hiệu xả rõ; 15m xuống theo nến 1m ; 1h không được ngược mạnh lên
+        # Không bắt buộc 4h âm (tránh chậm nhịp bơm-xả)
         short_bias = 0.0
         if trends[0] < -0.15 and trends[1] <= 0.10:
             short_bias = 1.0
         elif trends[0] < 0 and trends[1] < 0 and trends[2] < 0:
-            short_bias = 1.0
-
-        one_min_confirm = 0.0
-        if trend_1m > 0.08 and trends[0] > 0:
-            one_min_confirm = 0.7
-        elif trend_1m < -0.12 and trends[0] < 0:
-            one_min_confirm = 0.85
-
+            short_bias = 1.0  
+        # short cấu trúc đầy đủ (cộng thêm)
+        # Rank theo |trend| để coin giảm mạnh cũng có cửa vào Top
         abs_trend_rank = percentile([abs(v) for v in trend_values], abs(trend))
-
-        print(
-            f"SPIKE {pair}: {spike:.2f} | 1m={trend_1m:+.3f} vol1m={vol_spike_1m:.2f} "
-            f"imb={imbalance:+.2f} fund={funding:.5f} | quality={quality:.2f} "
-            f"short={short_bias:.0f} pullback={pullback:.0f} confirm1m={one_min_confirm:.2f}"
-        )
-
+        print(f"SPIKE {pair}: {spike:.2f} quality={quality:.2f} short={short_bias:.0f} pullback={pullback:.0f}")
         score = (
             0.10 * liquidity
-            + 0.09 * tightness
-            + 0.11 * abs_trend_rank
-            + 0.11 * momentum_rank
-            + 0.13 * quality_rank
-            + 0.09 * spike
-            + 0.14 * pullback
-            + 0.14 * short_bias
-            + 0.06 * one_min_confirm
-            + 0.03 * vol_spike_1m
-        )
-
-        candidates.append(Candidate(
-            pair=pair,
-            symbol=wsname,
-            price=price,
-            volume_usd=volume_usd,
-            spread_bps=spread_bps,
-            score=score,
-            trend_1m=trend_1m,
-            momentum_1m=momentum_1m,
-            vol_spike_1m=vol_spike_1m,
-            imbalance=imbalance,
-            funding=funding,
-            trend_15m=trends[0],
-            trend_1h=trends[1],
-            trend_4h=trends[2],
-            quality=quality,
-        ))
+            + 0.10 * tightness
+            + 0.12 * abs_trend_rank
+            + 0.12 * momentum_rank
+            + 0.14 * quality_rank
+            + 0.10 * spike
+            + 0.16 * pullback
+            + 0.16 * short_bias)
+        candidates.append(Candidate(pair=pair, symbol=wsname, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.05, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
 
     candidates.sort(key=lambda x: x.score, reverse=True)
 
     def is_short(c: Candidate) -> bool:
-        return c.trend_15m < 0 and c.trend_1h <= 0.05
+        return (c.trend_15m < 0 and c.trend_1h <= 0.05)
 
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
@@ -339,6 +266,7 @@ def main() -> int:
         if len(mixed) >= TOP_N:
             break
         mixed.append(c)
+    # Nếu Top đang có coin tốt để long → thay slot cuối bằng long mạnh nhất
     if mixed and longs and all(is_short(c) for c in mixed):
         mixed[-1] = longs[0]
     if len(mixed) < TOP_N:
@@ -348,9 +276,9 @@ def main() -> int:
             if len(mixed) >= TOP_N:
                 break
     candidates = mixed
-
-    print("\nBROAD REAL-MARKET MULTI-TIMEFRAME SCANNER (Hyperliquid 1m)")
-    print("DATA SOURCE: KRAKEN (universe) + HYPERLIQUID (1m + flow)")
+    
+    print("BROAD REAL-MARKET MULTI-TIMEFRAME SCANNER")
+    print("DATA SOURCE: KRAKEN PUBLIC SPOT MARKET DATA")
     print("CANDLES: COMPLETED ONLY")
     print("LIVE ORDERS: DISABLED")
     print(f"USD SPOT UNIVERSE: {len(rows)} qualifying after broad ticker gate")
@@ -359,26 +287,15 @@ def main() -> int:
     print(f"VALIDATED MARKETS: {len(candidates)}")
     print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
     for rank, c in enumerate(candidates[:TOP_N], 1):
-        bias = "short" if is_short(c) else "long"
-        print(
-            f"{rank:02d} {c.symbol:12} "
-            f"price={c.price:.8g} "
-            f"vol24h={c.volume_usd:,.0f} "
-            f"spread={c.spread_bps:.2f}bps "
-            f"score={c.score:.4f} "
-            f"quality={c.quality:.4f} "
-            f"1m={c.trend_1m:+.3f} "
-            f"15m={c.trend_15m:+.2f} "
-            f"1h={c.trend_1h:+.2f} "
-            f"4h={c.trend_4h:+.2f} "
-            f"vol1m={c.vol_spike_1m:.2f} "
-            f"imb={c.imbalance:+.2f} → {bias}"
-        )
+        bias = "short" if (c.trend_15m < 0 and c.trend_1h <= 0.05) else "long"
+        print(f"{rank:02d} {c.symbol:12} price=${c.price:,.8g} vol24h=${c.volume_usd:,.0f} "
+              f"spread={c.spread_bps:.2f}bps mtf_score={c.score:.4f} quality={c.quality:.4f} "
+              f"trend15m={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
     print(f"SCANNER ELAPSED: {time.time() - started:.1f}s")
     print("NEXT GATE: Only these candidates should enter TradingAgents deep analysis.")
     print("NEXT GATE: Ranking is not a trade instruction; BUY/SELL/HOLD/REVIEW remains downstream.")
     print("LIVE TRADING GATE: DISABLED")
-    return 
+    return 0
 
 
 if __name__ == "__main__":
