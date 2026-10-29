@@ -65,7 +65,7 @@ SHORT_NOTE = (
     " TRADING HORIZON: short-term paper, max hold about 24 hours, hard stop about 3 percent. "
     "No fixed take-profit required; exit on reversal or horizon. "
     "BUY = LONG, SELL = SHORT, HOLD = no new position. "
-    "Prefer action when 1m,15m and flow align; do not require perfect agreement on every timeframe."
+    "Prefer action when 1m + 15m and flow align; do not require perfect agreement on every timeframe."
 )
 SHORT_RULES = (
     " POSITION MODEL: Perpetual / paper futures. BUY = LONG, SELL = SHORT, HOLD = flat. "
@@ -74,6 +74,7 @@ SHORT_RULES = (
     "(2) trend15 from scanner above 0 OR trend1h above 0, "
     "(3) taker buy share at least 52 percent, "
     "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
+     "Strong bonus if 1m trend is also positive and vol_spike_1m is elevated. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "ENTRY SELL (SHORT) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m above 28, "
@@ -82,10 +83,11 @@ SHORT_RULES = (
     "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
+    "Avoid chasing when 1m is already strongly extended against the higher timeframe."
 )
 def run_scanner() -> list[str]:
     proc = subprocess.run(
-        [sys.executable, "scripts/market_scanner.py"],
+        [sys.executable, "scripts/scanner_level1.py"],
         check=True,
         capture_output=True,
         text=True,
@@ -186,13 +188,13 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 rules = (
                     " POSITION MODEL: This is perpetual / paper futures style. BUY means open or hold a LONG. SELL means open or hold a SHORT. HOLD means no new position. Do not treat SELL as only exiting a long; SELL is a valid directional short entry when bearish conditions are met "
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
-                    "1) RSI14 on 1m,5m or 15m below < 72, "
-                    "2) trend15 positive, "
+                    "1) RSI14 on 1m/5m/15m below < 72, "
+                    "2) trend15 positive AND trend_1m also positive, "
                     "3) taker buy share >= 52%, "
                     "4) order book bid volume clearly higher than ask, "
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
-                    "Prefer SELL when taker buy share <= 42% and 1m/5m/15m weakness appears. "
+                    "Prefer SELL when taker buy share <= 42% and both 1m + 15m are weak. "
                     "Max risk about 1 percent of capital per trade. Hard stop-loss about 3 percent. No fixed take-profit required; exit on reversal or horizon."
                 )
             else:
