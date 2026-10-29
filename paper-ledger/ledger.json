@@ -7660,7 +7660,8 @@
    "t1": 1793216700,
    "reason": "SL",
    "pnl_pct": -3.697,
-   "mfe_pct": 1.501
+   "mfe_pct": 1.501,
+   "trail_pnl_pct": -2.151
   },
   {
    "id": "40707976513-VVV/USD",
@@ -7671,10 +7672,13 @@
    "t0": 1793199965,
    "entry": 23.994,
    "btc0": 80523.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007499375052079278,
    "scan": "02 VVV/USD      price=$23.884 vol24h=$1,734,474 spread=9.19bps mtf_score=0.5075 quality=0.7705 trend15m=-0.24 trend1h=-0.78 trend4h=-0.15",
-   "cfg": "v19-2026-10-28"
+   "cfg": "v19-2026-10-28",
+   "exit": 24.97,
+   "t1": 1793286365.0,
+   "move_pct": 4.068
   },
   {
    "id": "40707976513-HYPE/USD",
@@ -7685,10 +7689,13 @@
    "t0": 1793199966,
    "entry": 79.79,
    "btc0": 80523.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00012532113540937283,
    "scan": "03 HYPE/USD     price=$79.58 vol24h=$9,629,478 spread=1.26bps mtf_score=0.4604 quality=0.3507 trend15m=-1.07 trend1h=+1.09 trend4h=+0.42",
-   "cfg": "v19-2026-10-28"
+   "cfg": "v19-2026-10-28",
+   "exit": 93.83,
+   "t1": 1793286366.0,
+   "move_pct": 17.596
   },
   {
    "id": "40712957170-Q/USD",
@@ -7699,10 +7706,13 @@
    "t0": 1793201632,
    "entry": 0.059066,
    "btc0": 80513.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004156819362732744,
    "scan": "01 Q/USD        price=$0.057836 vol24h=$2,054,405 spread=50.02bps mtf_score=0.5456 quality=0.7206 trend15m=-0.30 trend1h=-1.55 trend4h=-0.05",
-   "cfg": "v19-2026-10-28"
+   "cfg": "v19-2026-10-28",
+   "exit": 0.038943,
+   "t1": 1793288032.0,
+   "move_pct": -34.069
   },
   {
    "id": "40712957170-QNT/USD",
@@ -7713,10 +7723,13 @@
    "t0": 1793201632,
    "entry": 194.21,
    "btc0": 80513.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00061785603954281,
    "scan": "02 QNT/USD      price=$193.97 vol24h=$4,830,963 spread=6.19bps mtf_score=0.4958 quality=0.4115 trend15m=-0.80 trend1h=-0.50 trend4h=+0.46",
-   "cfg": "v19-2026-10-28"
+   "cfg": "v19-2026-10-28",
+   "exit": 197.96,
+   "t1": 1793288032.0,
+   "move_pct": 1.931
   },
   {
    "id": "40712957170-APR/USD",
@@ -7727,10 +7740,13 @@
    "t0": 1793201632,
    "entry": 0.04762,
    "btc0": 80513.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0018865946965726822,
    "scan": "03 APR/USD      price=$0.04715 vol24h=$1,755,039 spread=29.64bps mtf_score=0.4842 quality=0.4379 trend15m=-0.61 trend1h=+0.72 trend4h=+0.72",
-   "cfg": "v19-2026-10-28"
+   "cfg": "v19-2026-10-28",
+   "exit": 0.05866,
+   "t1": 1793288032.0,
+   "move_pct": 23.184
   },
   {
    "id": "40737635793-ADA/USD",
@@ -7889,6 +7905,34 @@
    "status": "open",
    "spread": 0.00023137436372045375,
    "scan": "03 HYPE/USD     price=$86.41 vol24h=$12,828,534 spread=1.16bps mtf_score=0.3760 quality=0.4934 trend15m=+0.18 trend1h=-0.17 trend4h=+0.55",
+   "cfg": "v21-2026-10-29"
+  },
+  {
+   "id": "40899664965-RAY/USD",
+   "symbol": "RAY/USD",
+   "pair": "RAYUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793289261,
+   "entry": 1.729,
+   "btc0": 81639.4,
+   "status": "open",
+   "spread": 0.0023108030040439073,
+   "scan": "01 RAY/USD      price=$1.706 vol24h=$625,384 spread=23.45bps mtf_score=0.4327 quality=0.7917 trend15m=-0.08 trend1h=-0.71 trend4h=-0.49",
+   "cfg": "v21-2026-10-29"
+  },
+  {
+   "id": "40899664965-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793289262,
+   "entry": 5.361e-06,
+   "btc0": 81639.4,
+   "status": "open",
+   "spread": 0.0011181513231456586,
+   "scan": "02 PEPE/USD     price=$5.076e-06 vol24h=$10,157,536 spread=11.81bps mtf_score=0.5976 quality=0.4979 trend15m=-0.22 trend1h=+0.49 trend4h=+0.79",
    "cfg": "v21-2026-10-29"
   }
  ]
