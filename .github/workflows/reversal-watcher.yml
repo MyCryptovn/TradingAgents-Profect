@@ -3,7 +3,7 @@ name: Reversal Watcher
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/15 * * * *" 
 permissions:
   contents: write
 
@@ -14,7 +14,7 @@ concurrency:
 jobs:
   watch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
