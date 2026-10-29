@@ -245,8 +245,19 @@ def main() -> int:
 
         # --- 1m riêng ---
         try:
-            candles_1m = fetch_ohlc(pair, ONE_MIN_INTERVAL)
-            feat_1m = timeframe_features_1m(candles_1m)
+            base = wsname.split("/")[0].upper()
+            base = {"XBT": "BTC"}.get(base, base)
+
+        feat_hl = compute_1m_features(base)
+            if feat_hl is None:
+                failures += 1
+                continue
+
+        trend_1m = feat_hl["trend_1m"]
+        momentum_1m = feat_hl["momentum_1m"]
+        vol_spike_1m = feat_hl["vol_spike_1m"]
+        imbalance = feat_hl["imbalance"]
+        funding = feat_hl["funding"]
             if feat_1m is None:
                 failures += 1
                 continue
