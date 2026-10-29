@@ -7902,10 +7902,15 @@
    "t0": 1793272998,
    "entry": 86.52,
    "btc0": 80133.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00023137436372045375,
    "scan": "03 HYPE/USD     price=$86.41 vol24h=$12,828,534 spread=1.16bps mtf_score=0.3760 quality=0.4934 trend15m=+0.18 trend1h=-0.17 trend4h=+0.55",
-   "cfg": "v21-2026-10-29"
+   "cfg": "v21-2026-10-29",
+   "exit": 93.71,
+   "t1": 1793302862,
+   "reason": "REVERSAL_PROFIT",
+   "pnl_pct": 7.667,
+   "watch": "pnl=+7.67% give=3.4% flow=5%/160 5m=False 1m=False rsi=43 hits=2"
   },
   {
    "id": "40899664965-RAY/USD",
