@@ -1,20 +1,21 @@
 # Báo cáo paper trading
-Cập nhật: 2026-10-29 15:54 UTC
+Cập nhật: 2026-10-29 21:17 UTC
 
-- Lệnh đã chốt: **29** | đang mở: 1 | HOLD đã chấm: 404
+- Lệnh đã chốt: **30** | đang mở: 0 | HOLD đã chấm: 408
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **27.6%** (8/29)
-- PnL trung bình/lệnh: -1.018%
-- Tổng PnL (cộng dồn): **-29.52%**
-- Profit factor: 0.58
+- Win rate: **30.0%** (9/30)
+- PnL trung bình/lệnh: -0.728%
+- Tổng PnL (cộng dồn): **-21.85%**
+- Profit factor: 0.69
 - Max drawdown: 45.98%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +1.53%  -> bot THUA benchmark
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| HYPE/USD | BUY | 86.52 | 93.71 | REVERSAL_PROFIT | +7.67 |
 | PEPE/USD | BUY | 5.082e-06 | 4.92954e-06 | SL | -3.68 |
 | INJ/USD | SELL | 7.793 | 8.02679 | SL | -3.70 |
 | AKE/USD | SELL | 0.0225786 | 0.0215163 | REVERSAL_PROFIT | +3.86 |
@@ -24,11 +25,10 @@ Cập nhật: 2026-10-29 15:54 UTC
 | XCN/USD | BUY | 0.00405 | 0.0039285 | SL | -4.12 |
 | XDG/USD | SELL | 0.0762651 | 0.0772157 | TIME | -1.87 |
 | USELESS/USD | BUY | 0.1694 | 0.164318 | SL | -3.85 |
-| PEPE/USD | BUY | 4.552e-06 | 4.41544e-06 | SL | -3.64 |
 - Lãi tối đa từng đạt (trung bình): 2.50% (22 lệnh)
 
 ## Quyết định HOLD
-- Sau 24h, giá biến động ≥ 3% ở 240/404 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
-- Biến động tuyệt đối trung bình: 6.64%
-- Trong số đó: tăng ≥ 3% = 76 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 164 lần (HOLD tránh được lỗ)
-- Biến động trung bình có dấu: -1.67%
+- Sau 24h, giá biến động ≥ 3% ở 241/408 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
+- Biến động tuyệt đối trung bình: 6.61%
+- Trong số đó: tăng ≥ 3% = 77 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 164 lần (HOLD tránh được lỗ)
+- Biến động trung bình có dấu: -1.62%

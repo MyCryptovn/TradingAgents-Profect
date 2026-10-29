@@ -7757,10 +7757,13 @@
    "t0": 1793210300,
    "entry": 0.202389,
    "btc0": 80785.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000424815131322226,
    "scan": "01 ADA/USD      price=$0.201493 vol24h=$3,156,902 spread=0.79bps mtf_score=0.6049 quality=0.7529 trend15m=-1.19 trend1h=-0.00 trend4h=-1.04",
-   "cfg": "v20-2026-10-28"
+   "cfg": "v20-2026-10-28",
+   "exit": 0.20305,
+   "t1": 1793296700.0,
+   "move_pct": 0.327
   },
   {
    "id": "40737635793-QNT/USD",
@@ -7771,10 +7774,13 @@
    "t0": 1793210300,
    "entry": 193.26,
    "btc0": 80785.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006211180124223838,
    "scan": "02 QNT/USD      price=$194.45 vol24h=$4,878,974 spread=1.54bps mtf_score=0.5339 quality=0.3838 trend15m=-1.14 trend1h=-0.51 trend4h=+0.38",
-   "cfg": "v20-2026-10-28"
+   "cfg": "v20-2026-10-28",
+   "exit": 192.58,
+   "t1": 1793296700.0,
+   "move_pct": -0.352
   },
   {
    "id": "40737635793-PEPE/USD",
@@ -7785,10 +7791,13 @@
    "t0": 1793210300,
    "entry": 4.915e-06,
    "btc0": 80785.3,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008140008140008752,
    "scan": "03 PEPE/USD     price=$4.865e-06 vol24h=$4,659,715 spread=6.16bps mtf_score=0.4952 quality=0.3816 trend15m=-0.33 trend1h=+1.22 trend4h=+0.09",
-   "cfg": "v20-2026-10-28"
+   "cfg": "v20-2026-10-28",
+   "exit": 5.425e-06,
+   "t1": 1793296700.0,
+   "move_pct": 10.376
   },
   {
    "id": "40769299638-CAP/USD",
@@ -7799,10 +7808,13 @@
    "t0": 1793222071,
    "entry": 0.074161,
    "btc0": 81297.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.006301996531877647,
    "scan": "01 CAP/USD      price=$0.073752 vol24h=$896,649 spread=35.59bps mtf_score=0.3085 quality=0.2229 trend15m=-2.72 trend1h=-1.02 trend4h=+0.36",
-   "cfg": "v20-2026-10-28"
+   "cfg": "v20-2026-10-28",
+   "exit": 0.07539,
+   "t1": 1793308471.0,
+   "move_pct": 1.657
   },
   {
    "id": "40769299638-PEPE/USD",
@@ -7821,7 +7833,8 @@
    "t1": 1793240100,
    "reason": "SL",
    "pnl_pct": -3.679,
-   "mfe_pct": 1.279
+   "mfe_pct": 1.279,
+   "trail_pnl_pct": -2.438
   },
   {
    "id": "40825861255-ADA/USD",
@@ -7939,6 +7952,48 @@
    "spread": 0.0011181513231456586,
    "scan": "02 PEPE/USD     price=$5.076e-06 vol24h=$10,157,536 spread=11.81bps mtf_score=0.5976 quality=0.4979 trend15m=-0.22 trend1h=+0.49 trend4h=+0.79",
    "cfg": "v21-2026-10-29"
+  },
+  {
+   "id": "40955408415-BONK/USD",
+   "symbol": "BONK/USD",
+   "pair": "BONKUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793308635,
+   "entry": 2.915e-06,
+   "btc0": 79281.1,
+   "status": "open",
+   "spread": 0.0010293360782296194,
+   "scan": "01 BONK/USD     price=$2.893e-06 vol24h=$915,535 spread=10.41bps mtf_score=0.5553 quality=0.5356 trend15m=-0.18 trend1h=+0.02 trend4h=+0.09",
+   "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "40955408415-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793308635,
+   "entry": 93.9,
+   "btc0": 79281.1,
+   "status": "open",
+   "spread": 0.00042584903651662144,
+   "scan": "02 HYPE/USD     price=$92.48 vol24h=$59,433,605 spread=4.32bps mtf_score=0.5349 quality=0.8366 trend15m=+0.90 trend1h=+1.31 trend4h=+0.55",
+   "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "40955408415-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793308635,
+   "entry": 4.949e-06,
+   "btc0": 79281.1,
+   "status": "open",
+   "spread": 0.00020220402386000435,
+   "scan": "03 PEPE/USD     price=$4.923e-06 vol24h=$13,886,941 spread=8.12bps mtf_score=0.4931 quality=0.8594 trend15m=+0.31 trend1h=+0.35 trend4h=+0.75",
+   "cfg": "v22-2026-10-29"
   }
  ]
 }
