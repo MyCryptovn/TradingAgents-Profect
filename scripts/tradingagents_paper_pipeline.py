@@ -87,7 +87,7 @@ SHORT_RULES = (
 )
 def run_scanner() -> list[str]:
     proc = subprocess.run(
-        [sys.executable, "scripts/scanner_level1.py"],
+        [sys.executable, "scripts/market_scanner.py"],
         check=True,
         capture_output=True,
         text=True,
