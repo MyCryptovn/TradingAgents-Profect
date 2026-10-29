@@ -7601,10 +7601,13 @@
    "t0": 1793182894,
    "entry": 24.336,
    "btc0": 81418.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0009039733738751064,
    "scan": "01 VVV/USD      price=$24.271 vol24h=$1,819,314 spread=8.26bps mtf_score=0.4712 quality=0.6010 trend15m=-2.38 trend1h=-0.23 trend4h=-0.15",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 23.596,
+   "t1": 1793269294.0,
+   "move_pct": -3.041
   },
   {
    "id": "40670181437-AKE/USD",
@@ -7615,10 +7618,13 @@
    "t0": 1793182894,
    "entry": 0.02005323,
    "btc0": 81418.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.004797420167422068,
    "scan": "02 AKE/USD      price=$0.02033246 vol24h=$1,383,443 spread=35.89bps mtf_score=0.4210 quality=0.7541 trend15m=-1.01 trend1h=-0.79 trend4h=-0.39",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.02027333,
+   "t1": 1793269294.0,
+   "move_pct": 1.098
   },
   {
    "id": "40670181437-AIN/USD",
@@ -7629,10 +7635,13 @@
    "t0": 1793182895,
    "entry": 0.15422,
    "btc0": 81418.2,
-   "status": "open",
+   "status": "closed",
    "spread": 0.023240546218487493,
    "scan": "03 AIN/USD      price=$0.14503 vol24h=$771,833 spread=129.83bps mtf_score=0.4701 quality=0.3685 trend15m=-0.13 trend1h=+1.78 trend4h=+1.87",
-   "cfg": "v18-2026-10-27"
+   "cfg": "v18-2026-10-27",
+   "exit": 0.13838,
+   "t1": 1793269295.0,
+   "move_pct": -10.271
   },
   {
    "id": "40707976513-INJ/USD",
@@ -7839,6 +7848,48 @@
    "spread": 0.00010178635045039339,
    "scan": "03 DOT/USD      price=$0.9834 vol24h=$2,733,968 spread=4.06bps mtf_score=0.5468 quality=0.3976 trend15m=-1.23 trend1h=+0.05 trend4h=-1.20",
    "cfg": "v20-2026-10-28"
+  },
+  {
+   "id": "40863547785-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEARUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793272997,
+   "entry": 4.4109,
+   "btc0": 80133.5,
+   "status": "open",
+   "spread": 0.0004536278890427698,
+   "scan": "01 NEAR/USD     price=$4.4148 vol24h=$19,086,423 spread=4.76bps mtf_score=0.5142 quality=0.7459 trend15m=-1.12 trend1h=-0.69 trend4h=-0.27",
+   "cfg": "v21-2026-10-29"
+  },
+  {
+   "id": "40863547785-PEPE/USD",
+   "symbol": "PEPE/USD",
+   "pair": "PEPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793272998,
+   "entry": 4.872e-06,
+   "btc0": 80133.5,
+   "status": "open",
+   "spread": 0.0006157003591586761,
+   "scan": "02 PEPE/USD     price=$4.849e-06 vol24h=$7,165,407 spread=6.18bps mtf_score=0.4566 quality=0.4112 trend15m=-0.39 trend1h=+0.94 trend4h=+0.64",
+   "cfg": "v21-2026-10-29"
+  },
+  {
+   "id": "40863547785-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793272998,
+   "entry": 86.52,
+   "btc0": 80133.5,
+   "status": "open",
+   "spread": 0.00023137436372045375,
+   "scan": "03 HYPE/USD     price=$86.41 vol24h=$12,828,534 spread=1.16bps mtf_score=0.3760 quality=0.4934 trend15m=+0.18 trend1h=-0.17 trend4h=+0.55",
+   "cfg": "v21-2026-10-29"
   }
  ]
 }
