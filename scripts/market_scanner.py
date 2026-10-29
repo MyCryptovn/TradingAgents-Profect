@@ -1,4 +1,3 @@
-
 """Broad real-market scanner with multi-timeframe validation + Hyperliquid 1m features.
 
 Stage 1: Kraken AssetPairs + Ticker builds the liquid USD spot universe.
