@@ -1,11 +1,12 @@
-"""Broad real-market scanner with multi-timeframe validation + real 1m features (Level 1 upgrade).
 
-Stage 1: Kraken AssetPairs + Ticker cheaply builds the liquid USD spot universe.
-Stage 2: the best pre-ranked markets are checked with completed OHLC candles on
-1m, 15m, 1h and 4h. Only data-quality-passing markets receive the final score.
-This is a ranking gate, not a trading signal. Live orders are disabled.
+"""Broad real-market scanner with multi-timeframe validation + Hyperliquid 1m features.
+
+Stage 1: Kraken AssetPairs + Ticker builds the liquid USD spot universe.
+Stage 2: Best pre-ranked markets are validated with 15m/1h/4h candles from Kraken
+         and 1m features from Hyperliquid.
+This is a ranking gate only. Live orders are disabled.
 """
-from scripts.hl_feeder import compute_1m_features
+from __future__ import annotations
 
 import json
 import math
@@ -14,12 +15,13 @@ import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 
+from scripts.hl_feeder import compute_1m_features
+
 API = "https://api.kraken.com/0/public/"
 TOP_N = 3
 PREFILTER_N = 20
 MIN_VOLUME_USD = 500_000.0
-TIMEFRAMES = (15, 60, 240)          # vẫn giữ multi-TF chính
-ONE_MIN_INTERVAL = 1
+TIMEFRAMES = (15, 60, 240)
 
 
 @dataclass
@@ -33,6 +35,8 @@ class Candidate:
     trend_1m: float
     momentum_1m: float
     vol_spike_1m: float
+    imbalance: float
+    funding: float
     trend_15m: float
     trend_1h: float
     trend_4h: float
@@ -121,7 +125,6 @@ def fetch_ohlc(pair: str, interval: int) -> list[list[float]]:
     if not key:
         return []
     rows = result[key]
-    # Drop the still-forming candle
     return rows[:-1] if len(rows) > 1 else []
 
 
@@ -144,36 +147,6 @@ def timeframe_features(candles: list[list[float]]) -> tuple[float, float, float]
     volume_ratio = (sum(volumes[-12:]) / 12) / max(sum(volumes[-48:]) / 48, 1e-12)
     normalized_trend = trend / max(vol * math.sqrt(12), 1e-6)
     return normalized_trend, momentum, volume_ratio
-
-
-def timeframe_features_1m(candles: list[list[float]]) -> tuple[float, float, float] | None:
-    """Dedicated 1m features – more sensitive, needs more bars."""
-    if len(candles) < 90:
-        return None
-    closes = [float(row[4]) for row in candles if float(row[4]) > 0]
-    volumes = [float(row[6]) for row in candles if float(row[6]) >= 0]
-    if len(closes) < 90 or len(volumes) < 90:
-        return None
-
-    # Short-term trend (last \~8 vs \~40 minutes)
-    short = sum(closes[-8:]) / 8
-    long = sum(closes[-40:]) / 40
-    trend = short / long - 1.0
-
-    # Recent momentum (last 12 minutes)
-    momentum = closes[-1] / closes[-12] - 1.0
-
-    # Volume spike of the latest completed candle
-    avg_vol = sum(volumes[-50:-1]) / 49
-    vol_spike = volumes[-1] / max(avg_vol, 1e-12)
-    vol_spike = min(vol_spike, 12.0) / 12.0          # normalize 0-1
-
-    # Volatility-adjusted trend
-    returns = [math.log(closes[i] / closes[i - 1]) for i in range(1, len(closes))]
-    recent_vol = math.sqrt(sum(r * r for r in returns[-20:]) / 20)
-    norm_trend = trend / max(recent_vol * math.sqrt(8), 1e-6)
-
-    return norm_trend, momentum, vol_spike
 
 
 def spike_score(pair: str) -> float:
@@ -209,6 +182,7 @@ def main() -> int:
     changes = [r[6] for r in rows]
     top_change = sorted(rows, key=lambda r: r[6], reverse=True)[:10]
     print("TOP GAINERS 24H:", [(r[1], round(r[6] * 100, 1), round(r[3])) for r in top_change])
+
     pre = []
     for r in rows:
         liquidity = percentile(volumes, math.log1p(r[3]))
@@ -222,12 +196,13 @@ def main() -> int:
 
     validated = []
     failures = 0
+
     for _, row in pre[:PREFILTER_N]:
         pair, wsname, price, volume_usd, spread_bps, _, _ = row
         features = []
         failed = False
 
-        # --- Multi-timeframe chính (15m / 1h / 4h) ---
+        # Multi-timeframe từ Kraken (15m / 1h / 4h)
         for interval in TIMEFRAMES:
             try:
                 candles = fetch_ohlc(pair, interval)
@@ -239,11 +214,12 @@ def main() -> int:
             except Exception:
                 failed = True
                 break
+
         if failed:
             failures += 1
             continue
 
-        # --- 1m từ Hyperliquid ---
+        # 1m + orderflow từ Hyperliquid
         try:
             base = wsname.split("/")[0].upper()
             base = {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
@@ -263,10 +239,9 @@ def main() -> int:
             failures += 1
             continue
 
-        trends = [f[0] for f in features]          # 15m, 1h, 4h
+        trends = [f[0] for f in features]
         momenta = [f[1] for f in features]
         volume_ratios = [f[2] for f in features]
-        trend_1m, momentum_1m, vol_spike_1m = feat_1m
 
         trend_strength = sum(trends) / 3.0
         momentum_strength = sum(momenta) / 3.0
@@ -278,7 +253,7 @@ def main() -> int:
 
         validated.append((
             quality, trend_strength, momentum_strength, row,
-            trends, trend_1m, momentum_1m, vol_spike_1m
+            trends, trend_1m, momentum_1m, vol_spike_1m, imbalance, funding
         ))
 
     if not validated:
@@ -289,7 +264,7 @@ def main() -> int:
     quality_values = [x[0] for x in validated]
 
     candidates = []
-    for quality, trend, momentum, row, trends, trend_1m, momentum_1m, vol_spike_1m in validated:
+    for quality, trend, momentum, row, trends, trend_1m, momentum_1m, vol_spike_1m, imbalance, funding in validated:
         pair, wsname, price, volume_usd, spread_bps, _, _ = row
         liquidity = percentile(volumes, math.log1p(volume_usd))
         tightness = 1.0 - percentile(spreads, spread_bps)
@@ -298,28 +273,27 @@ def main() -> int:
         quality_rank = percentile(quality_values, quality)
         spike = spike_score(pair)
 
-        # Long pullback logic (giữ nguyên)
         pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
 
-        # Short bias (giữ nguyên + hơi nới)
         short_bias = 0.0
         if trends[0] < -0.15 and trends[1] <= 0.10:
             short_bias = 1.0
         elif trends[0] < 0 and trends[1] < 0 and trends[2] < 0:
             short_bias = 1.0
 
-        # === NEW: 1m confirmation ===
         one_min_confirm = 0.0
-        if trend_1m > 0.08 and trends[0] > 0:          # 1m + 15m cùng chiều long
+        if trend_1m > 0.08 and trends[0] > 0:
             one_min_confirm = 0.7
-        elif trend_1m < -0.12 and trends[0] < 0:       # 1m + 15m cùng chiều short
+        elif trend_1m < -0.12 and trends[0] < 0:
             one_min_confirm = 0.85
 
         abs_trend_rank = percentile([abs(v) for v in trend_values], abs(trend))
 
-        print(f"SPIKE {pair}: {spike:.2f} | 1m={trend_1m:+.3f} vol1m={vol_spike_1m:.2f} "
-              f"imb={imbalance:+.2f} fund={funding:.5f} | quality={quality:.2f} "
-              f"short={short_bias:.0f} pullback={pullback:.0f}")
+        print(
+            f"SPIKE {pair}: {spike:.2f} | 1m={trend_1m:+.3f} vol1m={vol_spike_1m:.2f} "
+            f"imb={imbalance:+.2f} fund={funding:.5f} | quality={quality:.2f} "
+            f"short={short_bias:.0f} pullback={pullback:.0f} confirm1m={one_min_confirm:.2f}"
+        )
 
         score = (
             0.10 * liquidity
@@ -330,8 +304,8 @@ def main() -> int:
             + 0.09 * spike
             + 0.14 * pullback
             + 0.14 * short_bias
-            + 0.06 * one_min_confirm          # 1m confirmation (không quá nặng)
-            + 0.03 * vol_spike_1m             # volume spike 1m nhẹ
+            + 0.06 * one_min_confirm
+            + 0.03 * vol_spike_1m
         )
 
         candidates.append(Candidate(
@@ -344,6 +318,8 @@ def main() -> int:
             trend_1m=trend_1m,
             momentum_1m=momentum_1m,
             vol_spike_1m=vol_spike_1m,
+            imbalance=imbalance,
+            funding=funding,
             trend_15m=trends[0],
             trend_1h=trends[1],
             trend_4h=trends[2],
@@ -353,7 +329,7 @@ def main() -> int:
     candidates.sort(key=lambda x: x.score, reverse=True)
 
     def is_short(c: Candidate) -> bool:
-        return (c.trend_15m < 0 and c.trend_1h <= 0.05)
+        return c.trend_15m < 0 and c.trend_1h <= 0.05
 
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
@@ -374,9 +350,9 @@ def main() -> int:
                 break
     candidates = mixed
 
-    print("\nBROAD REAL-MARKET MULTI-TIMEFRAME SCANNER (Level 1 - Real 1m)")
-    print("DATA SOURCE: KRAKEN PUBLIC SPOT MARKET DATA")
-    print("CANDLES: COMPLETED ONLY (including 1m)")
+    print("\nBROAD REAL-MARKET MULTI-TIMEFRAME SCANNER (Hyperliquid 1m)")
+    print("DATA SOURCE: KRAKEN (universe) + HYPERLIQUID (1m + flow)")
+    print("CANDLES: COMPLETED ONLY")
     print("LIVE ORDERS: DISABLED")
     print(f"USD SPOT UNIVERSE: {len(rows)} qualifying after broad ticker gate")
     print(f"MULTI-TIMEFRAME PREFILTER: {min(PREFILTER_N, len(pre))}")
@@ -385,10 +361,12 @@ def main() -> int:
     print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
     for rank, c in enumerate(candidates[:TOP_N], 1):
         bias = "short" if is_short(c) else "long"
-        print(f"{rank:02d} {c.symbol:12} price=\( {c.price:,.8g} vol24h= \){c.volume_usd:,.0f} "
-              f"spread={c.spread_bps:.2f}bps score={c.score:.4f} quality={c.quality:.4f} "
-              f"1m={c.trend_1m:+.3f} 15m={c.trend_15m:+.2f} 1h={c.trend_1h:+.2f} 4h={c.trend_4h:+.2f} "
-              f"vol1m={c.vol_spike_1m:.2f} → {bias}")
+        print(
+            f"{rank:02d} {c.symbol:12} price=\( {c.price:,.8g} vol24h= \){c.volume_usd:,.0f} "
+            f"spread={c.spread_bps:.2f}bps score={c.score:.4f} quality={c.quality:.4f} "
+            f"1m={c.trend_1m:+.3f} 15m={c.trend_15m:+.2f} 1h={c.trend_1h:+.2f} 4h={c.trend_4h:+.2f} "
+            f"vol1m={c.vol_spike_1m:.2f} imb={c.imbalance:+.2f} → {bias}"
+        )
     print(f"SCANNER ELAPSED: {time.time() - started:.1f}s")
     print("NEXT GATE: Only these candidates should enter TradingAgents deep analysis.")
     print("NEXT GATE: Ranking is not a trade instruction; BUY/SELL/HOLD/REVIEW remains downstream.")
