@@ -362,16 +362,24 @@ def main() -> int:
     for rank, c in enumerate(candidates[:TOP_N], 1):
         bias = "short" if is_short(c) else "long"
         print(
-            f"{rank:02d} {c.symbol:12} price=\( {c.price:,.8g} vol24h= \){c.volume_usd:,.0f} "
-            f"spread={c.spread_bps:.2f}bps score={c.score:.4f} quality={c.quality:.4f} "
-            f"1m={c.trend_1m:+.3f} 15m={c.trend_15m:+.2f} 1h={c.trend_1h:+.2f} 4h={c.trend_4h:+.2f} "
-            f"vol1m={c.vol_spike_1m:.2f} imb={c.imbalance:+.2f} → {bias}"
+            f"{rank:02d} {c.symbol:12} "
+            f"price={c.price:.8g} "
+            f"vol24h={c.volume_usd:,.0f} "
+            f"spread={c.spread_bps:.2f}bps "
+            f"score={c.score:.4f} "
+            f"quality={c.quality:.4f} "
+            f"1m={c.trend_1m:+.3f} "
+            f"15m={c.trend_15m:+.2f} "
+            f"1h={c.trend_1h:+.2f} "
+            f"4h={c.trend_4h:+.2f} "
+            f"vol1m={c.vol_spike_1m:.2f} "
+            f"imb={c.imbalance:+.2f} → {bias}"
         )
     print(f"SCANNER ELAPSED: {time.time() - started:.1f}s")
     print("NEXT GATE: Only these candidates should enter TradingAgents deep analysis.")
     print("NEXT GATE: Ranking is not a trade instruction; BUY/SELL/HOLD/REVIEW remains downstream.")
     print("LIVE TRADING GATE: DISABLED")
-    return 0
+    return 
 
 
 if __name__ == "__main__":
