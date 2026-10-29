@@ -260,7 +260,7 @@ def main() -> int:
     shorts = [c for c in candidates if is_short(c)]
     longs = [c for c in candidates if not is_short(c)]
     mixed: list[Candidate] = []
-    for c in shorts[:2]:
+    for c in shorts[:1]:
         mixed.append(c)
     for c in longs:
         if len(mixed) >= TOP_N:
