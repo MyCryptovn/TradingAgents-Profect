@@ -156,17 +156,16 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     except ModuleNotFoundError:
         def hl_note(ticker: str) -> str:
             return ""
-    try: 
-        from scripts.coinalyze_note import coinalyze_note
-    except Exception:
-        def coinalyze_note(ticker: str) -> str:
-            return ""
     try:
         from scripts.coinglass_note import coinglass_note
     except ModuleNotFoundError:
         def coinglass_note(ticker: str) -> str:
             return ""
-
+    try: 
+        from scripts.coinalyze_note import coinalyze_note
+    except Exception:
+        def coinalyze_note(ticker: str) -> str:
+            return ""
 
     # Overlay the stock-oriented tool names with crypto-native tools before the
     # graph is constructed. This keeps the pinned upstream source intact while
@@ -370,10 +369,10 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: KRAKEN SCANNER + COINGECKO AI MARKET DATA + HYPERLIQUID NOTE + KRAKEN PAPER OUTCOME")
+    print("DATA: KRAKEN SCANNER + COINGECKO AI MARKET DATA + HYPERLIQUID NOTE + COINALYZE NOTE + KRAKEN PAPER OUTCOME")
     print("AI: TRADINGAGENTS")
     print(f"LLM PROVIDER: {provider}")
-    print("CRYPTO DATA MODE: COINGECKO API + YAHOO FINANCE BYPASSED + HL public info for funding/book/candles")
+    print("CRYPTO DATA MODE: COINGECKO API + YAHOO FINANCE BYPASSED + HL public info for funding/book/candles + COINALYZE API")
     print("PAPER BUY/SELL: ENABLED")
     print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
