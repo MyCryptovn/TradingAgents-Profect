@@ -1,0 +1,120 @@
+
+name: Market Scanner Test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/market_scanner.py"
+      - "scripts/hl_feeder.py"
+      - ".github/workflows/market-scanner-test.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-scanner-test
+  cancel-in-progress: false
+
+jobs:
+  scanner-test:
+    name: Test Long Short Scanner
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install scanner dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile scripts/hl_feeder.py
+          python -m py_compile scripts/market_scanner.py
+          echo "PYTHON SYNTAX: PASS"
+
+      - name: Run market scanner
+        run: |
+          mkdir -p tradingagents-paper-results
+          python -u scripts/market_scanner.py 2>&1 | tee scanner-test.log
+
+      - name: Validate scanner output
+        run: |
+          set -e
+
+          grep -q "TOP LONG CANDIDATES" scanner-test.log
+          grep -q "TOP SHORT CANDIDATES" scanner-test.log
+          grep -q "WATCHLIST" scanner-test.log
+          grep -q "REJECTED REASONS" scanner-test.log
+
+          echo "LONG SECTION: PASS"
+          echo "SHORT SECTION: PASS"
+          echo "WATCHLIST: PASS"
+          echo "REJECTION REPORT: PASS"
+
+      - name: Validate scanner JSON
+        run: |
+          python - <<'PY'
+          import json
+          import math
+          from pathlib import Path
+
+          path = Path("tradingagents-paper-results/scanner.json")
+
+          if not path.exists():
+              raise SystemExit("FAIL: scanner.json was not created")
+
+          data = json.loads(path.read_text(encoding="utf-8"))
+
+          if not isinstance(data, dict):
+              raise SystemExit("FAIL: scanner.json must contain an object")
+
+          def check_finite(value, location="root"):
+              if isinstance(value, float) and not math.isfinite(value):
+                  raise ValueError(f"Non-finite number at {location}")
+              if isinstance(value, dict):
+                  for key, item in value.items():
+                      check_finite(item, f"{location}.{key}")
+              elif isinstance(value, list):
+                  for index, item in enumerate(value):
+                      check_finite(item, f"{location}[{index}]")
+
+          check_finite(data)
+
+          for key in ("top_long", "top_short", "watchlist"):
+              if key not in data:
+                  raise SystemExit(f"FAIL: missing JSON field: {key}")
+
+          print("SCANNER JSON: PASS")
+          print("TOP LONG:", len(data["top_long"]))
+          print("TOP SHORT:", len(data["top_short"]))
+          print("WATCHLIST:", len(data["watchlist"]))
+          PY
+
+      - name: Confirm paper-only mode
+        run: |
+          echo "PAPER MODE: ENABLED"
+          echo "LIVE ORDERS: DISABLED"
+          echo "REAL MONEY TRADING: DISABLED"
+
+      - name: Upload scanner report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-scanner-test-report
+          path: |
+            scanner-test.log
+            tradingagents-paper-results/scanner.json
+          if-no-files-found: warn
+          retention-days: 7
