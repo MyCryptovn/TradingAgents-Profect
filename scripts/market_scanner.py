@@ -1,5 +1,3 @@
-
-
 """
 Hyperliquid-first Long/Short Market Scanner.
 
@@ -38,7 +36,7 @@ OUT_DIR = Path("tradingagents-paper-results")
 RESULT_FILE = OUT_DIR / "scanner.json"
 OI_STATE_FILE = OUT_DIR / "hl_oi_snapshots.json"
 
-TOP_N_PER_SIDE = 5
+TOP_N_PER_SIDE = 3
 
 # Lightweight discovery gate.
 MIN_DAY_VOLUME_USD = float(
