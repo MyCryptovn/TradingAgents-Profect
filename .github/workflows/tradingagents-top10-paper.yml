@@ -92,7 +92,7 @@ jobs:
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "v22-2026-10-29"
+          CONFIG_TAG: "v23-2026-10-31"
         run: python scripts/paper_ledger.py record
 
       - name: Score paper ledger
