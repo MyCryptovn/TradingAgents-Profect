@@ -91,27 +91,68 @@ def run_scanner() -> list[str]:
         check=True,
         capture_output=True,
         text=True,
-        timeout=300,
+        timeout=600,
     )
-    lines = proc.stdout.splitlines()
+    print("=== SCANNER STDOUT ===")
     print(proc.stdout)
+    print("=== SCANNER STDERR ===")
+    print(proc.stderr)
+
+    if proc.returncode != 0:
+        raise RuntimeError(f"Scanner failed with code {proc.returncode}")
+
     symbols: list[str] = []
-    in_top = False
-    for line in lines:
-        if line.startswith("TOP ") and "CANDIDATES:" in line:
-            in_top = True
-            continue
-        if in_top and line.startswith("NEXT GATE:"):
-            break
-        if in_top:
-            match = re.match(r"^\s*\d+\s+(\S+)", line)
-            if match:
-                symbols.append(match.group(1))
-                SCAN_INFO[match.group(1)] = line.strip()
+    result_file = Path("tradingagents-paper-results/scanner.json")
+
+    # Ưu tiên đọc file JSON mới từ scanner Hyperliquid
+    if result_file.exists():
+        try:
+            data = json.loads(result_file.read_text(encoding="utf-8"))
+
+            for row in data.get("top_long", []) + data.get("top_short", []):
+                if not row.get("is_native"):
+                    continue
+
+                sym = f"{row['symbol']}/USD"
+                symbols.append(sym)
+
+                long_score = row["scores"]["long_score"]
+                short_score = row["scores"]["short_score"]
+                best_score = max(long_score, short_score)
+
+                SCAN_INFO[sym] = (
+                    f"{sym} "
+                    f"direction={row['scores']['direction']} "
+                    f"score={best_score:.2f} "
+                    f"vol24h=${row['day_volume_usd']:,.0f} "
+                    f"spread={row['quality']['spread_bps']:.2f}bps"
+                )
+        except Exception as e:
+            print(f"Failed to parse scanner.json: {e}")
+
+    # Fallback: parse từ console output (backward compatible)
+    if not symbols:
+        lines = proc.stdout.splitlines()
+        in_top = False
+        for line in lines:
+            if "TOP CANDIDATES:" in line:
+                in_top = True
+                continue
+            if in_top and line.startswith("NEXT GATE:"):
+                break
+            if in_top:
+                match = re.match(r"^\s*\d+\s+(\S+)", line)
+                if match:
+                    sym = match.group(1)
+                    if not sym.endswith("/USD"):
+                        sym = sym + "/USD"
+                    symbols.append(sym)
+                    SCAN_INFO[sym] = line.strip()
+
     if not symbols:
         raise RuntimeError("Scanner produced no Top candidates")
-    return symbols[:TOP_N]
 
+    return symbols[:TOP_N]
 
 def to_crypto_ticker(symbol: str) -> str:
     base = symbol.split("/", 1)[0].upper()
