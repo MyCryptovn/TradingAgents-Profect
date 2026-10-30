@@ -45,9 +45,11 @@ jobs:
           echo "PYTHON SYNTAX: PASS"
 
       - name: Run market scanner
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           mkdir -p tradingagents-paper-results
-          python -u scripts/market_scanner.py 2>&1 | tee scanner-test.log
+          python -m scripts.market_scanner 2>&1 | tee scanner-test.log
 
       - name: Validate scanner output
         run: |
