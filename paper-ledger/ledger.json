@@ -7994,6 +7994,48 @@
    "spread": 0.00020220402386000435,
    "scan": "03 PEPE/USD     price=$4.923e-06 vol24h=$13,886,941 spread=8.12bps mtf_score=0.4931 quality=0.8594 trend15m=+0.31 trend1h=+0.35 trend4h=+0.75",
    "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "41010116547-AAVE/USD",
+   "symbol": "AAVE/USD",
+   "pair": "AAVEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793339586,
+   "entry": 126.0,
+   "btc0": 78454.4,
+   "status": "open",
+   "spread": 0.0007947230390208561,
+   "scan": "01 AAVE/USD     price=$126.5 vol24h=$7,234,725 spread=0.79bps mtf_score=0.5772 quality=0.8390 trend15m=-0.22 trend1h=-0.80 trend4h=-0.42",
+   "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "41010116547-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793339586,
+   "entry": 92.46,
+   "btc0": 78454.4,
+   "status": "open",
+   "spread": 0.0002162629757785037,
+   "scan": "02 HYPE/USD     price=$93.1 vol24h=$77,886,128 spread=2.15bps mtf_score=0.4317 quality=0.7733 trend15m=+0.05 trend1h=+1.07 trend4h=+0.62",
+   "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "41010116547-KNTQ/USD",
+   "symbol": "KNTQ/USD",
+   "pair": "KNTQUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793339586,
+   "entry": 0.53797,
+   "btc0": 78454.4,
+   "status": "open",
+   "spread": 0.000800156309604744,
+   "scan": "03 KNTQ/USD     price=$0.53767 vol24h=$1,079,887 spread=8.18bps mtf_score=0.3863 quality=0.8164 trend15m=+0.20 trend1h=+0.62 trend4h=+0.92",
+   "cfg": "v22-2026-10-29"
   }
  ]
 }
