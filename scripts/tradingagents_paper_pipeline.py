@@ -5,8 +5,9 @@ and live market context. Kraken remains only the separate paper-outcome evaluato
 The pinned TradingAgents source remains unchanged. BUY=LONG/SELL=SHORT are paper decisions only;
 live orders stay disabled.
 """
-from __future__ import annotations
 
+from pathlib import Path
+import re
 import json
 import math
 import os
@@ -18,7 +19,6 @@ import urllib.parse
 import urllib.request
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from pathlib import Path
 
 # === CẤU HÌNH LỌC ALTCOIN NHỎ ===
 SMALL_ALT_VOLUME_USD = 500_000      # volume 24h dưới mức này coi là alt nhỏ
