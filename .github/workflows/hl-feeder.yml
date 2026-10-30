@@ -1,0 +1,44 @@
+
+name: Hyperliquid Feeder Validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Test New HL Feeder
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check feeder syntax
+        run: |
+          python -m py_compile scripts/hl_feeder.py
+          echo "HL FEEDER SYNTAX: PASS"
+
+      - name: Run new feeder
+        run: |
+          echo "================================"
+          echo "NEW HYPERLIQUID FEEDER TEST"
+          echo "================================"
+          echo "MODE: READ ONLY"
+          echo "LIVE TRADING: DISABLED"
+
+          python -u -m scripts.hl_feeder
+
+      - name: Validation completed
+        if: success()
+        run: |
+          echo "HL FEEDER VALIDATION: PASS"
+          echo "LIVE TRADING: DISABLED"
