@@ -1,299 +1,1063 @@
-"""Broad real-market scanner with multi-timeframe validation.
 
-Stage 1: Kraken AssetPairs + Ticker cheaply builds the liquid USD spot universe.
-Stage 2: the best pre-ranked markets are checked with completed OHLC candles on
-15m, 1h and 4h. Only data-quality-passing markets receive the final score.
-This is a ranking gate, not a trading signal. Live orders are disabled.
+
 """
+Hyperliquid-first Long/Short Market Scanner.
+
+Architecture:
+- Discover the complete available Hyperliquid perp universe first.
+- Apply a lightweight market-data gate.
+- Deep-analyze a bounded, diversified sample.
+- Calculate independent LONG and SHORT scores.
+- Keep quality filtering separate from directional scoring.
+- Export structured JSON and backward-compatible console output.
+
+READ ONLY. NO WALLET. NO LIVE ORDERS.
+"""
+
 from __future__ import annotations
 
 import json
 import math
+import os
 import time
-import urllib.parse
-import urllib.request
-from dataclasses import dataclass
+import tempfile
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
 
-API = "https://api.kraken.com/0/public/"
-TOP_N = 3
-PREFILTER_N = 20
-MIN_VOLUME_USD = 500_000.0
-TIMEFRAMES = (15, 60, 240)
+from scripts.hl_feeder import (
+    discover_perp_markets,
+    compute_market_features,
+)
 
+# ============================================================
+# CONFIGURATION
+# ============================================================
 
-@dataclass
-class Candidate:
-    pair: str
-    symbol: str
-    price: float
-    volume_usd: float
-    spread_bps: float
-    score: float
-    trend_1m: float
-    trend_15m: float
-    trend_1h: float
-    trend_4h: float
-    quality: float
+OUT_DIR = Path("tradingagents-paper-results")
+RESULT_FILE = OUT_DIR / "scanner.json"
+OI_STATE_FILE = OUT_DIR / "hl_oi_snapshots.json"
 
+TOP_N_PER_SIDE = 5
 
-def get_json(path: str, params: dict[str, str] | None = None) -> dict:
-    url = API + path
-    if params:
-        url += "?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"User-Agent": "TradingAgents-Profect/scanner"})
-    with urllib.request.urlopen(req, timeout=30) as response:
-        payload = json.load(response)
-    if payload.get("error"):
-        raise RuntimeError(f"Kraken API error: {payload['error']}")
-    return payload["result"]
+# Lightweight discovery gate.
+MIN_DAY_VOLUME_USD = float(
+    os.getenv("SCANNER_MIN_DAY_VOLUME_USD", "50000")
+)
 
+# Maximum markets receiving full candle + orderbook analysis.
+MAX_DETAILED_MARKETS = int(
+    os.getenv("SCANNER_MAX_DETAILED_MARKETS", "30")
+)
 
-def percentile(values: list[float], value: float) -> float:
-    if len(values) <= 1:
-        return 1.0 if values else 0.0
-    ordered = sorted(values)
-    rank = sum(v <= value for v in ordered) - 1
-    return rank / (len(ordered) - 1)
+# Detailed analysis sample:
+# top liquid markets + a diversified sample of smaller markets.
+TOP_LIQUID_SAMPLE = int(
+    os.getenv("SCANNER_TOP_LIQUID_SAMPLE", "20")
+)
 
+MAX_SPREAD_BPS = float(
+    os.getenv("SCANNER_MAX_SPREAD_BPS", "35")
+)
 
-def normalize_pair(name: str, info: dict) -> tuple[str, str] | None:
-    wsname = str(info.get("wsname") or "")
-    if "/" not in wsname:
-        return None
-    base, quote = wsname.split("/", 1)
-    if quote not in {"USD", "ZUSD"} or base.upper() in {"USDC", "USDT", "DAI", "PYUSD", "USDG", "RLUSD", "TUSD", "FDUSD", "EURC", "EURT", "GBP", "LIGHTER", "EUR", "AUD", "CAD", "CHF", "JPY","US"}:
-        return None
-    status = str(info.get("status") or "online").lower()
-    if status not in {"online", "post_only"}:
-        return None
-    if any(token in base.upper() for token in (".S", ".M", "3L", "3S", "5L", "5S")):
-        return None
-    return name, wsname
+MIN_DEPTH_10BPS_USD = float(
+    os.getenv("SCANNER_MIN_DEPTH_10BPS_USD", "10000")
+)
 
+MIN_QUALITY_SCORE = float(
+    os.getenv("SCANNER_MIN_QUALITY_SCORE", "45")
+)
 
-def ticker_rows() -> list[tuple[str, str, float, float, float, float, float]]:
-    pairs = get_json("AssetPairs")
-    universe = []
-    for name, info in pairs.items():
-        normalized = normalize_pair(name, info)
-        if normalized:
-            universe.append(normalized)
-    tickers = get_json("Ticker")
-    rows = []
-    for pair, wsname in universe:
-        ticker = tickers.get(pair) or tickers.get(pair.replace("X", ""))
-        if not ticker:
-            continue
-        try:
-            ask = float(ticker["a"][0]); bid = float(ticker["b"][0])
-            last = float(ticker["c"][0]); high = float(ticker["h"][1])
-            low = float(ticker["l"][1]); base_volume = float(ticker["v"][1])
-            open_price = float(ticker["o"])
-            if min(ask, bid, last, high, low, base_volume, open_price) <= 0:
-                continue
-            mid = (ask + bid) / 2.0
-            volume_usd = base_volume * mid
-            if volume_usd < MIN_VOLUME_USD:
-                continue
-            spread_bps = max(0.0, (ask - bid) / mid * 10_000.0)
-            if spread_bps > 45.0:
-                continue
-            range_pct = (high - low) / mid
-            change_pct = last / open_price - 1.0
-            rows.append((pair, wsname, last, volume_usd, spread_bps, range_pct, change_pct))
-        except (KeyError, TypeError, ValueError, ZeroDivisionError):
-            continue
-    return rows
+MIN_DIRECTION_SCORE = float(
+    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "60")
+)
 
+MIN_DIRECTION_GAP = float(
+    os.getenv("SCANNER_MIN_DIRECTION_GAP", "6")
+)
 
-def fetch_ohlc(pair: str, interval: int) -> list[list[float]]:
-    result = get_json("OHLC", {"pair": pair, "interval": str(interval)})
-    key = next((k for k in result if k != "last"), None)
-    if not key:
-        return []
-    rows = result[key]
-    # Kraken can return a final still-forming candle. Drop it deliberately.
-    return rows[:-1] if len(rows) > 1 else []
+WATCHLIST_MIN_SCORE = float(
+    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "52")
+)
+
+# Snapshot is useful only if it can be restored between workflow runs.
+OI_MAX_AGE_SECONDS = 24 * 60 * 60
+
+TIMEFRAME_WEIGHTS = {
+    "1m": 0.10,
+    "5m": 0.20,
+    "15m": 0.35,
+    "1h": 0.35,
+}
+
+TIMEFRAME_TREND_SCALES = {
+    "1m": 0.002,
+    "5m": 0.004,
+    "15m": 0.008,
+    "1h": 0.015,
+}
+
+TIMEFRAME_MOMENTUM_SCALES = {
+    "1m": 0.004,
+    "5m": 0.008,
+    "15m": 0.015,
+    "1h": 0.025,
+}
+
+INTERVAL_MS = {
+    "1m": 60_000,
+    "5m": 300_000,
+    "15m": 900_000,
+    "1h": 3_600_000,
+}
+
+# ============================================================
+# GENERAL HELPERS
+# ============================================================
 
 
-def timeframe_features(candles: list[list[float]]) -> tuple[float, float, float] | None:
-    if len(candles) < 60:
-        return None
-    closes = [float(row[4]) for row in candles if float(row[4]) > 0]
-    volumes = [float(row[6]) for row in candles if float(row[6]) >= 0]
-    if len(closes) < 60 or len(volumes) < 60:
-        return None
-    short = sum(closes[-12:]) / 12
-    long = sum(closes[-48:]) / 48
-    trend = short / long - 1.0
-    returns = [math.log(closes[i] / closes[i - 1]) for i in range(1, len(closes))]
-    recent = returns[-24:]
-    if len(recent) < 12:
-        return None
-    vol = math.sqrt(sum(r * r for r in recent) / len(recent))
-    momentum = closes[-1] / closes[-24] - 1.0
-    volume_ratio = (sum(volumes[-12:]) / 12) / max(sum(volumes[-48:]) / 48, 1e-12)
-    normalized_trend = trend / max(vol * math.sqrt(12), 1e-6)
-    return normalized_trend, momentum, volume_ratio
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
-def spike_score(pair: str) -> float:
+def clamp(value: float, low: float = -1.0, high: float = 1.0) -> float:
+    return max(low, min(high, value))
+
+
+def safe_float(value: Any, default: float = 0.0) -> float:
     try:
-        candles = fetch_ohlc(pair, 5)
+        result = float(value)
+        if math.isfinite(result):
+            return result
+    except (TypeError, ValueError):
+        pass
+    return default
+
+
+def normalized(value: float, scale: float) -> float:
+    if scale <= 0:
+        return 0.0
+    return clamp(value / scale)
+
+
+def atomic_json_write(path: Path, payload: Any) -> None:
+    """Avoid leaving partially written JSON files."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    fd, temporary = tempfile.mkstemp(
+        prefix=path.stem + "_",
+        suffix=".tmp",
+        dir=str(path.parent),
+    )
+
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as file:
+            json.dump(
+                payload,
+                file,
+                indent=2,
+                ensure_ascii=False,
+                allow_nan=False,
+            )
+
+        os.replace(temporary, path)
+
     except Exception:
+        try:
+            os.unlink(temporary)
+        except OSError:
+            pass
+        raise
+
+
+def load_oi_state() -> dict:
+    try:
+        data = json.loads(OI_STATE_FILE.read_text(encoding="utf-8"))
+        if isinstance(data, dict):
+            return data
+    except (OSError, ValueError):
+        pass
+    return {}
+
+
+# ============================================================
+# OI SNAPSHOTS
+# ============================================================
+
+
+def calculate_oi_change(
+    market: dict,
+    previous_state: dict,
+    now: float,
+) -> float | None:
+    """
+    Compare current OI with a previous timestamped observation.
+
+    OI change is not invented when history is unavailable.
+    """
+    coin = market["coin"]
+    current = safe_float(market.get("open_interest"))
+
+    if current <= 0:
+        return None
+
+    previous = previous_state.get(coin)
+
+    if not isinstance(previous, dict):
+        return None
+
+    old_value = safe_float(previous.get("open_interest"))
+    old_time = safe_float(previous.get("timestamp"))
+
+    age = now - old_time
+
+    if old_value <= 0:
+        return None
+
+    if age < 60 or age > OI_MAX_AGE_SECONDS:
+        return None
+
+    return current / old_value - 1.0
+
+
+def update_oi_state(
+    markets: list[dict],
+    previous_state: dict,
+    now: float,
+) -> dict:
+    updated = dict(previous_state)
+
+    for market in markets:
+        coin = market["coin"]
+        oi = safe_float(market.get("open_interest"))
+
+        if oi <= 0:
+            continue
+
+        updated[coin] = {
+            "open_interest": oi,
+            "timestamp": now,
+        }
+
+    # Prevent unbounded state growth.
+    cutoff = now - 7 * 24 * 60 * 60
+
+    return {
+        coin: value
+        for coin, value in updated.items()
+        if isinstance(value, dict)
+        and safe_float(value.get("timestamp")) >= cutoff
+    }
+
+
+# ============================================================
+# UNIVERSE AND DEEP-SCAN SELECTION
+# ============================================================
+
+
+def select_deep_scan_markets(
+    markets: list[dict],
+) -> tuple[list[dict], list[dict]]:
+    """
+    Discover all markets first, then select a diversified sample.
+
+    The sample is not limited to only the largest coins.
+    """
+    eligible = []
+    rejected = []
+
+    for market in markets:
+        coin = str(market.get("coin") or "")
+        volume = safe_float(market.get("day_volume_usd"))
+        price = safe_float(market.get("mark_price"))
+
+        reasons = []
+
+        if not coin:
+            reasons.append("MISSING_MARKET_ID")
+
+        if price <= 0:
+            reasons.append("INVALID_MARK_PRICE")
+
+        if volume < MIN_DAY_VOLUME_USD:
+            reasons.append("DAY_VOLUME_BELOW_DISCOVERY_FLOOR")
+
+        if reasons:
+            rejected.append({
+                "coin": coin,
+                "day_volume_usd": volume,
+                "reasons": reasons,
+            })
+            continue
+
+        eligible.append(market)
+
+    eligible.sort(
+        key=lambda x: safe_float(x.get("day_volume_usd")),
+        reverse=True,
+    )
+
+    limit = max(1, MAX_DETAILED_MARKETS)
+    top_count = min(
+        max(1, TOP_LIQUID_SAMPLE),
+        limit,
+        len(eligible),
+    )
+
+    selected = eligible[:top_count]
+    remaining = eligible[top_count:]
+
+    slots = limit - len(selected)
+
+    if slots > 0 and remaining:
+        # Deterministically distribute the remaining slots
+        # across the rest of the eligible volume distribution.
+        if len(remaining) <= slots:
+            selected.extend(remaining)
+        else:
+            indexes = [
+                round(i * (len(remaining) - 1) / max(slots - 1, 1))
+                for i in range(slots)
+            ]
+
+            seen = set()
+
+            for index in indexes:
+                market = remaining[index]
+                coin = market["coin"]
+
+                if coin not in seen:
+                    selected.append(market)
+                    seen.add(coin)
+
+    return selected, rejected
+
+
+# ============================================================
+# DATA QUALITY
+# ============================================================
+
+
+def check_freshness(
+    feature: dict,
+    timeframe: str,
+    now_ms: float,
+) -> bool:
+    close_time = safe_float(feature.get("last_candle_close_time"))
+
+    if close_time <= 0:
+        return False
+
+    max_age = INTERVAL_MS[timeframe] * 3 + 60_000
+
+    return 0 <= now_ms - close_time <= max_age
+
+
+def assess_quality(
+    market: dict,
+    features: dict,
+    now_ms: float,
+) -> dict:
+    reasons = []
+    timeframes = features.get("timeframes", {})
+    book = features.get("book", {})
+
+    # The 5m, 15m and 1h data are mandatory.
+    required = ("5m", "15m", "1h")
+
+    for timeframe in required:
+        row = timeframes.get(timeframe, {})
+
+        if not row.get("valid"):
+            reasons.append(f"MISSING_{timeframe.upper()}_DATA")
+            continue
+
+        if not check_freshness(row, timeframe, now_ms):
+            reasons.append(f"STALE_{timeframe.upper()}_DATA")
+
+    # 1m is important for short-term entries but may be unavailable.
+    one_minute = timeframes.get("1m", {})
+
+    if not one_minute.get("valid"):
+        reasons.append("MISSING_1M_DATA")
+    elif not check_freshness(one_minute, "1m", now_ms):
+        reasons.append("STALE_1M_DATA")
+
+    if not book.get("book_valid"):
+        reasons.append("INVALID_ORDERBOOK")
+
+    spread = book.get("spread_bps")
+
+    if spread is None:
+        reasons.append("MISSING_SPREAD")
+    elif safe_float(spread, 999999) > MAX_SPREAD_BPS:
+        reasons.append("SPREAD_TOO_WIDE")
+
+    depth = safe_float(book.get("depth_10bps_usd"))
+
+    if depth < MIN_DEPTH_10BPS_USD:
+        reasons.append("INSUFFICIENT_10BPS_DEPTH")
+
+    volume = safe_float(market.get("day_volume_usd"))
+
+    # Quality score is separate from Long/Short direction.
+    spread_score = 0.0
+
+    if spread is not None:
+        spread_score = clamp(
+            1.0 - safe_float(spread) / MAX_SPREAD_BPS,
+            0.0,
+            1.0,
+        )
+
+    depth_score = clamp(
+        math.log10(max(depth, 1.0) / MIN_DEPTH_10BPS_USD + 1)
+        / 2.0,
+        0.0,
+        1.0,
+    )
+
+    volume_score = clamp(
+        math.log10(max(volume, 1.0) / MIN_DAY_VOLUME_USD + 1)
+        / 2.0,
+        0.0,
+        1.0,
+    )
+
+    completeness = sum(
+        1 for tf in ("1m", "5m", "15m", "1h")
+        if timeframes.get(tf, {}).get("valid")
+    ) / 4.0
+
+    quality_score = (
+        30.0 * spread_score
+        + 30.0 * depth_score
+        + 20.0 * volume_score
+        + 20.0 * completeness
+    )
+
+    if quality_score < MIN_QUALITY_SCORE:
+        reasons.append("QUALITY_SCORE_TOO_LOW")
+
+    return {
+        "quality_score": round(quality_score, 2),
+        "spread_bps": (
+            round(safe_float(spread), 4)
+            if spread is not None else None
+        ),
+        "depth_10bps_usd": round(depth, 2),
+        "day_volume_usd": round(volume, 2),
+        "data_completeness": round(completeness, 2),
+        "passed": not reasons,
+        "reasons": reasons,
+    }
+
+
+# ============================================================
+# DIRECTIONAL FEATURES
+# ============================================================
+
+
+def timeframe_direction(row: dict, timeframe: str) -> float:
+    """
+    Return a directional value from -1 to +1.
+
+    Positive means bullish pressure.
+    Negative means bearish pressure.
+    """
+    if not row.get("valid"):
         return 0.0
-    if len(candles) < 60:
-        return 0.0
-    vols = [float(r[6]) for r in candles]
-    closes = [float(r[4]) for r in candles]
-    avg_vol = sum(vols[-49:-1]) / 48
-    if avg_vol <= 0:
-        return 0.0
-    if closes[-1] * vols[-1] < 20_000:
-        return 0.0
-    move = closes[-1] / closes[-4] - 1.0
-    if move <= 0:
-        return 0.0
-    return min(vols[-1] / avg_vol, 8.0) / 8.0
+
+    trend = safe_float(row.get("trend"))
+    momentum = safe_float(row.get("momentum_10"))
+
+    trend_signal = normalized(
+        trend,
+        TIMEFRAME_TREND_SCALES[timeframe],
+    )
+
+    momentum_signal = normalized(
+        momentum,
+        TIMEFRAME_MOMENTUM_SCALES[timeframe],
+    )
+
+    return clamp(
+        0.55 * trend_signal + 0.45 * momentum_signal
+    )
+
+
+def directional_composite(features: dict) -> tuple[float, dict]:
+    timeframes = features.get("timeframes", {})
+
+    components = {}
+    total_weight = 0.0
+    composite = 0.0
+
+    for timeframe, weight in TIMEFRAME_WEIGHTS.items():
+        row = timeframes.get(timeframe, {})
+        signal = timeframe_direction(row, timeframe)
+
+        components[timeframe] = round(signal, 4)
+
+        if row.get("valid"):
+            composite += signal * weight
+            total_weight += weight
+
+    if total_weight <= 0:
+        return 0.0, components
+
+    return clamp(composite / total_weight), components
+
+
+# ============================================================
+# LONG AND SHORT SCORING
+# ============================================================
+
+
+def calculate_direction_scores(
+    market: dict,
+    features: dict,
+    oi_change_pct: float | None,
+) -> dict:
+    """
+    Independent directional scoring.
+
+    Neither direction is inferred solely from the opposite score.
+    """
+    composite, timeframe_signals = directional_composite(features)
+
+    timeframes = features.get("timeframes", {})
+    book = features.get("book", {})
+
+    imbalance = clamp(
+        safe_float(book.get("imbalance_usd"))
+    )
+
+    funding = safe_float(market.get("funding"))
+
+    # Positive funding mildly penalizes Long and favors Short.
+    # Negative funding mildly penalizes Short and favors Long.
+    funding_signal = clamp(funding / 0.0005)
+
+    volume_ratios = [
+        safe_float(timeframes.get(tf, {}).get("volume_ratio"))
+        for tf in ("5m", "15m")
+        if timeframes.get(tf, {}).get("valid")
+    ]
+
+    volume_ratio = (
+        sum(volume_ratios) / len(volume_ratios)
+        if volume_ratios else 0.0
+    )
+
+    # Volume confirms a direction only when price direction exists.
+    volume_bonus = min(
+        6.0,
+        max(0.0, (volume_ratio - 1.0) * 3.0),
+    )
+
+    long_score = 50.0 + 32.0 * composite
+    short_score = 50.0 - 32.0 * composite
+
+    long_score += 8.0 * imbalance
+    short_score -= 8.0 * imbalance
+
+    long_score -= 4.0 * funding_signal
+    short_score += 4.0 * funding_signal
+
+    if composite > 0:
+        long_score += volume_bonus
+    elif composite < 0:
+        short_score += volume_bonus
+
+    # Avoid chasing extreme late moves.
+    rsi_5m = safe_float(
+        timeframes.get("5m", {}).get("rsi14"),
+        50.0,
+    )
+
+    rsi_15m = safe_float(
+        timeframes.get("15m", {}).get("rsi14"),
+        50.0,
+    )
+
+    rsi_reference = (rsi_5m + rsi_15m) / 2.0
+
+    if rsi_reference > 82:
+        long_score -= 7.0
+
+    if rsi_reference < 18:
+        short_score -= 7.0
+
+    # OI change is a contextual confirmation, not a standalone signal.
+    oi_confirmation = 0.0
+
+    if oi_change_pct is not None:
+        oi_confirmation = clamp(
+            oi_change_pct / 0.05
+        )
+
+        if composite > 0 and oi_confirmation > 0:
+            long_score += min(3.0, oi_confirmation * 3.0)
+
+        elif composite < 0 and oi_confirmation > 0:
+            short_score += min(3.0, oi_confirmation * 3.0)
+
+    long_score = clamp(long_score, 0.0, 100.0)
+    short_score = clamp(short_score, 0.0, 100.0)
+
+    if (
+        long_score >= MIN_DIRECTION_SCORE
+        and long_score - short_score >= MIN_DIRECTION_GAP
+    ):
+        direction = "LONG"
+
+    elif (
+        short_score >= MIN_DIRECTION_SCORE
+        and short_score - long_score >= MIN_DIRECTION_GAP
+    ):
+        direction = "SHORT"
+
+    else:
+        direction = "WATCH"
+
+    return {
+        "direction": direction,
+        "long_score": round(long_score, 2),
+        "short_score": round(short_score, 2),
+        "direction_gap": round(
+            abs(long_score - short_score), 2
+        ),
+        "directional_composite": round(composite, 4),
+        "timeframe_signals": timeframe_signals,
+        "volume_ratio_confirmation": round(volume_ratio, 4),
+        "rsi_reference": round(rsi_reference, 2),
+        "funding": funding,
+        "oi_change_pct": (
+            round(oi_change_pct * 100, 4)
+            if oi_change_pct is not None else None
+        ),
+        "oi_confirmation": round(oi_confirmation, 4),
+        "orderbook_imbalance": round(imbalance, 4),
+    }
+
+
+# ============================================================
+# CANDIDATE ANALYSIS
+# ============================================================
+
+
+def analyze_market(
+    market: dict,
+    previous_oi: dict,
+    now: float,
+) -> dict:
+    coin = str(market["coin"])
+
+    features = compute_market_features(coin)
+
+    oi_change = calculate_oi_change(
+        market,
+        previous_oi,
+        now,
+    )
+
+    quality = assess_quality(
+        market,
+        features,
+        now * 1000,
+    )
+
+    scores = calculate_direction_scores(
+        market,
+        features,
+        oi_change,
+    )
+
+    row = {
+        "symbol": coin,
+        "dex": market.get("dex") or "native",
+        "is_native": bool(market.get("is_native")),
+        "mark_price": safe_float(market.get("mark_price")),
+        "day_volume_usd": safe_float(
+            market.get("day_volume_usd")
+        ),
+        "open_interest": safe_float(
+            market.get("open_interest")
+        ),
+        "previous_day_price": safe_float(
+            market.get("previous_day_price")
+        ),
+        "funding": safe_float(market.get("funding")),
+        "quality": quality,
+        "scores": scores,
+        "features": features,
+        "analyzed_at": utc_now(),
+    }
+
+    row["passed_quality"] = quality["passed"]
+
+    if not quality["passed"]:
+        row["status"] = "REJECTED"
+        row["rejection_reasons"] = quality["reasons"]
+
+    elif scores["direction"] == "LONG":
+        row["status"] = "LONG_CANDIDATE"
+        row["rejection_reasons"] = []
+
+    elif scores["direction"] == "SHORT":
+        row["status"] = "SHORT_CANDIDATE"
+        row["rejection_reasons"] = []
+
+    elif max(
+        scores["long_score"],
+        scores["short_score"],
+    ) >= WATCHLIST_MIN_SCORE:
+        row["status"] = "WATCHLIST"
+        row["rejection_reasons"] = []
+
+    else:
+        row["status"] = "NO_CLEAR_DIRECTION"
+        row["rejection_reasons"] = [
+            "DIRECTIONAL_SCORE_BELOW_WATCHLIST_THRESHOLD"
+        ]
+
+    return row
+
+
+# ============================================================
+# RANKING AND REPORTING
+# ============================================================
+
+
+def rank_candidates(rows: list[dict]) -> tuple[list, list, list]:
+    valid = [
+        row for row in rows
+        if row.get("passed_quality")
+    ]
+
+    long_rows = [
+        row for row in valid
+        if row["scores"]["direction"] == "LONG"
+    ]
+
+    short_rows = [
+        row for row in valid
+        if row["scores"]["direction"] == "SHORT"
+    ]
+
+    watchlist = [
+        row for row in valid
+        if row["status"] == "WATCHLIST"
+    ]
+
+    long_rows.sort(
+        key=lambda x: (
+            x["scores"]["long_score"],
+            x["quality"]["quality_score"],
+        ),
+        reverse=True,
+    )
+
+    short_rows.sort(
+        key=lambda x: (
+            x["scores"]["short_score"],
+            x["quality"]["quality_score"],
+        ),
+        reverse=True,
+    )
+
+    watchlist.sort(
+        key=lambda x: max(
+            x["scores"]["long_score"],
+            x["scores"]["short_score"],
+        ),
+        reverse=True,
+    )
+
+    return (
+        long_rows[:TOP_N_PER_SIDE],
+        short_rows[:TOP_N_PER_SIDE],
+        watchlist[:20],
+    )
+
+
+def format_candidate_line(rank: int, row: dict, direction: str) -> str:
+    scores = row["scores"]
+    quality = row["quality"]
+
+    score = (
+        scores["long_score"]
+        if direction == "LONG"
+        else scores["short_score"]
+    )
+
+    return (
+        f"{rank:02d} {row['symbol']}/USD "
+        f"direction={direction} "
+        f"score={score:.2f} "
+        f"long_score={scores['long_score']:.2f} "
+        f"short_score={scores['short_score']:.2f} "
+        f"mtf_score={score / 100:.4f} "
+        f"vol24h=${row['day_volume_usd']:,.0f} "
+        f"spread={quality['spread_bps']:.3f} "
+        f"depth10bps=${quality['depth_10bps_usd']:,.0f}"
+    )
+
+
+def print_report(
+    all_rows: list[dict],
+    long_rows: list[dict],
+    short_rows: list[dict],
+    watchlist: list[dict],
+    rejected: list[dict],
+    discovery_count: int,
+    eligible_count: int,
+    detailed_count: int,
+    discovery_rejected: list[dict],
+) -> None:
+    print("\n============================================")
+    print("HYPERLIQUID LONG / SHORT MARKET SCANNER")
+    print("MODE: READ ONLY / PAPER ONLY")
+    print("LIVE TRADING: DISABLED")
+    print("============================================")
+
+    print(f"MARKETS DISCOVERED: {discovery_count}")
+    print(f"MARKETS ABOVE VOLUME FLOOR: {eligible_count}")
+    print(f"MARKETS DEEP ANALYZED: {detailed_count}")
+
+    print(
+        f"QUALITY PASSED: "
+        f"{sum(1 for x in all_rows if x['passed_quality'])}"
+    )
+
+    print(f"REJECTED: {len(rejected) + len(discovery_rejected)}")
+
+    print("\nTOP LONG CANDIDATES:")
+
+    if not long_rows:
+        print("NONE")
+
+    for rank, row in enumerate(long_rows, 1):
+        print(format_candidate_line(rank, row, "LONG"))
+
+    print("\nTOP SHORT CANDIDATES:")
+
+    if not short_rows:
+        print("NONE")
+
+    for rank, row in enumerate(short_rows, 1):
+        print(format_candidate_line(rank, row, "SHORT"))
+
+    print("\nWATCHLIST:")
+
+    for rank, row in enumerate(watchlist, 1):
+        print(
+            f"{rank:02d} {row['symbol']} "
+            f"long={row['scores']['long_score']:.2f} "
+            f"short={row['scores']['short_score']:.2f}"
+        )
+
+    print("\nREJECTED REASONS:")
+
+    for row in (discovery_rejected + rejected)[:40]:
+        print(
+            f"REJECT {row.get('coin', row.get('symbol'))}: "
+            f"{','.join(row.get('reasons', row.get('rejection_reasons', [])))}"
+        )
+
+    # Backward-compatible output for the existing paper pipeline.
+    # Native symbols only: the old CoinGecko ticker adapter does not
+    # yet safely understand DEX-prefixed HIP-3 market identifiers.
+    compatibility = []
+
+    for row in long_rows + short_rows:
+        if row.get("is_native"):
+            compatibility.append(row)
+
+    compatibility.sort(
+        key=lambda x: max(
+            x["scores"]["long_score"],
+            x["scores"]["short_score"],
+        ),
+        reverse=True,
+    )
+
+    compatibility = compatibility[:10]
+
+    print("\nTOP CANDIDATES:")
+
+    if not compatibility:
+        print("NONE")
+
+    for rank, row in enumerate(compatibility, 1):
+        direction = row["scores"]["direction"]
+        print(format_candidate_line(rank, row, direction))
+
+    print("NEXT GATE: TRADINGAGENTS PAPER ANALYSIS")
+
+
+# ============================================================
+# MAIN
+# ============================================================
 
 
 def main() -> int:
     started = time.time()
-    rows = ticker_rows()
-    print(len(rows))
-    if not rows:
-        raise RuntimeError("No qualifying USD spot markets were returned")
+    now = time.time()
 
-    volumes = [math.log1p(r[3]) for r in rows]
-    spreads = [r[4] for r in rows]
-    ranges = [r[5] for r in rows]
-    changes = [r[6] for r in rows]
-    top_change = sorted(rows, key=lambda r: r[6], reverse=True)[:10]
-    print("TOP GAINERS 24H:", [(r[1], round(r[6] * 100, 1), round(r[3])) for r in top_change])
-    pre = []
-    for r in rows:
-        liquidity = percentile(volumes, math.log1p(r[3]))
-        tightness = 1.0 - percentile(spreads, r[4])
-        activity = percentile(ranges, r[5])
-        abs_move = percentile([abs(c) for c in changes], abs(r[6]))
-        score = 0.15 * liquidity + 0.15 * tightness + 0.35 * activity + 0.35 * abs_move
-        pre.append((score, r))
-    pre.sort(key=lambda x: x[0], reverse=True)
-    print("PRE:", [r[1] for _, r in pre[:PREFILTER_N]])
-
-    validated = []
-    failures = 0
-    for _, row in pre[:PREFILTER_N]:
-        pair, wsname, price, volume_usd, spread_bps, _, _ = row
-        features = []
-        failed = False
-        for interval in TIMEFRAMES:
-            try:
-                candles = fetch_ohlc(pair, interval)
-                feature = timeframe_features(candles)
-                if feature is None:
-                    failed = True
-                    break
-                features.append(feature)
-            except Exception:
-                failed = True
-                break
-        if failed:
-            failures += 1
-            continue
-        trends = [f[0] for f in features]
-        momenta = [f[1] for f in features]
-        volume_ratios = [f[2] for f in features]
-        trend_strength = sum(trends) / 3.0
-        momentum_strength = sum(momenta) / 3.0
-        activity_strength = sum(min(max(v, 0.0), 3.0) for v in volume_ratios) / 9.0
-        consistency = 1.0 - min(1.0, (max(trends) - min(trends)) / 3.0)
-        signs = [1 if t > 0 else (-1 if t < 0 else 0) for t in trends]
-        agreement = abs(sum(signs)) / 3.0
-        quality = 0.45 * agreement + 0.30 * consistency + 0.25 * activity_strength
-        validated.append((quality, trend_strength, momentum_strength, row, trends))
-
-    if not validated:
-        raise RuntimeError("No prefiltered markets passed multi-timeframe data-quality validation")
-
-    trend_values = [x[1] for x in validated]
-    momentum_values = [x[2] for x in validated]
-    quality_values = [x[0] for x in validated]
-    candidates = []
-    for quality, trend, momentum, row, trends in validated:
-        pair, wsname, price, volume_usd, spread_bps, _, _ = row
-        liquidity = percentile(volumes, math.log1p(volume_usd))
-        tightness = 1.0 - percentile(spreads, spread_bps)
-        trend_rank = percentile(trend_values, trend)
-        momentum_rank = percentile(momentum_values, momentum)
-        quality_rank = percentile(quality_values, quality)
-        spike = spike_score(pair)
-        # Long: 1h+4h lên dù còn âm, 15m lên, 1m lên theo nhịp bơm trên sàn → tránh đu đỉnh
-        pullback = 1.0 if (trends[1] > 0 and trends[2] > 0 and trends[0] <= 0) else 0.0
-        # Short nhanh: 1m đảo chiều theo tín hiệu xả rõ; 15m xuống theo nến 1m ; 1h không được ngược mạnh lên
-        # Không bắt buộc 4h âm (tránh chậm nhịp bơm-xả)
-        short_bias = 0.0
-        if trends[0] < -0.15 and trends[1] <= 0.10:
-            short_bias = 1.0
-        elif trends[0] < 0 and trends[1] < 0 and trends[2] < 0:
-            short_bias = 1.0  
-        # short cấu trúc đầy đủ (cộng thêm)
-        # Rank theo |trend| để coin giảm mạnh cũng có cửa vào Top
-        abs_trend_rank = percentile([abs(v) for v in trend_values], abs(trend))
-        print(f"SPIKE {pair}: {spike:.2f} quality={quality:.2f} short={short_bias:.0f} pullback={pullback:.0f}")
-        score = (
-            0.10 * liquidity
-            + 0.10 * tightness
-            + 0.12 * abs_trend_rank
-            + 0.12 * momentum_rank
-            + 0.14 * quality_rank
-            + 0.10 * spike
-            + 0.16 * pullback
-            + 0.16 * short_bias)
-        candidates.append(Candidate(pair=pair, symbol=wsname, price=price, volume_usd=volume_usd, spread_bps=spread_bps, score=score, trend_1m=0.05, trend_15m=trends[0], trend_1h=trends[1], trend_4h=trends[2], quality=quality))
-
-    candidates.sort(key=lambda x: x.score, reverse=True)
-
-    def is_short(c: Candidate) -> bool:
-        return (c.trend_15m < -0.15 and c.trend_1h <= 0.10) or (c.trend_15m < 0 and c.trend_1h < 0 and c.trend_4h < 0)
-    shorts = [c for c in candidates if is_short(c)]
-    longs = [c for c in candidates if not is_short(c)]
-    mixed: list[Candidate] = []
-    for c in shorts[:1]:
-        mixed.append(c)
-    for c in longs:
-        if len(mixed) >= TOP_N:
-            break
-        mixed.append(c)
-    # Nếu Top đang có coin tốt để long → thay slot cuối bằng long mạnh nhất
-    if mixed and longs and all(is_short(c) for c in mixed):
-        mixed[-1] = longs[0]
-    if len(mixed) < TOP_N:
-        for c in candidates:
-            if c not in mixed:
-                mixed.append(c)
-            if len(mixed) >= TOP_N:
-                break
-    candidates = mixed
-    
-    print("BROAD REAL-MARKET MULTI-TIMEFRAME SCANNER")
-    print("DATA SOURCE: KRAKEN PUBLIC SPOT MARKET DATA")
-    print("CANDLES: COMPLETED ONLY")
+    print("HYPERLIQUID MARKET DISCOVERY")
+    print("READ ONLY: TRUE")
     print("LIVE ORDERS: DISABLED")
-    print(f"USD SPOT UNIVERSE: {len(rows)} qualifying after broad ticker gate")
-    print(f"MULTI-TIMEFRAME PREFILTER: {min(PREFILTER_N, len(pre))}")
-    print(f"VALIDATION FAILURES: {failures}")
-    print(f"VALIDATED MARKETS: {len(candidates)}")
-    print(f"TOP {min(TOP_N, len(candidates))} CANDIDATES:")
-    for rank, c in enumerate(candidates[:TOP_N], 1):
-        bias = "short" if (c.trend_15m < 0 and c.trend_1h <= 0.05) else "long"
-        print(f"{rank:02d} {c.symbol:12} price=${c.price:,.8g} vol24h=${c.volume_usd:,.0f} "
-              f"spread={c.spread_bps:.2f}bps mtf_score={c.score:.4f} quality={c.quality:.4f} "
-              f"trend15m={c.trend_15m:+.2f} trend1h={c.trend_1h:+.2f} trend4h={c.trend_4h:+.2f}")
-    print(f"SCANNER ELAPSED: {time.time() - started:.1f}s")
-    print("NEXT GATE: Only these candidates should enter TradingAgents deep analysis.")
-    print("NEXT GATE: Ranking is not a trade instruction; BUY/SELL/HOLD/REVIEW remains downstream.")
+
+    try:
+        markets = discover_perp_markets()
+    except Exception as exc:
+        print(
+            f"FATAL DISCOVERY ERROR: "
+            f"{type(exc).__name__}: {exc}"
+        )
+        return 1
+
+    if not markets:
+        print("FATAL: No Hyperliquid perpetual markets discovered")
+        return 1
+
+    # All discovered markets are counted before any selection.
+    selected, discovery_rejected = select_deep_scan_markets(
+        markets
+    )
+
+    eligible_count = len(markets) - len(discovery_rejected)
+
+    print(f"DISCOVERED: {len(markets)}")
+    print(f"ELIGIBLE: {eligible_count}")
+    print(f"DEEP SCAN SAMPLE: {len(selected)}")
+
+    previous_oi = load_oi_state()
+
+    rows = []
+    rejected = []
+
+    for index, market in enumerate(selected, 1):
+        coin = market["coin"]
+
+        print(
+            f"\n[{index}/{len(selected)}] "
+            f"ANALYZING {coin} "
+            f"VOL24H=${safe_float(market.get('day_volume_usd')):,.0f}"
+        )
+
+        try:
+            row = analyze_market(
+                market,
+                previous_oi,
+                now,
+            )
+
+            rows.append(row)
+
+            scores = row["scores"]
+
+            print(
+                f"RESULT {coin}: "
+                f"LONG={scores['long_score']:.2f} "
+                f"SHORT={scores['short_score']:.2f} "
+                f"QUALITY={row['quality']['quality_score']:.2f} "
+                f"STATUS={row['status']}"
+            )
+
+            if not row["passed_quality"]:
+                rejected.append({
+                    "coin": coin,
+                    "reasons": row["quality"]["reasons"],
+                })
+
+        except Exception as exc:
+            message = f"{type(exc).__name__}: {exc}"
+
+            print(f"ANALYSIS ERROR {coin}: {message}")
+
+            rejected.append({
+                "coin": coin,
+                "reasons": ["ANALYSIS_ERROR"],
+                "error": message,
+            })
+
+    long_rows, short_rows, watchlist = rank_candidates(rows)
+
+    updated_oi = update_oi_state(
+        markets,
+        previous_oi,
+        now,
+    )
+
+    # The file is local to the runner. Persist it between workflow
+    # runs using GitHub Actions cache or an artifact restore step.
+    atomic_json_write(OI_STATE_FILE, updated_oi)
+
+    payload = {
+        "schema_version": 1,
+        "scanner": "hyperliquid_long_short",
+        "generated_at": utc_now(),
+        "mode": "READ_ONLY_PAPER",
+        "live_trading_enabled": False,
+        "universe": {
+            "discovered": len(markets),
+            "above_volume_floor": eligible_count,
+            "deep_analyzed": len(selected),
+            "max_deep_scan": MAX_DETAILED_MARKETS,
+            "min_day_volume_usd": MIN_DAY_VOLUME_USD,
+        },
+        "config": {
+            "max_spread_bps": MAX_SPREAD_BPS,
+            "min_depth_10bps_usd": MIN_DEPTH_10BPS_USD,
+            "min_quality_score": MIN_QUALITY_SCORE,
+            "min_direction_score": MIN_DIRECTION_SCORE,
+            "min_direction_gap": MIN_DIRECTION_GAP,
+        },
+        "summary": {
+            "quality_passed": sum(
+                1 for row in rows if row["passed_quality"]
+            ),
+            "long_candidates": len(long_rows),
+            "short_candidates": len(short_rows),
+            "watchlist": len(watchlist),
+            "rejected": len(rejected) + len(discovery_rejected),
+            "analysis_errors": sum(
+                1 for row in rejected
+                if "error" in row
+            ),
+        },
+        "top_long": long_rows,
+        "top_short": short_rows,
+        "watchlist": watchlist,
+        "analyzed_markets": rows,
+        "rejected": rejected,
+        "discovery_rejected": discovery_rejected,
+        "oi_state_file": str(OI_STATE_FILE),
+        "duration_seconds": round(time.time() - started, 2),
+    }
+
+    atomic_json_write(RESULT_FILE, payload)
+
+    print_report(
+        rows,
+        long_rows,
+        short_rows,
+        watchlist,
+        rejected,
+        len(markets),
+        eligible_count,
+        len(selected),
+        discovery_rejected,
+    )
+
+    print(f"\nRESULT FILE: {RESULT_FILE}")
+    print(f"OI STATE FILE: {OI_STATE_FILE}")
+    print(f"DURATION: {time.time() - started:.1f}s")
     print("LIVE TRADING GATE: DISABLED")
+
     return 0
 
 
