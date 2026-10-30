@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from scripts.hl_feeder import (
+from hl_feeder import (
     discover_perp_markets,
     compute_market_features,
 )
