@@ -83,7 +83,7 @@ SHORT_RULES = (
     "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
-    "Avoid chasing when 1m is already strongly extended against the higher timefarm)
+    "Avoid chasing when 1m is already strongly extended against the higher timefarme. ")
 def run_scanner() -> list[str]:
     print(">>> STARTING SCANNER...")
     proc = subprocess.run(
