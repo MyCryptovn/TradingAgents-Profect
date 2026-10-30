@@ -357,16 +357,6 @@ def main() -> int:
 
     candidates = filtered
     
-    # ========== BỘ LỌC ALTCOIN NHỎ (AN TOÀN HƠN) ==========
-    safe_candidates = []
-    for sym in candidates:
-        if is_small_alt(sym):
-            print(f"SMALL ALT detected: {sym} → áp dụng rule chặt hơn")
-            continue
-        safe_candidates.append(sym)
-    candidates = safe_candidates
-    # =====================================================
-    
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
 
