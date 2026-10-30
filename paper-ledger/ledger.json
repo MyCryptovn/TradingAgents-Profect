@@ -8087,6 +8087,48 @@
    "spread": 0.0008184371570469223,
    "scan": "03 KNTQ/USD     price=$0.53797 vol24h=$1,079,053 spread=8.00bps mtf_score=0.4000 quality=0.8164 trend15m=+0.20 trend1h=+0.62 trend4h=+0.92",
    "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "41026233933-TIA/USD",
+   "symbol": "TIA/USD",
+   "pair": "TIAUSD",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793349190,
+   "entry": 0.4638,
+   "btc0": 77938.5,
+   "status": "open",
+   "spread": 0.0006466214031684934,
+   "scan": "01 TIA/USD      price=$0.4638 vol24h=$1,209,015 spread=4.31bps mtf_score=0.5027 quality=0.7472 trend15m=-1.36 trend1h=-1.40 trend4h=-0.26",
+   "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "41026233933-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPEUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793349191,
+   "entry": 91.64,
+   "btc0": 77938.5,
+   "status": "open",
+   "spread": 0.00010911670031103841,
+   "scan": "02 HYPE/USD     price=$91.29 vol24h=$79,169,703 spread=2.19bps mtf_score=0.5537 quality=0.8381 trend15m=+0.57 trend1h=+0.87 trend4h=+0.69",
+   "cfg": "v22-2026-10-29"
+  },
+  {
+   "id": "41026233933-KNTQ/USD",
+   "symbol": "KNTQ/USD",
+   "pair": "KNTQUSD",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793349191,
+   "entry": 0.56711,
+   "btc0": 77938.5,
+   "status": "open",
+   "spread": 0.00021161781822031005,
+   "scan": "03 KNTQ/USD     price=$0.56372 vol24h=$1,208,476 spread=0.18bps mtf_score=0.4931 quality=0.7846 trend15m=+1.64 trend1h=+0.58 trend4h=+0.93",
+   "cfg": "v22-2026-10-29"
   }
  ]
 }

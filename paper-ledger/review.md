@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-30 06:01 UTC**
+- Thời điểm: **2026-10-30 08:33 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **30** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **1** |
 | Win rate | **30.0%** |
 | PnL trung bình / lệnh | **-0.728%** |
 | Tổng PnL | **-21.85%** |
@@ -60,6 +60,12 @@
 | XCN/USD | BUY | -4.12 | SL |
 | XDG/USD | SELL | -1.87 | TIME |
 | USELESS/USD | BUY | -3.85 | SL |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| TIA/USD | BUY | 0.4638 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
