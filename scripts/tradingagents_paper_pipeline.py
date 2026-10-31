@@ -84,56 +84,171 @@ SHORT_RULES = (
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
     "Avoid chasing when 1m is already strongly extended against the higher timefarme. ")
+
 def run_scanner() -> list[str]:
     print(">>> STARTING SCANNER...")
+
     proc = subprocess.run(
-        [sys.executable, "-m", "scripts.market_scanner"],
+        [sys.executable, "-u", "-m", "scripts.market_scanner"],
         capture_output=True,
         text=True,
         timeout=1800,
     )
 
     print("=== SCANNER STDOUT ===")
-    print(proc.stdout[-5000:] if proc.stdout else "No stdout")
+    print(proc.stdout[-8000:] if proc.stdout else "No stdout")
+
     print("=== SCANNER STDERR ===")
-    print(proc.stderr[-5000:] if proc.stderr else "No stderr")
+    print(proc.stderr[-8000:] if proc.stderr else "No stderr")
+
     print(f"=== RETURN CODE: {proc.returncode} ===")
 
     if proc.returncode != 0:
-        raise RuntimeError(f"Scanner failed with code {proc.returncode}")
+        raise RuntimeError(
+            f"Market scanner failed with code {proc.returncode}"
+        )
 
-    symbols: list[str] = []
-    result_file = Path("tradingagents-paper-results/scanner.json")
+    result_file = Path(
+        "tradingagents-paper-results/scanner.json"
+    )
 
-    if result_file.exists():
+    if not result_file.exists():
+        raise RuntimeError(
+            "Scanner did not create scanner.json"
+        )
+
+    try:
+        data = json.loads(
+            result_file.read_text(encoding="utf-8")
+        )
+    except Exception as e:
+        raise RuntimeError(
+            f"Cannot read scanner.json: {e}"
+        ) from e
+
+    if not isinstance(data, dict):
+        raise RuntimeError(
+            "scanner.json must contain a JSON object"
+        )
+
+    top_long = data.get("top_long", [])
+    top_short = data.get("top_short", [])
+
+    if not isinstance(top_long, list):
+        raise RuntimeError("top_long must be a list")
+
+    if not isinstance(top_short, list):
+        raise RuntimeError("top_short must be a list")
+
+    print(
+        "Scanner JSON loaded. "
+        f"Long={len(top_long)}, Short={len(top_short)}"
+    )
+
+    output_lines = (proc.stdout or "").splitlines()
+
+    symbols = []
+    seen = set()
+
+    for row in top_long + top_short:
+        if not isinstance(row, dict):
+            continue
+
+        raw_symbol = row.get("symbol")
+
+        if not isinstance(raw_symbol, str) or not raw_symbol.strip():
+            print(f"SKIP invalid scanner row: {row}")
+            continue
+
+        raw_symbol = raw_symbol.strip()
+
+        if raw_symbol.endswith("/USD"):
+            sym = raw_symbol
+        else:
+            sym = f"{raw_symbol}/USD"
+
+        if sym in seen:
+            continue
+
+        scores = row.get("scores", {})
+
+        if not isinstance(scores, dict):
+            raise RuntimeError(
+                f"Invalid scores structure for {sym}"
+            )
+
+        direction = scores.get("direction", "UNKNOWN")
+
         try:
-            data = json.loads(result_file.read_text(encoding="utf-8"))
-            print(f"Loaded scanner.json successfully, keys: {list(data.keys())}")
+            long_score = float(scores["long_score"])
+            short_score = float(scores["short_score"])
+        except (KeyError, TypeError, ValueError) as e:
+            raise RuntimeError(
+                f"Missing or invalid Long/Short scores for {sym}: {e}"
+            ) from e
 
-            for row in data.get("top_long", []) + data.get("top_short", []):
-                if not row.get("is_native", True):
-                    continue
-                sym = f"{row['symbol']}/USD"
-                symbols.append(sym)
-                best = max(row["scores"]["long_score"], row["scores"]["short_score"])
-                SCAN_INFO[sym] = f"{sym} direction={row['scores']['direction']} score={best:.1f}"
-        except Exception as e:
-            print(f"Error reading scanner.json: {e}")
+        # Lấy nguyên dòng kết quả của scanner.
+        # Dòng này chứa mtf_score, vol24h, spread,
+        # depth10bps và các thông tin lọc khác.
+        pattern = re.compile(
+            rf"^\s*\d+\s+{re.escape(sym)}\s+",
+            re.IGNORECASE,
+        )
+
+        scanner_line = next(
+            (
+                line.strip()
+                for line in output_lines
+                if pattern.search(line)
+            ),
+            None,
+        )
+
+        if scanner_line is None:
+            raise RuntimeError(
+                f"Cannot find complete scanner output line for {sym}. "
+                "Check TOP CANDIDATES output format."
+            )
+
+        # Không cho phép pipeline âm thầm nhận mtf_score = 0.
+        if "mtf_score=" not in scanner_line:
+            raise RuntimeError(
+                f"Scanner output for {sym} is missing mtf_score"
+            )
+
+        if "spread=" not in scanner_line:
+            raise RuntimeError(
+                f"Scanner output for {sym} is missing spread"
+            )
+
+        if "vol24h=" not in scanner_line:
+            raise RuntimeError(
+                f"Scanner output for {sym} is missing vol24h"
+            )
+
+        SCAN_INFO[sym] = scanner_line
+
+        seen.add(sym)
+        symbols.append(sym)
+
+        print(
+            f"SCANNER HANDOFF: {sym} "
+            f"direction={direction} "
+            f"long_score={long_score:.2f} "
+            f"short_score={short_score:.2f}"
+        )
+
+        print(f"SCAN INFO: {SCAN_INFO[sym]}")
 
     if not symbols:
-        # Fallback rất đơn giản
-        for line in (proc.stdout or "").splitlines():
-            if "TOP CANDIDATES:" in line:
-                continue
-            match = re.match(r"^\s*\d+\s+(\S+)", line)
-            if match:
-                symbols.append(match.group(1))
+        raise RuntimeError(
+            "Scanner produced no valid Top candidates"
+        )
 
-    print(f"Final symbols from scanner: {symbols}")
-    if not symbols:
-        raise RuntimeError("Scanner produced no Top candidates")
+    print(f"FINAL SCANNER SYMBOLS: {symbols}")
 
-    return symbols[:TOP_N]      
+    return symbols[:TOP_N]
+
 
     
 def to_crypto_ticker(symbol: str) -> str:
