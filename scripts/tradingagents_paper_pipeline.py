@@ -30,6 +30,7 @@ OUT_DIR = Path("tradingagents-paper-results")
 KRAKEN_API = "https://api.kraken.com/0/public/"
 INTERVAL_MINUTES = 60
 INTERVAL_SECONDS = INTERVAL_MINUTES * 60
+HYPER_API = "https://api.hyperliquid.xyz/info"
 
 
 @dataclass
@@ -59,6 +60,28 @@ def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
         raise RuntimeError(f"Kraken API error: {payload['error']}")
     return payload["result"]
 
+
+def hyper_post(body: dict):
+    req = urllib.request.Request(
+        HYPER_API,
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json", "User-Agent": "TradingAgents/1.0"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as response:
+        return json.load(response)
+
+
+def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
+    ms = {"5m": 300000, "15m": 900000, "1h": 3600000, "4h": 14400000, "1d": 86400000}[interval]
+    end = int(time.time() * 1000)
+    start = end - count * ms
+    rows = hyper_post({"type": "candleSnapshot", "req": {"coin": coin, "interval": interval, "startTime": start, "endTime": end}})
+    return [
+        {"time": r["t"], "open": float(r["o"]), "high": float(r["h"]),
+         "low": float(r["l"]), "close": float(r["c"]), "volume": float(r["v"])}
+        for r in rows
+    ]
+    
 SCAN_INFO = {}
 REASONS = {}
 SHORT_NOTE = (
@@ -70,7 +93,7 @@ SHORT_NOTE = (
 SHORT_RULES = (
     " POSITION MODEL: Perpetual / paper futures. BUY = LONG, SELL = SHORT, HOLD = flat. "
     "ENTRY BUY (LONG) if at least 3 of 4 are true: "
-    "(1) RSI14 on 5m or 15m below < 72, "
+    "(1) RSI14 on 5m or 15m below 72, "
     "(2) trend15 from scanner above 0 OR trend1h above 0, "
     "(3) taker buy share at least 52 percent, "
     "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
@@ -79,11 +102,11 @@ SHORT_RULES = (
     "ENTRY SELL (SHORT) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m above 28, "
     "(2) trend15 below 0 OR trend1h below 0, "
-    "(3) taker buy share at most => 52 percent, "
+    "(3) taker buy share"
     "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
-    "Avoid chasing when 1m is already strongly extended against the higher timefarme. ")
+    " Avoid chasing when 1m is already strongly extended against the higher timeframe. ")
 
 def run_scanner() -> list[str]:
     print(">>> STARTING SCANNER...")
@@ -369,12 +392,10 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
 
 def completed_ohlc(pair: str) -> list[list[float]]:
-    result = kraken_json("OHLC", {"pair": pair, "interval": str(INTERVAL_MINUTES)})
-    key = next((k for k in result if k != "last"), None)
-    if not key:
-        return []
-    rows = result[key]
-    return rows[:-1] if len(rows) > 1 else []
+    coin = pair.split("-")[0]
+    rows = hyper_candles(coin, "1h", 200)
+    out = [[r["time"] / 1000, r["open"], r["high"], r["low"], r["close"], r["volume"]] for r in rows]
+    return out[:-1] if len(out) > 1 else []
 
 
 def first_future_candle(pair: str, analyzed_at: str) -> list[float] | None:
@@ -466,7 +487,7 @@ def main() -> int:
     MAX_SPREAD_BPS = 45.0
 
     filtered: list[str] = []
-    for sym in candidates:
+sầààaqwasq    for sym in candidates:
         # 1) Giới hạn số lệnh mở — vẫn cho phân tích lệnh đang mở
         if len(open_syms) >= MAX_OPEN_POSITIONS and sym not in open_syms:
             print(f"SKIP {sym}: max open positions ({MAX_OPEN_POSITIONS})")
