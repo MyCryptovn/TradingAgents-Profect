@@ -19,6 +19,7 @@ import urllib.error
 from typing import Any
 
 INFO_URL = "https://api.hyperliquid.xyz/info"
+SNAPSHOT_FILE = "tradingagents-paper-results/hl_oi_snapshots.json"
 USER_AGENT = "TradingAgents-Profect/market-feeder"
 
 # Cache lifetime in seconds.
@@ -511,14 +512,10 @@ def candle_features(candles: list[dict]) -> dict:
         "last_candle_time": candles[-1]["time"],
         "last_candle_close_time": candles[-1]["close_time"],
     }
-
-
 def compute_market_features(coin: str) -> dict:
     """
-    Fetch multi-timeframe features and L2 book for one market.
-
-    OI change is deliberately not invented here. It requires comparison
-    against a timestamped previous snapshot maintained by the scanner.
+    Lấy dữ liệu đa timeframe (closed + forming) và order book,
+    sau đó tính toàn bộ feature cho một coin.
     """
     intervals = {
         "1m": 180,
@@ -531,70 +528,104 @@ def compute_market_features(coin: str) -> dict:
         "coin": coin,
         "fetched_at": time.time(),
         "timeframes": {},
+        "live": {},
         "book": {},
         "errors": [],
     }
 
+    # --- Multi-timeframe candles ---
     for interval, lookback in intervals.items():
         try:
-            candles = get_candles(coin, interval, lookback)
-            result["timeframes"][interval] = candle_features(candles)
-        except Exception as exc:
-            result["timeframes"][interval] = {
-                "valid": False,
-                "error": f"{type(exc).__name__}: {exc}",
-            }
-            result["errors"].append(f"{interval}: {exc}")
+            candles = get_candles(
+                coin=coin,
+                interval=interval,
+                lookback_minutes=lookback,
+                include_forming=True,
+            )
+            closed = [c for c in candles if c.get("is_closed", True)]
 
+            result["timeframes"][interval] = candle_features(closed)
+            result["live"][interval] = forming_candle_features(candles, closed)
+
+        except Exception as exc:
+            msg = f"{type(exc).__name__}: {exc}"
+            result["timeframes"][interval] = {"valid": False, "error": msg}
+            result["live"][interval] = {"available": False, "error": msg}
+            result["errors"].append(f"{interval}: {msg}")
+
+    # --- Order book features ---
     try:
         result["book"] = orderbook_features(coin)
     except Exception as exc:
-        result["book"] = {
-            "book_valid": False,
-            "error": f"{type(exc).__name__}: {exc}",
-        }
-        result["errors"].append(f"book: {exc}")
+        msg = f"{type(exc).__name__}: {exc}"
+        result["book"] = {"book_valid": False, "error": msg}
+        result["errors"].append(f"book: {msg}")
 
     return result
 
-
 def compute_1m_features(coin: str) -> dict | None:
     """
-    Backward-compatible interface for existing code.
-
-    Existing imports of compute_1m_features(coin) will continue to work.
+    Lấy dữ liệu 1m đầy đủ: nến đóng + nến đang chạy + order book.
+    Phục vụ phát hiện bơm xả và áp lực ngắn hạn.
     """
     try:
-        candles = get_candles(coin, "1m", 180)
-        features = candle_features(candles)
+        # Lấy cả nến đóng và nến đang chạy
+        candles = get_candles(
+            coin=coin,
+            interval="1m",
+            lookback_minutes=180,
+            include_forming=True,
+        )
+
+        closed = [c for c in candles if c.get("is_closed", True)]
+        features = candle_features(closed)
 
         if not features.get("valid"):
             return None
 
+        # Áp lực nến đang chạy (bơm / xả)
+        live = forming_candle_features(candles, closed)
+
+        # Order book
         book = orderbook_features(coin)
 
         return {
+            # === Closed candle features ===
             "trend_1m": features["trend"],
             "momentum_1m": features["momentum_10"],
-            "vol_spike_1m": min(
-                features["volume_ratio"] / 5, 1.0
-            ),
+            "vol_spike_1m": min(features["volume_ratio"] / 5, 1.0),
             "volume_ratio_1m": features["volume_ratio"],
             "rsi_1m": features["rsi14"],
-            "imbalance": book.get("imbalance_usd", 0.0),
-            "funding": 0.0,
-            "open_interest": 0.0,
             "last_price": features["last_price"],
+
+            # === Forming candle (bơm xả realtime) ===
+            "forming_available": live.get("available", False),
+            "forming_elapsed_fraction": live.get("elapsed_fraction"),
+            "forming_move_pct": live.get("move_pct"),
+            "forming_range_pct": live.get("range_pct"),
+            "forming_volume_so_far": live.get("volume_so_far"),
+            "forming_projected_volume": live.get("projected_volume"),
+            "forming_projected_volume_ratio": live.get("projected_volume_ratio"),
+            "forming_signal_reliable": live.get("signal_reliable", False),
+            "forming_trades": live.get("trades"),
+
+            # === Order book (bơm xả từ sổ lệnh) ===
+            "imbalance": book.get("imbalance_usd", 0.0),
             "spread_bps": book.get("spread_bps"),
             "bid_depth_usd": book.get("bid_depth_usd", 0.0),
             "ask_depth_usd": book.get("ask_depth_usd", 0.0),
+            "depth_10bps_usd": book.get("depth_10bps_usd", 0.0),
+            "depth_25bps_usd": book.get("depth_25bps_usd", 0.0),
             "book_valid": book.get("book_valid", False),
+
+            # Giữ tương thích cũ
+            "funding": 0.0,
+            "open_interest": 0.0,
         }
 
     except Exception as exc:
         print(f"HL FEATURE ERROR {coin}: {type(exc).__name__}: {exc}")
         return None
-
 
 if __name__ == "__main__":
     print("HYPERLIQUID READ-ONLY FEEDER TEST")
