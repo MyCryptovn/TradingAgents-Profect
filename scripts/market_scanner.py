@@ -36,7 +36,7 @@ OUT_DIR = Path("tradingagents-paper-results")
 RESULT_FILE = OUT_DIR / "scanner.json"
 OI_STATE_FILE = OUT_DIR / "hl_oi_snapshots.json"
 
-TOP_N_PER_SIDE = 3
+TOP_N_PER_SIDE = 5
 
 # Lightweight discovery gate.
 MIN_DAY_VOLUME_USD = float(
@@ -45,13 +45,13 @@ MIN_DAY_VOLUME_USD = float(
 
 # Maximum markets receiving full candle + orderbook analysis.
 MAX_DETAILED_MARKETS = int(
-    os.getenv("SCANNER_MAX_DETAILED_MARKETS", "12")
+    os.getenv("SCANNER_MAX_DETAILED_MARKETS", "18")
 )
 
 # Detailed analysis sample:
 # top liquid markets + a diversified sample of smaller markets.
 TOP_LIQUID_SAMPLE = int(
-    os.getenv("SCANNER_TOP_LIQUID_SAMPLE", "8")
+    os.getenv("SCANNER_TOP_LIQUID_SAMPLE", "12")
 )
 
 MAX_SPREAD_BPS = float(
@@ -63,19 +63,19 @@ MIN_DEPTH_10BPS_USD = float(
 )
 
 MIN_QUALITY_SCORE = float(
-    os.getenv("SCANNER_MIN_QUALITY_SCORE", "45")
+    os.getenv("SCANNER_MIN_QUALITY_SCORE", "38")
 )
 
 MIN_DIRECTION_SCORE = float(
-    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "60")
+    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "52")
 )
 
 MIN_DIRECTION_GAP = float(
-    os.getenv("SCANNER_MIN_DIRECTION_GAP", "6")
+    os.getenv("SCANNER_MIN_DIRECTION_GAP", "4")
 )
 
 WATCHLIST_MIN_SCORE = float(
-    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "52")
+    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "48")
 )
 
 # Snapshot is useful only if it can be restored between workflow runs.
