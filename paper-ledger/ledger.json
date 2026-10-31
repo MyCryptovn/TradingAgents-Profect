@@ -8086,10 +8086,13 @@
    "t0": 1793340078,
    "entry": 11.03451,
    "btc0": 78351.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005447518156124261,
    "scan": "01 LINK/USD     price=$11.08734 vol24h=$12,904,382 spread=4.87bps mtf_score=0.5978 quality=0.8407 trend15m=-0.16 trend1h=-0.74 trend4h=-0.09",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 11.41134,
+   "t1": 1793426478.0,
+   "move_pct": 3.415
   },
   {
    "id": "41010899191-HYPE/USD",
@@ -8100,10 +8103,13 @@
    "t0": 1793340078,
    "entry": 92.35,
    "btc0": 78351.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00021684918139429712,
    "scan": "02 HYPE/USD     price=$92.38 vol24h=$77,344,042 spread=2.16bps mtf_score=0.4394 quality=0.7733 trend15m=+0.05 trend1h=+1.07 trend4h=+0.62",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 88.02,
+   "t1": 1793426478.0,
+   "move_pct": -4.689
   },
   {
    "id": "41010899191-KNTQ/USD",
@@ -8114,10 +8120,13 @@
    "t0": 1793340079,
    "entry": 0.53797,
    "btc0": 78351.6,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0008184371570469223,
    "scan": "03 KNTQ/USD     price=$0.53797 vol24h=$1,079,053 spread=8.00bps mtf_score=0.4000 quality=0.8164 trend15m=+0.20 trend1h=+0.62 trend4h=+0.92",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 0.51727,
+   "t1": 1793426479.0,
+   "move_pct": -3.848
   },
   {
    "id": "41026233933-TIA/USD",
@@ -8136,7 +8145,8 @@
    "t1": 1793368800,
    "reason": "SL",
    "pnl_pct": -3.685,
-   "mfe_pct": 1.358
+   "mfe_pct": 1.358,
+   "trail_pnl_pct": -2.367
   },
   {
    "id": "41026233933-HYPE/USD",
@@ -8147,10 +8157,13 @@
    "t0": 1793349191,
    "entry": 91.64,
    "btc0": 77938.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00010911670031103841,
    "scan": "02 HYPE/USD     price=$91.29 vol24h=$79,169,703 spread=2.19bps mtf_score=0.5537 quality=0.8381 trend15m=+0.57 trend1h=+0.87 trend4h=+0.69",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 86.44,
+   "t1": 1793435591.0,
+   "move_pct": -5.674
   },
   {
    "id": "41026233933-KNTQ/USD",
@@ -8161,10 +8174,13 @@
    "t0": 1793349191,
    "entry": 0.56711,
    "btc0": 77938.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00021161781822031005,
    "scan": "03 KNTQ/USD     price=$0.56372 vol24h=$1,208,476 spread=0.18bps mtf_score=0.4931 quality=0.7846 trend15m=+1.64 trend1h=+0.58 trend4h=+0.93",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 0.50038,
+   "t1": 1793435591.0,
+   "move_pct": -11.767
   }
  ]
 }
