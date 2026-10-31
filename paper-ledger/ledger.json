@@ -8233,10 +8233,15 @@
    "t0": 1793458250,
    "entry": 77407.0,
    "btc0": 77407.0,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2918736625822458e-06,
    "scan": "02 BTC/USD direction=SHORT score=52.91 long_score=47.09 short_score=52.91 mtf_score=0.5291 vol24h=$1,967,381,704 spread=0.129 depth10bps=$7,718,411",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 77533.5,
+   "t1": 1793467136,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -0.784,
+   "watch": "pnl=-0.78% give=0.4% flow=86%/393 5m=True 1m=False rsi=69 hits=3"
   }
  ]
 }
