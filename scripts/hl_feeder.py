@@ -510,66 +510,78 @@ def candle_features(candles: list[dict]) -> dict:
         "volume_ratio": volume_ratio,
         "rsi14": rsi,
         "last_candle_time": candles[-1]["time"],
-        "last_candle_close_time": candles[-1]["close_time"],
-    }
-def compute_market_features(coin: str) -> dict:
-    """
-    Lấy dữ liệu đa timeframe (closed + forming) và order book,
-    sau đó tính toàn bộ feature cho một coin.
-    """
-    intervals = {
-        "1m": 180,
-        "5m": 600,
-        "15m": 1800,
-        "1h": 7200,
-    }
+        "last_candle_close_time": candles[-1]["close"]
 
-    result = {
-        "coin": coin,
-        "fetched_at": time.time(),
-        "timeframes": {},
-        "live": {},
-        "book": {},
-        "errors": [],
-    }
 
-    # --- Multi-timeframe candles ---
-    for interval, lookback in intervals.items():
+# ====================== BỘ LỌC CHẤT LƯỢNG COIN ======================
+MIN_DAY_VOLUME_USD = 800_000          # Volume 24h tối thiểu
+MIN_OPEN_INTEREST = 150_000           # Open Interest tối thiểu
+MIN_MARK_PRICE = 0.05                 # Tránh coin giá quá thấp
+MAX_SPREAD_BPS_ALLOWED = 12           # Spread tối đa cho phép (dùng ở compute)
+
+
+def discover_perp_markets(min_volume: float = MIN_DAY_VOLUME_USD,
+                          min_oi: float = MIN_OPEN_INTEREST,
+                          min_price: float = MIN_MARK_PRICE) -> list[dict]:
+    """
+    Khám phá market và chỉ giữ lại những coin đủ chất lượng.
+    Tránh đưa coin yếu / thanh khoản kém vào hội đồng.
+    """
+    markets = []
+    errors = []
+
+    for dex in get_dex_names():
         try:
-            candles = get_candles(
-                coin=coin,
-                interval=interval,
-                lookback_minutes=lookback,
-                include_forming=True,
-            )
-            closed = [c for c in candles if c.get("is_closed", True)]
-
-            result["timeframes"][interval] = candle_features(closed)
-            result["live"][interval] = forming_candle_features(candles, closed)
-
+            result = get_dex_markets(dex)
+            markets.extend(result["markets"])
         except Exception as exc:
-            msg = f"{type(exc).__name__}: {exc}"
-            result["timeframes"][interval] = {"valid": False, "error": msg}
-            result["live"][interval] = {"available": False, "error": msg}
-            result["errors"].append(f"{interval}: {msg}")
+            label = dex or "native"
+            errors.append(f"{label}: {type(exc).__name__}: {exc}")
 
-    # --- Order book features ---
-    try:
-        result["book"] = orderbook_features(coin)
-    except Exception as exc:
-        msg = f"{type(exc).__name__}: {exc}"
-        result["book"] = {"book_valid": False, "error": msg}
-        result["errors"].append(f"book: {msg}")
+    if errors:
+        print("HYPERLIQUID DEX DISCOVERY WARNINGS:")
+        for error in errors:
+            print(f"  - {error}")
 
-    return result
+    # Lọc chất lượng
+    filtered = []
+    for m in markets:
+        volume = m.get("day_volume_usd", 0) or 0
+        oi = m.get("open_interest", 0) or 0
+        price = m.get("mark_price", 0) or 0
+
+        if volume < min_volume:
+            continue
+        if oi < min_oi:
+            continue
+        if price < min_price:
+            continue
+
+        # Ưu tiên native hơn một chút (có thể bỏ nếu muốn)
+        m["quality_score"] = (
+            (volume / 1_000_000) * 0.6 +
+            (oi / 1_000_000) * 0.3 +
+            (1.0 if m.get("is_native") else 0.7) * 0.1
+        )
+        filtered.append(m)
+
+    # Sắp xếp theo chất lượng giảm dần
+    filtered.sort(key=lambda x: x["quality_score"], reverse=True)
+
+    # Loại trùng tên
+    unique = {}
+    for market in filtered:
+        unique[market["coin"]] = market
+
+    return list(unique.values())
+
 
 def compute_1m_features(coin: str) -> dict | None:
     """
-    Lấy dữ liệu 1m đầy đủ: nến đóng + nến đang chạy + order book.
-    Phục vụ phát hiện bơm xả và áp lực ngắn hạn.
+    Lấy dữ liệu 1m quan trọng nhất + điểm bơm xả.
+    Tự động loại bỏ hoặc phạt nặng các coin yếu / thanh khoản kém.
     """
     try:
-        # Lấy cả nến đóng và nến đang chạy
         candles = get_candles(
             coin=coin,
             interval="1m",
@@ -583,44 +595,89 @@ def compute_1m_features(coin: str) -> dict | None:
         if not features.get("valid"):
             return None
 
-        # Áp lực nến đang chạy (bơm / xả)
         live = forming_candle_features(candles, closed)
-
-        # Order book
         book = orderbook_features(coin)
 
+        # ---------- Kiểm tra chất lượng cứng ----------
+        if not book.get("book_valid", False):
+            return None
+
+        spread = book.get("spread_bps")
+        if spread is None or spread > MAX_SPREAD_BPS_ALLOWED:
+            return None
+
+        depth_10 = book.get("depth_10bps_usd", 0) or 0
+        if depth_10 < 15_000:          # Depth quá mỏng thì loại
+            return None
+
+        # ---------- Tính điểm bơm xả ----------
+        vol_ratio = live.get("projected_volume_ratio") or features.get("volume_ratio", 1.0)
+        move_pct = live.get("move_pct") or 0.0
+        imbalance = book.get("imbalance_usd", 0.0)
+        vol_spike = min(features.get("volume_ratio", 1.0) / 3.0, 1.5)
+        reliable = live.get("signal_reliable", False)
+
+        score = 0.0
+
+        # Volume dự kiến nến đang chạy
+        if reliable and vol_ratio is not None:
+            vol_component = max(min((vol_ratio - 1.0) / 2.0, 1.0), -1.0)
+            score += vol_component * 0.40
+
+        # Biên độ giá nến đang chạy
+        move_component = max(min(move_pct * 25, 1.0), -1.0)
+        score += move_component * 0.25
+
+        # Order book imbalance
+        score += max(min(imbalance * 1.5, 1.0), -1.0) * 0.25
+
+        # Volume spike nến đóng
+        spike_component = max(min((vol_spike - 1.0) / 1.5, 1.0), -1.0)
+        score += spike_component * 0.10
+
+        # Phạt thêm nếu depth mỏng hoặc spread hơi cao
+        if depth_10 < 40_000:
+            score *= 0.7
+        if spread > 6:
+            score *= 0.85
+
+        bom_xa_score = round(max(min(score, 1.0), -1.0), 4)
+
+        # Nhãn
+        if bom_xa_score >= 0.55:
+            bom_xa_label = "BOM_MANH"
+        elif bom_xa_score >= 0.25:
+            bom_xa_label = "BOM"
+        elif bom_xa_score <= -0.55:
+            bom_xa_label = "XA_MANH"
+        elif bom_xa_score <= -0.25:
+            bom_xa_label = "XA"
+        else:
+            bom_xa_label = "TRUNG_TINH"
+
         return {
-            # === Closed candle features ===
+            # Giá & xu hướng
+            "last_price": features["last_price"],
             "trend_1m": features["trend"],
             "momentum_1m": features["momentum_10"],
-            "vol_spike_1m": min(features["volume_ratio"] / 5, 1.0),
-            "volume_ratio_1m": features["volume_ratio"],
             "rsi_1m": features["rsi14"],
-            "last_price": features["last_price"],
 
-            # === Forming candle (bơm xả realtime) ===
-            "forming_available": live.get("available", False),
-            "forming_elapsed_fraction": live.get("elapsed_fraction"),
+            # Bơm xả
+            "bom_xa_score": bom_xa_score,
+            "bom_xa_label": bom_xa_label,
             "forming_move_pct": live.get("move_pct"),
-            "forming_range_pct": live.get("range_pct"),
-            "forming_volume_so_far": live.get("volume_so_far"),
-            "forming_projected_volume": live.get("projected_volume"),
             "forming_projected_volume_ratio": live.get("projected_volume_ratio"),
-            "forming_signal_reliable": live.get("signal_reliable", False),
-            "forming_trades": live.get("trades"),
+            "forming_elapsed_fraction": live.get("elapsed_fraction"),
+            "forming_signal_reliable": reliable,
 
-            # === Order book (bơm xả từ sổ lệnh) ===
-            "imbalance": book.get("imbalance_usd", 0.0),
-            "spread_bps": book.get("spread_bps"),
-            "bid_depth_usd": book.get("bid_depth_usd", 0.0),
-            "ask_depth_usd": book.get("ask_depth_usd", 0.0),
-            "depth_10bps_usd": book.get("depth_10bps_usd", 0.0),
-            "depth_25bps_usd": book.get("depth_25bps_usd", 0.0),
-            "book_valid": book.get("book_valid", False),
+            # Order book
+            "imbalance": imbalance,
+            "spread_bps": spread,
+            "depth_10bps_usd": depth_10,
+            "book_valid": True,
 
-            # Giữ tương thích cũ
-            "funding": 0.0,
-            "open_interest": 0.0,
+            # Volume
+            "volume_ratio_1m": features["volume_ratio"],
         }
 
     except Exception as exc:
