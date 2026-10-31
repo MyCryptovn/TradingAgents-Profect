@@ -45,13 +45,13 @@ MIN_DAY_VOLUME_USD = float(
 
 # Maximum markets receiving full candle + orderbook analysis.
 MAX_DETAILED_MARKETS = int(
-    os.getenv("SCANNER_MAX_DETAILED_MARKETS", "30")
+    os.getenv("SCANNER_MAX_DETAILED_MARKETS", "12")
 )
 
 # Detailed analysis sample:
 # top liquid markets + a diversified sample of smaller markets.
 TOP_LIQUID_SAMPLE = int(
-    os.getenv("SCANNER_TOP_LIQUID_SAMPLE", "20")
+    os.getenv("SCANNER_TOP_LIQUID_SAMPLE", "8")
 )
 
 MAX_SPREAD_BPS = float(
