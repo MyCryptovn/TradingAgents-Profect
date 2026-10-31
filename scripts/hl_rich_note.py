@@ -54,7 +54,7 @@ def hl_rich_note(ticker: str) -> str:
         if market is None:
             return f"[HL] No data found for {symbol}"
 
-        features = compute_market_features(symbol)
+        features = compute_1m_features(symbol)
         return _format_live(symbol, market, features)
     except Exception as e:
         return f"[HL] Error loading rich data for {symbol}: {e}"
