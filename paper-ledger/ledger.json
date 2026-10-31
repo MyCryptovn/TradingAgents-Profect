@@ -7896,10 +7896,13 @@
    "t0": 1793272997,
    "entry": 4.4109,
    "btc0": 80133.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004536278890427698,
    "scan": "01 NEAR/USD     price=$4.4148 vol24h=$19,086,423 spread=4.76bps mtf_score=0.5142 quality=0.7459 trend15m=-1.12 trend1h=-0.69 trend4h=-0.27",
-   "cfg": "v21-2026-10-29"
+   "cfg": "v21-2026-10-29",
+   "exit": 4.3318,
+   "t1": 1793359397.0,
+   "move_pct": -1.793
   },
   {
    "id": "40863547785-PEPE/USD",
@@ -7910,10 +7913,13 @@
    "t0": 1793272998,
    "entry": 4.872e-06,
    "btc0": 80133.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0006157003591586761,
    "scan": "02 PEPE/USD     price=$4.849e-06 vol24h=$7,165,407 spread=6.18bps mtf_score=0.4566 quality=0.4112 trend15m=-0.39 trend1h=+0.94 trend4h=+0.64",
-   "cfg": "v21-2026-10-29"
+   "cfg": "v21-2026-10-29",
+   "exit": 5.189e-06,
+   "t1": 1793359398.0,
+   "move_pct": 6.507
   },
   {
    "id": "40863547785-HYPE/USD",
@@ -7932,7 +7938,8 @@
    "t1": 1793302862,
    "reason": "REVERSAL_PROFIT",
    "pnl_pct": 7.667,
-   "watch": "pnl=+7.67% give=3.4% flow=5%/160 5m=False 1m=False rsi=43 hits=2"
+   "watch": "pnl=+7.67% give=3.4% flow=5%/160 5m=False 1m=False rsi=43 hits=2",
+   "trail_pnl_pct": 8.106
   },
   {
    "id": "40899664965-RAY/USD",
@@ -7943,10 +7950,13 @@
    "t0": 1793289261,
    "entry": 1.729,
    "btc0": 81639.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0023108030040439073,
    "scan": "01 RAY/USD      price=$1.706 vol24h=$625,384 spread=23.45bps mtf_score=0.4327 quality=0.7917 trend15m=-0.08 trend1h=-0.71 trend4h=-0.49",
-   "cfg": "v21-2026-10-29"
+   "cfg": "v21-2026-10-29",
+   "exit": 1.611,
+   "t1": 1793375661.0,
+   "move_pct": -6.825
   },
   {
    "id": "40899664965-PEPE/USD",
@@ -7957,10 +7967,13 @@
    "t0": 1793289262,
    "entry": 5.361e-06,
    "btc0": 81639.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0011181513231456586,
    "scan": "02 PEPE/USD     price=$5.076e-06 vol24h=$10,157,536 spread=11.81bps mtf_score=0.5976 quality=0.4979 trend15m=-0.22 trend1h=+0.49 trend4h=+0.79",
-   "cfg": "v21-2026-10-29"
+   "cfg": "v21-2026-10-29",
+   "exit": 5.037e-06,
+   "t1": 1793375662.0,
+   "move_pct": -6.044
   },
   {
    "id": "40955408415-BONK/USD",
@@ -7971,10 +7984,13 @@
    "t0": 1793308635,
    "entry": 2.915e-06,
    "btc0": 79281.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0010293360782296194,
    "scan": "01 BONK/USD     price=$2.893e-06 vol24h=$915,535 spread=10.41bps mtf_score=0.5553 quality=0.5356 trend15m=-0.18 trend1h=+0.02 trend4h=+0.09",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 2.961e-06,
+   "t1": 1793395035.0,
+   "move_pct": 1.578
   },
   {
    "id": "40955408415-HYPE/USD",
@@ -7985,10 +8001,13 @@
    "t0": 1793308635,
    "entry": 93.9,
    "btc0": 79281.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00042584903651662144,
    "scan": "02 HYPE/USD     price=$92.48 vol24h=$59,433,605 spread=4.32bps mtf_score=0.5349 quality=0.8366 trend15m=+0.90 trend1h=+1.31 trend4h=+0.55",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 89.91,
+   "t1": 1793395035.0,
+   "move_pct": -4.249
   },
   {
    "id": "40955408415-PEPE/USD",
@@ -7999,10 +8018,13 @@
    "t0": 1793308635,
    "entry": 4.949e-06,
    "btc0": 79281.1,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00020220402386000435,
    "scan": "03 PEPE/USD     price=$4.923e-06 vol24h=$13,886,941 spread=8.12bps mtf_score=0.4931 quality=0.8594 trend15m=+0.31 trend1h=+0.35 trend4h=+0.75",
-   "cfg": "v22-2026-10-29"
+   "cfg": "v22-2026-10-29",
+   "exit": 4.93e-06,
+   "t1": 1793395035.0,
+   "move_pct": -0.384
   },
   {
    "id": "41010116547-AAVE/USD",
