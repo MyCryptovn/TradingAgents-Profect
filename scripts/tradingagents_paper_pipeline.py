@@ -90,7 +90,7 @@ def run_scanner() -> list[str]:
         [sys.executable, "-m", "scripts.market_scanner"],
         capture_output=True,
         text=True,
-        timeout=600,
+        timeout=1800,
     )
 
     print("=== SCANNER STDOUT ===")
