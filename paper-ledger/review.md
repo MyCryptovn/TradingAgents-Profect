@@ -1,15 +1,15 @@
 # Paper Review Report
 
-- Thời điểm: **2026-10-31 10:39 UTC**
+- Thời điểm: **2026-10-31 14:50 UTC**
 - Ledger: `paper-ledger/ledger.json`
-- Decisions file: `tradingagents-paper-results/decisions.json` (0 records)
+- Decisions file: `tradingagents-paper-results/decisions.json` (4 records)
 
 ## 1. Tổng quan hiệu suất
 
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **31** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **1** |
 | Win rate | **29.0%** |
 | PnL trung bình / lệnh | **-0.824%** |
 | Tổng PnL | **-25.53%** |
@@ -60,6 +60,12 @@
 | ENA/USD | BUY | -2.75 | COUNCIL |
 | XCN/USD | BUY | -4.12 | SL |
 | XDG/USD | SELL | -1.87 | TIME |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| BTC/USD | SELL | 77407.0 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
