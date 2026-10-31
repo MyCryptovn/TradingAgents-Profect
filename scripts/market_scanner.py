@@ -24,7 +24,8 @@ from pathlib import Path
 from typing import Any
 
 from scripts.hl_feeder import (
-    discover_perp_markets,)
+    discover_perp_markets,
+    compute_1m_features)
 
 # ============================================================
 # CONFIGURATION
