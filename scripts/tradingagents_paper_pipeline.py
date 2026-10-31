@@ -487,7 +487,7 @@ def main() -> int:
     MAX_SPREAD_BPS = 45.0
 
     filtered: list[str] = []
-sầààaqwasq    for sym in candidates:
+    for sym in candidates:
         # 1) Giới hạn số lệnh mở — vẫn cho phân tích lệnh đang mở
         if len(open_syms) >= MAX_OPEN_POSITIONS and sym not in open_syms:
             print(f"SKIP {sym}: max open positions ({MAX_OPEN_POSITIONS})")
