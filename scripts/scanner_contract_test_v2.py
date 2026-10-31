@@ -4,7 +4,7 @@ from pathlib import Path
 SOURCE = Path(__file__).with_name("market_scanner.py").read_text(encoding="utf-8")
 
 REQUIRED = (
-    "https://api.kraken.com/0/public/",
+    " https://api.hyperliquid.xyz/info,
     "TIMEFRAMES = (15, 60, 240)",
     "rows[:-1]",
     "LIVE ORDERS: DISABLED",
