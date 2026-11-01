@@ -28,7 +28,7 @@ jobs:
         run: pip install -e vendor/TradingAgents
 
       - name: Validate crypto-native adapter
-        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py
+        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
 
       - name: Validate CoinGecko API access
         env:
@@ -72,10 +72,10 @@ jobs:
 
       - name: Verify crypto-native routing and live trading gate
         run: |
+          grep -R -q "HYPERLIQUID" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "KRAKEN" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "COINGECKO" scripts/tradingagents_paper_pipeline.py
           grep -R -q "YAHOO FINANCE BYPASSED" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "CoinGecko API" scripts/crypto_market_data.py
-          grep -R -q "COINGECKO_API_KEY" scripts/crypto_market_data.py
-          grep -R -q "COINGECKO RATE LIMIT" scripts/crypto_market_data.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
@@ -92,7 +92,7 @@ jobs:
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "v23-2026-10-31"
+          CONFIG_TAG: "v24-2026-11-01"
         run: python scripts/paper_ledger.py record
 
       - name: Score paper ledger
