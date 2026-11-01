@@ -645,7 +645,7 @@ def compute_1m_features(coin: str) -> dict | None:
 
 def compute_market_features(coin: str) -> dict:
     """Đa khung thời gian + order book + tín hiệu bơm/xả 1m cho scanner."""
-    minutes = {"1m": 1, "5m": 5, "15m": 15, "1h": 60}
+    minutes = {"1m": 1, "5m": 5, "15m": 15, "1h": 60, "4h": 240}
     features = {"coin": coin, "timeframes": {}, "book": {}, "one_minute": {}}
 
     for tf, mins in minutes.items():
