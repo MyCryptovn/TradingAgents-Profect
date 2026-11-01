@@ -19,8 +19,8 @@ LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger/ledger.json")
 MODE = os.getenv("WATCH_MODE", "shadow")
 
 # === THAM SỐ CÓ THỂ CHỈNH ===
-MIN_AGE = 300                # giây (5 phút) mới bắt đầu canh
-GIVEBACK_SOFT = 0.018        # 1.8% từ đỉnh → cảnh báo
+MIN_AGE = 60                # giây (1 phút) mới bắt đầu canh
+GIVEBACK_SOFT = 0.020        # 2% từ đỉnh → cảnh báo
 GIVEBACK_HARD = 0.025        # 3% từ đỉnh → ưu tiên đóng
 PROFIT_LOCK = 0.030          # lãi ≥ 3% thì bắt đầu bảo vệ
 STRONG_TREND_RSI = 55        # RSI còn cao → coi như xu hướng còn khỏe
@@ -63,6 +63,8 @@ def flow5(pair):
 
 
 def check_reversal(t):
+    if MODE != "close" and "rev_px" in t:
+        return False  # đã ghi tín hiệu shadow rồi, không ghi lại
     if now() - t["t0"] < MIN_AGE:
         return False
 
@@ -149,11 +151,7 @@ def check_reversal(t):
     # Ghi nhận hoặc đóng lệnh
     rev = round(pnl * 100, 3)
 
-def check_reversal(t):
-    if MODE != "close" and "rev_px" in t:
-        return False  # đã ghi tín hiệu shadow rồi, không ghi lại
-    if now() - t["t0"] < MIN_AGE:
-        return False
+    if MODE != "close":
         t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
         print("Tín hiệu đảo chiều (shadow):", t["symbol"], reason, rev)
         return True
