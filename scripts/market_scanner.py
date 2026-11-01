@@ -25,7 +25,7 @@ from typing import Any
 
 from scripts.hl_feeder import (
     discover_perp_markets,
-    compute_1m_features,)
+    compute_markets_features,)
 
 # ============================================================
 # CONFIGURATION
