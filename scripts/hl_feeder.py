@@ -510,7 +510,7 @@ def candle_features(candles: list[dict]) -> dict:
         "volume_ratio": volume_ratio,
         "rsi14": rsi,
         "last_candle_time": candles[-1]["close_time"],
-        "last_candle_close_time": candles[-1]["close"]}
+        "last_candle_close_time": candles[-1]["close_time"]}
 
 
 def _clamp(value: float, low: float = -1.0, high: float = 1.0) -> float:
