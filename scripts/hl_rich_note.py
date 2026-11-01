@@ -47,14 +47,14 @@ def hl_rich_note(ticker: str) -> str:
 
     # 2. Fallback: gọi trực tiếp hl_feeder (nếu scanner.json không có)
     try:
-        from scripts.hl_feeder import compute_1m_features, discover_perp_markets
+        from scripts.hl_feeder import compute_market_features, discover_perp_markets
 
         markets = discover_perp_markets()
         market = next((m for m in markets if m.get("coin") == symbol), None)
         if market is None:
             return f"[HL] No data found for {symbol}"
 
-        features = compute_1m_features(symbol)
+        features = compute_market_features(symbol)
         return _format_live(symbol, market, features)
     except Exception as e:
         return f"[HL] Error loading rich data for {symbol}: {e}"
