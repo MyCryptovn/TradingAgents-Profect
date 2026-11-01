@@ -358,6 +358,12 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         def hl_note(ticker: str) -> str:
             return ""
     try:
+        from scripts.hl_rich_note import hl_rich_note
+    except Exception as e:
+        print(f"HL_RICH IMPORT ERROR: {type(e).__name__}: {e}")
+        def hl_rich_note(ticker: str) -> str:
+            return ""
+    try:
         from scripts.coinalyze_note import coinalyze_note
     except Exception as e:
         print(f"COINALYZE IMPORT ERROR: {type(e).__name__}: {e}")
@@ -378,7 +384,6 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
         if asset_type == "crypto":
-            from scripts.hl_rich_note import hl_rich_note
             # Rule khác nhau cho alt nhỏ và coin thường
             if is_small_alt(symbol.replace("-", "/")):
                 rules = (
