@@ -81,6 +81,7 @@ def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
          "low": float(r["l"]), "close": float(r["c"]), "volume": float(r["v"])}
         for r in rows
     ]
+SCAN_INFO = {}
 REASONS = {}
 SHORT_NOTE = (
     " TRADING HORIZON: short-term paper, max hold about 24 hours, hard stop about 3 percent. "
