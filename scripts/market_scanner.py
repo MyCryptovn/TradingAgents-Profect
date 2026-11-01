@@ -553,6 +553,15 @@ def calculate_direction_scores(
         max(0.0, (volume_ratio - 1.0) * 3.0),
     )
 
+        # Bơm/xả 1m: không đuổi theo nhịp đang bơm hoặc xả quá mạnh
+    one_min = features.get("one_minute") or {}
+    one_minute_label = one_min.get("bom_xa_label", "")
+
+    if one_minute_label == "BOM_MANH":
+        long_score -= 6.0
+    elif one_minute_label == "XA_MANH":
+        short_score -= 6.0
+    
     long_score = 50.0 + 32.0 * composite
     short_score = 50.0 - 32.0 * composite
 
@@ -636,6 +645,7 @@ def calculate_direction_scores(
         ),
         "oi_confirmation": round(oi_confirmation, 4),
         "orderbook_imbalance": round(imbalance, 4),
+        "one_minute_label": one_minute_label,
     }
 
 
