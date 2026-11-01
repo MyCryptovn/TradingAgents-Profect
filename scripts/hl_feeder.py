@@ -509,180 +509,162 @@ def candle_features(candles: list[dict]) -> dict:
         "momentum_10": momentum_10,
         "volume_ratio": volume_ratio,
         "rsi14": rsi,
-        "last_candle_time": candles[-1]["time"],
+        "last_candle_time": candles[-1]["close_time"],
         "last_candle_close_time": candles[-1]["close"]}
 
 
-# ====================== BỘ LỌC CHẤT LƯỢNG COIN ======================
-MIN_DAY_VOLUME_USD = 800_000          # Volume 24h tối thiểu
-MIN_OPEN_INTEREST = 150_000           # Open Interest tối thiểu
-MIN_MARK_PRICE = 0.05                 # Tránh coin giá quá thấp
-MAX_SPREAD_BPS_ALLOWED = 12           # Spread tối đa cho phép (dùng ở compute)
+def _clamp(value: float, low: float = -1.0, high: float = 1.0) -> float:
+    return max(low, min(high, value))
 
 
-def discover_perp_markets(min_volume: float = MIN_DAY_VOLUME_USD,
-                          min_oi: float = MIN_OPEN_INTEREST,
-                          min_price: float = MIN_MARK_PRICE) -> list[dict]:
-    """
-    Khám phá market và chỉ giữ lại những coin đủ chất lượng.
-    Tránh đưa coin yếu / thanh khoản kém vào hội đồng.
-    """
-    markets = []
-    errors = []
+ONE_MIN_SPREAD_LIMIT_BPS = 35.0
+ONE_MIN_DEPTH_MIN_USD = 10_000.0
 
-    for dex in get_dex_names():
-        try:
-            result = get_dex_markets(dex)
-            markets.extend(result["markets"])
-        except Exception as exc:
-            label = dex or "native"
-            errors.append(f"{label}: {type(exc).__name__}: {exc}")
 
-    if errors:
-        print("HYPERLIQUID DEX DISCOVERY WARNINGS:")
-        for error in errors:
-            print(f"  - {error}")
+def get_1m_candles_raw(coin: str, minutes: int = 180) -> list[dict]:
+    """Lấy nến 1m, giữ cả nến đang chạy (is_closed = False)."""
+    now_ms = int(time.time() * 1000)
+    start_ms = now_ms - minutes * 60 * 1000
 
-    # Lọc chất lượng
-    filtered = []
-    for m in markets:
-        volume = m.get("day_volume_usd", 0) or 0
-        oi = m.get("open_interest", 0) or 0
-        price = m.get("mark_price", 0) or 0
+    payload = _post({
+        "type": "candleSnapshot",
+        "req": {
+            "coin": coin,
+            "interval": "1m",
+            "startTime": start_ms,
+            "endTime": now_ms,
+        },
+    })
 
-        if volume < min_volume:
+    if not isinstance(payload, list):
+        return []
+
+    rows = {}
+    for row in payload:
+        if not isinstance(row, dict):
             continue
-        if oi < min_oi:
-            continue
-        if price < min_price:
-            continue
+        close_time = _number(row.get("T"))
+        candle = {
+            "time": _number(row.get("t")),
+            "close_time": close_time,
+            "open": _number(row.get("o")),
+            "high": _number(row.get("h")),
+            "low": _number(row.get("l")),
+            "close": _number(row.get("c")),
+            "volume": _number(row.get("v")),
+            "is_closed": 0 < close_time <= now_ms,
+        }
+        if candle["time"] > 0 and candle["open"] > 0 and candle["close"] > 0:
+            rows[candle["time"]] = candle
 
-        # Ưu tiên native hơn một chút (có thể bỏ nếu muốn)
-        m["quality_score"] = (
-            (volume / 1_000_000) * 0.6 +
-            (oi / 1_000_000) * 0.3 +
-            (1.0 if m.get("is_native") else 0.7) * 0.1
-        )
-        filtered.append(m)
-
-    # Sắp xếp theo chất lượng giảm dần
-    filtered.sort(key=lambda x: x["quality_score"], reverse=True)
-
-    # Loại trùng tên
-    unique = {}
-    for market in filtered:
-        unique[market["coin"]] = market
-
-    return list(unique.values())
+    return [rows[k] for k in sorted(rows)]
 
 
 def compute_1m_features(coin: str) -> dict | None:
-    """
-    Lấy dữ liệu 1m quan trọng nhất + điểm bơm xả.
-    Tự động loại bỏ hoặc phạt nặng các coin yếu / thanh khoản kém.
-    """
+    """Tín hiệu bơm/xả ngắn hạn từ nến 1m đang chạy + order book.
+    Dương = áp lực mua (bơm), âm = áp lực bán (xả)."""
     try:
-        candles = get_candles(
-            coin=coin,
-            interval="1m",
-            lookback_minutes=180,
-            include_forming=True,
-        )
+        now_ms = int(time.time() * 1000)
+        raw = get_1m_candles_raw(coin, 180)
+        closed = [c for c in raw if c["is_closed"]]
 
-        closed = [c for c in candles if c.get("is_closed", True)]
         features = candle_features(closed)
-
         if not features.get("valid"):
             return None
 
-        live = forming_candle_features(candles, closed)
-        book = orderbook_features(coin)
+        forming_rows = [c for c in raw if not c["is_closed"]]
+        if not forming_rows:
+            return None
+        forming = forming_rows[-1]
 
-        # ---------- Kiểm tra chất lượng cứng ----------
-        if not book.get("book_valid", False):
+        book = orderbook_features(coin)
+        if not book.get("book_valid"):
             return None
 
         spread = book.get("spread_bps")
-        if spread is None or spread > MAX_SPREAD_BPS_ALLOWED:
+        if spread is None or spread > ONE_MIN_SPREAD_LIMIT_BPS:
             return None
 
-        depth_10 = book.get("depth_10bps_usd", 0) or 0
-        if depth_10 < 15_000:          # Depth quá mỏng thì loại
+        depth_10 = book.get("depth_10bps_usd", 0.0) or 0.0
+        if depth_10 < ONE_MIN_DEPTH_MIN_USD:
             return None
 
-        # ---------- Tính điểm bơm xả ----------
-        vol_ratio = live.get("projected_volume_ratio") or features.get("volume_ratio", 1.0)
-        move_pct = live.get("move_pct") or 0.0
-        imbalance = book.get("imbalance_usd", 0.0)
-        vol_spike = min(features.get("volume_ratio", 1.0) / 3.0, 1.5)
-        reliable = live.get("signal_reliable", False)
+        avg_volume = sum(c["volume"] for c in closed[-21:-1]) / 20 if len(closed) > 21 else 0.0
+
+        elapsed = _clamp((now_ms - forming["time"]) / 60000.0, 0.05, 1.0)
+        move_pct = forming["close"] / forming["open"] - 1.0 if forming["open"] else 0.0
+        projected_ratio = (forming["volume"] / elapsed) / avg_volume if avg_volume > 0 else 0.0
+        reliable = elapsed >= 0.5 and avg_volume > 0
+
+        imbalance = book.get("imbalance_usd", 0.0) or 0.0
+        vol_spike = features.get("volume_ratio", 1.0) or 1.0
 
         score = 0.0
+        if reliable:
+            score += _clamp((projected_ratio - 1.0) / 2.0) * 0.40
+        score += _clamp(move_pct * 25) * 0.25
+        score += _clamp(imbalance * 1.5) * 0.25
+        score += _clamp((vol_spike - 1.0) / 1.5) * 0.10
 
-        # Volume dự kiến nến đang chạy
-        if reliable and vol_ratio is not None:
-            vol_component = max(min((vol_ratio - 1.0) / 2.0, 1.0), -1.0)
-            score += vol_component * 0.40
-
-        # Biên độ giá nến đang chạy
-        move_component = max(min(move_pct * 25, 1.0), -1.0)
-        score += move_component * 0.25
-
-        # Order book imbalance
-        score += max(min(imbalance * 1.5, 1.0), -1.0) * 0.25
-
-        # Volume spike nến đóng
-        spike_component = max(min((vol_spike - 1.0) / 1.5, 1.0), -1.0)
-        score += spike_component * 0.10
-
-        # Phạt thêm nếu depth mỏng hoặc spread hơi cao
         if depth_10 < 40_000:
             score *= 0.7
         if spread > 6:
             score *= 0.85
 
-        bom_xa_score = round(max(min(score, 1.0), -1.0), 4)
+        bom_xa_score = round(_clamp(score), 4)
 
-        # Nhãn
         if bom_xa_score >= 0.55:
-            bom_xa_label = "BOM_MANH"
+            label = "BOM_MANH"
         elif bom_xa_score >= 0.25:
-            bom_xa_label = "BOM"
+            label = "BOM"
         elif bom_xa_score <= -0.55:
-            bom_xa_label = "XA_MANH"
+            label = "XA_MANH"
         elif bom_xa_score <= -0.25:
-            bom_xa_label = "XA"
+            label = "XA"
         else:
-            bom_xa_label = "TRUNG_TINH"
+            label = "TRUNG_TINH"
 
         return {
-            # Giá & xu hướng
-            "last_price": features["last_price"],
-            "trend_1m": features["trend"],
-            "momentum_1m": features["momentum_10"],
-            "rsi_1m": features["rsi14"],
-
-            # Bơm xả
             "bom_xa_score": bom_xa_score,
-            "bom_xa_label": bom_xa_label,
-            "forming_move_pct": live.get("move_pct"),
-            "forming_projected_volume_ratio": live.get("projected_volume_ratio"),
-            "forming_elapsed_fraction": live.get("elapsed_fraction"),
-            "forming_signal_reliable": reliable,
-
-            # Order book
+            "bom_xa_label": label,
+            "move_pct": round(move_pct * 100, 4),
+            "projected_volume_ratio": round(projected_ratio, 4),
+            "elapsed_fraction": round(elapsed, 4),
+            "signal_reliable": reliable,
+            "trend_1m": features["trend"],
+            "rsi_1m": features["rsi14"],
             "imbalance": imbalance,
             "spread_bps": spread,
             "depth_10bps_usd": depth_10,
-            "book_valid": True,
-
-            # Volume
-            "volume_ratio_1m": features["volume_ratio"],
         }
 
     except Exception as exc:
-        print(f"HL FEATURE ERROR {coin}: {type(exc).__name__}: {exc}")
+        print(f"HL 1M FEATURE ERROR {coin}: {type(exc).__name__}: {exc}")
         return None
+
+
+def compute_market_features(coin: str) -> dict:
+    """Đa khung thời gian + order book + tín hiệu bơm/xả 1m cho scanner."""
+    minutes = {"1m": 1, "5m": 5, "15m": 15, "1h": 60}
+    features = {"coin": coin, "timeframes": {}, "book": {}, "one_minute": {}}
+
+    for tf, mins in minutes.items():
+        try:
+            candles = get_candles(coin=coin, interval=tf, lookback_minutes=mins * 200)
+            row = candle_features(candles)
+        except Exception as exc:
+            print(f"HL TF ERROR {coin} {tf}: {type(exc).__name__}: {exc}")
+            row = {"valid": False}
+        features["timeframes"][tf] = row
+
+    try:
+        features["book"] = orderbook_features(coin)
+    except Exception as exc:
+        print(f"HL BOOK ERROR {coin}: {type(exc).__name__}: {exc}")
+        features["book"] = {"book_valid": False}
+
+    features["one_minute"] = compute_1m_features(coin) or {}
+    return features
 
 if __name__ == "__main__":
     print("HYPERLIQUID READ-ONLY FEEDER TEST")
@@ -705,5 +687,5 @@ if __name__ == "__main__":
         print(json.dumps(
             compute_market_features(sample),
             indent=2,
+            default=str,
         ))
-
