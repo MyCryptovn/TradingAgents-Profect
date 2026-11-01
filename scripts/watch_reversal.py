@@ -95,15 +95,16 @@ def check_reversal(t):
 
     # --- Tín hiệu đảo chiều ---
     if d == 1:  # lệnh BUY
-        peak = max([entry] + [float(c[2]) for c in since])
+        peak = max(t.get("peak", entry), px
+        t["peak"] = peak
         give = (peak - px) / peak if peak > 0 else 0
         s_flow = n5 >= 5 and share < 0.42
         s_5m = all(float(c[4]) < float(c[1]) for c in last2) and c5[-1] < ema9
         s_1m = all(float(c[4]) < float(c[1]) for c in last3) and rs < 48
         s_structure = c5[-1] < ema21
     else:       # lệnh SELL
-        t["peak"] = max(t.get("peak", entry), px) if d == 1 else t.get("peak", entry)
-        t["trough"] = min(t.get("trough", entry), px) if d == -1 else t.get("trough", entry)
+        trough = min(t.get("trough", entry), px)
+        t["trough"] = trough
         give = (px - trough) / trough if trough > 0 else 0
         s_flow = n5 >= 5 and share > 0.55
         s_5m = all(float(c[4]) > float(c[1]) for c in last2) and c5[-1] > ema9
