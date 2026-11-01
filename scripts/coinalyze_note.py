@@ -29,7 +29,7 @@ def _build(coin):
     if not oi:
         return ""
     oi_now = float(oi[0]["value"])
-    oh = _get("open-interest-history", {"symbols": sym, "interval": "1hour",
+    oh = _get("open-interest-history", {"symbols": sym, "interval": "15min", "1hour",
                                         "from": now_ts - 26 * 3600, "to": now_ts, "convert_to_usd": "true"})
     hist = oh[0]["history"] if oh else []
     fr = _get("funding-rate", {"symbols": sym})
@@ -54,7 +54,7 @@ def _build(coin):
         return None
 
     text = f" COINALYZE AGGREGATED PERP DATA ({sym}, multi-exchange): open interest ${oi_now:,.0f}"
-    for label, n in (("4h", 5), ("24h", 25)):
+    for label, n in (("15m", 2), ("1h", 5), ("4h", 17), ("24h", 97)):
         c = chg(n)
         if c is not None:
             text += f", OI change {label} {c:+.1%}"
@@ -63,12 +63,6 @@ def _build(coin):
         text += f", taker buy share {share(cand[-6:]):.0%} (last 30m) and {share(cand):.0%} (last 60m)"
     text += f", liquidations last 4h: longs ${long_liq:,.0f} vs shorts ${short_liq:,.0f}."
     text += " Perpetual-futures data only; use as context, not as a standalone signal."
-    text = (
-            " COINALYZE (free futures snapshot): "
-            + "; ".join(parts)
-            + ". Use as secondary vs Hyperliquid."
-        )
-        print("coinalyze_note:", ticker, "->", text[:120])
     return text
 
 
