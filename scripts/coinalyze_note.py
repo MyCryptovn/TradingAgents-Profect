@@ -29,7 +29,7 @@ def _build(coin):
     if not oi:
         return ""
     oi_now = float(oi[0]["value"])
-    oh = _get("open-interest-history", {"symbols": sym, "interval": "15min", "1hour",
+    oh = _get("open-interest-history", {"symbols": sym, "interval": "15min",
                                         "from": now_ts - 26 * 3600, "to": now_ts, "convert_to_usd": "true"})
     hist = oh[0]["history"] if oh else []
     fr = _get("funding-rate", {"symbols": sym})
@@ -48,14 +48,19 @@ def _build(coin):
     long_liq = sum(float(c["l"]) for c in lh)
     short_liq = sum(float(c["s"]) for c in lh)
 
-    def chg(n):
-        if len(hist) >= n and float(hist[-n]["c"]) > 0:
-            return oi_now / float(hist[-n]["c"]) - 1
-        return None
+    def chg(steps):
+        if len(hist) < steps + 1:
+            return None
+        now_v = float(hist[-1]["c"])
+        old_v = float(hist[-1 - steps]["c"])
+        if now_v <= 0 or old_v <= 0:
+            return None
+        return now_v / old_v - 1
+
 
     text = f" COINALYZE AGGREGATED PERP DATA ({sym}, multi-exchange): open interest ${oi_now:,.0f}"
-    for label, n in (("15m", 2), ("1h", 5), ("4h", 17), ("24h", 97)):
-        c = chg(n)
+    for label, steps in (("15m", 1), ("1h", 4), ("4h", 16), ("24h", 96)):
+        c = chg(steps)
         if c is not None:
             text += f", OI change {label} {c:+.1%}"
     text += f", funding {fund:+.4f}"
