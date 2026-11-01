@@ -131,9 +131,6 @@ def run_scanner() -> list[str]:
         )
 
     result_file = OUT_DIR / "scanner.json"
-    result_file = Path(
-        "tradingagents-paper-results/scanner.json"
-    )
 
     if not result_file.exists():
         raise RuntimeError(
@@ -174,8 +171,7 @@ def run_scanner() -> list[str]:
     seen = set()
 
     for row in top_long + top_short:
-        if scanner_line is None:
-            print(f"SKIP {sym}: no scanner output line")
+        if not isinstance(row, dict):
             continue
         
         raw_symbol = row.get("symbol")
@@ -229,10 +225,8 @@ def run_scanner() -> list[str]:
         )
 
         if scanner_line is None:
-            raise RuntimeError(
-                f"Cannot find complete scanner output line for {sym}. "
-                "Check TOP CANDIDATES output format."
-            )
+            print(f"SKIP {sym}: no scanner output line")
+            continue
 
         # Không cho phép pipeline âm thầm nhận mtf_score = 0.
         if "mtf_score=" not in scanner_line:
