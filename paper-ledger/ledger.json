@@ -8191,10 +8191,13 @@
    "t0": 1793458249,
    "entry": 1282.1,
    "btc0": 77407.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005070578553013609,
    "scan": "01 ZEC/USD direction=LONG score=62.77 long_score=62.77 short_score=41.21 mtf_score=0.6277 vol24h=$294,817,047 spread=0.780 depth10bps=$681,954",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 1243.99,
+   "t1": 1793544649.0,
+   "move_pct": -2.972
   },
   {
    "id": "41210698889-ETH/USD",
@@ -8205,10 +8208,13 @@
    "t0": 1793458250,
    "entry": 2249.3,
    "btc0": 77407.0,
-   "status": "open",
+   "status": "closed",
    "spread": 4.445837473616524e-06,
    "scan": "02 ETH/USD direction=LONG score=54.71 long_score=54.71 short_score=45.29 mtf_score=0.5471 vol24h=$532,930,926 spread=0.444 depth10bps=$16,338,467",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 2268.44,
+   "t1": 1793544650.0,
+   "move_pct": 0.851
   },
   {
    "id": "41210698889-HYPE/USD",
@@ -8219,10 +8225,13 @@
    "t0": 1793458250,
    "entry": 86.74,
    "btc0": 77407.0,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00023041474654373294,
    "scan": "01 HYPE/USD direction=SHORT score=78.91 long_score=21.82 short_score=78.91 mtf_score=0.7891 vol24h=$779,969,825 spread=0.115 depth10bps=$543,707",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 87.84,
+   "t1": 1793544650.0,
+   "move_pct": 1.268
   },
   {
    "id": "41210698889-BTC/USD",
@@ -8241,7 +8250,8 @@
    "t1": 1793467136,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -0.784,
-   "watch": "pnl=-0.78% give=0.4% flow=86%/393 5m=True 1m=False rsi=69 hits=3"
+   "watch": "pnl=-0.78% give=0.4% flow=86%/393 5m=True 1m=False rsi=69 hits=3",
+   "trail_pnl_pct": -1.298
   },
   {
    "id": "41288248354-BTC/USD",
