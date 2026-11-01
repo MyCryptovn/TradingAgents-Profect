@@ -324,6 +324,7 @@ def coingecko_note(ticker: str) -> str:
         m = rows[0]
         return (
             f" COINGECKO CONTEXT: market cap ${m.get('market_cap') or 0:,.0f}, "
+            f" COINGECKO CONTEXT (matched id={match['id']}, name={match['name']}): ..."
             f"rank #{m.get('market_cap_rank')}, 24h volume ${m.get('total_volume') or 0:,.0f} "
             f"(aggregated across exchanges), 24h change {m.get('price_change_percentage_24h') or 0:.2f}%, "
             f"7d change {m.get('price_change_percentage_7d_in_currency') or 0:.2f}%."
@@ -558,6 +559,7 @@ def main() -> int:
     print("AI: TRADINGAGENTS")
     print(f"LLM PROVIDER: {provider}")
     print("CRYPTO DATA MODE: COINGECKO API + YAHOO FINANCE BYPASSED + HL public info for funding/book/candles + COINALYZE API")
+    print(f"COINGECKO MATCH {symbol} -> {match['id']} ({match['name']})")
     print("PAPER BUY/SELL: ENABLED")
     print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
