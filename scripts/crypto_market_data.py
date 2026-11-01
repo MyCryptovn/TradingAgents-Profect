@@ -159,7 +159,7 @@ def _resolve_coin_id(symbol: str) -> str:
     if base in aliases:
         return aliases[base]
 
-        cid = _search_coin_id(base.upper())
+    cid = _search_coin_id(base.upper())
     if not cid:
         raise RuntimeError(f"CoinGecko coin id not found for {symbol}")
     return cid
