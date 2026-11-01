@@ -1,15 +1,16 @@
-"""CoinGecko market-data adapter for TradingAgents paper analysis.
+"""Market-data adapter for TradingAgents crypto paper analysis.
 
-The pinned TradingAgents source is stock-oriented and normally uses Yahoo Finance.
-For this crypto test path, the analyst market data comes from CoinGecko.
+Data sources:
+- Hyperliquid 1d candles: primary historical OHLC/volume for the AI analysts.
+- CoinGecko API: fallback history when Hyperliquid is unavailable, plus live
+  market context (market cap, rank, 24h volume aggregated across exchanges).
+- Paper outcome measurement stays separate and uses Hyperliquid 1h candles.
 
 Design:
-- CoinGecko API is the primary AI market-data provider.
+- CoinGecko requests are cached in-process and 429 responses use Retry-After or
+  exponential backoff.
 - Optional COINGECKO_API_KEY is supported (Demo or Pro via API base URL).
-- CoinGecko requests are cached in-process so repeated TradingAgents tool calls
-  do not hammer the API.
-- 429 responses use Retry-After/exponential backoff instead of failing instantly.
-- Paper outcome measurement remains separate from the AI data path.
+- The pinned TradingAgents source is unchanged; only tool functions are overlaid.
 """
 
 from __future__ import annotations
@@ -109,33 +110,16 @@ def _base_symbol(symbol: str) -> str:
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
 
 
-def _top_market_match(base: str) -> list[dict]:
-    """Return the highest market-cap CoinGecko coin for a ticker symbol, or []."""
-    try:
-        rows = _get_json(
-            "coins/markets",
-            {
-                "vs_currency": "usd",
-                "symbols": base,
-                "order": "market_cap_desc",
-                "per_page": "5",
-            },
-        )
-    except Exception:
-        return []
-    if not isinstance(rows, list):
-        return []
-    rows = [r for r in rows if str(r.get("symbol", "")).lower() == base]
-    return rows[:1] 
-@lru_cache(maxsize=1)
-def _coins_list() -> list[dict]:
-    payload = _get_json("coins/list", {"include_platform": "false"})
-    if not isinstance(payload, list):
-        raise RuntimeError("CoinGecko coins/list returned an unexpected payload")
-    return payload
-
-
 @lru_cache(maxsize=256)
+def _search_coin_id(base: str) -> str | None:
+    payload = _get_json("search", {"query": base})
+    coins = payload.get("coins", []) if isinstance(payload, dict) else []
+    exact = [c for c in coins if str(c.get("symbol", "")).upper() == base]
+    if not exact:
+        return None
+    exact.sort(key=lambda c: c.get("market_cap_rank") or 10**9)
+    return str(exact[0]["id"])
+  
 def _resolve_coin_id(symbol: str) -> str:
     base = _base_symbol(symbol).lower()
 
@@ -175,23 +159,73 @@ def _resolve_coin_id(symbol: str) -> str:
     if base in aliases:
         return aliases[base]
 
-    matches = _top_market_match(base) or [
-        item
-        for item in _coins_list()
-        if str(item.get("symbol", "")).lower() == base
-    ]
-    if not matches:
+        cid = _search_coin_id(base.upper())
+    if not cid:
         raise RuntimeError(f"CoinGecko coin id not found for {symbol}")
+    return cid
 
-    # Prefer an exact id/name match before falling back to the first symbol match.
-    for item in matches:
-        if str(item.get("id", "")).lower() == base:
-            return str(item["id"])
-    return str(matches[0]["id"])
+
+HL_INFO_URL = "https://api.hyperliquid.xyz/info"
+
+
+def _hl_coin_name(symbol: str) -> str:
+    # Tên coin Hyperliquid phân biệt hoa thường (kPEPE), nên không dùng upper().
+    base = symbol.strip().split("/", 1)[0].split("-", 1)[0]
+    return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
+
+
+def _hl_daily_history(symbol: str) -> pd.DataFrame:
+    coin = _hl_coin_name(symbol)
+    now_ms = int(time.time() * 1000)
+    body = {
+        "type": "candleSnapshot",
+        "req": {
+            "coin": coin,
+            "interval": "1d",
+            "startTime": now_ms - 365 * 86400000,
+            "endTime": now_ms,
+        },
+    }
+    req = urllib.request.Request(
+        HL_INFO_URL,
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json", "User-Agent": USER_AGENT},
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        rows = json.load(r)
+
+    out = []
+    for row in rows:
+        if float(row["T"]) > now_ms:  # bỏ nến ngày đang chạy để không lộ giá tương lai
+            continue
+        o, h, l, c = (float(row[k]) for k in ("o", "h", "l", "c"))
+        if c <= 0:
+            continue
+        out.append({
+            "Date": pd.to_datetime(int(row["t"]), unit="ms"),
+            "Open": o, "High": h, "Low": l, "Close": c,
+            "Volume": float(row["v"]) * c,  # quy đổi sang USD gần đúng
+        })
+
+    df = pd.DataFrame(out)
+    if len(df) < 60:
+        raise RuntimeError(f"Hyperliquid history too short for {coin}: {len(df)} rows")
+    return (
+        df.sort_values("Date")
+        .drop_duplicates("Date")
+        .tail(MAX_HISTORY_ROWS)
+        .reset_index(drop=True)
+    )
 
 
 @lru_cache(maxsize=256)
 def _history(symbol: str) -> pd.DataFrame:
+    try:
+        return _hl_daily_history(symbol)
+    except Exception as exc:
+        print(f"HL HISTORY FALLBACK to CoinGecko {symbol}: {type(exc).__name__}: {exc}")
+        return _history_coingecko(symbol)
+def _history_coingecko(symbol: str) -> pd.DataFrame:
     """Build a daily price/volume history from one CoinGecko market-chart request.
 
     CoinGecko's daily market-chart data is used as the stable free/demo-compatible
@@ -324,7 +358,7 @@ def get_stock_data(
 
     return (
         f"# Crypto market data for {symbol.upper()}\n"
-        f"# Provider: CoinGecko API\n"
+        f"# Provider: Hyperliquid candles (CoinGecko fallback if unavailable)\n"
         f"# Timeframe: CoinGecko market-chart daily data; OHLC reconstructed from daily closes\n"
         f"# Records: {len(df)}\n\n"
         + df[["Date", "Open", "High", "Low", "Close", "Volume"]].to_csv(index=False)
@@ -374,7 +408,7 @@ def get_verified_market_snapshot(
 
     lines = [
         f"## Verified crypto market snapshot for {symbol.upper()}",
-        "- Historical source: CoinGecko API",
+        "- Historical source: Hyperliquid 1d candles",
         "- Live context: CoinGecko coins/markets",
         f"- CoinGecko coin id: {_resolve_coin_id(symbol)}",
         f"- Analysis cutoff: {curr_date}",
