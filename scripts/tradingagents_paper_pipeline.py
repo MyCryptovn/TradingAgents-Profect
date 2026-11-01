@@ -353,13 +353,9 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         def hl_note(ticker: str) -> str:
             return ""
     try:
-        from scripts.coinglass_note import coinglass_note
-    except ModuleNotFoundError:
-        def coinglass_note(ticker: str) -> str:
-            return ""
-    try: 
         from scripts.coinalyze_note import coinalyze_note
-    except Exception:
+    except Exception as e:
+        print(f"COINALYZE IMPORT ERROR: {type(e).__name__}: {e}")
         def coinalyze_note(ticker: str) -> str:
             return ""
 
@@ -394,7 +390,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + coingecko_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol)  + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + coingecko_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
