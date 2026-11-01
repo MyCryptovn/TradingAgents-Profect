@@ -1,7 +1,11 @@
-"""Connect the broad real-market Top-10 scanner to TradingAgents for paper-only evaluation.
+"""Connect the Hyperliquid-first Top-10 scanner to TradingAgents for paper-only evaluation.
 
-Crypto analysis uses a CoinGecko-native overlay for historical OHLC/market data
-and live market context. Kraken remains only the separate paper-outcome evaluator.
+Data sources:
+- Hyperliquid: scanner universe, candles, order book, funding, and the paper outcome evaluator.
+- Kraken: spot taker flow and spot order book depth only (flow_note).
+- CoinGecko: market-cap, rank and aggregated 24h volume context (coingecko_note).
+- Coinalyze: aggregated perpetual OI, funding and liquidation context (coinalyze_note).
+
 The pinned TradingAgents source remains unchanged. BUY=LONG/SELL=SHORT are paper decisions only;
 live orders stay disabled.
 """
