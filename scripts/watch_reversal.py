@@ -100,7 +100,8 @@ def check_reversal(t):
         s_1m = all(float(c[4]) < float(c[1]) for c in last3) and rs < 48
         s_structure = c5[-1] < ema21
     else:       # lệnh SELL
-        trough = min([entry] + [float(c[3]) for c in since])
+        t["peak"] = max(t.get("peak", entry), px) if d == 1 else t.get("peak", entry)
+        t["trough"] = min(t.get("trough", entry), px) if d == -1 else t.get("trough", entry)
         give = (px - trough) / trough if trough > 0 else 0
         s_flow = n5 >= 5 and share > 0.55
         s_5m = all(float(c[4]) > float(c[1]) for c in last2) and c5[-1] > ema9
@@ -116,7 +117,11 @@ def check_reversal(t):
     # === LOGIC QUYẾT ĐỊNH ĐÓNG LỆNH ===
 
     # 1. Xu hướng vẫn còn rất khỏe + đang lãi → để chạy tiếp
-    if pnl > 0.035 and rs > STRONG_TREND_RSI if d == 1 else rs < 100 - STRONG_TREND_RSI and hits <= 1:
+    if d == 1:
+        strong = pnl > 0.035 and rs > STRONG_TREND_RSI and hits <= 1
+    else:
+        strong = pnl > 0.035 and rs < 100 - STRONG_TREND_RSI and hits <= 1
+    if strong:
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
 
@@ -144,9 +149,11 @@ def check_reversal(t):
     # Ghi nhận hoặc đóng lệnh
     rev = round(pnl * 100, 3)
 
-    if MODE != "close":
-        if "rev_px" in t:
-            return False
+def check_reversal(t):
+    if MODE != "close" and "rev_px" in t:
+        return False  # đã ghi tín hiệu shadow rồi, không ghi lại
+    if now() - t["t0"] < MIN_AGE:
+        return False
         t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
         print("Tín hiệu đảo chiều (shadow):", t["symbol"], reason, rev)
         return True
