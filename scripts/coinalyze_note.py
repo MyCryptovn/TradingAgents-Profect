@@ -72,6 +72,7 @@ def _build(coin):
 
 
 def coinalyze_note(ticker):
+    print("COINALYZE CALLED", ticker)
     base = ticker.split("-")[0].upper()
     coin = RENAME.get(base, base)
     if coin in _CACHE:
