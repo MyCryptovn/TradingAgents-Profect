@@ -1,15 +1,15 @@
 # Paper Review Report
 
-- Thời điểm: **2026-11-02 15:58 UTC**
+- Thời điểm: **2026-11-02 20:12 UTC**
 - Ledger: `paper-ledger/ledger.json`
-- Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
+- Decisions file: `tradingagents-paper-results/decisions.json` (4 records)
 
 ## 1. Tổng quan hiệu suất
 
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **36** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **2** |
 | Win rate | **33.3%** |
 | PnL trung bình / lệnh | **-0.486%** |
 | Tổng PnL | **-17.49%** |
@@ -60,6 +60,13 @@
 | PEPE/USD | BUY | -3.68 | SL |
 | INJ/USD | SELL | -3.70 | SL |
 | AKE/USD | SELL | +3.86 | REVERSAL_PROFIT |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| ZEC/USD | SELL | 1152.65 |
+| BTC/USD | SELL | 76938.5 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 

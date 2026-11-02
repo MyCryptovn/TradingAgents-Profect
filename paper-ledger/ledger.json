@@ -8428,6 +8428,66 @@
    "scan": "02 BTC/USD direction=SHORT score=52.65 long_score=47.35 short_score=52.65 mtf_score=0.5265 vol24h=$1,646,853,287 spread=0.129 depth10bps=$7,341,594",
    "cfg": "v25-2026-11-02",
    "src": "hyperliquid"
+  },
+  {
+   "id": "41510015146-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793650329,
+   "entry": 1152.65,
+   "btc0": 76938.5,
+   "status": "open",
+   "spread": 0.0002602698130394782,
+   "scan": "01 ZEC/USD direction=SHORT score=75.07 long_score=17.93 short_score=75.07 mtf_score=0.7507 vol24h=$562,334,423 spread=2.592 depth10bps=$619,646",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41510015146-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPE",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793650329,
+   "entry": 83.6075,
+   "btc0": 76938.5,
+   "status": "open",
+   "spread": 1.1960649463322966e-05,
+   "scan": "02 HYPE/USD direction=SHORT score=72.84 long_score=27.16 short_score=72.84 mtf_score=0.7284 vol24h=$683,644,663 spread=0.839 depth10bps=$271,408",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41510015146-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793650329,
+   "entry": 76938.5,
+   "btc0": 76938.5,
+   "status": "open",
+   "spread": 1.299739402249849e-05,
+   "scan": "03 BTC/USD direction=SHORT score=69.23 long_score=32.72 short_score=69.23 mtf_score=0.6923 vol24h=$2,155,885,900 spread=0.130 depth10bps=$13,970,434",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41510015146-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETH",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793650329,
+   "entry": 2251.95,
+   "btc0": 76938.5,
+   "status": "open",
+   "spread": 4.440595927969496e-05,
+   "scan": "04 ETH/USD direction=SHORT score=68.18 long_score=31.90 short_score=68.18 mtf_score=0.6818 vol24h=$934,320,575 spread=0.445 depth10bps=$18,793,702",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
   }
  ]
 }
