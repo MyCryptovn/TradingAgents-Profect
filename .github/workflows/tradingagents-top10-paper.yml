@@ -3,7 +3,7 @@ name: TradingAgents Top-10 Paper Effectiveness
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 */4 * * *"
+    - cron: "15 */3 * * *"
 permissions:
   contents: write
 
@@ -73,9 +73,9 @@ jobs:
       - name: Verify crypto-native routing and live trading gate
         run: |
           grep -R -q "HYPERLIQUID" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "KRAKEN" scripts/tradingagents_paper_pipeline.py
           grep -R -q "COINGECKO" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "YAHOO FINANCE NOT USED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "COINALYZE" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "KRAKEN" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
@@ -92,7 +92,7 @@ jobs:
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "v24-2026-11-01"
+          CONFIG_TAG: "v25-2026-11-02"
         run: python scripts/paper_ledger.py record
 
       - name: Score paper ledger
