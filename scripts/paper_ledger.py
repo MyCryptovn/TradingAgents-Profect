@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sổ lệnh paper + chấm điểm PnL. Chỉ dùng thư viện chuẩn, giá lấy từ Kraken.
+"""Sổ lệnh paper + chấm điểm PnL. Chỉ dùng thư viện chuẩn, giá lấy từ Hyperliquid.
 
   python scripts/paper_ledger.py record   # ghi quyết định của lần chạy này vào sổ
   python scripts/paper_ledger.py score    # chốt lệnh đến hạn / chạm SL-TP + báo cáo
@@ -21,7 +21,8 @@ TP = float(os.getenv("TAKE_PROFIT_PCT", "0")) / 100        # 0 = tắt TP cứng
 FEE = float(os.getenv("FEE_PCT", "0.26"))                  # phí taker mỗi chiều (%)
 SLIP = float(os.getenv("SLIPPAGE_PCT", "0.05"))            # trượt giá mỗi chiều (%)
 COST = 2 * (FEE + SLIP) / 100                              # chi phí khứ hồi
-API = "https://api.kraken.com/0/public/"
+HL_API = "https://api.hyperliquid.xyz/info"
+HL_INTERVAL = "15m"
 
 
 def now():
@@ -134,7 +135,7 @@ def record():
     led = load()
     known = {t["id"] for t in led["trades"]}
     run = os.getenv("GITHUB_RUN_ID", str(now()))
-    btc0 = price("XBTUSD")
+    btc0 = price("BTCUSD")
     for sym, act, raw in decisions:
         if raw == "REVIEW" or council_exit(led, sym, act):
             continue
