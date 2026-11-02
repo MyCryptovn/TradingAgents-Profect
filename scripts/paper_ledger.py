@@ -29,18 +29,11 @@ def now():
     return int(time.time())
 
 
-def get(path, **params):
-    url = API + path + "?" + urllib.parse.urlencode(params)
-    with urllib.request.urlopen(url, timeout=30) as r:
-        d = json.load(r)
-    if d.get("error"):
-        raise RuntimeError(d["error"])
-    return d["result"]
-
-
-def candles(pair, since):
-    res = get("OHLC", pair=pair, interval=15, since=since)
-    return res[next(k for k in res if k != "last")]
+def candles(coin, since, interval=HL_INTERVAL):
+    now_ms = int(time.time() * 1000)
+    rows = hl_post({"type": "candleSnapshot", "req": {
+        "coin": coin, "interval": interval,
+        "startTime": int(since) * 1000, "endTime": now_ms}})
 
 
 def price(pair):
@@ -52,6 +45,7 @@ def spread(pair):
     t = next(iter(get("Ticker", pair=pair).values()))
     a, b = float(t["a"][0]), float(t["b"][0])
     return (a - b) / ((a + b) / 2)
+
 def price_at(pair, ts):
     rows = candles(pair, ts - 900)
     return float(rows[0][4]) if rows else price(pair)
