@@ -120,7 +120,7 @@ def check_reversal(t):
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
 
-    if pnl >= 0.03 and (hits >= 2 or give >= GIVEBACK_SOFT):
+    if pnl >= 0.03 and hits >= 1 and (hits >= 2 or give >= GIVEBACK_SOFT):
         reason = "REVERSAL_PROFIT"
     elif pnl < 0.01 and hits >= 3:
         reason = "REVERSAL_CUT"
@@ -131,7 +131,7 @@ def check_reversal(t):
 
     rev = round(pnl * 100, 3)
     if MODE != "close":
-        t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
+        t.update(rev_px=px, rev_t=now(), rev_first=rev, rev_pnl_pct=rev, watch=info)
         print("Tín hiệu đảo chiều (shadow):", t["symbol"], reason, rev)
         return True
 
