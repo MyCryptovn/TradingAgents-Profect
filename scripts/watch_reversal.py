@@ -13,7 +13,7 @@ import json
 import os
 import time
 
-from scripts.paper_ledger import COST, get, now, price, settle
+from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin
 
 LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger/ledger.json")
 MODE = os.getenv("WATCH_MODE", "shadow")
@@ -24,12 +24,6 @@ GIVEBACK_SOFT = 0.020        # 2% từ đỉnh → cảnh báo
 GIVEBACK_HARD = 0.025        # 3% từ đỉnh → ưu tiên đóng
 PROFIT_LOCK = 0.030          # lãi ≥ 3% thì bắt đầu bảo vệ
 STRONG_TREND_RSI = 55        # RSI còn cao → coi như xu hướng còn khỏe
-
-
-def ohlc(pair, interval):
-    res = get("OHLC", pair=pair, interval=interval)
-    rows = res[next(k for k in res if k != "last")]
-    return rows[:-1] if len(rows) > 1 else []
 
 
 def ema(values, n):
@@ -52,74 +46,72 @@ def rsi(closes, n=14):
     return 100.0 if al == 0 else 100 - 100 / (1 + ag / al)
 
 
-def flow5(pair):
-    res = get("Trades", pair=pair)
-    rows = res[next(k for k in res if k != "last")]
-    cut = time.time() - 300
-    w = [r for r in rows if float(r[2]) >= cut]
-    b = sum(float(r[0]) * float(r[1]) for r in w if r[3] == "b")
-    s = sum(float(r[0]) * float(r[1]) for r in w if r[3] == "s")
-    return len(w), b / max(b + s, 1)
+def taker_share(r1, minutes=15):
+    """Ước lượng tỷ lệ áp lực mua từ nến 1m: vị trí giá đóng trong biên độ nến nhân khối lượng.
+    Xấp xỉ, không phải dòng lệnh mua/bán thật."""
+    rows = r1[-minutes:]
+    buy = sell = 0.0
+    for r in rows:
+        o, h, l, c, v = r[1], r[2], r[3], r[4], r[5]
+        rng = h - l
+        frac = (c - l) / rng if rng > 0 else (1.0 if c >= o else 0.0)
+        buy += v * frac
+        sell += v * (1 - frac)
+    tot = buy + sell
+    return (buy / tot if tot > 0 else 0.5), len(rows)
 
 
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t:
-        return False  # đã ghi tín hiệu shadow rồi, không ghi lại
+        return False
     if now() - t["t0"] < MIN_AGE:
         return False
 
-    pair = t["pair"]
+    coin = trade_coin(t)
     d = 1 if t["action"] == "BUY" else -1
     entry = t["entry"]
-    px = price(pair)
+    px = price(coin)
+    pnl = d * (px / entry - 1) - COST - t.get("spread", 0)
 
-    # PnL hiện tại (đã trừ chi phí ước tính)
-    raw_pnl = d * (px / entry - 1)
-    pnl = raw_pnl - COST - t.get("spread", 0)
-
-    r5 = ohlc(pair, 5)
-    r1 = ohlc(pair, 1)
+    r5 = candles(coin, now() - 8 * 3600, interval="5m")
+    r1 = candles(coin, now() - 3 * 3600, interval="1m")
     if len(r5) < 15 or len(r1) < 20:
         return False
 
-    c5 = [float(c[4]) for c in r5]
-    c1 = [float(c[4]) for c in r1]
+    c5 = [r[4] for r in r5]
+    c1 = [r[4] for r in r1]
     ema9 = ema(c5[-40:], 9)
-    ema21 = ema(c5[-60:] if len(c5) >= 60 else c5, 21)
+    ema21 = ema(c5[-60:], 21)
     rs = rsi(c1)
-    n5, share = flow5(pair)
+    share15, n15 = taker_share(r1, 15)   # 15 phút gần nhất
+    share5, _ = taker_share(r1, 5)       # 5 phút gần nhất, bắt nhịp xả đang diễn ra
+    share = share15
 
     last2 = r5[-2:]
     last3 = r1[-3:]
-    since = [c for c in r5 if float(c[0]) >= t["t0"] - 300]
 
-    # --- Tín hiệu đảo chiều ---
-    if d == 1:  # lệnh BUY
+    if d == 1:
         peak = max(t.get("peak", entry), px)
         t["peak"] = peak
         give = (peak - px) / peak if peak > 0 else 0
-        s_flow = n5 >= 5 and share < 0.42
-        s_5m = all(float(c[4]) < float(c[1]) for c in last2) and c5[-1] < ema9
-        s_1m = all(float(c[4]) < float(c[1]) for c in last3) and rs < 48
+        s_flow = share < 0.42
+        s_5m = all(r[4] < r[1] for r in last2) and c5[-1] < ema9
+        s_1m = all(r[4] < r[1] for r in last3) and rs < 48
         s_structure = c5[-1] < ema21
-    else:       # lệnh SELL
+    else:
         trough = min(t.get("trough", entry), px)
         t["trough"] = trough
         give = (px - trough) / trough if trough > 0 else 0
-        s_flow = n5 >= 5 and share > 0.55
-        s_5m = all(float(c[4]) > float(c[1]) for c in last2) and c5[-1] > ema9
-        s_1m = all(float(c[4]) > float(c[1]) for c in last3) and rs > 52
+        s_flow = share > 0.55
+        s_5m = all(r[4] > r[1] for r in last2) and c5[-1] > ema9
+        s_1m = all(r[4] > r[1] for r in last3) and rs > 52
         s_structure = c5[-1] > ema21
 
     hits = sum([s_flow, s_5m, s_1m, s_structure])
-    info = (f"pnl={pnl:+.2%} give={give:.1%} flow={share:.0%}/{n5} "
+    info = (f"pnl={pnl:+.2%} give={give:.1%} flow15={share15:.0%} flow5={share5:.0%}"
             f"5m={s_5m} 1m={s_1m} rsi={rs:.0f} hits={hits}")
-
     print("Canh gác", t["symbol"], t["action"], info)
 
-    # === LOGIC QUYẾT ĐỊNH ĐÓNG LỆNH ===
-
-    # 1. Xu hướng vẫn còn rất khỏe + đang lãi → để chạy tiếp
     if d == 1:
         strong = pnl > 0.035 and rs > STRONG_TREND_RSI and hits <= 1
     else:
@@ -128,44 +120,24 @@ def check_reversal(t):
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
 
-    # 2. Đang lãi khá + có tín hiệu đảo chiều rõ → chốt
-    if pnl >= PROFIT_LOCK and (hits >= 2 or give >= GIVEBACK_SOFT):
+    if pnl >= 0.03 and (hits >= 2 or give >= GIVEBACK_SOFT):
         reason = "REVERSAL_PROFIT"
-        should_close = True
-
-    # 3. Đang lỗ hoặc hòa + tín hiệu đảo chiều mạnh → cắt sớm
     elif pnl < 0.01 and hits >= 3:
         reason = "REVERSAL_CUT"
-        should_close = True
-
-    # 4. Giveback cứng từ đỉnh
     elif give >= GIVEBACK_HARD and hits >= 1:
         reason = "REVERSAL_GIVEBACK"
-        should_close = True
-
     else:
-        should_close = False
-
-    if not should_close:
         return False
 
-    # Ghi nhận hoặc đóng lệnh
     rev = round(pnl * 100, 3)
-
     if MODE != "close":
         t.update(rev_px=px, rev_t=now(), rev_pnl_pct=rev, watch=info)
         print("Tín hiệu đảo chiều (shadow):", t["symbol"], reason, rev)
         return True
 
-    # MODE = close → đóng thật
-    t.update(
-        status="closed",
-        exit=px,
-        t1=now(),
-        reason=reason,
-        pnl_pct=rev,
-        watch=info,
-    )
+    if t.get("status") != "open":
+        return False
+    t.update(status="closed", exit=px, t1=now(), reason=reason, pnl_pct=rev, watch=info)
     print("Chốt sớm:", t["symbol"], t["action"], reason, f"{rev:+.2f}%")
     return True
 
@@ -174,14 +146,11 @@ def main():
     if not os.path.exists(LEDGER_PATH):
         print("Chưa có sổ", LEDGER_PATH)
         return
-
     with open(LEDGER_PATH) as f:
         led = json.load(f)
 
-    open_n = sum(
-        1 for t in led["trades"]
-        if t["status"] == "open" and t["action"] != "HOLD" and not t.get("base")
-    )
+    open_n = sum(1 for t in led["trades"]
+                 if t["status"] == "open" and t["action"] != "HOLD" and not t.get("base"))
     print(f"Canh gác thông minh (mode={MODE}): {open_n} lệnh đang mở")
 
     changed = False
