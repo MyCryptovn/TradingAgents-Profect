@@ -75,7 +75,7 @@ jobs:
           grep -R -q "HYPERLIQUID" scripts/tradingagents_paper_pipeline.py
           grep -R -q "KRAKEN" scripts/tradingagents_paper_pipeline.py
           grep -R -q "COINGECKO" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "YAHOO FINANCE BYPASSED" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "YAHOO FINANCE NOT USED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
