@@ -29,35 +29,63 @@ def now():
     return int(time.time())
 
 
-def candles(coin, since, interval=HL_INTERVAL):
+def hl_post(body):
+    req = urllib.request.Request(
+        HL_API,
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json",
+                 "User-Agent": "TradingAgents-Profect/paper-ledger"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
+
+
+def coin_of(sym):
+    """Tên coin Hyperliquid từ BTC/USD, BTC-USD, kPEPE/USD, xyz:CL/USD."""
+    base = sym.strip().split("/", 1)[0].split("-", 1)[0]
+    return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
+
+
+def trade_coin(t):
+    """Luôn suy ra từ symbol, nên lệnh cũ có pair kiểu Kraken vẫn chấm đúng."""
+    return coin_of(t["symbol"])
+
+
+def book(coin):
+    """Mid và spread (phân số) từ sổ lệnh L2 Hyperliquid."""
+    d = hl_post({"type": "l2Book", "coin": coin})
+    bid = float(d["levels"][0][0]["px"])
+    ask = float(d["levels"][1][0]["px"])
+    mid = (bid + ask) / 2
+    return mid, (ask - bid) / mid
+
+
+def price(coin):
+    return book(coin)[0]
+
+
+def spread(coin):
+    return book(coin)[1]
+
+
+def candles(coin, since):
+    """Nến 15m ĐÃ ĐÓNG từ mốc since (giây), dạng [ts, o, h, l, c, v] như code cũ."""
     now_ms = int(time.time() * 1000)
     rows = hl_post({"type": "candleSnapshot", "req": {
-        "coin": coin, "interval": interval,
+        "coin": coin, "interval": HL_INTERVAL,
         "startTime": int(since) * 1000, "endTime": now_ms}})
+    out = []
+    for r in rows:
+        if int(r["T"]) > now_ms:      # bỏ nến đang chạy
+            continue
+        out.append([int(r["t"]) / 1000, float(r["o"]), float(r["h"]),
+                    float(r["l"]), float(r["c"]), float(r["v"])])
+    return sorted(out, key=lambda x: x[0])
 
 
-def price(pair):
-    res = get("Ticker", pair=pair)
-    return float(next(iter(res.values()))["c"][0])
-
-
-def spread(pair):
-    t = next(iter(get("Ticker", pair=pair).values()))
-    a, b = float(t["a"][0]), float(t["b"][0])
-    return (a - b) / ((a + b) / 2)
-
-def price_at(pair, ts):
-    rows = candles(pair, ts - 900)
-    return float(rows[0][4]) if rows else price(pair)
-
-
-def pair_of(sym):
-    s = sym.upper().replace("-", "/").replace("_", "/")
-    base = s.split("/")[0]
-    if "/" not in s and base.endswith("USD"):
-        base = base[:-3]
-    base = {"BTC": "XBT"}.get(base, base)
-    return base + "USD"
+def price_at(coin, ts):
+    rows = candles(coin, ts - 900)
+    return rows[0][4] if rows else price(coin)
 
 
 def extract(data):
@@ -113,49 +141,52 @@ def council_exit(led, sym, act):
         return True
     if (t["action"], act) not in (("BUY", "SELL"), ("SELL", "BUY")):
         return True
-    px = price(t["pair"])
+    px = price(trade_coin(t))
     d = 1 if t["action"] == "BUY" else -1
-    t.update(status="closed", exit=px, t1=now(), reason="COUNCIL", pnl_pct=round((d * (px / t["entry"] - 1) - COST - t.get("spread", 0)) * 100, 3))
+    t.update(status="closed", exit=px, t1=now(), reason="COUNCIL",
+             pnl_pct=round((d * (px / t["entry"] - 1) - COST - t.get("spread", 0)) * 100, 3))
     print("Hội đồng đóng lệnh:", sym, t["action"], px)
     return True
+
 def record():
     if not os.path.exists(RESULT_FILE):
         print("Không thấy", RESULT_FILE)
         return
     with open(RESULT_FILE) as f:
-        decisions = extract(json.load(f))
-    with open(RESULT_FILE) as f:
-        scans = {d.get("symbol"): d.get("scan", "") for d in json.load(f) if isinstance(d, dict)}
+        data = json.load(f)
+    decisions = extract(data)
+    scans = {d.get("symbol"): d.get("scan", "") for d in data if isinstance(d, dict)}
     led = load()
     known = {t["id"] for t in led["trades"]}
     run = os.getenv("GITHUB_RUN_ID", str(now()))
-    btc0 = price("BTCUSD")
+    btc0 = price("BTC")
     for sym, act, raw in decisions:
         if raw == "REVIEW" or council_exit(led, sym, act):
             continue
-        
         tid = f"{run}-{sym}"
         if tid in known:
             continue
         try:
-            p = pair_of(sym)
-            entry = price(p)
-            sp = spread(p)
+            coin = coin_of(sym)
+            entry, sp = book(coin)
         except Exception as e:
             print("Bỏ qua", sym, e)
             continue
-        led["trades"].append({"id": tid, "symbol": sym, "pair": p, "action": act, "raw": raw,
-                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open", "spread": sp, "scan": scans.get(sym, ""), "cfg": os.getenv("CONFIG_TAG", "v1")})
+        led["trades"].append({"id": tid, "symbol": sym, "pair": coin, "action": act, "raw": raw,
+                              "t0": now(), "entry": entry, "btc0": btc0, "status": "open",
+                              "spread": sp, "scan": scans.get(sym, ""),
+                              "cfg": os.getenv("CONFIG_TAG", "v1"), "src": "hyperliquid"})
         print("Ghi:", sym, act, entry)
     save(led)
 
 def trail_pnl(t):
+    coin = trade_coin(t)
     end = t["t0"] + HORIZON_H * 3600
     d = 1 if t["action"] == "BUY" else -1
     e = t["entry"]
     peak = e
     exit_px = None
-    for c in candles(t["pair"], t["t0"]):
+    for c in candles(coin, t["t0"]):
         ts, hi, lo = int(c[0]), float(c[2]), float(c[3])
         if ts >= end:
             break
@@ -165,22 +196,25 @@ def trail_pnl(t):
             break
         peak = max(peak, hi) if d == 1 else min(peak, lo)
     if exit_px is None:
-        exit_px = price_at(t["pair"], end)
+        exit_px = price_at(coin, end)
     return round((d * (exit_px / e - 1) - COST - t.get("spread", 0)) * 100, 3)
+
 def settle(t):
+    coin = trade_coin(t)
     end = t["t0"] + HORIZON_H * 3600
     if t["action"] == "HOLD":
         if now() < end:
             return
-        px = price_at(t["pair"], end)
-        t.update(status="closed", exit=px, t1=end, move_pct=round((px / t["entry"] - 1) * 100, 3)),
+        px = price_at(coin, end)
+        t.update(status="closed", exit=px, t1=end,
+                 move_pct=round((px / t["entry"] - 1) * 100, 3))
         return
-    d = 1 if t["action"] == "BUY" else -1  # SELL = mô phỏng short
+    d = 1 if t["action"] == "BUY" else -1
     e = t["entry"]
     sl, tp = e * (1 - d * SL), e * (1 + d * TP)
     exit_px = reason = t1 = None
     best = 0.0
-    for c in candles(t["pair"], t["t0"]):
+    for c in candles(coin, t["t0"]):
         ts, hi, lo = int(c[0]), float(c[2]), float(c[3])
         if ts >= end:
             break
@@ -188,7 +222,7 @@ def settle(t):
         best = max(best, fav)
         sl_hit = lo <= sl if d == 1 else hi >= sl
         tp_hit = (TP > 0) and (hi >= tp if d == 1 else lo <= tp)
-        if sl_hit:  # cùng nến chạm cả hai -> tính SL (thận trọng)
+        if sl_hit:
             exit_px, reason, t1 = sl, "SL", ts
             break
         if tp_hit:
@@ -197,12 +231,11 @@ def settle(t):
     if exit_px is None:
         if now() < end:
             return
-        exit_px, reason, t1 = price_at(t["pair"], end), "TIME", end
+        exit_px, reason, t1 = price_at(coin, end), "TIME", end
     t.update(status="closed", exit=exit_px, t1=t1, reason=reason,
              pnl_pct=round((d * (exit_px / e - 1) - COST - t.get("spread", 0)) * 100, 3),
              mfe_pct=round(best * 100, 3))
-
-
+  
 def report(led):
     T = led["trades"]
     B = [t for t in T if t.get("base")]
