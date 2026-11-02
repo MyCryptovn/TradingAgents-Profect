@@ -95,7 +95,7 @@ def check_reversal(t):
 
     # --- Tín hiệu đảo chiều ---
     if d == 1:  # lệnh BUY
-        peak = max(t.get("peak", entry), px
+        peak = max(t.get("peak", entry), px)
         t["peak"] = peak
         give = (peak - px) / peak if peak > 0 else 0
         s_flow = n5 >= 5 and share < 0.42
