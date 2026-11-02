@@ -566,8 +566,10 @@ def main() -> int:
     print("AI: TRADINGAGENTS")
     print(f"LLM PROVIDER: {provider}")
     print("CRYPTO DATA MODE: COINGECKO API")
-    print("PAPER BUY/SELL: ENABLED")
     print("REAL ORDERS: DISABLED")
+    print("LIVE TRADING GATE: DISABLED")
+    print("REVIEW DECISIONS: NEVER EXECUTED")
+    print("PAPER BUY/SELL: ENABLED")
     print(f"CANDIDATES: {len(candidates)}")
 
     for rank, symbol in enumerate(candidates, 1):
