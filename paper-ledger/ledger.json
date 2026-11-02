@@ -8262,10 +8262,13 @@
    "t0": 1793522283,
    "entry": 78010.4,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2818811861665643e-06,
    "scan": "01 BTC/USD direction=LONG score=55.88 long_score=55.88 short_score=44.38 mtf_score=0.5588 vol24h=$560,491,010 spread=0.128 depth10bps=$10,844,904",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 78137.0,
+   "t1": 1793608683.0,
+   "move_pct": 0.162
   },
   {
    "id": "41288248354-ETH/USD",
@@ -8284,7 +8287,8 @@
    "t1": 1793608683.0,
    "reason": "TIME",
    "pnl_pct": 0.29,
-   "mfe_pct": 1.99
+   "mfe_pct": 1.99,
+   "trail_pnl_pct": 0.29
   },
   {
    "id": "41288248354-HYPE/USD",
@@ -8295,10 +8299,13 @@
    "t0": 1793522283,
    "entry": 87.63,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00011412268188292045,
    "scan": "01 HYPE/USD direction=SHORT score=72.58 long_score=33.42 short_score=72.58 mtf_score=0.7258 vol24h=$475,539,256 spread=0.115 depth10bps=$260,253",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 86.373,
+   "t1": 1793608683.0,
+   "move_pct": -1.434
   },
   {
    "id": "41288248354-ZEC/USD",
@@ -8317,7 +8324,8 @@
    "t1": 1793608683.0,
    "reason": "TIME",
    "pnl_pct": -1.318,
-   "mfe_pct": 3.275
+   "mfe_pct": 3.275,
+   "trail_pnl_pct": -0.29
   },
   {
    "id": "41288248354-NEAR/USD",
@@ -8336,7 +8344,8 @@
    "t1": 1793608683.0,
    "reason": "TIME",
    "pnl_pct": 5.852,
-   "mfe_pct": 7.15
+   "mfe_pct": 7.15,
+   "trail_pnl_pct": 5.852
   },
   {
    "id": "41288248354-XPL/USD",
@@ -8355,7 +8364,8 @@
    "t1": 1793608684.0,
    "reason": "TIME",
    "pnl_pct": 4.008,
-   "mfe_pct": 5.552
+   "mfe_pct": 5.552,
+   "trail_pnl_pct": -3.29
   },
   {
    "id": "41288248354-SOL/USD",
@@ -8366,10 +8376,58 @@
    "t0": 1793522284,
    "entry": 95.54,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00010466272437062018,
    "scan": "05 SOL/USD direction=SHORT score=59.93 long_score=40.07 short_score=59.93 mtf_score=0.5993 vol24h=$92,608,979 spread=0.105 depth10bps=$1,467,912",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 94.345,
+   "t1": 1793608684.0,
+   "move_pct": -1.251
+  },
+  {
+   "id": "41473941730-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793635131,
+   "entry": 1249.9,
+   "btc0": 77450.5,
+   "status": "open",
+   "spread": 0.0003200256020480547,
+   "scan": "01 ZEC/USD direction=LONG score=57.82 long_score=57.82 short_score=42.18 mtf_score=0.5782 vol24h=$335,817,323 spread=0.793 depth10bps=$1,036,239",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41473941730-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPE",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793635131,
+   "entry": 85.553,
+   "btc0": 77450.5,
+   "status": "open",
+   "spread": 7.013196498077481e-05,
+   "scan": "01 HYPE/USD direction=SHORT score=56.43 long_score=43.57 short_score=56.43 mtf_score=0.5643 vol24h=$487,404,864 spread=0.116 depth10bps=$150,457",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41473941730-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793635131,
+   "entry": 77441.0,
+   "btc0": 77450.5,
+   "status": "open",
+   "spread": 5.1652225565269045e-05,
+   "scan": "02 BTC/USD direction=SHORT score=52.65 long_score=47.35 short_score=52.65 mtf_score=0.5265 vol24h=$1,646,853,287 spread=0.129 depth10bps=$7,341,594",
+   "cfg": "v25-2026-11-02",
+   "src": "hyperliquid"
   }
  ]
 }
