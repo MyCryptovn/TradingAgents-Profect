@@ -560,16 +560,14 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: HYPERLIQUID (price/candles/book/funding) + KRAKEN (taker flow/spot depth) + COINGECKO (market context) + COINALYZE NOTE")
+    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINGECKO (market context) + COINALYZE NOTE + KRAKEN (taker flow/spot depth)")
+    print("DATA: COINGECKO (market context in the AI prompt; not used by the scanner score)")
     print("DATA: COINALYZE (perp open interest, funding, liquidations, context only)")
     print("DATA: KRAKEN (spot taker flow and spot depth only)")
     print("AI: TRADINGAGENTS")
     print(f"LLM PROVIDER: {provider}")
-    print("CRYPTO DATA MODE: COINGECKO API")
-    print("REAL ORDERS: DISABLED")
-    print("LIVE TRADING GATE: DISABLED")
-    print("REVIEW DECISIONS: NEVER EXECUTED")
     print("PAPER BUY/SELL: ENABLED")
+    print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
 
     for rank, symbol in enumerate(candidates, 1):
