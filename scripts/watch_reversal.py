@@ -20,9 +20,9 @@ MODE = os.getenv("WATCH_MODE", "shadow")
 
 # === THAM SỐ CÓ THỂ CHỈNH ===
 MIN_AGE = 60                # giây (1 phút) mới bắt đầu canh
-GIVEBACK_SOFT = 0.020        # 2% từ đỉnh → cảnh báo
-GIVEBACK_HARD = 0.025        # 3% từ đỉnh → ưu tiên đóng
-PROFIT_LOCK = 0.030          # lãi ≥ 3% thì bắt đầu bảo vệ
+GIVEBACK_SOFT = 0.018        # 2% từ đỉnh → cảnh báo
+GIVEBACK_HARD = 0.030        # 3% từ đỉnh → ưu tiên đóng
+PROFIT_LOCK = 0.035          # lãi ≥ 3,5% thì bắt đầu bảo vệ
 STRONG_TREND_RSI = 55        # RSI còn cao → coi như xu hướng còn khỏe
 
 
