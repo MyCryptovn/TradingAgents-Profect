@@ -8276,10 +8276,15 @@
    "t0": 1793522283,
    "entry": 2270.03,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 4.4048109345988114e-06,
    "scan": "02 ETH/USD direction=LONG score=54.73 long_score=54.73 short_score=46.33 mtf_score=0.5473 vol24h=$264,787,655 spread=0.441 depth10bps=$26,533,790",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 2290.7,
+   "t1": 1793608683.0,
+   "reason": "TIME",
+   "pnl_pct": 0.29,
+   "mfe_pct": 1.99
   },
   {
    "id": "41288248354-HYPE/USD",
@@ -8304,10 +8309,15 @@
    "t0": 1793522283,
    "entry": 1251.8,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004315649824976133,
    "scan": "02 ZEC/USD direction=SHORT score=70.49 long_score=34.75 short_score=70.49 mtf_score=0.7049 vol24h=$172,485,785 spread=0.803 depth10bps=$1,201,207",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 1260.0,
+   "t1": 1793608683.0,
+   "reason": "TIME",
+   "pnl_pct": -1.318,
+   "mfe_pct": 3.275
   },
   {
    "id": "41288248354-NEAR/USD",
@@ -8318,10 +8328,15 @@
    "t0": 1793522283,
    "entry": 4.3833,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0001596150995884541,
    "scan": "03 NEAR/USD direction=SHORT score=63.68 long_score=38.45 short_score=63.68 mtf_score=0.6368 vol24h=$73,787,506 spread=1.146 depth10bps=$150,643",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 4.0989,
+   "t1": 1793608683.0,
+   "reason": "TIME",
+   "pnl_pct": 5.852,
+   "mfe_pct": 7.15
   },
   {
    "id": "41288248354-XPL/USD",
@@ -8332,10 +8347,15 @@
    "t0": 1793522284,
    "entry": 0.0737,
    "btc0": 78010.4,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0013559322033898692,
    "scan": "04 XPL/USD direction=SHORT score=61.40 long_score=38.60 short_score=61.40 mtf_score=0.6140 vol24h=$77,097,909 spread=2.562 depth10bps=$22,979",
-   "cfg": "v23-2026-10-31"
+   "cfg": "v23-2026-10-31",
+   "exit": 0.070189,
+   "t1": 1793608684.0,
+   "reason": "TIME",
+   "pnl_pct": 4.008,
+   "mfe_pct": 5.552
   },
   {
    "id": "41288248354-SOL/USD",
