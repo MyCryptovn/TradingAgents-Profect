@@ -268,6 +268,8 @@ def select_deep_scan_markets(
 
         if not coin:
             reasons.append("MISSING_MARKET_ID")
+        if ":" in coin:
+            reasons.append("SKIP_HIP3_MARKET")
         if price <= 0:
             reasons.append("INVALID_MARK_PRICE")
         if volume < MIN_DAY_VOLUME_USD:
