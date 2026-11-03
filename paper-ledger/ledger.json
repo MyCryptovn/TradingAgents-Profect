@@ -8442,7 +8442,8 @@
    "spread": 0.0002602698130394782,
    "scan": "01 ZEC/USD direction=SHORT score=75.07 long_score=17.93 short_score=75.07 mtf_score=0.7507 vol24h=$562,334,423 spread=2.592 depth10bps=$619,646",
    "cfg": "v25-2026-11-02",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 1132.45
   },
   {
    "id": "41510015146-HYPE/USD",
@@ -8472,7 +8473,8 @@
    "spread": 1.299739402249849e-05,
    "scan": "03 BTC/USD direction=SHORT score=69.23 long_score=32.72 short_score=69.23 mtf_score=0.6923 vol24h=$2,155,885,900 spread=0.130 depth10bps=$13,970,434",
    "cfg": "v25-2026-11-02",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 76649.5
   },
   {
    "id": "41510015146-ETH/USD",
@@ -8558,11 +8560,17 @@
    "t0": 1793686936,
    "entry": 83.5085,
    "btc0": 76547.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.1974828909689132e-05,
    "scan": "03 HYPE/USD direction=SHORT score=61.57 long_score=38.43 short_score=61.57 mtf_score=0.6157 vol24h=$745,467,215 spread=0.120 depth10bps=$140,676",
    "cfg": "v25-2026-11-02",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 83.5085,
+   "exit": 83.56649999999999,
+   "t1": 1793687381,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -0.691,
+   "watch": "pnl=-0.69% give=0.1% flow15=60% flow5=56%5m=True 1m=False rsi=69 hits=3"
   },
   {
    "id": "41587397215-ETH/USD",
