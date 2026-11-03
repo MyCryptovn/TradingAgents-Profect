@@ -1,20 +1,22 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-03 11:02 UTC
+Cập nhật: 2026-11-03 15:54 UTC
 
-- Lệnh đã chốt: **38** | đang mở: 2 | HOLD đã chấm: 432
+- Lệnh đã chốt: **40** | đang mở: 0 | HOLD đã chấm: 432
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **31.6%** (12/38)
-- PnL trung bình/lệnh: -0.534%
-- Tổng PnL (cộng dồn): **-20.30%**
-- Profit factor: 0.74
+- Win rate: **30.0%** (12/40)
+- PnL trung bình/lệnh: -0.546%
+- Tổng PnL (cộng dồn): **-21.84%**
+- Profit factor: 0.73
 - Max drawdown: 45.98%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +1.53%  -> bot THUA benchmark
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| ETH/USD | BUY | 2269.65 | 2267.85 | None | -0.70 |
+| BTC/USD | SELL | 76938.5 | 77109.5 | None | -0.84 |
 | ZEC/USD | SELL | 1152.65 | 1169.65 | COUNCIL | -2.12 |
 | HYPE/USD | SELL | 83.5085 | 83.5665 | REVERSAL_CUT | -0.69 |
 | XPL/USD | SELL | 0.0737 | 0.070189 | TIME | +4.01 |
@@ -23,8 +25,6 @@ Cập nhật: 2026-11-03 11:02 UTC
 | ETH/USD | BUY | 2270.03 | 2290.7 | TIME | +0.29 |
 | BTC/USD | SELL | 77407 | 77533.5 | REVERSAL_CUT | -0.78 |
 | TIA/USD | BUY | 0.4638 | 0.449886 | SL | -3.69 |
-| HYPE/USD | BUY | 86.52 | 93.71 | REVERSAL_PROFIT | +7.67 |
-| PEPE/USD | BUY | 5.082e-06 | 4.92954e-06 | SL | -3.68 |
 - Lãi tối đa từng đạt (trung bình): 2.76% (27 lệnh)
 
 ## Quyết định HOLD

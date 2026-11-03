@@ -1,19 +1,19 @@
 # Paper Review Report
 
-- Thời điểm: **2026-11-03 11:02 UTC**
+- Thời điểm: **2026-11-03 15:54 UTC**
 - Ledger: `paper-ledger/ledger.json`
-- Decisions file: `tradingagents-paper-results/decisions.json` (3 records)
+- Decisions file: `tradingagents-paper-results/decisions.json` (7 records)
 
 ## 1. Tổng quan hiệu suất
 
 | Chỉ số | Giá trị |
 |--------|---------|
-| Số lệnh đã đóng | **38** |
-| Lệnh đang mở | **2** |
-| Win rate | **31.6%** |
-| PnL trung bình / lệnh | **-0.534%** |
-| Tổng PnL | **-20.30%** |
-| Profit Factor | **0.74** |
+| Số lệnh đã đóng | **40** |
+| Lệnh đang mở | **0** |
+| Win rate | **30.0%** |
+| PnL trung bình / lệnh | **-0.546%** |
+| Tổng PnL | **-21.84%** |
+| Profit Factor | **0.73** |
 | Max DD (xấp xỉ) | **43.91%** |
 | Benchmark BTC (tham chiếu) | **+1.53%** |
 
@@ -26,18 +26,19 @@
 | TP | 6 |
 | REVERSAL | 6 |
 | COUNCIL | 2 |
+| UNKNOWN | 2 |
 
 ## 3. Theo hướng BUY / SELL
 
 | Hướng | Số lệnh | Avg PnL | Tổng PnL |
 |-------|---------|---------|----------|
-| BUY | 25 | -1.037% | -25.92% |
-| SELL | 13 | +0.432% | +5.62% |
+| BUY | 26 | -1.024% | -26.62% |
+| SELL | 14 | +0.341% | +4.78% |
 
 ## 4. Top 3 vấn đề
 
-1. Win rate thấp (31.6%).
-2. Profit Factor 0.74 < 1 → kỳ vọng âm.
+1. Win rate thấp (30.0%).
+2. Profit Factor 0.73 < 1 → kỳ vọng âm.
 3. Max DD xấp xỉ 43.9% khá cao.
 
 ## 5. Top 3 điểm mạnh
@@ -50,6 +51,8 @@
 
 | Symbol | Hướng | PnL % | Lý do |
 |--------|-------|-------|-------|
+| ETH/USD | BUY | -0.70 | None |
+| BTC/USD | SELL | -0.84 | None |
 | ZEC/USD | SELL | -2.12 | COUNCIL |
 | HYPE/USD | SELL | -0.69 | REVERSAL_CUT |
 | XPL/USD | SELL | +4.01 | TIME |
@@ -58,15 +61,6 @@
 | NEAR/USD | SELL | +5.85 | TIME |
 | BTC/USD | SELL | -0.78 | REVERSAL_CUT |
 | TIA/USD | BUY | -3.69 | SL |
-| HYPE/USD | BUY | +7.67 | REVERSAL_PROFIT |
-| PEPE/USD | BUY | -3.68 | SL |
-
-## 7. Lệnh đang mở
-
-| Symbol | Hướng | Entry | 
-|--------|-------|-------|
-| BTC/USD | SELL | 76938.5 |
-| ETH/USD | BUY | 2269.6499999999996 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
