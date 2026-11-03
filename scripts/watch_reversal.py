@@ -125,7 +125,6 @@ def check_reversal(t):
         s_structure = c5[-1] < ema21
         s_funding = funding > 0.0006          # funding dương cao bất lợi cho Long
         s_imbalance = imbalance < -0.18       # ask nặng
-        s_bomxa = bom_xa == "XA_MANH"         # đang bị xả mạnh
     else:  # Short
         trough = min(t.get("trough", entry), px)
         t["trough"] = trough
@@ -136,7 +135,6 @@ def check_reversal(t):
         s_structure = c5[-1] > ema21
         s_funding = funding < -0.0006
         s_imbalance = imbalance > 0.18
-        s_bomxa = bom_xa == "BOM_MANH"
 
     classic_hits = sum([s_flow, s_5m, s_1m, s_structure])
     hl_hits = sum([s_funding, s_imbalance, s_bomxa])
@@ -147,7 +145,7 @@ def check_reversal(t):
     f"flow15={share15:.0%} flow5={share5:.0%} "
     f"1m={s_1m} 5m={s_5m} rsi={rs:.0f} "
     f"hits={classic_hits}+{hl_hits} "
-    f"fund={funding:.5f} imb={imbalance:+.2f} bomxa={bom_xa}"
+    f"fund={funding:.5f} imb={imbalance:+.2f}
 )
     print("Canh gác", t["symbol"], t["action"], info)
 
