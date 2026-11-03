@@ -8438,12 +8438,16 @@
    "t0": 1793650329,
    "entry": 1152.65,
    "btc0": 76938.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0002602698130394782,
    "scan": "01 ZEC/USD direction=SHORT score=75.07 long_score=17.93 short_score=75.07 mtf_score=0.7507 vol24h=$562,334,423 spread=2.592 depth10bps=$619,646",
    "cfg": "v25-2026-11-02",
    "src": "hyperliquid",
-   "trough": 1132.45
+   "trough": 1132.45,
+   "exit": 1169.65,
+   "t1": 1793703764,
+   "reason": "COUNCIL",
+   "pnl_pct": -2.121
   },
   {
    "id": "41510015146-HYPE/USD",
