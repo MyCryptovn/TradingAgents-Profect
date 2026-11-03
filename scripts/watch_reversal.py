@@ -142,7 +142,7 @@ def check_reversal(t):
     f"pnl={pnl:+.2%} give={give:.1%} "
     f"1m={s_1m} 5m={s_5m} rsi={rs:.0f} "
     f"hits={classic_hits}+{hl_hits} "
-    f"fund={funding:.5f} imb={imbalance:+.2f})
+    f"fund={funding:.5f} imb={imbalance:+.2f}")
     
     print("Canh gác", t["symbol"], t["action"], info)
 
