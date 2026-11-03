@@ -304,11 +304,17 @@ def select_deep_scan_markets(
     # Lấy thêm mẫu đa dạng
     slots = limit - len(selected)
     if slots > 0 and remaining:
-        step = max(1, len(remaining) // slots)
-        for i in range(0, len(remaining), step):
-            if len(selected) >= limit:
-                break
-            selected.append(remaining[i]["market"])
+        if len(remaining) <= slots:
+            selected.extend(item["market"] for item in remaining)
+        else:
+            indexes = sorted({
+                round(i * (len(remaining) - 1) / max(slots - 1, 1))
+                for i in range(slots)
+            })
+            for idx in indexes:
+                if len(selected) >= limit:
+                    break
+                selected.append(remaining[idx]["market"])
 
     return selected, rejected
 
@@ -523,7 +529,7 @@ def calculate_direction_scores(
 
     # Xử lý bơm/xả 1m
     one_min = features.get("one_minute") or timeframes.get("1m") or {}
-    one_minute_label = one_min.get("bom_xa_label", "")
+    one_minute_label = one_min.get("bom_xa_label") or "TRUNG_TINH"
 
     if one_minute_label == "BOM_MANH":
         long_score -= 7.0
