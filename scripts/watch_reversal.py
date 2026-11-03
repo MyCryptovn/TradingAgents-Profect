@@ -17,6 +17,7 @@ from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin
 
 LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger/ledger.json")
 MODE = os.getenv("WATCH_MODE", "shadow")
+SCANNER_JSON = Path("tradingagents-paper-results/scanner.json") 
 
 # === THAM SỐ CÓ THỂ CHỈNH ===
 MIN_AGE = 60                # giây (1 phút) mới bắt đầu canh
