@@ -1,20 +1,21 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-03 06:22 UTC
+Cập nhật: 2026-11-03 10:39 UTC
 
-- Lệnh đã chốt: **36** | đang mở: 3 | HOLD đã chấm: 432
+- Lệnh đã chốt: **37** | đang mở: 3 | HOLD đã chấm: 432
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **33.3%** (12/36)
-- PnL trung bình/lệnh: -0.486%
-- Tổng PnL (cộng dồn): **-17.49%**
-- Profit factor: 0.77
+- Win rate: **32.4%** (12/37)
+- PnL trung bình/lệnh: -0.491%
+- Tổng PnL (cộng dồn): **-18.18%**
+- Profit factor: 0.76
 - Max drawdown: 45.98%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +1.53%  -> bot THUA benchmark
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| HYPE/USD | SELL | 83.5085 | 83.5665 | REVERSAL_CUT | -0.69 |
 | XPL/USD | SELL | 0.0737 | 0.070189 | TIME | +4.01 |
 | NEAR/USD | SELL | 4.3833 | 4.0989 | TIME | +5.85 |
 | ZEC/USD | SELL | 1251.8 | 1260 | TIME | -1.32 |
@@ -24,7 +25,6 @@ Cập nhật: 2026-11-03 06:22 UTC
 | HYPE/USD | BUY | 86.52 | 93.71 | REVERSAL_PROFIT | +7.67 |
 | PEPE/USD | BUY | 5.082e-06 | 4.92954e-06 | SL | -3.68 |
 | INJ/USD | SELL | 7.793 | 8.02679 | SL | -3.70 |
-| AKE/USD | SELL | 0.0225786 | 0.0215163 | REVERSAL_PROFIT | +3.86 |
 - Lãi tối đa từng đạt (trung bình): 2.76% (27 lệnh)
 
 ## Quyết định HOLD

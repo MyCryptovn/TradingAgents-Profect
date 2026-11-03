@@ -8586,6 +8586,36 @@
    "scan": "04 ETH/USD direction=SHORT score=57.74 long_score=43.01 short_score=57.74 mtf_score=0.5774 vol24h=$925,904,150 spread=0.445 depth10bps=$26,430,150",
    "cfg": "v25-2026-11-02",
    "src": "hyperliquid"
+  },
+  {
+   "id": "41618430782-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPE",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793702380,
+   "entry": 84.2175,
+   "btc0": 77002.5,
+   "status": "open",
+   "spread": 1.1874016683050136e-05,
+   "scan": "01 HYPE/USD direction=LONG score=58.22 long_score=58.22 short_score=41.78 mtf_score=0.5822 vol24h=$653,068,834 spread=0.119 depth10bps=$116,323",
+   "cfg": "v26-2026-11-03",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41618430782-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETH",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793702380,
+   "entry": 2269.6499999999996,
+   "btc0": 77002.5,
+   "status": "open",
+   "spread": 4.405965677523366e-05,
+   "scan": "04 ETH/USD direction=LONG score=52.22 long_score=52.22 short_score=44.28 mtf_score=0.5222 vol24h=$966,439,323 spread=0.441 depth10bps=$22,571,294",
+   "cfg": "v26-2026-11-03",
+   "src": "hyperliquid"
   }
  ]
 }
