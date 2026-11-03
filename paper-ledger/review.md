@@ -1,6 +1,6 @@
 # Paper Review Report
 
-- Thời điểm: **2026-11-03 15:54 UTC**
+- Thời điểm: **2026-11-03 19:45 UTC**
 - Ledger: `paper-ledger/ledger.json`
 - Decisions file: `tradingagents-paper-results/decisions.json` (7 records)
 
@@ -9,7 +9,7 @@
 | Chỉ số | Giá trị |
 |--------|---------|
 | Số lệnh đã đóng | **40** |
-| Lệnh đang mở | **0** |
+| Lệnh đang mở | **3** |
 | Win rate | **30.0%** |
 | PnL trung bình / lệnh | **-0.546%** |
 | Tổng PnL | **-21.84%** |
@@ -61,6 +61,14 @@
 | NEAR/USD | SELL | +5.85 | TIME |
 | BTC/USD | SELL | -0.78 | REVERSAL_CUT |
 | TIA/USD | BUY | -3.69 | SL |
+
+## 7. Lệnh đang mở
+
+| Symbol | Hướng | Entry | 
+|--------|-------|-------|
+| XMR/USD | BUY | 634.41 |
+| XRP/USD | BUY | 1.27745 |
+| XPL/USD | SELL | 0.06308050000000001 |
 
 ## 8. Gợi ý hành động (không tự sửa code)
 
