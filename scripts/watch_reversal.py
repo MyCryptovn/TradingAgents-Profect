@@ -112,8 +112,6 @@ def check_reversal(t):
 
     # Lấy thêm ngữ cảnh từ scanner Hyperliquid
     funding, imbalance = hl_context(coin)
-    funding = ctxs.get("funding") or 0.0
-    imbalance = ctxs.get("imbalance") or 0.0
     bom_xa = ctx.get("one_minute_label", "")
 
     if d == 1:  # LONG
