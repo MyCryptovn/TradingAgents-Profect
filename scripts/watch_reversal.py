@@ -58,34 +58,28 @@ def taker_share(r1, minutes=15):
     tot = buy + sell
     return (buy / tot if tot > 0 else 0.5), len(rows)
 
-def load_scanner_context(symbol: str) -> dict:
-    """Lấy thêm thông tin từ scanner.json (funding, imbalance, bom_xa...)."""
-    if not SCANNER_JSON.exists():
-        return {}
-
+def hl_context(coin):
+    """Funding và imbalance order book trực tiếp từ Hyperliquid. Lỗi thì trả về 0 để không đóng lệnh nhầm."""
     try:
-        data = json.loads(SCANNER_JSON.read_text(encoding="utf-8"))
-        all_rows = (
-            data.get("top_long", [])
-            + data.get("top_short", [])
-            + data.get("watchlist", [])
-            + data.get("analyzed_markets", [])
-        )
-        sym = symbol.replace("-USD", "").replace("/USD", "").upper()
-        for row in all_rows:
-            if str(row.get("symbol", "")).upper() == sym:
-                scores = row.get("scores", {})
-                return {
-                    "funding": scores.get("funding") or row.get("funding"),
-                    "imbalance": scores.get("orderbook_imbalance"),
-                    "one_minute_label": scores.get("one_minute_label", ""),
-                    "direction": scores.get("direction"),
-                    "long_score": scores.get("long_score"),
-                    "short_score": scores.get("short_score"),
-                }
-    except Exception:
-        pass
-    return {}
+        from scripts.paper_ledger import hl_post, book
+        ctxs = hl_post({"type": "metaAndAssetCtxs"})
+        names = [u["name"] for u in ctxs[0]["universe"]]
+        funding = float(ctxs[1][names.index(coin)]["funding"]) if coin in names else 0.0
+    except Exception as ex:
+        print("HL context lỗi:", coin, ex)
+        funding = 0.0
+    try:
+        from scripts.paper_ledger import hl_post as _p
+        d = _p({"type": "l2Book", "coin": coin})
+        bids = d["levels"][0][:10]
+        asks = d["levels"][1][:10]
+        bv = sum(float(x["px"]) * float(x["sz"]) for x in bids)
+        av = sum(float(x["px"]) * float(x["sz"]) for x in asks)
+        imb = (bv - av) / (bv + av) if (bv + av) > 0 else 0.0
+    except Exception as ex:
+        print("HL book lỗi:", coin, ex)
+        imb = 0.0
+    return funding, imb
 
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t:
@@ -97,7 +91,7 @@ def check_reversal(t):
     d = 1 if t["action"] == "BUY" else -1
     entry = t["entry"]
     px = price(coin)
-    pnl = d * (px / entry - 1) - COST - t.get("spread", 0)
+    pnl = d * (px / entry - 1) - COST 
 
     r5 = candles(coin, now() - 8 * 3600, interval="5m")
     r1 = candles(coin, now() - 3 * 3600, interval="1m")
@@ -117,9 +111,9 @@ def check_reversal(t):
     last3 = r1[-3:]
 
     # Lấy thêm ngữ cảnh từ scanner Hyperliquid
-    ctx = load_scanner_context(t["symbol"])
-    funding = ctx.get("funding") or 0.0
-    imbalance = ctx.get("imbalance") or 0.0
+    funding, imbalance = hl_context(coin)
+    funding = ctxs.get("funding") or 0.0
+    imbalance = ctxs.get("imbalance") or 0.0
     bom_xa = ctx.get("one_minute_label", "")
 
     if d == 1:  # LONG
@@ -159,9 +153,9 @@ def check_reversal(t):
     print("Canh gác", t["symbol"], t["action"], info)
 
     if d == 1:
-        strong = pnl > 0.035 and rs > STRONG_TREND_RSI and hits <= 1
+        strong = pnl > 0.035 and rs > STRONG_TREND_RSI and total_hits <= 1
     else:
-        strong = pnl > 0.035 and rs < 100 - STRONG_TREND_RSI and hits <= 1
+        strong = pnl > 0.035 and rs < 100 - STRONG_TREND_RSI and total_hits <= 1
     if strong:
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
