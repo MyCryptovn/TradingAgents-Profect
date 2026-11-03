@@ -81,6 +81,35 @@ def hl_context(coin):
         imb = 0.0
     return funding, imb
 
+def load_scanner_context(symbol: str) -> dict:
+    """Lấy thêm thông tin từ scanner.json (funding, imbalance, bom_xa...)."""
+    if not SCANNER_JSON.exists():
+        return {}
+
+    try:
+        data = json.loads(SCANNER_JSON.read_text(encoding="utf-8"))
+        all_rows = (
+            data.get("top_long", [])
+            + data.get("top_short", [])
+            + data.get("watchlist", [])
+            + data.get("analyzed_markets", [])
+        )
+        sym = symbol.replace("-USD", "").replace("/USD", "").upper()
+        for row in all_rows:
+            if str(row.get("symbol", "")).upper() == sym:
+                scores = row.get("scores", {})
+                return {
+                    "funding": scores.get("funding") or row.get("funding"),
+                    "imbalance": scores.get("orderbook_imbalance"),
+                    "one_minute_label": scores.get("one_minute_label", ""),
+                    "direction": scores.get("direction"),
+                    "long_score": scores.get("long_score"),
+                    "short_score": scores.get("short_score"),
+                }
+    except Exception:
+        pass
+    return {}
+
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t:
         return False
@@ -110,8 +139,10 @@ def check_reversal(t):
     last2 = r5[-2:]
     last3 = r1[-3:]
 
-    # Lấy thêm ngữ cảnh từ scanner Hyperliquid
+    # Lấy dữ liệu tươi từ scanner Hyperliquid
     funding, imbalance = hl_context(coin)
+    # Lấy thêm tín hiệu bơm/xả từ scanner (nếu có)
+    ctx = load_scanner_context(t["symbol"])
     bom_xa = ctx.get("one_minute_label", "")
 
     if d == 1:  # LONG
