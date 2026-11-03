@@ -21,7 +21,7 @@ MODE = os.getenv("WATCH_MODE", "shadow")
 SCANNER_JSON = Path("tradingagents-paper-results/scanner.json") 
 
 # === THAM SỐ CÓ THỂ CHỈNH ===
-MIN_AGE = 60                # giây (1 phút) mới bắt đầu canh
+MIN_AGE = 300                # giây (5 phút) mới bắt đầu canh
 GIVEBACK_SOFT = 0.018        # 1,8% từ đỉnh → cảnh báo
 GIVEBACK_HARD = 0.028        # 2,8% từ đỉnh → ưu tiên đóng
 PROFIT_LOCK = 0.032          # lãi ≥ 3,2% thì bắt đầu bảo vệ
@@ -83,35 +83,6 @@ def hl_context(coin):
         imb = 0.0
     return funding, imb
 
-def load_scanner_context(symbol: str) -> dict:
-    """Lấy thêm thông tin từ scanner.json (funding, imbalance, bom_xa...)."""
-    if not SCANNER_JSON.exists():
-        return {}
-
-    try:
-        data = json.loads(SCANNER_JSON.read_text(encoding="utf-8"))
-        all_rows = (
-            data.get("top_long", [])
-            + data.get("top_short", [])
-            + data.get("watchlist", [])
-            + data.get("analyzed_markets", [])
-        )
-        sym = symbol.replace("-USD", "").replace("/USD", "").upper()
-        for row in all_rows:
-            if str(row.get("symbol", "")).upper() == sym:
-                scores = row.get("scores", {})
-                return {
-                    "funding": scores.get("funding") or row.get("funding"),
-                    "imbalance": scores.get("orderbook_imbalance"),
-                    "one_minute_label": scores.get("one_minute_label", ""),
-                    "direction": scores.get("direction"),
-                    "long_score": scores.get("long_score"),
-                    "short_score": scores.get("short_score"),
-                }
-    except Exception:
-        pass
-    return {}
-
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t:
         return False
@@ -143,10 +114,6 @@ def check_reversal(t):
 
     # Lấy dữ liệu tươi từ scanner Hyperliquid
     funding, imbalance = hl_context(coin)
-    
-    # Lấy thêm tín hiệu bơm/xả từ scanner (nếu có)
-    ctx = load_scanner_context(t["symbol"])
-    bom_xa = ctx.get("one_minute_label", "")
 
     if d == 1:  # LONG
         peak = max(t.get("peak", entry), px)
@@ -192,13 +159,8 @@ def check_reversal(t):
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
         
-    # Quyết định chốt
     reason = None
-
-    # Ưu tiên cao: bị bơm/xả ngược chiều mạnh
-    if s_bomxa and (pnl > 0.01 or give >= GIVEBACK_SOFT):
-        reason = "REVERSAL_BOM_XA"
-    elif pnl >= 0.028 and total_hits >= 2:
+    if pnl >= 0.028 and total_hits >= 2:
         reason = "REVERSAL_PROFIT"
     elif pnl < 0.008 and total_hits >= 3:
         reason = "REVERSAL_CUT"
@@ -206,7 +168,9 @@ def check_reversal(t):
         reason = "REVERSAL_GIVEBACK"
     elif hl_hits >= 2 and give >= GIVEBACK_SOFT:
         reason = "REVERSAL_HL_PRESSURE"
-
+    
+    if reason is None:
+        return False
 
     rev = round(pnl * 100, 3)
     if MODE != "close":
