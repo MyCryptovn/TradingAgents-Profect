@@ -443,9 +443,11 @@ def timeframe_direction(row: dict, timeframe: str) -> float:
         TIMEFRAME_MOMENTUM_SCALES[timeframe],
     )
 
-    return clamp(
-        0.55 * trend_signal + 0.45 * momentum_signal
-    )
+    # Trend quan trọng hơn một chút ở khung lớn, momentum quan trọng hơn ở khung nhỏ
+    if timeframe in ("1m", "5m"):
+        return clamp(0.40 * trend_signal + 0.60 * momentum_signal)
+    else:
+        return clamp(0.60 * trend_signal + 0.40 * momentum_signal)
 
 
 def directional_composite(features: dict) -> tuple[float, dict]:
