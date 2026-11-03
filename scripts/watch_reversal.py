@@ -20,9 +20,9 @@ MODE = os.getenv("WATCH_MODE", "shadow")
 
 # === THAM SỐ CÓ THỂ CHỈNH ===
 MIN_AGE = 60                # giây (1 phút) mới bắt đầu canh
-GIVEBACK_SOFT = 0.018        # 2% từ đỉnh → cảnh báo
-GIVEBACK_HARD = 0.030        # 3% từ đỉnh → ưu tiên đóng
-PROFIT_LOCK = 0.035          # lãi ≥ 3,5% thì bắt đầu bảo vệ
+GIVEBACK_SOFT = 0.018        # 1,8% từ đỉnh → cảnh báo
+GIVEBACK_HARD = 0.028        # 2,8% từ đỉnh → ưu tiên đóng
+PROFIT_LOCK = 0.032          # lãi ≥ 3,2% thì bắt đầu bảo vệ
 STRONG_TREND_RSI = 55        # RSI còn cao → coi như xu hướng còn khỏe
 
 
@@ -47,8 +47,6 @@ def rsi(closes, n=14):
 
 
 def taker_share(r1, minutes=15):
-    """Ước lượng tỷ lệ áp lực mua từ nến 1m: vị trí giá đóng trong biên độ nến nhân khối lượng.
-    Xấp xỉ, không phải dòng lệnh mua/bán thật."""
     rows = r1[-minutes:]
     buy = sell = 0.0
     for r in rows:
@@ -60,6 +58,34 @@ def taker_share(r1, minutes=15):
     tot = buy + sell
     return (buy / tot if tot > 0 else 0.5), len(rows)
 
+def load_scanner_context(symbol: str) -> dict:
+    """Lấy thêm thông tin từ scanner.json (funding, imbalance, bom_xa...)."""
+    if not SCANNER_JSON.exists():
+        return {}
+
+    try:
+        data = json.loads(SCANNER_JSON.read_text(encoding="utf-8"))
+        all_rows = (
+            data.get("top_long", [])
+            + data.get("top_short", [])
+            + data.get("watchlist", [])
+            + data.get("analyzed_markets", [])
+        )
+        sym = symbol.replace("-USD", "").replace("/USD", "").upper()
+        for row in all_rows:
+            if str(row.get("symbol", "")).upper() == sym:
+                scores = row.get("scores", {})
+                return {
+                    "funding": scores.get("funding") or row.get("funding"),
+                    "imbalance": scores.get("orderbook_imbalance"),
+                    "one_minute_label": scores.get("one_minute_label", ""),
+                    "direction": scores.get("direction"),
+                    "long_score": scores.get("long_score"),
+                    "short_score": scores.get("short_score"),
+                }
+    except Exception:
+        pass
+    return {}
 
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t:
@@ -90,15 +116,24 @@ def check_reversal(t):
     last2 = r5[-2:]
     last3 = r1[-3:]
 
-    if d == 1:
+    # Lấy thêm ngữ cảnh từ scanner Hyperliquid
+    ctx = load_scanner_context(t["symbol"])
+    funding = ctx.get("funding") or 0.0
+    imbalance = ctx.get("imbalance") or 0.0
+    bom_xa = ctx.get("one_minute_label", "")
+
+    if d == 1:  # LONG
         peak = max(t.get("peak", entry), px)
         t["peak"] = peak
         give = (peak - px) / peak if peak > 0 else 0
-        s_flow = share < 0.42
+        s_flow = share < 0.43
         s_5m = all(r[4] < r[1] for r in last2) and c5[-1] < ema9
-        s_1m = all(r[4] < r[1] for r in last3) and rs < 48
+        s_1m = all(r[4] < r[1] for r in last3) and rs < 47
         s_structure = c5[-1] < ema21
-    else:
+        s_funding = funding > 0.0006          # funding dương cao bất lợi cho Long
+        s_imbalance = imbalance < -0.18       # ask nặng
+        s_bomxa = bom_xa == "XA_MANH"         # đang bị xả mạnh
+    else:  # Short
         trough = min(t.get("trough", entry), px)
         t["trough"] = trough
         give = (px - trough) / trough if trough > 0 else 0
@@ -106,10 +141,21 @@ def check_reversal(t):
         s_5m = all(r[4] > r[1] for r in last2) and c5[-1] > ema9
         s_1m = all(r[4] > r[1] for r in last3) and rs > 52
         s_structure = c5[-1] > ema21
+        s_funding = funding < -0.0006
+        s_imbalance = imbalance > 0.18
+        s_bomxa = bom_xa == "BOM_MANH"
 
-    hits = sum([s_flow, s_5m, s_1m, s_structure])
-    info = (f"pnl={pnl:+.2%} give={give:.1%} flow15={share15:.0%} flow5={share5:.0%}"
-            f"5m={s_5m} 1m={s_1m} rsi={rs:.0f} hits={hits}")
+    classic_hits = sum([s_flow, s_5m, s_1m, s_structure])
+    hl_hits = sum([s_funding, s_imbalance, s_bomxa])
+    total_hits = classic_hits + hl_hits
+    
+    info = (
+    f"pnl={pnl:+.2%} give={give:.1%} "
+    f"flow15={share15:.0%} flow5={share5:.0%} "
+    f"1m={s_1m} 5m={s_5m} rsi={rs:.0f} "
+    f"hits={classic_hits}+{hl_hits} "
+    f"fund={funding:.5f} imb={imbalance:+.2f} bomxa={bom_xa}"
+)
     print("Canh gác", t["symbol"], t["action"], info)
 
     if d == 1:
@@ -119,15 +165,22 @@ def check_reversal(t):
     if strong:
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
+        
+    # Quyết định chốt
+    reason = None
 
-    if pnl >= 0.03 and hits >= 1 and (hits >= 2 or give >= GIVEBACK_SOFT):
+    # Ưu tiên cao: bị bơm/xả ngược chiều mạnh
+    if s_bomxa and (pnl > 0.01 or give >= GIVEBACK_SOFT):
+        reason = "REVERSAL_BOM_XA"
+    elif pnl >= 0.028 and total_hits >= 2:
         reason = "REVERSAL_PROFIT"
-    elif pnl < 0.01 and hits >= 3:
+    elif pnl < 0.008 and total_hits >= 3:
         reason = "REVERSAL_CUT"
-    elif give >= GIVEBACK_HARD and hits >= 1:
+    elif give >= GIVEBACK_HARD and total_hits >= 1:
         reason = "REVERSAL_GIVEBACK"
-    else:
-        return False
+    elif hl_hits >= 2 and give >= GIVEBACK_SOFT:
+        reason = "REVERSAL_HL_PRESSURE"
+
 
     rev = round(pnl * 100, 3)
     if MODE != "close":
@@ -151,7 +204,7 @@ def main():
 
     open_n = sum(1 for t in led["trades"]
                  if t["status"] == "open" and t["action"] != "HOLD" and not t.get("base"))
-    print(f"Canh gác thông minh (mode={MODE}): {open_n} lệnh đang mở")
+    print(f"Canh gác thông minh HL (mode={MODE}): {open_n} lệnh đang mở")
 
     changed = False
     for t in led["trades"]:
