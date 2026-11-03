@@ -552,16 +552,6 @@ def calculate_direction_scores(
         6.0,
         max(0.0, (volume_ratio - 1.0) * 3.0),
     )
-
-        # Bơm/xả 1m: không đuổi theo nhịp đang bơm hoặc xả quá mạnh
-    one_min = features.get("one_minute") or {}
-    one_minute_label = one_min.get("bom_xa_label", "")
-
-    if one_minute_label == "BOM_MANH":
-        long_score -= 6.0
-    elif one_minute_label == "XA_MANH":
-        short_score -= 6.0
-    
     long_score = 50.0 + 32.0 * composite
     short_score = 50.0 - 32.0 * composite
 
@@ -576,25 +566,31 @@ def calculate_direction_scores(
     elif composite < 0:
         short_score += volume_bonus
 
+    # Bơm/xả 1m: không đuổi theo nhịp đang bơm hoặc xả quá mạnh
+    one_min = features.get("one_minute") or {}
+    one_minute_label = one_min.get("bom_xa_label", "")
+
+    if one_minute_label == "BOM_MANH":
+        long_score -= 6.0
+    elif one_minute_label == "XA_MANH":
+        short_score -= 6.0
+
     # Avoid chasing extreme late moves.
     rsi_5m = safe_float(
         timeframes.get("5m", {}).get("rsi14"),
         50.0,
     )
-
     rsi_15m = safe_float(
         timeframes.get("15m", {}).get("rsi14"),
         50.0,
     )
-
     rsi_reference = (rsi_5m + rsi_15m) / 2.0
 
     if rsi_reference > 82:
         long_score -= 7.0
-
     if rsi_reference < 18:
         short_score -= 7.0
-
+    
     # OI change is a contextual confirmation, not a standalone signal.
     oi_confirmation = 0.0
 
