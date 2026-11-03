@@ -14,6 +14,7 @@ import os
 import time
 
 from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin
+from pathlib import Path
 
 LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger/ledger.json")
 MODE = os.getenv("WATCH_MODE", "shadow")
@@ -142,6 +143,7 @@ def check_reversal(t):
 
     # Lấy dữ liệu tươi từ scanner Hyperliquid
     funding, imbalance = hl_context(coin)
+    
     # Lấy thêm tín hiệu bơm/xả từ scanner (nếu có)
     ctx = load_scanner_context(t["symbol"])
     bom_xa = ctx.get("one_minute_label", "")
