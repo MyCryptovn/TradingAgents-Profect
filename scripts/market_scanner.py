@@ -255,11 +255,6 @@ def update_oi_state(
 def select_deep_scan_markets(
     markets: list[dict],
 ) -> tuple[list[dict], list[dict]]:
-    """
-    Discover all markets first, then select a diversified sample.
-
-    The sample is not limited to only the largest coins.
-    """
     eligible = []
     rejected = []
 
@@ -267,15 +262,14 @@ def select_deep_scan_markets(
         coin = str(market.get("coin") or "")
         volume = safe_float(market.get("day_volume_usd"))
         price = safe_float(market.get("mark_price"))
+        prev_price = safe_float(market.get("previous_day_price"))
 
         reasons = []
 
         if not coin:
             reasons.append("MISSING_MARKET_ID")
-
         if price <= 0:
             reasons.append("INVALID_MARK_PRICE")
-
         if volume < MIN_DAY_VOLUME_USD:
             reasons.append("DAY_VOLUME_BELOW_DISCOVERY_FLOOR")
 
@@ -287,48 +281,34 @@ def select_deep_scan_markets(
             })
             continue
 
-        eligible.append(market)
+        change_24h = abs(price / prev_price - 1.0) if prev_price > 0 else 0.0
 
-    eligible.sort(
-        key=lambda x: safe_float(x.get("day_volume_usd")),
-        reverse=True,
-    )
+        eligible.append({
+            "market": market,
+            "volume": volume,
+            "change_24h": change_24h,
+            "priority": volume * (1.0 + change_24h * 2.0),
+        })
+
+    # Sắp xếp theo priority
+    eligible.sort(key=lambda x: x["priority"], reverse=True)
 
     limit = max(1, MAX_DETAILED_MARKETS)
-    top_count = min(
-        max(1, TOP_LIQUID_SAMPLE),
-        limit,
-        len(eligible),
-    )
+    top_count = min(max(1, TOP_LIQUID_SAMPLE), limit, len(eligible))
 
-    selected = eligible[:top_count]
+    selected = [item["market"] for item in eligible[:top_count]]
     remaining = eligible[top_count:]
 
+    # Lấy thêm mẫu đa dạng
     slots = limit - len(selected)
-
     if slots > 0 and remaining:
-        # Deterministically distribute the remaining slots
-        # across the rest of the eligible volume distribution.
-        if len(remaining) <= slots:
-            selected.extend(remaining)
-        else:
-            indexes = [
-                round(i * (len(remaining) - 1) / max(slots - 1, 1))
-                for i in range(slots)
-            ]
-
-            seen = set()
-
-            for index in indexes:
-                market = remaining[index]
-                coin = market["coin"]
-
-                if coin not in seen:
-                    selected.append(market)
-                    seen.add(coin)
+        step = max(1, len(remaining) // slots)
+        for i in range(0, len(remaining), step):
+            if len(selected) >= limit:
+                break
+            selected.append(remaining[i]["market"])
 
     return selected, rejected
-
 
 # ============================================================
 # DATA QUALITY
@@ -359,22 +339,16 @@ def assess_quality(
     timeframes = features.get("timeframes", {})
     book = features.get("book", {})
 
-    # The 5m, 15m and 1h data are mandatory.
     required = ("5m", "15m", "1h")
-
     for timeframe in required:
         row = timeframes.get(timeframe, {})
-
         if not row.get("valid"):
             reasons.append(f"MISSING_{timeframe.upper()}_DATA")
             continue
-
         if not check_freshness(row, timeframe, now_ms):
             reasons.append(f"STALE_{timeframe.upper()}_DATA")
 
-    # 1m is important for short-term entries but may be unavailable.
     one_minute = timeframes.get("1m", {})
-
     if not one_minute.get("valid"):
         reasons.append("MISSING_1M_DATA")
     elif not check_freshness(one_minute, "1m", now_ms):
@@ -384,53 +358,47 @@ def assess_quality(
         reasons.append("INVALID_ORDERBOOK")
 
     spread = book.get("spread_bps")
-
     if spread is None:
         reasons.append("MISSING_SPREAD")
     elif safe_float(spread, 999999) > MAX_SPREAD_BPS:
         reasons.append("SPREAD_TOO_WIDE")
 
     depth = safe_float(book.get("depth_10bps_usd"))
-
     if depth < MIN_DEPTH_10BPS_USD:
         reasons.append("INSUFFICIENT_10BPS_DEPTH")
 
     volume = safe_float(market.get("day_volume_usd"))
 
-    # Quality score is separate from Long/Short direction.
+    # --- Tính điểm Quality tốt hơn ---
     spread_score = 0.0
-
     if spread is not None:
-        spread_score = clamp(
-            1.0 - safe_float(spread) / MAX_SPREAD_BPS,
-            0.0,
-            1.0,
-        )
+        # Phạt nặng hơn khi spread cao
+        spread_score = clamp(1.0 - (safe_float(spread) / MAX_SPREAD_BPS) ** 1.3, 0.0, 1.0)
 
     depth_score = clamp(
-        math.log10(max(depth, 1.0) / MIN_DEPTH_10BPS_USD + 1)
-        / 2.0,
+        math.log10(max(depth, 1.0) / MIN_DEPTH_10BPS_USD + 1) / 2.2,
         0.0,
         1.0,
     )
 
     volume_score = clamp(
-        math.log10(max(volume, 1.0) / MIN_DAY_VOLUME_USD + 1)
-        / 2.0,
+        math.log10(max(volume, 1.0) / MIN_DAY_VOLUME_USD + 1) / 2.0,
         0.0,
         1.0,
     )
 
-    completeness = sum(
-        1 for tf in ("1m", "5m", "15m", "1h")
-        if timeframes.get(tf, {}).get("valid")
-    ) / 4.0
+    # Độ đầy đủ timeframe (1m quan trọng hơn trước)
+    tf_weights = {"1m": 0.30, "5m": 0.25, "15m": 0.25, "1h": 0.20}
+    completeness = 0.0
+    for tf, w in tf_weights.items():
+        if timeframes.get(tf, {}).get("valid"):
+            completeness += w
 
     quality_score = (
-        30.0 * spread_score
-        + 30.0 * depth_score
-        + 20.0 * volume_score
-        + 20.0 * completeness
+        28.0 * spread_score
+        + 27.0 * depth_score
+        + 22.0 * volume_score
+        + 23.0 * completeness
     )
 
     if quality_score < MIN_QUALITY_SCORE:
@@ -438,10 +406,7 @@ def assess_quality(
 
     return {
         "quality_score": round(quality_score, 2),
-        "spread_bps": (
-            round(safe_float(spread), 4)
-            if spread is not None else None
-        ),
+        "spread_bps": round(safe_float(spread), 4) if spread is not None else None,
         "depth_10bps_usd": round(depth, 2),
         "day_volume_usd": round(volume, 2),
         "data_completeness": round(completeness, 2),
@@ -516,110 +481,86 @@ def calculate_direction_scores(
     features: dict,
     oi_change_pct: float | None,
 ) -> dict:
-    """
-    Independent directional scoring.
-
-    Neither direction is inferred solely from the opposite score.
-    """
     composite, timeframe_signals = directional_composite(features)
 
     timeframes = features.get("timeframes", {})
     book = features.get("book", {})
 
-    imbalance = clamp(
-        safe_float(book.get("imbalance_usd"))
-    )
-
+    imbalance = clamp(safe_float(book.get("imbalance_usd")))
     funding = safe_float(market.get("funding"))
+    funding_signal = clamp(funding / 0.00045)
 
-    # Positive funding mildly penalizes Long and favors Short.
-    # Negative funding mildly penalizes Short and favors Long.
-    funding_signal = clamp(funding / 0.0005)
-
+    # Volume confirmation
     volume_ratios = [
         safe_float(timeframes.get(tf, {}).get("volume_ratio"))
         for tf in ("5m", "15m")
         if timeframes.get(tf, {}).get("valid")
     ]
+    volume_ratio = sum(volume_ratios) / len(volume_ratios) if volume_ratios else 1.0
+    volume_bonus = min(7.0, max(0.0, (volume_ratio - 1.0) * 3.5))
 
-    volume_ratio = (
-        sum(volume_ratios) / len(volume_ratios)
-        if volume_ratios else 0.0
-    )
+    # Khởi tạo điểm
+    long_score = 50.0 + 30.0 * composite
+    short_score = 50.0 - 30.0 * composite
 
-    # Volume confirms a direction only when price direction exists.
-    volume_bonus = min(
-        6.0,
-        max(0.0, (volume_ratio - 1.0) * 3.0),
-    )
-    long_score = 50.0 + 32.0 * composite
-    short_score = 50.0 - 32.0 * composite
+    # Orderbook imbalance
+    long_score += 9.0 * imbalance
+    short_score -= 9.0 * imbalance
 
-    long_score += 8.0 * imbalance
-    short_score -= 8.0 * imbalance
+    # Funding
+    long_score -= 5.0 * funding_signal
+    short_score += 5.0 * funding_signal
 
-    long_score -= 4.0 * funding_signal
-    short_score += 4.0 * funding_signal
-
-    if composite > 0:
+    # Volume bonus theo chiều
+    if composite > 0.05:
         long_score += volume_bonus
-    elif composite < 0:
+    elif composite < -0.05:
         short_score += volume_bonus
 
-    # Bơm/xả 1m: không đuổi theo nhịp đang bơm hoặc xả quá mạnh
-    one_min = features.get("one_minute") or {}
+    # Xử lý bơm/xả 1m
+    one_min = features.get("one_minute") or timeframes.get("1m") or {}
     one_minute_label = one_min.get("bom_xa_label", "")
 
     if one_minute_label == "BOM_MANH":
-        long_score -= 6.0
+        long_score -= 7.0
+        short_score += 2.0
     elif one_minute_label == "XA_MANH":
-        short_score -= 6.0
+        short_score -= 7.0
+        long_score += 2.0
 
-    # Avoid chasing extreme late moves.
-    rsi_5m = safe_float(
-        timeframes.get("5m", {}).get("rsi14"),
-        50.0,
-    )
-    rsi_15m = safe_float(
-        timeframes.get("15m", {}).get("rsi14"),
-        50.0,
-    )
+    # RSI extreme
+    rsi_5m = safe_float(timeframes.get("5m", {}).get("rsi14"), 50.0)
+    rsi_15m = safe_float(timeframes.get("15m", {}).get("rsi14"), 50.0)
     rsi_reference = (rsi_5m + rsi_15m) / 2.0
 
-    if rsi_reference > 82:
-        long_score -= 7.0
-    if rsi_reference < 18:
-        short_score -= 7.0
-    
-    # OI change is a contextual confirmation, not a standalone signal.
+    if rsi_reference > 80:
+        long_score -= 8.0
+    elif rsi_reference > 72:
+        long_score -= 3.5
+
+    if rsi_reference < 20:
+        short_score -= 8.0
+    elif rsi_reference < 28:
+        short_score -= 3.5
+
+    # OI confirmation
     oi_confirmation = 0.0
-
     if oi_change_pct is not None:
-        oi_confirmation = clamp(
-            oi_change_pct / 0.05
-        )
-
+        oi_confirmation = clamp(oi_change_pct / 0.04)
         if composite > 0 and oi_confirmation > 0:
-            long_score += min(3.0, oi_confirmation * 3.0)
-
+            long_score += min(4.0, oi_confirmation * 4.0)
         elif composite < 0 and oi_confirmation > 0:
-            short_score += min(3.0, oi_confirmation * 3.0)
+            short_score += min(4.0, oi_confirmation * 4.0)
 
+    # Chuẩn hóa
     long_score = clamp(long_score, 0.0, 100.0)
     short_score = clamp(short_score, 0.0, 100.0)
 
-    if (
-        long_score >= MIN_DIRECTION_SCORE
-        and long_score - short_score >= MIN_DIRECTION_GAP
-    ):
+    # Quyết định hướng
+    if long_score >= MIN_DIRECTION_SCORE and (long_score - short_score) >= MIN_DIRECTION_GAP:
         direction = "LONG"
-
-    elif (
-        short_score >= MIN_DIRECTION_SCORE
-        and short_score - long_score >= MIN_DIRECTION_GAP
-    ):
+    elif short_score >= MIN_DIRECTION_SCORE and (short_score - long_score) >= MIN_DIRECTION_GAP:
         direction = "SHORT"
-
     else:
         direction = "WATCH"
 
@@ -627,18 +568,13 @@ def calculate_direction_scores(
         "direction": direction,
         "long_score": round(long_score, 2),
         "short_score": round(short_score, 2),
-        "direction_gap": round(
-            abs(long_score - short_score), 2
-        ),
+        "direction_gap": round(abs(long_score - short_score), 2),
         "directional_composite": round(composite, 4),
         "timeframe_signals": timeframe_signals,
         "volume_ratio_confirmation": round(volume_ratio, 4),
         "rsi_reference": round(rsi_reference, 2),
         "funding": funding,
-        "oi_change_pct": (
-            round(oi_change_pct * 100, 4)
-            if oi_change_pct is not None else None
-        ),
+        "oi_change_pct": round(oi_change_pct * 100, 4) if oi_change_pct is not None else None,
         "oi_confirmation": round(oi_confirmation, 4),
         "orderbook_imbalance": round(imbalance, 4),
         "one_minute_label": one_minute_label,
