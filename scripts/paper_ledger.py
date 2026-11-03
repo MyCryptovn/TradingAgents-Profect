@@ -68,11 +68,12 @@ def spread(coin):
     return book(coin)[1]
 
 
-def candles(coin, since):
-    """Nến 15m ĐÃ ĐÓNG từ mốc since (giây), dạng [ts, o, h, l, c, v] như code cũ."""
+
+def candles(coin, since, interval=HL_INTERVAL):
+    """Nến ĐÃ ĐÓNG từ mốc since (giây), dạng [ts, o, h, l, c, v]. interval: 1m, 5m, 15m..."""
     now_ms = int(time.time() * 1000)
     rows = hl_post({"type": "candleSnapshot", "req": {
-        "coin": coin, "interval": HL_INTERVAL,
+        "coin": coin, "interval": interval,
         "startTime": int(since) * 1000, "endTime": now_ms}})
     out = []
     for r in rows:
@@ -81,7 +82,6 @@ def candles(coin, since):
         out.append([int(r["t"]) / 1000, float(r["o"]), float(r["h"]),
                     float(r["l"]), float(r["c"]), float(r["v"])])
     return sorted(out, key=lambda x: x[0])
-
 
 def price_at(coin, ts):
     rows = candles(coin, ts - 900)
