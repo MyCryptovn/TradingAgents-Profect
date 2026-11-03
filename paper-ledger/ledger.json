@@ -8473,12 +8473,17 @@
    "t0": 1793650329,
    "entry": 76938.5,
    "btc0": 76938.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.299739402249849e-05,
    "scan": "03 BTC/USD direction=SHORT score=69.23 long_score=32.72 short_score=69.23 mtf_score=0.6923 vol24h=$2,155,885,900 spread=0.130 depth10bps=$13,970,434",
    "cfg": "v25-2026-11-02",
    "src": "hyperliquid",
-   "trough": 76649.5
+   "trough": 76649.5,
+   "exit": 77109.5,
+   "t1": 1793707887,
+   "reason": null,
+   "pnl_pct": -0.842,
+   "watch": "pnl=-0.84% give=0.6% flow15=57% flow5=52% 1m=False 5m=False rsi=48 hits=1+1 fund=0.00001 imb=+0.31 bomxa="
   },
   {
    "id": "41510015146-ETH/USD",
@@ -8615,11 +8620,17 @@
    "t0": 1793702380,
    "entry": 2269.6499999999996,
    "btc0": 77002.5,
-   "status": "open",
+   "status": "closed",
    "spread": 4.405965677523366e-05,
    "scan": "04 ETH/USD direction=LONG score=52.22 long_score=52.22 short_score=44.28 mtf_score=0.5222 vol24h=$966,439,323 spread=0.441 depth10bps=$22,571,294",
    "cfg": "v26-2026-11-03",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 2269.6499999999996,
+   "exit": 2267.8500000000004,
+   "t1": 1793707888,
+   "reason": null,
+   "pnl_pct": -0.699,
+   "watch": "pnl=-0.70% give=0.1% flow15=36% flow5=58% 1m=False 5m=False rsi=48 hits=2+0 fund=0.00001 imb=-0.04 bomxa="
   }
  ]
 }
