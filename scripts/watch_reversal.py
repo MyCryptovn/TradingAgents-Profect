@@ -119,7 +119,6 @@ def check_reversal(t):
         peak = max(t.get("peak", entry), px)
         t["peak"] = peak
         give = (peak - px) / peak if peak > 0 else 0
-        s_flow = share < 0.43
         s_5m = all(r[4] < r[1] for r in last2) and c5[-1] < ema9
         s_1m = all(r[4] < r[1] for r in last3) and rs < 47
         s_structure = c5[-1] < ema21
@@ -129,20 +128,18 @@ def check_reversal(t):
         trough = min(t.get("trough", entry), px)
         t["trough"] = trough
         give = (px - trough) / trough if trough > 0 else 0
-        s_flow = share > 0.55
         s_5m = all(r[4] > r[1] for r in last2) and c5[-1] > ema9
         s_1m = all(r[4] > r[1] for r in last3) and rs > 52
         s_structure = c5[-1] > ema21
         s_funding = funding < -0.0006
         s_imbalance = imbalance > 0.18
 
-    classic_hits = sum([s_flow, s_5m, s_1m, s_structure])
-    hl_hits = sum([s_funding, s_imbalance, s_bomxa])
+    classic_hits = sum([s_5m, s_1m, s_structure])
+    hl_hits = sum([s_funding, s_imbalance])
     total_hits = classic_hits + hl_hits
     
     info = (
     f"pnl={pnl:+.2%} give={give:.1%} "
-    f"flow15={share15:.0%} flow5={share5:.0%} "
     f"1m={s_1m} 5m={s_5m} rsi={rs:.0f} "
     f"hits={classic_hits}+{hl_hits} "
     f"fund={funding:.5f} imb={imbalance:+.2f}
