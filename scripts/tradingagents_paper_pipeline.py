@@ -331,13 +331,28 @@ def coingecko_note(ticker: str) -> str:
         m = rows[0]
         return (
             f" COINGECKO CONTEXT: market cap ${m.get('market_cap') or 0:,.0f}, "
-            f" COINGECKO CONTEXT (matched id={match['id']}, name={match['name']}): ..."
             f"rank #{m.get('market_cap_rank')}, 24h volume ${m.get('total_volume') or 0:,.0f} "
             f"(aggregated across exchanges), 24h change {m.get('price_change_percentage_24h') or 0:.2f}%, "
             f"7d change {m.get('price_change_percentage_7d_in_currency') or 0:.2f}%."
         )
     except Exception:
         return ""
+
+def hl_perp_note(symbol: str) -> str:
+    row = SCAN_ROWS.get(symbol.replace("-", "/"))
+    if not row:
+        return ""
+    q = row.get("quality", {})
+    return (
+        f" HYPERLIQUID PERP (the market where the paper trade is recorded): "
+        f"24h volume ${row.get('day_volume_usd', 0):,.0f}, "
+        f"open interest ${row.get('open_interest', 0) * row.get('mark_price', 0):,.0f}, "
+        f"mark price {row.get('mark_price', 0):.6g}, "
+        f"funding {row.get('funding', 0):+.5f}, "
+        f"spread {q.get('spread_bps', 0)} bps, "
+        f"10bps depth ${q.get('depth_10bps_usd', 0):,.0f}, "
+        f"tier {row.get('tier', 'LARGE')}."
+    )
 
 def run_tradingagents(ticker: str, trade_date: str) -> str:
     """Run TradingAgents with crypto-native market tools over the pinned source."""
@@ -386,26 +401,6 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     trading_graph_module.get_stock_data = crypto_get_stock_data
     trading_graph_module.get_indicators = crypto_get_indicators
     trading_graph_module.get_verified_market_snapshot = crypto_get_verified_snapshot
-
-    SCAN_ROWS = {}  # symbol (dạng BTC/USD) -> row scanner đầy đủ
-
-
-def hl_perp_note(symbol: str) -> str:
-    row = SCAN_ROWS.get(symbol.replace("-", "/"))
-    if not row:
-        return ""
-    q = row.get("quality", {})
-    return (
-        f" HYPERLIQUID PERP (the market where the paper trade is recorded): "
-        f"24h volume ${row.get('day_volume_usd', 0):,.0f}, "
-        f"open interest ${row.get('open_interest', 0) * row.get('mark_price', 0):,.0f}, "
-        f"mark price {row.get('mark_price', 0):.6g}, "
-        f"funding {row.get('funding', 0):+.5f}, "
-        f"spread {q.get('spread_bps', 0)} bps, "
-        f"10bps depth ${q.get('depth_10bps_usd', 0):,.0f}, "
-        f"tier {row.get('tier', 'LARGE')}."
-    )
-    
     original_resolve_context = TradingAgentsGraph.resolve_instrument_context
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
