@@ -1,10 +1,11 @@
 """Connect the Hyperliquid-first Top-10 scanner to TradingAgents for paper-only evaluation.
 
 Data sources:
-- Hyperliquid: scanner universe, candles, order book, funding, and the paper outcome evaluator.
-- Kraken: spot taker flow and spot order book depth only (flow_note).
-- CoinGecko: market-cap, rank and aggregated 24h volume context (coingecko_note).
-- Coinalyze: aggregated perpetual OI, funding and liquidation context (coinalyze_note).
+- Hyperliquid perp: scanner universe, candles, order book, funding, open interest, and the paper outcome evaluator.
+- Liquidity context in the prompt: hl_perp_note (from scanner data).
+- Kraken: SPOT taker flow and SPOT order book depth only (flow_note). Not the Hyperliquid perp; context only.
+- CoinGecko: market-cap, rank and aggregated 24h volume context (coingecko_note). Context only; may not match the traded contract.
+- Coinalyze: aggregated perpetual OI, funding and liquidation context (coinalyze_note). Context only.
 
 The pinned TradingAgents source remains unchanged. BUY=LONG/SELL=SHORT are paper decisions only;
 live orders stay disabled.
@@ -86,7 +87,7 @@ def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
         for r in rows
     ]
 SCAN_INFO = {}
-SCAN_ROWS ={}
+SCAN_ROWS = {}
 REASONS = {}
 SHORT_NOTE = (
     " TRADING HORIZON: short-term paper, max hold about 24 hours, hard stop about 3 percent. "
