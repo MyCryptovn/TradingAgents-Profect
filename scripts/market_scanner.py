@@ -662,6 +662,7 @@ def analyze_market(
             market.get("previous_day_price")
         ),
         "funding": safe_float(market.get("funding")),
+        "tier": market.get("tier", "LARGE"),
         "quality": quality,
         "scores": scores,
         "features": features,
