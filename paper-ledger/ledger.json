@@ -8638,11 +8638,14 @@
    "t0": 1793702380,
    "entry": 84.2175,
    "btc0": 77002.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.1874016683050136e-05,
    "scan": "01 HYPE/USD direction=LONG score=58.22 long_score=58.22 short_score=41.78 mtf_score=0.5822 vol24h=$653,068,834 spread=0.119 depth10bps=$116,323",
    "cfg": "v26-2026-11-03",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 86.852,
+   "t1": 1793788780.0,
+   "move_pct": 3.128
   },
   {
    "id": "41618430782-ETH/USD",
@@ -8663,7 +8666,8 @@
    "t1": 1793707888,
    "reason": null,
    "pnl_pct": -0.699,
-   "watch": "pnl=-0.70% give=0.1% flow15=36% flow5=58% 1m=False 5m=False rsi=48 hits=2+0 fund=0.00001 imb=-0.04 bomxa="
+   "watch": "pnl=-0.70% give=0.1% flow15=36% flow5=58% 1m=False 5m=False rsi=48 hits=2+0 fund=0.00001 imb=-0.04 bomxa=",
+   "trail_pnl_pct": -1.926
   },
   {
    "id": "41660657533-LIT/USD",
@@ -8992,12 +8996,17 @@
    "t0": 1793781684,
    "entry": 0.0044565,
    "btc0": 78434.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00022439133849436389,
    "scan": "05 PUMP/USD direction=LONG score=73.24 long_score=73.24 short_score=23.26 mtf_score=0.7324 vol24h=$69,801,608 spread=2.249 depth10bps=$90,659",
    "cfg": "v26-2026-11-03",
    "src": "hyperliquid",
-   "peak": 0.0044565
+   "peak": 0.0044565,
+   "exit": 0.004322805,
+   "t1": 1793793600,
+   "reason": "SL",
+   "pnl_pct": -3.642,
+   "mfe_pct": 0.123
   },
   {
    "id": "41797701418-TRUMP/USD",
