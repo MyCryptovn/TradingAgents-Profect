@@ -98,7 +98,7 @@ SHORT_RULES = (
     "ENTRY BUY (LONG) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m below 72, "
     "(2) trend15 from scanner above 0 OR trend1h above 0, "
-    "(3) taker buy share at least 52 percent, "
+    "(3) Kraken spot taker buy share (context, not perp) at least 52 percent, "
     "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
      "Strong bonus if 1m trend is also positive and vol_spike_1m is elevated. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
@@ -175,6 +175,11 @@ def run_scanner() -> list[str]:
     symbols = []
     seen = set()
 
+    SCAN_ROWS.clear()
+    for r in data.get("analyzed_markets", []):
+        if isinstance(r, dict) and r.get("symbol"):
+            SCAN_ROWS[f"{r['symbol']}/USD"] = r
+    
     for row in top_long + top_short:
         if not isinstance(row, dict):
             continue
@@ -291,7 +296,7 @@ def flow_note(ticker):
         book = next(iter(kraken_json("Depth", {"pair": pair, "count": "20"}).values()))
         bids = sum(float(x[1]) for x in book["bids"])
         asks = sum(float(x[1]) for x in book["asks"])
-        return f" MONEY FLOW (Kraken, last {span:.0f} minutes): taker buy ${buy:,.0f} vs taker sell ${sell:,.0f}, buy share {buy / max(buy + sell, 1):.0%}. Order book top 20 levels: bid volume {bids:,.0f} vs ask volume {asks:,.0f}."
+        return f" MONEY FLOW (KRAKEN SPOT, not the Hyperliquid perp; context only): last {span:.0f} minutes: taker buy ${buy:,.0f} vs taker sell ${sell:,.0f}, buy share {buy / max(buy + sell, 1):.0%}. Spot order book top 20 levels: bid volume {bids:,.0f} vs ask volume {asks:,.0f}."
     except Exception:
         return ""
 
@@ -380,6 +385,25 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     trading_graph_module.get_indicators = crypto_get_indicators
     trading_graph_module.get_verified_market_snapshot = crypto_get_verified_snapshot
 
+    SCAN_ROWS = {}  # symbol (dạng BTC/USD) -> row scanner đầy đủ
+
+
+def hl_perp_note(symbol: str) -> str:
+    row = SCAN_ROWS.get(symbol.replace("-", "/"))
+    if not row:
+        return ""
+    q = row.get("quality", {})
+    return (
+        f" HYPERLIQUID PERP (the market where the paper trade is recorded): "
+        f"24h volume ${row.get('day_volume_usd', 0):,.0f}, "
+        f"open interest ${row.get('open_interest', 0) * row.get('mark_price', 0):,.0f}, "
+        f"mark price {row.get('mark_price', 0):.6g}, "
+        f"funding {row.get('funding', 0):+.5f}, "
+        f"spread {q.get('spread_bps', 0)} bps, "
+        f"10bps depth ${q.get('depth_10bps_usd', 0):,.0f}, "
+        f"tier {row.get('tier', 'LARGE')}."
+    )
+    
     original_resolve_context = TradingAgentsGraph.resolve_instrument_context
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
@@ -391,7 +415,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
                     "1) RSI14 on 1m/5m/15m below < 72, "
                     "2) trend15 positive AND trend_1m also positive, "
-                    "3) taker buy share >= 52%, "
+                    "3) Kraken spot taker buy share (context, not perp) at most 52 percent, "
                     "4) order book bid volume clearly higher than ask, "
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
@@ -400,7 +424,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + flow_note(symbol) + coingecko_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + coingecko_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
