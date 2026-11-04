@@ -252,6 +252,12 @@ def update_oi_state(
 # ============================================================
 
 
+# Ngưỡng nhóm altcoin thanh khoản tốt (có thể chỉnh bằng biến môi trường)
+MID_ALT_MIN_VOLUME_USD = float(os.getenv("SCANNER_MID_ALT_MIN_VOLUME_USD", "300000"))
+MID_ALT_MAX_VOLUME_USD = float(os.getenv("SCANNER_MID_ALT_MAX_VOLUME_USD", "5000000"))
+MID_ALT_SLOTS = int(os.getenv("SCANNER_MID_ALT_SLOTS", "4"))
+
+
 def select_deep_scan_markets(
     markets: list[dict],
 ) -> tuple[list[dict], list[dict]]:
@@ -265,7 +271,6 @@ def select_deep_scan_markets(
         prev_price = safe_float(market.get("previous_day_price"))
 
         reasons = []
-
         if not coin:
             reasons.append("MISSING_MARKET_ID")
         if ":" in coin:
@@ -284,7 +289,6 @@ def select_deep_scan_markets(
             continue
 
         change_24h = abs(price / prev_price - 1.0) if prev_price > 0 else 0.0
-
         eligible.append({
             "market": market,
             "volume": volume,
@@ -292,31 +296,51 @@ def select_deep_scan_markets(
             "priority": volume * (1.0 + change_24h * 2.0),
         })
 
-    # Sắp xếp theo priority
-    eligible.sort(key=lambda x: x["priority"], reverse=True)
-
     limit = max(1, MAX_DETAILED_MARKETS)
-    top_count = min(max(1, TOP_LIQUID_SAMPLE), limit, len(eligible))
 
-    selected = [item["market"] for item in eligible[:top_count]]
-    remaining = eligible[top_count:]
+    # Nhóm MID_ALT: altcoin thanh khoản tốt, không quá lớn
+    mid_alt = [
+        item for item in eligible
+        if MID_ALT_MIN_VOLUME_USD <= item["volume"] <= MID_ALT_MAX_VOLUME_USD
+    ]
+    mid_alt.sort(key=lambda x: x["priority"], reverse=True)
+    mid_alt = mid_alt[:min(MID_ALT_SLOTS, limit)]
+    mid_alt_ids = {id(item) for item in mid_alt}
 
-    # Lấy thêm mẫu đa dạng
-    slots = limit - len(selected)
+    # Nhóm LARGE: phần còn lại, ưu tiên theo priority
+    large_pool = [item for item in eligible if id(item) not in mid_alt_ids]
+    large_pool.sort(key=lambda x: x["priority"], reverse=True)
+
+    large_slots = limit - len(mid_alt)
+    top_count = min(max(1, TOP_LIQUID_SAMPLE), large_slots, len(large_pool))
+    large = large_pool[:top_count]
+    remaining = large_pool[top_count:]
+
+    # Lấp slot còn trống bằng mẫu đa dạng từ phần còn lại của nhóm LARGE
+    slots = large_slots - len(large)
     if slots > 0 and remaining:
         if len(remaining) <= slots:
-            selected.extend(item["market"] for item in remaining)
+            large.extend(remaining)
         else:
             indexes = sorted({
                 round(i * (len(remaining) - 1) / max(slots - 1, 1))
                 for i in range(slots)
             })
             for idx in indexes:
-                if len(selected) >= limit:
+                if len(large) >= slots + top_count:
                     break
-                selected.append(remaining[idx]["market"])
+                large.append(remaining[idx])
 
-    return selected, rejected
+    # Gắn tier để đo hiệu quả theo nhóm sau này
+    selected = []
+    for item in mid_alt:
+        item["market"]["tier"] = "MID_ALT"
+        selected.append(item["market"])
+    for item in large:
+        item["market"]["tier"] = "LARGE"
+        selected.append(item["market"])
+
+    return selected[:limit], rejected
 
 # ============================================================
 # DATA QUALITY
