@@ -86,6 +86,7 @@ def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
         for r in rows
     ]
 SCAN_INFO = {}
+SCAN_ROWS ={}
 REASONS = {}
 SHORT_NOTE = (
     " TRADING HORIZON: short-term paper, max hold about 24 hours, hard stop about 3 percent. "
