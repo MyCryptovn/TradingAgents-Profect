@@ -1,0 +1,49 @@
+{
+ "trades": [
+  {
+   "id": "41854699828-XRP/USD",
+   "symbol": "XRP/USD",
+   "pair": "XRP",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793806679,
+   "entry": 1.32455,
+   "btc0": 80705.5,
+   "status": "open",
+   "spread": 7.549733871880185e-05,
+   "scan": "03 XRP/USD direction=LONG score=79.55 long_score=79.55 short_score=23.95 mtf_score=0.7955 vol24h=$78,730,032 spread=0.749 depth10bps=$1,718,605",
+   "cfg": "hl-v1",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41854699828-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793806679,
+   "entry": 643.0250000000001,
+   "btc0": 80705.5,
+   "status": "open",
+   "spread": 0.00013996345398706398,
+   "scan": "",
+   "cfg": "hl-v1",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41854699828-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793806679,
+   "entry": 80705.5,
+   "btc0": 80705.5,
+   "status": "open",
+   "spread": 1.2390729256370384e-05,
+   "scan": "",
+   "cfg": "hl-v1",
+   "src": "hyperliquid"
+  }
+ ]
+}
