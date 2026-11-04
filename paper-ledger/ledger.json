@@ -8769,7 +8769,12 @@
    "scan": "01 XMR/USD direction=LONG score=85.03 long_score=85.03 short_score=21.97 mtf_score=0.8503 vol24h=$75,841,739 spread=0.157 depth10bps=$458,645",
    "cfg": "v26-2026-11-03",
    "src": "hyperliquid",
-   "peak": 635.415
+   "peak": 638.475,
+   "rev_px": 638.475,
+   "rev_t": 1793794337,
+   "rev_first": 0.021,
+   "rev_pnl_pct": 0.021,
+   "watch": "pnl=+0.02% give=0.0% 1m=True 5m=True rsi=22 hits=2+1 fund=0.00003 imb=-0.34"
   },
   {
    "id": "41703426383-PUMP/USD",
@@ -8815,7 +8820,12 @@
    "scan": "05 XRP/USD direction=LONG score=60.26 long_score=60.26 short_score=39.74 mtf_score=0.6026 vol24h=$72,487,527 spread=0.782 depth10bps=$2,475,748",
    "cfg": "v26-2026-11-03",
    "src": "hyperliquid",
-   "peak": 1.28065
+   "peak": 1.2824499999999999,
+   "rev_px": 1.2824499999999999,
+   "rev_t": 1793794339,
+   "rev_first": -0.229,
+   "rev_pnl_pct": -0.229,
+   "watch": "pnl=-0.23% give=0.0% 1m=True 5m=True rsi=19 hits=3+0 fund=0.00001 imb=+0.00"
   },
   {
    "id": "41703426383-XPL/USD",
@@ -8970,7 +8980,8 @@
    "spread": 1.274949161402189e-05,
    "scan": "04 BTC/USD direction=LONG score=73.26 long_score=73.26 short_score=30.24 mtf_score=0.7326 vol24h=$3,412,794,204 spread=0.128 depth10bps=$13,874,260",
    "cfg": "v26-2026-11-03",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 78434.5
   },
   {
    "id": "41797701418-PUMP/USD",
@@ -8985,7 +8996,8 @@
    "spread": 0.00022439133849436389,
    "scan": "05 PUMP/USD direction=LONG score=73.24 long_score=73.24 short_score=23.26 mtf_score=0.7324 vol24h=$69,801,608 spread=2.249 depth10bps=$90,659",
    "cfg": "v26-2026-11-03",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.0044565
   },
   {
    "id": "41797701418-TRUMP/USD",
