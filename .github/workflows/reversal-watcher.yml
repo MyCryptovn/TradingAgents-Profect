@@ -27,6 +27,7 @@ jobs:
       - name: Watch open paper trades
         env:
           WATCH_MODE: shadow
+          WATCH_LEDGER: paper-ledger-hl/ledger.json
         run: python -m scripts.watch_reversal
 
       - name: Commit ledger
