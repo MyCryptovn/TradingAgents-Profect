@@ -13,8 +13,8 @@ import urllib.request
 from datetime import datetime, timezone
 
 RESULT_FILE = os.getenv("RESULT_FILE", "tradingagents-paper-results/decisions.json")
-LEDGER = "paper-ledger/ledger.json"
-REPORT = "paper-ledger/report.md"
+LEDGER = os.getenv("LEDGER_FILE", "paper-ledger-hl/ledger.json")
+REPORT = os.path.join(os.path.dirname(LEDGER) or ".", "report.md")
 HORIZON_H = float(os.getenv("HORIZON_HOURS", "24"))       # giữ lệnh tối đa
 SL = float(os.getenv("STOP_LOSS_PCT", "3")) / 100          # cắt lỗ
 TP = float(os.getenv("TAKE_PROFIT_PCT", "0")) / 100        # 0 = tắt TP cứng, để reversal chốt
@@ -124,7 +124,7 @@ def load():
 
 
 def save(led):
-    os.makedirs("paper-ledger", exist_ok=True)
+    os.makedirs(os.path.dirname(LEDGER) or ".", exist_ok=True)
     with open(LEDGER, "w") as f:
         json.dump(led, f, indent=1)
 
