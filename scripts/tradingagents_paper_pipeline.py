@@ -86,7 +86,9 @@ def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
          "low": float(r["l"]), "close": float(r["c"]), "volume": float(r["v"])}
         for r in rows
     ]
-SCAN_INFO = {}
+SCAN_INFO = {} 
+MAX_LLM_CANDIDATES = int(os.getenv("MAX_LLM_CANDIDATES", "3"))
+REQUIRE_DIRECTION = os.getenv("REQUIRE_DIRECTION", "2") == "2"
 SCAN_ROWS = {}
 REASONS = {}
 SHORT_NOTE = (
@@ -430,9 +432,9 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     config["llm_provider"] = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "google")
     config["deep_think_llm"] = os.getenv("TRADINGAGENTS_DEEP_THINK_LLM", config["deep_think_llm"])
     config["quick_think_llm"] = os.getenv("TRADINGAGENTS_QUICK_THINK_LLM", config["quick_think_llm"])
-    config["max_debate_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "3"))
-    config["max_risk_discuss_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_RISK_ROUNDS", "3"))
-    config["llm_max_retries"] = int(os.getenv("TRADINGAGENTS_LLM_MAX_RETRIES", "6"))
+    config["max_debate_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "2"))
+    config["max_risk_discuss_rounds"] = int(os.getenv("TRADINGAGENTS_MAX_RISK_ROUNDS", "2"))
+    config["llm_max_retries"] = int(os.getenv("TRADINGAGENTS_LLM_MAX_RETRIES", "3"))
 
     # Fundamentals are intentionally omitted for crypto: company balance sheets
     # are not the correct data model. Macro/news/social analysts remain available.
@@ -524,6 +526,11 @@ def run_with_retry(ticker, trade_date):
                 continue
             raise
 
+def scanner_direction(symbol: str) -> str:
+    row = SCAN_ROWS.get(symbol)
+    if not row:
+        return "UNKNOWN"
+    return (row.get("scores") or {}).get("direction", "UNKNOWN")
 
 def main() -> int:
     provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "google")
@@ -575,7 +582,25 @@ def main() -> int:
 
         filtered.append(sym)
 
-    candidates = filtered
+        candidates = filtered
+
+    # Chỉ gọi LLM cho coin có hướng rõ từ scanner (LONG hoặc SHORT)
+    if REQUIRE_DIRECTION:
+        before = len(candidates)
+        candidates = [s for s in candidates if scanner_direction(s) in ("LONG", "SHORT")]
+        print(f"DIRECTION FILTER: {before} -> {len(candidates)} (chỉ LONG/SHORT)")
+
+    # Lệnh đang mở do watch quản lý, không đưa vào hàng đợi LLM mỗi run
+    candidates = [s for s in candidates if s not in open_syms]
+
+    # Giới hạn số coin gọi LLM mỗi run, ưu tiên điểm cao nhất
+    def _strength(sym: str) -> float:
+        row = SCAN_ROWS.get(sym) or {}
+        sc = row.get("scores") or {}
+        return max(float(sc.get("long_score", 0)), float(sc.get("short_score", 0)))
+
+    candidates = sorted(candidates, key=_strength, reverse=True)[:MAX_LLM_CANDIDATES]
+    print(f"LLM CANDIDATES (max {MAX_LLM_CANDIDATES}): {candidates}")
     
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
