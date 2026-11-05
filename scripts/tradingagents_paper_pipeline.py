@@ -514,18 +514,21 @@ def is_small_alt(symbol: str) -> bool:
         return vol < SMALL_ALT_VOLUME_USD
     except Exception:
         return True
-
+        
 def run_with_retry(ticker, trade_date):
-    for attempt in range(3):
+    transient = ("429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "high demand", "DEADLINE_EXCEEDED")
+    for attempt in range(4):
         try:
             return run_tradingagents(ticker, trade_date)
         except Exception as exc:
-            if attempt < 2 and ("429" in str(exc) or "RESOURCE_EXHAUSTED" in str(exc)):
-                print(f"Gemini 429, chờ 65 giây rồi thử lại ({attempt + 1}/2)")
-                time.sleep(65)
+            msg = str(exc)
+            if attempt < 3 and any(k in msg for k in transient):
+                wait = 65 if ("429" in msg or "RESOURCE_EXHAUSTED" in msg) else 30 * (attempt + 1)
+                print(f"Gemini tạm lỗi ({msg[:60]}...), chờ {wait}s rồi thử lại ({attempt + 1}/3)")
+                time.sleep(wait)
                 continue
             raise
-
+            
 def scanner_direction(symbol: str) -> str:
     row = SCAN_ROWS.get(symbol)
     if not row:
