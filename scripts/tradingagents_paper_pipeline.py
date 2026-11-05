@@ -88,7 +88,7 @@ def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
     ]
 SCAN_INFO = {} 
 MAX_LLM_CANDIDATES = int(os.getenv("MAX_LLM_CANDIDATES", "3"))
-REQUIRE_DIRECTION = os.getenv("REQUIRE_DIRECTION", "2") == "2"
+REQUIRE_DIRECTION = os.getenv("REQUIRE_DIRECTION", "1") == "1"
 SCAN_ROWS = {}
 REASONS = {}
 SHORT_NOTE = (
