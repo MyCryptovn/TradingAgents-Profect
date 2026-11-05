@@ -74,6 +74,36 @@
    "scan": "",
    "cfg": "hl-v1",
    "src": "hyperliquid"
+  },
+  {
+   "id": "41937662944-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793837112,
+   "entry": 80576.5,
+   "btc0": 80576.5,
+   "status": "open",
+   "spread": 1.2410566356195665e-05,
+   "scan": "02 BTC/USD direction=LONG score=66.81 long_score=66.81 short_score=33.19 mtf_score=0.6681 vol24h=$5,783,249,094 spread=0.124 depth10bps=$8,931,998",
+   "cfg": "hl-v1",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "41937662944-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793837112,
+   "entry": 643.085,
+   "btc0": 80576.5,
+   "status": "open",
+   "spread": 7.775021964447656e-05,
+   "scan": "03 XMR/USD direction=LONG score=63.52 long_score=63.52 short_score=38.74 mtf_score=0.6352 vol24h=$74,621,565 spread=0.155 depth10bps=$235,841",
+   "cfg": "hl-v1",
+   "src": "hyperliquid"
   }
  ]
 }
