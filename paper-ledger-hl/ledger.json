@@ -9,11 +9,17 @@
    "t0": 1793806679,
    "entry": 1.32455,
    "btc0": 80705.5,
-   "status": "open",
+   "status": "closed",
    "spread": 7.549733871880185e-05,
    "scan": "03 XRP/USD direction=LONG score=79.55 long_score=79.55 short_score=23.95 mtf_score=0.7955 vol24h=$78,730,032 spread=0.749 depth10bps=$1,718,605",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 1.2848134999999998,
+   "t1": 1793889900,
+   "reason": "SL",
+   "pnl_pct": -3.628,
+   "mfe_pct": 0.215,
+   "trail_pnl_pct": -3.419
   },
   {
    "id": "41854699828-XMR/USD",
@@ -24,11 +30,14 @@
    "t0": 1793806679,
    "entry": 643.0250000000001,
    "btc0": 80705.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00013996345398706398,
    "scan": "",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 624.62,
+   "t1": 1793893079.0,
+   "move_pct": -2.862
   },
   {
    "id": "41854699828-BTC/USD",
@@ -39,11 +48,14 @@
    "t0": 1793806679,
    "entry": 80705.5,
    "btc0": 80705.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2390729256370384e-05,
    "scan": "",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 76410.0,
+   "t1": 1793893079.0,
+   "move_pct": -5.322
   },
   {
    "id": "41899493537-BTC/USD",
@@ -54,11 +66,14 @@
    "t0": 1793821888,
    "entry": 79942.5,
    "btc0": 79942.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2508990837164211e-05,
    "scan": "03 BTC/USD direction=LONG score=58.04 long_score=58.04 short_score=41.96 mtf_score=0.5804 vol24h=$5,393,162,953 spread=0.125 depth10bps=$10,151,716",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 76420.0,
+   "t1": 1793908288.0,
+   "move_pct": -4.406
   },
   {
    "id": "41899493537-XMR/USD",
@@ -69,11 +84,14 @@
    "t0": 1793821888,
    "entry": 635.785,
    "btc0": 79942.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.572858749418578e-05,
    "scan": "",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 610.17,
+   "t1": 1793908288.0,
+   "move_pct": -4.029
   },
   {
    "id": "41937662944-BTC/USD",
@@ -148,6 +166,36 @@
    "spread": 1.5710795673232583e-05,
    "scan": "",
    "cfg": "hl-v1",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42098162464-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793909552,
+   "entry": 612.54,
+   "btc0": 76045.5,
+   "status": "open",
+   "spread": 0.00026120743135137,
+   "scan": "01 XMR/USD direction=SHORT score=66.06 long_score=34.70 short_score=66.06 mtf_score=0.6606 vol24h=$72,172,318 spread=1.631 depth10bps=$34,939",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42098162464-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEAR",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793909552,
+   "entry": 3.68855,
+   "btc0": 76045.5,
+   "status": "open",
+   "spread": 2.711092434702282e-05,
+   "scan": "03 NEAR/USD direction=SHORT score=63.33 long_score=37.03 short_score=63.33 mtf_score=0.6333 vol24h=$103,612,936 spread=0.270 depth10bps=$288,540",
+   "cfg": "hl-v2",
    "src": "hyperliquid"
   }
  ]
