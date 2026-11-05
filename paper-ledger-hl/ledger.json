@@ -134,6 +134,21 @@
    "scan": "04 XMR/USD direction=SHORT score=63.66 long_score=36.34 short_score=63.66 mtf_score=0.6366 vol24h=$76,212,619 spread=0.628 depth10bps=$148,437",
    "cfg": "hl-v1",
    "src": "hyperliquid"
+  },
+  {
+   "id": "41990029626-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793866147,
+   "entry": 636.505,
+   "btc0": 80536.5,
+   "status": "open",
+   "spread": 1.5710795673232583e-05,
+   "scan": "",
+   "cfg": "hl-v1",
+   "src": "hyperliquid"
   }
  ]
 }
