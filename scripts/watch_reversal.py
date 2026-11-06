@@ -4,7 +4,7 @@
 WATCH_MODE=shadow : chỉ ghi tín hiệu (mặc định).
 WATCH_MODE=close  : đóng lệnh trong sổ paper.
 WATCH_LOOP_MINUTES=0  : chạy một vòng rồi thoát.
-WATCH_LOOP_MINUTES=45 : lặp mỗi WATCH_INTERVAL_SECONDS trong 45 phút.
+WATCH_LOOP_MINUTES=30 : lặp mỗi WATCH_INTERVAL_SECONDS trong 30 phút.
 """
 
 import json
