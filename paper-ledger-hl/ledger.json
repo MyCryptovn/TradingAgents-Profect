@@ -174,11 +174,14 @@
    "t0": 1793866147,
    "entry": 636.505,
    "btc0": 80536.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.5710795673232583e-05,
    "scan": "",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 617.62,
+   "t1": 1793952547.0,
+   "move_pct": -2.967
   },
   {
    "id": "42098162464-XMR/USD",
@@ -257,6 +260,36 @@
    "status": "open",
    "spread": 8.230791390591299e-05,
    "scan": "03 XRP/USD direction=SHORT score=72.15 long_score=27.85 short_score=72.15 mtf_score=0.7215 vol24h=$97,439,730 spread=0.825 depth10bps=$2,739,939",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42202930721-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPE",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793961271,
+   "entry": 78.22149999999999,
+   "btc0": 76185.5,
+   "status": "open",
+   "spread": 1.2784208944990368e-05,
+   "scan": "02 HYPE/USD direction=LONG score=57.75 long_score=57.75 short_score=42.25 mtf_score=0.5775 vol24h=$850,526,574 spread=0.128 depth10bps=$220,061",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42202930721-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793961271,
+   "entry": 0.0039585,
+   "btc0": 76185.5,
+   "status": "open",
+   "spread": 0.0002526209422761482,
+   "scan": "01 PUMP/USD direction=SHORT score=55.58 long_score=44.42 short_score=55.58 mtf_score=0.5558 vol24h=$58,533,428 spread=2.519 depth10bps=$120,846",
    "cfg": "hl-v2",
    "src": "hyperliquid"
   }
