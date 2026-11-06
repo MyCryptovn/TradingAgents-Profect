@@ -102,11 +102,14 @@
    "t0": 1793837112,
    "entry": 80576.5,
    "btc0": 80576.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2410566356195665e-05,
    "scan": "02 BTC/USD direction=LONG score=66.81 long_score=66.81 short_score=33.19 mtf_score=0.6681 vol24h=$5,783,249,094 spread=0.124 depth10bps=$8,931,998",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 76078.0,
+   "t1": 1793923512.0,
+   "move_pct": -5.583
   },
   {
    "id": "41937662944-XMR/USD",
@@ -117,11 +120,14 @@
    "t0": 1793837112,
    "entry": 643.085,
    "btc0": 80576.5,
-   "status": "open",
+   "status": "closed",
    "spread": 7.775021964447656e-05,
    "scan": "03 XMR/USD direction=LONG score=63.52 long_score=63.52 short_score=38.74 mtf_score=0.6352 vol24h=$74,621,565 spread=0.155 depth10bps=$235,841",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 618.98,
+   "t1": 1793923512.0,
+   "move_pct": -3.748
   },
   {
    "id": "41948585715-BTC/USD",
@@ -195,6 +201,51 @@
    "status": "open",
    "spread": 2.711092434702282e-05,
    "scan": "03 NEAR/USD direction=SHORT score=63.33 long_score=37.03 short_score=63.33 mtf_score=0.6333 vol24h=$103,612,936 spread=0.270 depth10bps=$288,540",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42135380393-WLD/USD",
+   "symbol": "WLD/USD",
+   "pair": "WLD",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793924604,
+   "entry": 0.33709999999999996,
+   "btc0": 76155.5,
+   "status": "open",
+   "spread": 0.00011865915158702016,
+   "scan": "01 WLD/USD direction=SHORT score=77.11 long_score=22.89 short_score=77.11 mtf_score=0.7711 vol24h=$58,106,440 spread=1.489 depth10bps=$64,983",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42135380393-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793924605,
+   "entry": 0.0038634999999999997,
+   "btc0": 76155.5,
+   "status": "open",
+   "spread": 0.000258832664682205,
+   "scan": "02 PUMP/USD direction=SHORT score=76.55 long_score=21.80 short_score=76.55 mtf_score=0.7655 vol24h=$65,312,597 spread=2.604 depth10bps=$124,637",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42135380393-XRP/USD",
+   "symbol": "XRP/USD",
+   "pair": "XRP",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1793924605,
+   "entry": 1.21495,
+   "btc0": 76155.5,
+   "status": "open",
+   "spread": 8.230791390591299e-05,
+   "scan": "03 XRP/USD direction=SHORT score=72.15 long_score=27.85 short_score=72.15 mtf_score=0.7215 vol24h=$97,439,730 spread=0.825 depth10bps=$2,739,939",
    "cfg": "hl-v2",
    "src": "hyperliquid"
   }
