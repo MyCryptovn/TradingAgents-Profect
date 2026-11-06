@@ -207,11 +207,16 @@
    "t0": 1793909552,
    "entry": 3.68855,
    "btc0": 76045.5,
-   "status": "open",
+   "status": "closed",
    "spread": 2.711092434702282e-05,
    "scan": "03 NEAR/USD direction=SHORT score=63.33 long_score=37.03 short_score=63.33 mtf_score=0.6333 vol24h=$103,612,936 spread=0.270 depth10bps=$288,540",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.7992065000000004,
+   "t1": 1793975400,
+   "reason": "SL",
+   "pnl_pct": -3.623,
+   "mfe_pct": 1.72
   },
   {
    "id": "42135380393-WLD/USD",
@@ -335,6 +340,36 @@
    "status": "open",
    "spread": 5.742835812323494e-05,
    "scan": "04 LIT/USD direction=LONG score=59.89 long_score=59.89 short_score=40.11 mtf_score=0.5989 vol24h=$65,658,684 spread=2.891 depth10bps=$51,958",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42238575416-TRUMP/USD",
+   "symbol": "TRUMP/USD",
+   "pair": "TRUMP",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1793977511,
+   "entry": 1.2531500000000002,
+   "btc0": 75012.5,
+   "status": "open",
+   "spread": 7.979890675496866e-05,
+   "scan": "01 TRUMP/USD direction=LONG score=74.41 long_score=74.41 short_score=32.59 mtf_score=0.7441 vol24h=$39,892,640 spread=1.593 depth10bps=$28,899",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42238575416-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1793977512,
+   "entry": 1345.1,
+   "btc0": 75012.5,
+   "status": "open",
+   "spread": 0.00014868782990115642,
+   "scan": "02 ZEC/USD direction=LONG score=73.78 long_score=73.78 short_score=29.72 mtf_score=0.7378 vol24h=$988,601,348 spread=1.470 depth10bps=$487,044",
    "cfg": "hl-v2",
    "src": "hyperliquid"
   }
