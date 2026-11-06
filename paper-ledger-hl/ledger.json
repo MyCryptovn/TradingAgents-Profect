@@ -138,11 +138,14 @@
    "t0": 1793842747,
    "entry": 80546.5,
    "btc0": 80546.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.241518874190685e-05,
    "scan": "03 BTC/USD direction=LONG score=57.79 long_score=57.79 short_score=42.21 mtf_score=0.5779 vol24h=$5,553,811,773 spread=0.124 depth10bps=$11,134,479",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 76054.0,
+   "t1": 1793929147.0,
+   "move_pct": -5.578
   },
   {
    "id": "41948585715-XMR/USD",
@@ -153,11 +156,14 @@
    "t0": 1793842747,
    "entry": 638.185,
    "btc0": 80546.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.5669437545703193e-05,
    "scan": "04 XMR/USD direction=SHORT score=63.66 long_score=36.34 short_score=63.66 mtf_score=0.6366 vol24h=$76,212,619 spread=0.628 depth10bps=$148,437",
    "cfg": "hl-v1",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 620.18,
+   "t1": 1793929147.0,
+   "move_pct": -2.821
   },
   {
    "id": "41990029626-XMR/USD",
@@ -213,11 +219,16 @@
    "t0": 1793924604,
    "entry": 0.33709999999999996,
    "btc0": 76155.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00011865915158702016,
    "scan": "01 WLD/USD direction=SHORT score=77.11 long_score=22.89 short_score=77.11 mtf_score=0.7711 vol24h=$58,106,440 spread=1.489 depth10bps=$64,983",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.34721299999999994,
+   "t1": 1793930400,
+   "reason": "SL",
+   "pnl_pct": -3.632,
+   "mfe_pct": 0.777
   },
   {
    "id": "42135380393-PUMP/USD",
