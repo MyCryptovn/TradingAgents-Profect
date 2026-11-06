@@ -1,31 +1,32 @@
 #!/usr/bin/env python3
-"""
-Canh gác đảo chiều thông minh (bản nâng cấp).
-- Để lệnh thắng chạy khi xu hướng còn khỏe.
-- Chủ động chốt lãi khi xuất hiện tín hiệu đảo chiều rõ.
-- Bảo vệ vốn khi lệnh xấu.
+"""Canh gác lệnh paper đang mở. Dữ liệu Hyperliquid mới mỗi vòng.
 
-WATCH_MODE=shadow  : chỉ ghi nhận tín hiệu (mặc định)
-WATCH_MODE=close   : được phép đóng lệnh
+WATCH_MODE=shadow : chỉ ghi tín hiệu (mặc định).
+WATCH_MODE=close  : đóng lệnh trong sổ paper.
+WATCH_LOOP_MINUTES=0  : chạy một vòng rồi thoát.
+WATCH_LOOP_MINUTES=45 : lặp mỗi WATCH_INTERVAL_SECONDS trong 45 phút.
 """
 
 import json
 import os
 import time
+from datetime import datetime, timezone
 
-from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin
-from pathlib import Path
+from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin, hl_post
 
-LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger/ledger.json")
+LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger-hl/ledger.json")
 MODE = os.getenv("WATCH_MODE", "shadow")
-SCANNER_JSON = Path("tradingagents-paper-results/scanner.json") 
+LOOP_MINUTES = float(os.getenv("WATCH_LOOP_MINUTES", "0"))
+INTERVAL = int(os.getenv("WATCH_INTERVAL_SECONDS", "60"))
 
-# === THAM SỐ CÓ THỂ CHỈNH ===
-MIN_AGE = 300                # giây (5 phút) mới bắt đầu canh
-GIVEBACK_SOFT = 0.018        # 1,8% từ đỉnh → cảnh báo
-GIVEBACK_HARD = 0.028        # 2,8% từ đỉnh → ưu tiên đóng
-PROFIT_LOCK = 0.032          # lãi ≥ 3,2% thì bắt đầu bảo vệ
-STRONG_TREND_RSI = 55        # RSI còn cao → coi như xu hướng còn khỏe
+MIN_AGE = 60
+GIVEBACK_SOFT = 0.018
+GIVEBACK_HARD = 0.028
+STRONG_TREND_RSI = 55
+LIVE_MOVE = 0.005        # biến động 5 phút tối thiểu để tính bơm/xả (ước lượng ban đầu, cần đo)
+LIVE_VOL_RATIO = 2.0     # khối lượng 5 phút so với trung bình 60 phút (ước lượng ban đầu)
+
+_CACHE = {}  # reset mỗi vòng, tránh dùng dữ liệu cũ
 
 
 def ema(values, n):
@@ -48,40 +49,58 @@ def rsi(closes, n=14):
     return 100.0 if al == 0 else 100 - 100 / (1 + ag / al)
 
 
-def taker_share(r1, minutes=15):
-    rows = r1[-minutes:]
-    buy = sell = 0.0
-    for r in rows:
-        o, h, l, c, v = r[1], r[2], r[3], r[4], r[5]
-        rng = h - l
-        frac = (c - l) / rng if rng > 0 else (1.0 if c >= o else 0.0)
-        buy += v * frac
-        sell += v * (1 - frac)
-    tot = buy + sell
-    return (buy / tot if tot > 0 else 0.5), len(rows)
+def _meta():
+    """metaAndAssetCtxs: lấy 1 lần mỗi vòng cho mọi coin."""
+    if "meta" not in _CACHE:
+        try:
+            ctxs = hl_post({"type": "metaAndAssetCtxs"})
+            names = [u["name"] for u in ctxs[0]["universe"]]
+            _CACHE["meta"] = dict(zip(names, ctxs[1]))
+        except Exception as ex:
+            print("HL meta lỗi:", ex)
+            _CACHE["meta"] = {}
+    return _CACHE["meta"]
+
 
 def hl_context(coin):
-    """Funding và imbalance order book trực tiếp từ Hyperliquid. Lỗi thì trả về 0 để không đóng lệnh nhầm."""
+    """Funding và imbalance order book mới trong vòng hiện tại. Lỗi thì trả 0."""
+    funding = 0.0
+    imb = 0.0
     try:
-        from scripts.paper_ledger import hl_post, book
-        ctxs = hl_post({"type": "metaAndAssetCtxs"})
-        names = [u["name"] for u in ctxs[0]["universe"]]
-        funding = float(ctxs[1][names.index(coin)]["funding"]) if coin in names else 0.0
+        funding = float(_meta().get(coin, {}).get("funding", 0) or 0)
     except Exception as ex:
-        print("HL context lỗi:", coin, ex)
-        funding = 0.0
+        print("HL funding lỗi:", coin, ex)
     try:
-        from scripts.paper_ledger import hl_post as _p
-        d = _p({"type": "l2Book", "coin": coin})
-        bids = d["levels"][0][:10]
-        asks = d["levels"][1][:10]
-        bv = sum(float(x["px"]) * float(x["sz"]) for x in bids)
-        av = sum(float(x["px"]) * float(x["sz"]) for x in asks)
+        key = ("book", coin)
+        if key not in _CACHE:
+            _CACHE[key] = hl_post({"type": "l2Book", "coin": coin})
+        d = _CACHE[key]
+        bv = sum(float(x["px"]) * float(x["sz"]) for x in d["levels"][0][:10])
+        av = sum(float(x["px"]) * float(x["sz"]) for x in d["levels"][1][:10])
         imb = (bv - av) / (bv + av) if (bv + av) > 0 else 0.0
     except Exception as ex:
         print("HL book lỗi:", coin, ex)
-        imb = 0.0
     return funding, imb
+
+
+def live_bomxa(r1):
+    """Bơm/xả tự tính từ 5 nến 1m đã đóng gần nhất so với nền 60 phút trước đó.
+    Trả về (nhãn, biến động 5m, tỷ lệ khối lượng). Nhãn rỗng nếu không đủ điều kiện."""
+    if len(r1) < 65:
+        return "", 0.0, 0.0
+    vol5 = sum(r[5] for r in r1[-5:])
+    base = [sum(r[5] for r in r1[i:i + 5]) for i in range(len(r1) - 65, len(r1) - 5, 5)]
+    avg5 = sum(base) / len(base) if base else 0.0
+    ratio = vol5 / avg5 if avg5 > 0 else 0.0
+    move = r1[-1][4] / r1[-6][4] - 1 if r1[-6][4] > 0 else 0.0
+    if move <= -LIVE_MOVE and ratio >= LIVE_VOL_RATIO:
+        label = "XA_LIVE"
+    elif move >= LIVE_MOVE and ratio >= LIVE_VOL_RATIO:
+        label = "BOM_LIVE"
+    else:
+        label = ""
+    return label, move, ratio
+
 
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t:
@@ -93,7 +112,7 @@ def check_reversal(t):
     d = 1 if t["action"] == "BUY" else -1
     entry = t["entry"]
     px = price(coin)
-    pnl = d * (px / entry - 1) - COST 
+    pnl = d * (px / entry - 1) - COST
 
     r5 = candles(coin, now() - 8 * 3600, interval="5m")
     r1 = candles(coin, now() - 3 * 3600, interval="1m")
@@ -105,26 +124,23 @@ def check_reversal(t):
     ema9 = ema(c5[-40:], 9)
     ema21 = ema(c5[-60:], 21)
     rs = rsi(c1)
-    share15, n15 = taker_share(r1, 15)   # 15 phút gần nhất
-    share5, _ = taker_share(r1, 5)       # 5 phút gần nhất, bắt nhịp xả đang diễn ra
-    share = share15
-
     last2 = r5[-2:]
     last3 = r1[-3:]
 
-    # Lấy dữ liệu tươi từ scanner Hyperliquid
     funding, imbalance = hl_context(coin)
+    live, move5, ratio = live_bomxa(r1)
 
-    if d == 1:  # LONG
+    if d == 1:
         peak = max(t.get("peak", entry), px)
         t["peak"] = peak
         give = (peak - px) / peak if peak > 0 else 0
         s_5m = all(r[4] < r[1] for r in last2) and c5[-1] < ema9
         s_1m = all(r[4] < r[1] for r in last3) and rs < 47
         s_structure = c5[-1] < ema21
-        s_funding = funding > 0.0006          # funding dương cao bất lợi cho Long
-        s_imbalance = imbalance < -0.18       # ask nặng
-    else:  # Short
+        s_funding = funding > 0.0006
+        s_imbalance = imbalance < -0.18
+        s_bomxa = live == "XA_LIVE"
+    else:
         trough = min(t.get("trough", entry), px)
         t["trough"] = trough
         give = (px - trough) / trough if trough > 0 else 0
@@ -133,17 +149,15 @@ def check_reversal(t):
         s_structure = c5[-1] > ema21
         s_funding = funding < -0.0006
         s_imbalance = imbalance > 0.18
+        s_bomxa = live == "BOM_LIVE"
 
     classic_hits = sum([s_5m, s_1m, s_structure])
-    hl_hits = sum([s_funding, s_imbalance])
+    hl_hits = sum([s_funding, s_imbalance, s_bomxa])
     total_hits = classic_hits + hl_hits
-    
-    info = (
-    f"pnl={pnl:+.2%} give={give:.1%} "
-    f"1m={s_1m} 5m={s_5m} rsi={rs:.0f} "
-    f"hits={classic_hits}+{hl_hits} "
-    f"fund={funding:.5f} imb={imbalance:+.2f}")
-    
+
+    info = (f"pnl={pnl:+.2%} give={give:.1%} 1m={s_1m} 5m={s_5m} rsi={rs:.0f} "
+            f"hits={classic_hits}+{hl_hits} fund={funding:.5f} imb={imbalance:+.2f} "
+            f"live={live or '-'} mv5={move5:+.2%} vr={ratio:.1f}")
     print("Canh gác", t["symbol"], t["action"], info)
 
     if d == 1:
@@ -153,7 +167,7 @@ def check_reversal(t):
     if strong:
         print("→ Xu hướng còn khỏe, giữ lệnh")
         return False
-        
+
     reason = None
     if pnl >= 0.028 and total_hits >= 2:
         reason = "REVERSAL_PROFIT"
@@ -163,7 +177,7 @@ def check_reversal(t):
         reason = "REVERSAL_GIVEBACK"
     elif hl_hits >= 2 and give >= GIVEBACK_SOFT:
         reason = "REVERSAL_HL_PRESSURE"
-    
+
     if reason is None:
         return False
 
@@ -180,7 +194,9 @@ def check_reversal(t):
     return True
 
 
-def main():
+def run_once():
+    """Một vòng: chấm SL/TP/TIME bằng settle, rồi canh tín hiệu đảo chiều."""
+    _CACHE.clear()
     if not os.path.exists(LEDGER_PATH):
         print("Chưa có sổ", LEDGER_PATH)
         return
@@ -189,7 +205,7 @@ def main():
 
     open_n = sum(1 for t in led["trades"]
                  if t["status"] == "open" and t["action"] != "HOLD" and not t.get("base"))
-    print(f"Canh gác thông minh HL (mode={MODE}): {open_n} lệnh đang mở")
+    print(f"Canh gác HL (mode={MODE}): {open_n} lệnh đang mở")
 
     changed = False
     for t in led["trades"]:
@@ -211,6 +227,18 @@ def main():
     if changed:
         with open(LEDGER_PATH, "w") as f:
             json.dump(led, f, indent=1)
+
+
+def main():
+    end = time.time() + LOOP_MINUTES * 60
+    n = 0
+    while True:
+        n += 1
+        print(f"WATCH VÒNG {n} {datetime.now(timezone.utc):%H:%M:%S} UTC")
+        run_once()
+        if LOOP_MINUTES <= 0 or time.time() + INTERVAL > end:
+            break
+        time.sleep(INTERVAL)
 
 
 if __name__ == "__main__":
