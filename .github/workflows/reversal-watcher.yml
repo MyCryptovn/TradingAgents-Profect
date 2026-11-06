@@ -1,38 +1,28 @@
-name: Reversal Watcher
-
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *" 
-permissions:
-  contents: write
-
-concurrency:
-  group: tradingagents-top10-paper
-  cancel-in-progress: false
+    - cron: "5 * * * *"
+    - cron: "35 * * * *"
 
 jobs:
   watch:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 58
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      # (giữ Checkout và Set up Python)
 
       - name: Watch open paper trades
         env:
           WATCH_MODE: shadow
           WATCH_LEDGER: paper-ledger-hl/ledger.json
+          WATCH_LOOP_MINUTES: "30"
+          WATCH_INTERVAL_SECONDS: "60"
         run: python -m scripts.watch_reversal
 
       - name: Commit ledger
+        if: always()
         run: |
           git config user.name "paper-bot"
           git config user.email "paper-bot@users.noreply.github.com"
-          git add paper-ledger
-          git diff --staged --quiet || (git commit -m "watch ledger [skip ci]" && git pull --rebase && git push)
+          git add paper-ledger-hl
+          git diff --staged --quiet || (git commit -m "watch ledger [skip ci]" && git pull --rebase --autostash && git push)
