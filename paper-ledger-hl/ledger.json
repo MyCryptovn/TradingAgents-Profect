@@ -481,6 +481,36 @@
    "scan": "02 PUMP/USD direction=SHORT score=64.74 long_score=35.26 short_score=64.74 mtf_score=0.6474 vol24h=$26,987,154 spread=2.547 depth10bps=$134,753",
    "cfg": "hl-v2",
    "src": "hyperliquid"
+  },
+  {
+   "id": "42346801425-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794033166,
+   "entry": 3.48765,
+   "btc0": 76047.5,
+   "status": "open",
+   "spread": 8.601780568583115e-05,
+   "scan": "01 LIT/USD direction=LONG score=71.19 long_score=71.19 short_score=28.81 mtf_score=0.7119 vol24h=$30,044,315 spread=2.013 depth10bps=$52,359",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42346801425-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794033166,
+   "entry": 1310.65,
+   "btc0": 76047.5,
+   "status": "open",
+   "spread": 7.629802006648337e-05,
+   "scan": "02 ZEC/USD direction=SHORT score=64.07 long_score=35.93 short_score=64.07 mtf_score=0.6407 vol24h=$648,166,828 spread=0.763 depth10bps=$797,918",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
   }
  ]
 }
