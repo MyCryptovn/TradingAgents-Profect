@@ -420,7 +420,8 @@
    "spread": 0.00015093770046399615,
    "scan": "02 BCH/USD direction=SHORT score=64.09 long_score=35.91 short_score=64.09 mtf_score=0.6409 vol24h=$3,863,146 spread=1.132 depth10bps=$84,544",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 257.475
   },
   {
    "id": "42278613880-ZEC/USD",
@@ -465,7 +466,13 @@
    "spread": 1.2636074729626718e-05,
    "scan": "01 HYPE/USD direction=LONG score=65.96 long_score=65.96 short_score=34.04 mtf_score=0.6596 vol24h=$302,031,584 spread=0.127 depth10bps=$246,500",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 79.1385,
+   "rev_px": 77.69749999999999,
+   "rev_t": 1794055899,
+   "rev_first": -2.441,
+   "rev_pnl_pct": -2.441,
+   "watch": "pnl=-2.44% give=1.8% 1m=False 5m=True rsi=33 hits=2+1 fund=0.00001 imb=-0.62 live=- mv5=+0.09% vr=1.6"
   },
   {
    "id": "42320865648-PUMP/USD",
@@ -510,7 +517,8 @@
    "spread": 7.629802006648337e-05,
    "scan": "02 ZEC/USD direction=SHORT score=64.07 long_score=35.93 short_score=64.07 mtf_score=0.6407 vol24h=$648,166,828 spread=0.763 depth10bps=$797,918",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 1286.1
   }
  ]
 }
