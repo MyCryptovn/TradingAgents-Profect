@@ -3,6 +3,12 @@ on:
   schedule:
     - cron: "5 * * * *"
     - cron: "35 * * * *"
+permissions:
+  contents: write
+
+concurrency:
+  group: tradingagents-top10-paper
+  cancel-in-progress: false
 
 jobs:
   watch:
@@ -21,7 +27,7 @@ jobs:
         env:
           WATCH_MODE: shadow
           WATCH_LEDGER: paper-ledger-hl/ledger.json
-          WATCH_LOOP_MINUTES: "30"
+          WATCH_LOOP_MINUTES: "25"
           WATCH_INTERVAL_SECONDS: "60"
         run: python -m scripts.watch_reversal
 
