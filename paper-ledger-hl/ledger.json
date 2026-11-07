@@ -421,7 +421,7 @@
    "scan": "02 BCH/USD direction=SHORT score=64.09 long_score=35.91 short_score=64.09 mtf_score=0.6409 vol24h=$3,863,146 spread=1.132 depth10bps=$84,544",
    "cfg": "hl-v2",
    "src": "hyperliquid",
-   "trough": 257.475
+   "trough": 256.48
   },
   {
    "id": "42278613880-ZEC/USD",
@@ -518,7 +518,12 @@
    "scan": "02 ZEC/USD direction=SHORT score=64.07 long_score=35.93 short_score=64.07 mtf_score=0.6407 vol24h=$648,166,828 spread=0.763 depth10bps=$797,918",
    "cfg": "hl-v2",
    "src": "hyperliquid",
-   "trough": 1286.1
+   "trough": 1264.45,
+   "rev_px": 1264.45,
+   "rev_t": 1794067929,
+   "rev_first": 2.905,
+   "rev_pnl_pct": 2.905,
+   "watch": "pnl=+2.90% give=0.0% 1m=True 5m=True rsi=73 hits=2+0 fund=0.00001 imb=+0.04 live=- mv5=+0.14% vr=0.4"
   }
  ]
 }
