@@ -9,7 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 58
     steps:
-      # (giữ Checkout và Set up Python)
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
       - name: Watch open paper trades
         env:
