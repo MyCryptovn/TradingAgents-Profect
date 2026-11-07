@@ -16,7 +16,7 @@ from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin, 
 
 LEDGER_PATH = os.getenv("WATCH_LEDGER", "paper-ledger-hl/ledger.json")
 MODE = os.getenv("WATCH_MODE", "shadow")
-LOOP_MINUTES = float(os.getenv("WATCH_LOOP_MINUTES", "0"))
+LOOP_MINUTES = float(os.getenv("WATCH_LOOP_MINUTES", "15"))
 INTERVAL = int(os.getenv("WATCH_INTERVAL_SECONDS", "60"))
 
 MIN_AGE = 60
