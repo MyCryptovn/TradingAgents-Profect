@@ -435,12 +435,17 @@
    "t0": 1793993239,
    "entry": 265.01,
    "btc0": 75754.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00015093770046399615,
    "scan": "02 BCH/USD direction=SHORT score=64.09 long_score=35.91 short_score=64.09 mtf_score=0.6409 vol24h=$3,863,146 spread=1.132 depth10bps=$84,544",
    "cfg": "hl-v2",
    "src": "hyperliquid",
-   "trough": 256.48
+   "trough": 256.48,
+   "exit": 256.86,
+   "t1": 1794079639.0,
+   "reason": "TIME",
+   "pnl_pct": 2.44,
+   "mfe_pct": 3.419
   },
   {
    "id": "42278613880-ZEC/USD",
@@ -481,7 +486,7 @@
    "t0": 1794013347,
    "entry": 79.1385,
    "btc0": 75977.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2636074729626718e-05,
    "scan": "01 HYPE/USD direction=LONG score=65.96 long_score=65.96 short_score=34.04 mtf_score=0.6596 vol24h=$302,031,584 spread=0.127 depth10bps=$246,500",
    "cfg": "hl-v2",
@@ -491,7 +496,12 @@
    "rev_t": 1794055899,
    "rev_first": -2.441,
    "rev_pnl_pct": -2.441,
-   "watch": "pnl=-2.44% give=1.8% 1m=False 5m=True rsi=33 hits=2+1 fund=0.00001 imb=-0.62 live=- mv5=+0.09% vr=1.6"
+   "watch": "pnl=-2.44% give=1.8% 1m=False 5m=True rsi=33 hits=2+1 fund=0.00001 imb=-0.62 live=- mv5=+0.09% vr=1.6",
+   "exit": 76.76434499999999,
+   "t1": 1794084300,
+   "reason": "SL",
+   "pnl_pct": -3.621,
+   "mfe_pct": 0.552
   },
   {
    "id": "42320865648-PUMP/USD",
