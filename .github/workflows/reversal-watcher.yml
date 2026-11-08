@@ -1,8 +1,7 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron: "5 * * * *"
-    - cron: "35 * * * *"
+    - cron: "15 * * * *"
 
 permissions:
   contents: write
@@ -28,7 +27,7 @@ jobs:
         env:
           WATCH_MODE: shadow
           WATCH_LEDGER: paper-ledger-hl/ledger.json
-          WATCH_LOOP_MINUTES: "25"
+          WATCH_LOOP_MINUTES: "15"
           WATCH_INTERVAL_SECONDS: "60"
         run: python -m scripts.watch_reversal
 
