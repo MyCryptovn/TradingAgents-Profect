@@ -41,9 +41,20 @@ def hl_post(body):
 
 
 def coin_of(sym):
-    """Tên coin Hyperliquid từ BTC/USD, BTC-USD, kPEPE/USD, xyz:CL/USD."""
+    """Tên coin Hyperliquid từ BTC/USD, kPEPE/USD, xyz:CL/USD."""
     base = sym.strip().split("/", 1)[0].split("-", 1)[0]
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
+
+# Coins bị chặn khỏi danh sách mở lệnh paper
+BLOCKED_TRADE_ASSETS = {
+    "KPEPE",
+}
+
+def is_trade_allowed(sym):
+    coin = coin_of(sym)
+    if not coin:
+        return False
+    return coin.upper() not in BLOCKED_TRADE_ASSETS
 
 
 def trade_coin(t):
@@ -162,6 +173,9 @@ def record():
     btc0 = price("BTC")
     for sym, act, raw in decisions:
         if raw == "REVIEW" or council_exit(led, sym, act):
+            continue
+        if not is_trade_allowed(sym):
+            print(f"[PAPER SKIP] Blocked asset: {sym}")
             continue
         tid = f"{run}-{sym}"
         if tid in known:
