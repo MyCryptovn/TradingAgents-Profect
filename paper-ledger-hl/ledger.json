@@ -664,6 +664,36 @@
    "cfg": "hl-v3",
    "src": "hyperliquid",
    "trough": 0.846795
+  },
+  {
+   "id": "42509051286-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794162077,
+   "entry": 3.19265,
+   "btc0": 75902.5,
+   "status": "open",
+   "spread": 3.132194258680624e-05,
+   "scan": "01 LIT/USD direction=SHORT score=70.89 long_score=30.80 short_score=70.89 mtf_score=0.7089 vol24h=$13,536,827 spread=0.630 depth10bps=$64,747",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42509051286-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEAR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794162077,
+   "entry": 3.6433,
+   "btc0": 75902.5,
+   "status": "open",
+   "spread": 0.0001646858617188752,
+   "scan": "02 NEAR/USD direction=SHORT score=65.81 long_score=34.19 short_score=65.81 mtf_score=0.6581 vol24h=$23,152,568 spread=0.277 depth10bps=$339,198",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
   }
  ]
 }
