@@ -25,7 +25,7 @@ jobs:
 
       - name: Watch open paper trades
         env:
-          WATCH_MODE: shadow
+          WATCH_MODE: close
           WATCH_LEDGER: paper-ledger-hl/ledger.json
           WATCH_LOOP_MINUTES: "15"
           WATCH_INTERVAL_SECONDS: "60"
