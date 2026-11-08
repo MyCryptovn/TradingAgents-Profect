@@ -368,69 +368,108 @@ def assess_quality(
     now_ms: float,
 ) -> dict:
     reasons = []
+    warnings = []
+
     timeframes = features.get("timeframes", {})
     book = features.get("book", {})
 
+    # Core timeframes: mandatory.
     required = ("5m", "15m", "1h")
+
     for timeframe in required:
         row = timeframes.get(timeframe, {})
+
         if not row.get("valid"):
             reasons.append(f"MISSING_{timeframe.upper()}_DATA")
             continue
+
         if not check_freshness(row, timeframe, now_ms):
             reasons.append(f"STALE_{timeframe.upper()}_DATA")
 
-    one_minute = timeframes.get("1m", {})
-    if not one_minute.get("valid"):
-        reasons.append("MISSING_1M_DATA")
-    elif not check_freshness(one_minute, "1m", now_ms):
-        reasons.append("STALE_1M_DATA")
+        if row.get("has_gaps"):
+            warnings.append(f"{timeframe.upper()}_DATA_GAPS")
 
+    # 1m is supplementary, not mandatory.
+    one_minute = timeframes.get("1m", {})
+
+    if not one_minute.get("valid"):
+        warnings.append("OPTIONAL_1M_DATA_UNAVAILABLE")
+
+    elif not check_freshness(one_minute, "1m", now_ms):
+        warnings.append("OPTIONAL_1M_DATA_STALE")
+
+    elif one_minute.get("has_gaps"):
+        warnings.append("OPTIONAL_1M_DATA_GAPS")
+
+    # Orderbook remains mandatory for execution quality.
     if not book.get("book_valid"):
         reasons.append("INVALID_ORDERBOOK")
 
     spread = book.get("spread_bps")
+
     if spread is None:
         reasons.append("MISSING_SPREAD")
+
     elif safe_float(spread, 999999) > MAX_SPREAD_BPS:
         reasons.append("SPREAD_TOO_WIDE")
 
     depth = safe_float(book.get("depth_10bps_usd"))
+
     if depth < MIN_DEPTH_10BPS_USD:
         reasons.append("INSUFFICIENT_10BPS_DEPTH")
 
     volume = safe_float(market.get("day_volume_usd"))
 
-    # --- Tính điểm Quality tốt hơn ---
+    # Quality components.
     spread_score = 0.0
-    if spread is not None:
-        # Phạt nặng hơn khi spread cao
-        spread_score = clamp(1.0 - (safe_float(spread) / MAX_SPREAD_BPS) ** 1.3, 0.0, 1.0)
+
+    if spread is not None and MAX_SPREAD_BPS > 0:
+        spread_score = clamp(
+            1.0 - safe_float(spread) / MAX_SPREAD_BPS,
+            0.0,
+            1.0,
+        )
 
     depth_score = clamp(
-        math.log10(max(depth, 1.0) / MIN_DEPTH_10BPS_USD + 1) / 2.2,
+        math.log10(
+            max(depth, 1.0) / max(MIN_DEPTH_10BPS_USD, 1.0) + 1
+        ) / 2.0,
         0.0,
         1.0,
     )
 
     volume_score = clamp(
-        math.log10(max(volume, 1.0) / MIN_DAY_VOLUME_USD + 1) / 2.0,
+        math.log10(
+            max(volume, 1.0) / max(MIN_DAY_VOLUME_USD, 1.0) + 1
+        ) / 2.0,
         0.0,
         1.0,
     )
 
-    # Độ đầy đủ timeframe (1m quan trọng hơn trước)
-    tf_weights = {"1m": 0.30, "5m": 0.25, "15m": 0.25, "1h": 0.20}
+    # Weight core timeframes more heavily.
+    timeframe_quality_weights = {
+        "1m": 0.10,
+        "5m": 0.20,
+        "15m": 0.35,
+        "1h": 0.35,
+    }
+
     completeness = 0.0
-    for tf, w in tf_weights.items():
-        if timeframes.get(tf, {}).get("valid"):
-            completeness += w
+
+    for timeframe, weight in timeframe_quality_weights.items():
+        row = timeframes.get(timeframe, {})
+
+        if (
+            row.get("valid")
+            and check_freshness(row, timeframe, now_ms)
+        ):
+            completeness += weight
 
     quality_score = (
-        28.0 * spread_score
-        + 27.0 * depth_score
-        + 22.0 * volume_score
-        + 23.0 * completeness
+        30.0 * spread_score
+        + 30.0 * depth_score
+        + 20.0 * volume_score
+        + 20.0 * completeness
     )
 
     if quality_score < MIN_QUALITY_SCORE:
@@ -438,12 +477,16 @@ def assess_quality(
 
     return {
         "quality_score": round(quality_score, 2),
-        "spread_bps": round(safe_float(spread), 4) if spread is not None else None,
+        "spread_bps": (
+            round(safe_float(spread), 4)
+            if spread is not None else None
+        ),
         "depth_10bps_usd": round(depth, 2),
         "day_volume_usd": round(volume, 2),
         "data_completeness": round(completeness, 2),
         "passed": not reasons,
         "reasons": reasons,
+        "warnings": warnings,
     }
 
 
@@ -491,19 +534,27 @@ def directional_composite(features: dict) -> tuple[float, dict]:
 
     for timeframe, weight in TIMEFRAME_WEIGHTS.items():
         row = timeframes.get(timeframe, {})
+
+        usable = (
+            row.get("valid")
+            and not row.get("is_stale", False)
+        )
+
+        if not usable:
+            components[timeframe] = None
+            continue
+
         signal = timeframe_direction(row, timeframe)
 
         components[timeframe] = round(signal, 4)
 
-        if row.get("valid"):
-            composite += signal * weight
-            total_weight += weight
+        composite += signal * weight
+        total_weight += weight
 
     if total_weight <= 0:
         return 0.0, components
 
     return clamp(composite / total_weight), components
-
 
 # ============================================================
 # LONG AND SHORT SCORING
