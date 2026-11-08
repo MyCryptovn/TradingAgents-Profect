@@ -586,12 +586,17 @@
    "t0": 1794117609,
    "entry": 246.91500000000002,
    "btc0": 75809.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00012149930137902167,
    "scan": "01 BCH/USD direction=SHORT score=68.38 long_score=31.62 short_score=68.38 mtf_score=0.6838 vol24h=$4,616,643 spread=1.620 depth10bps=$143,366",
    "cfg": "hl-v2",
    "src": "hyperliquid",
-   "trough": 246.39499999999998
+   "trough": 245.055,
+   "exit": 245.055,
+   "t1": 1794135354,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": 0.133,
+   "watch": "pnl=+0.13% give=0.0% 1m=False 5m=True rsi=62 hits=2+1 fund=-0.00001 imb=+0.22 live=- mv5=-0.02% vr=0.1"
   },
   {
    "id": "42452558587-MET/USD",
@@ -621,7 +626,8 @@
    "spread": 0.0005474952094169903,
    "scan": "01 PUMP/USD direction=SHORT score=67.58 long_score=32.73 short_score=67.58 mtf_score=0.6758 vol24h=$45,883,190 spread=2.745 depth10bps=$127,300",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 0.003653
   },
   {
    "id": "42471894087-ARB/USD",
@@ -651,7 +657,8 @@
    "spread": 3.542770091931872e-05,
    "scan": "03 SUI/USD direction=SHORT score=61.84 long_score=38.22 short_score=61.84 mtf_score=0.6184 vol24h=$3,996,590 spread=1.769 depth10bps=$103,282",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 0.846795
   }
  ]
 }
