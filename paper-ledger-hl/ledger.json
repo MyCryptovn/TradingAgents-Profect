@@ -622,12 +622,17 @@
    "t0": 1794134434,
    "entry": 0.003653,
    "btc0": 75842.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005474952094169903,
    "scan": "01 PUMP/USD direction=SHORT score=67.58 long_score=32.73 short_score=67.58 mtf_score=0.6758 vol24h=$45,883,190 spread=2.745 depth10bps=$127,300",
    "cfg": "hl-v3",
    "src": "hyperliquid",
-   "trough": 0.003653
+   "trough": 0.003653,
+   "exit": 0.003743,
+   "t1": 1794150593,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -3.084,
+   "watch": "pnl=-3.08% give=2.5% 1m=False 5m=False rsi=73 hits=1+2 fund=0.00001 imb=+0.22 live=BOM_LIVE mv5=+0.72% vr=9.6"
   },
   {
    "id": "42471894087-ARB/USD",
