@@ -700,6 +700,21 @@
    "scan": "02 NEAR/USD direction=SHORT score=65.81 long_score=34.19 short_score=65.81 mtf_score=0.6581 vol24h=$23,152,568 spread=0.277 depth10bps=$339,198",
    "cfg": "hl-v3",
    "src": "hyperliquid"
+  },
+  {
+   "id": "42516050130-XPL/USD",
+   "symbol": "XPL/USD",
+   "pair": "XPL",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794167054,
+   "entry": 0.054557999999999995,
+   "btc0": 75880.5,
+   "status": "open",
+   "spread": 0.00018329117636282604,
+   "scan": "02 XPL/USD direction=SHORT score=67.48 long_score=32.52 short_score=67.48 mtf_score=0.6748 vol24h=$8,179,970 spread=1.650 depth10bps=$26,120",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
   }
  ]
 }
