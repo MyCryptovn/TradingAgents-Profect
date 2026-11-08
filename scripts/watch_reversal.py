@@ -7,6 +7,7 @@ WATCH_LOOP_MINUTES=0  : chạy một vòng rồi thoát.
 WATCH_LOOP_MINUTES=15 : lặp mỗi WATCH_INTERVAL_SECONDS trong 30 phút.
 """
 
+import math
 import json
 import os
 import time
@@ -40,13 +41,52 @@ def ema(values, n):
 
 
 def rsi(closes, n=14):
-    if len(closes) < n + 1:
+    """Wilder RSI using completed candle closes."""
+    if n < 2 or not isinstance(closes, (list, tuple)):
+        return None
+
+    values = []
+
+    for value in closes:
+        try:
+            value = float(value)
+        except (TypeError, ValueError):
+            return None
+
+        if not math.isfinite(value) or value <= 0:
+            return None
+
+        values.append(value)
+
+    if len(values) < n + 1:
+        return None
+
+    changes = [
+        values[i] - values[i - 1]
+        for i in range(1, len(values))
+    ]
+
+    gains = [max(change, 0.0) for change in changes]
+    losses = [max(-change, 0.0) for change in changes]
+
+    avg_gain = sum(gains[:n]) / n
+    avg_loss = sum(losses[:n]) / n
+
+    for i in range(n, len(gains)):
+        avg_gain = ((avg_gain * (n - 1)) + gains[i]) / n
+        avg_loss = ((avg_loss * (n - 1)) + losses[i]) / n
+
+    if avg_gain == 0 and avg_loss == 0:
         return 50.0
-    gains = [max(closes[i] - closes[i - 1], 0) for i in range(len(closes) - n, len(closes))]
-    losses = [max(closes[i - 1] - closes[i], 0) for i in range(len(closes) - n, len(closes))]
-    ag = sum(gains) / n
-    al = sum(losses) / n
-    return 100.0 if al == 0 else 100 - 100 / (1 + ag / al)
+
+    if avg_loss == 0:
+        return 100.0
+
+    if avg_gain == 0:
+        return 0.0
+
+    rs = avg_gain / avg_loss
+    return 100.0 - (100.0 / (1.0 + rs))
 
 
 def _meta():
