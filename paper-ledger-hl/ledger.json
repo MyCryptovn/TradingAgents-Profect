@@ -556,7 +556,7 @@
    "t0": 1794033166,
    "entry": 1310.65,
    "btc0": 76047.5,
-   "status": "open",
+   "status": "closed",
    "spread": 7.629802006648337e-05,
    "scan": "02 ZEC/USD direction=SHORT score=64.07 long_score=35.93 short_score=64.07 mtf_score=0.6407 vol24h=$648,166,828 spread=0.763 depth10bps=$797,918",
    "cfg": "hl-v2",
@@ -566,7 +566,12 @@
    "rev_t": 1794067929,
    "rev_first": 2.905,
    "rev_pnl_pct": 2.905,
-   "watch": "pnl=+2.90% give=0.0% 1m=True 5m=True rsi=73 hits=2+0 fund=0.00001 imb=+0.04 live=- mv5=+0.14% vr=0.4"
+   "watch": "pnl=+2.90% give=0.0% 1m=True 5m=True rsi=73 hits=2+0 fund=0.00001 imb=+0.04 live=- mv5=+0.14% vr=0.4",
+   "exit": 1262.6,
+   "t1": 1794119566.0,
+   "reason": "TIME",
+   "pnl_pct": 3.038,
+   "mfe_pct": 5.688
   },
   {
    "id": "42452558587-BCH/USD",
@@ -581,7 +586,8 @@
    "spread": 0.00012149930137902167,
    "scan": "01 BCH/USD direction=SHORT score=68.38 long_score=31.62 short_score=68.38 mtf_score=0.6838 vol24h=$4,616,643 spread=1.620 depth10bps=$143,366",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 246.39499999999998
   },
   {
    "id": "42452558587-MET/USD",
