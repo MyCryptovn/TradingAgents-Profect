@@ -1,4 +1,3 @@
-
 """
 Hyperliquid market-data feeder for TradingAgents-Profect.
 
@@ -12,6 +11,7 @@ Read-only market data:
 
 from __future__ import annotations
 
+import math
 import time
 import json
 import urllib.request
@@ -115,6 +115,95 @@ def _number(value, default: float = 0.0) -> float:
     except (TypeError, ValueError):
         pass
     return default
+
+
+def _strict_number(value) -> float | None:
+    """Return a finite float, or None for invalid input."""
+    try:
+        result = float(value)
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+    if not math.isfinite(result):
+        return None
+
+    return result
+
+
+def _normalize_candle(
+    row: dict,
+    interval: str,
+    now_ms: int,
+) -> dict | None:
+    """
+    Normalize one Hyperliquid candle.
+
+    Reject:
+    - Invalid or future timestamps.
+    - Unclosed candles.
+    - Invalid OHLC relationships.
+    - Negative or non-finite volume/trade count.
+    """
+    if not isinstance(row, dict):
+        return None
+
+    timestamp = _strict_number(row.get("t"))
+    close_time = _strict_number(row.get("T"))
+
+    open_price = _strict_number(row.get("o"))
+    high_price = _strict_number(row.get("h"))
+    low_price = _strict_number(row.get("l"))
+    close_price = _strict_number(row.get("c"))
+
+    volume = _strict_number(row.get("v"))
+    trades = _strict_number(row.get("n"))
+
+    if any(value is None for value in (
+        timestamp,
+        close_time,
+        open_price,
+        high_price,
+        low_price,
+        close_price,
+        volume,
+        trades,
+    )):
+        return None
+
+    if timestamp <= 0 or close_time < timestamp:
+        return None
+
+    # Exclude candles that have not closed.
+    if close_time > now_ms:
+        return None
+
+    if min(open_price, high_price, low_price, close_price) <= 0:
+        return None
+
+    if volume < 0 or trades < 0:
+        return None
+
+    # Validate the OHLC price structure.
+    if high_price < max(open_price, close_price, low_price):
+        return None
+
+    if low_price > min(open_price, close_price, high_price):
+        return None
+
+    if trades != int(trades):
+        return None
+
+    return {
+        "time": int(timestamp),
+        "close_time": int(close_time),
+        "open": open_price,
+        "high": high_price,
+        "low": low_price,
+        "close": close_price,
+        "volume": volume,
+        "trades": int(trades),
+        "interval": interval,
+    }
 
 
 def _dex_list() -> list[str]:
@@ -260,10 +349,10 @@ def get_candles(
     lookback_minutes: int = 360,
 ) -> list[dict]:
     """
-    Get candles and exclude the currently forming candle.
+    Return normalized, completed Hyperliquid candles.
 
-    Hyperliquid candle rows contain t (open time) and T (close time).
-    Only rows whose close time has passed are returned.
+    Duplicate timestamps are removed.
+    Invalid and unfinished candles are rejected.
     """
     allowed = {
         "1m": 1,
@@ -282,9 +371,14 @@ def get_candles(
     if interval not in allowed:
         raise ValueError(f"Unsupported candle interval: {interval}")
 
+    try:
+        lookback_minutes = int(lookback_minutes)
+    except (TypeError, ValueError):
+        raise ValueError("lookback_minutes must be an integer")
+
     lookback_minutes = max(
         allowed[interval],
-        min(int(lookback_minutes), 5000 * allowed[interval]),
+        min(lookback_minutes, 5000 * allowed[interval]),
     )
 
     cache_key = f"{coin}:{interval}:{lookback_minutes}"
@@ -304,44 +398,29 @@ def get_candles(
         })
 
         if not isinstance(payload, list):
-            return []
+            raise RuntimeError(
+                f"Invalid candle response for {coin} {interval}"
+            )
 
-        completed = []
+        unique = {}
 
-        for row in payload:
-            if not isinstance(row, dict):
+        for raw in payload:
+            candle = _normalize_candle(
+                raw,
+                interval,
+                now_ms,
+            )
+
+            if candle is None:
                 continue
 
-            close_time = _number(row.get("T"))
-            if close_time <= 0 or close_time > now_ms:
-                continue
+            # Keep the last valid row for each timestamp.
+            unique[candle["time"]] = candle
 
-            candle = {
-                "time": _number(row.get("t")),
-                "close_time": close_time,
-                "open": _number(row.get("o")),
-                "high": _number(row.get("h")),
-                "low": _number(row.get("l")),
-                "close": _number(row.get("c")),
-                "volume": _number(row.get("v")),
-                "trades": int(_number(row.get("n"))),
-                "interval": interval,
-            }
-
-            if (
-                candle["time"] > 0
-                and candle["open"] > 0
-                and candle["high"] > 0
-                and candle["low"] > 0
-                and candle["close"] > 0
-            ):
-                completed.append(candle)
-
-        completed.sort(key=lambda x: x["time"])
-
-        # Remove duplicate timestamps.
-        unique = {row["time"]: row for row in completed}
-        return list(unique.values())
+        return sorted(
+            unique.values(),
+            key=lambda item: item["time"],
+        )
 
     return _cached(
         _candle_cache,
@@ -349,8 +428,8 @@ def get_candles(
         CANDLE_TTL,
         load,
     )
-
-
+    
+        
 def get_l2_book(coin: str) -> dict:
     """Get an L2 book snapshot for a native or DEX-prefixed coin."""
     def load():
@@ -464,26 +543,113 @@ def orderbook_features(coin: str) -> dict:
 
 
 def candle_features(candles: list[dict]) -> dict:
-    """Calculate basic momentum, trend, volume and RSI from completed candles."""
+    """
+    Calculate features from normalized completed candles.
+
+    Data gaps and candle freshness are exposed explicitly.
+    They are not silently converted into neutral market signals.
+    """
+    if not isinstance(candles, list):
+        return {
+            "valid": False,
+            "candle_count": 0,
+            "error": "INVALID_CANDLE_COLLECTION",
+        }
+
     if len(candles) < 30:
         return {
             "valid": False,
             "candle_count": len(candles),
+            "error": "INSUFFICIENT_CANDLES",
+        }
+
+    interval = candles[-1].get("interval")
+
+    interval_minutes = {
+        "1m": 1,
+        "3m": 3,
+        "5m": 5,
+        "15m": 15,
+        "30m": 30,
+        "1h": 60,
+        "2h": 120,
+        "4h": 240,
+        "8h": 480,
+        "12h": 720,
+        "1d": 1440,
+    }.get(interval)
+
+    if not interval_minutes:
+        return {
+            "valid": False,
+            "candle_count": len(candles),
+            "error": "UNKNOWN_CANDLE_INTERVAL",
+        }
+
+    # Validate chronological order and candle values again.
+    normalized = []
+
+    for candle in candles:
+        if not isinstance(candle, dict):
+            continue
+
+        values = [
+            _strict_number(candle.get(key))
+            for key in ("time", "close_time", "open", "high",
+                        "low", "close", "volume")
+        ]
+
+        if any(value is None for value in values):
+            continue
+
+        timestamp, close_time, op, hi, lo, cl, vol = values
+
+        if (
+            timestamp <= 0
+            or close_time < timestamp
+            or min(op, hi, lo, cl) <= 0
+            or vol < 0
+            or hi < max(op, cl, lo)
+            or lo > min(op, cl, hi)
+        ):
+            continue
+
+        normalized.append(candle)
+
+    normalized.sort(key=lambda item: item["time"])
+
+    # Remove duplicate timestamps.
+    unique = {
+        int(item["time"]): item
+        for item in normalized
+    }
+    candles = list(unique.values())
+
+    if len(candles) < 30:
+        return {
+            "valid": False,
+            "candle_count": len(candles),
+            "error": "INSUFFICIENT_VALID_CANDLES",
         }
 
     closes = [x["close"] for x in candles]
     volumes = [x["volume"] for x in candles]
 
     last = closes[-1]
+
     sma8 = sum(closes[-8:]) / 8
     sma20 = sum(closes[-20:]) / 20
     sma30 = sum(closes[-30:]) / 30
 
-    momentum_3 = last / closes[-4] - 1 if closes[-4] else 0
-    momentum_10 = last / closes[-11] - 1 if closes[-11] else 0
+    momentum_3 = last / closes[-4] - 1
+    momentum_10 = last / closes[-11] - 1
 
     avg_volume = sum(volumes[-21:-1]) / 20
-    volume_ratio = volumes[-1] / avg_volume if avg_volume > 0 else 0
+
+    volume_ratio = (
+        volumes[-1] / avg_volume
+        if avg_volume > 0 else 0.0
+    )
 
     changes = [
         closes[i] - closes[i - 1]
@@ -491,26 +657,69 @@ def candle_features(candles: list[dict]) -> dict:
     ]
 
     recent = changes[-14:]
+
     gains = sum(max(x, 0) for x in recent) / 14
     losses = sum(max(-x, 0) for x in recent) / 14
 
-    if losses == 0:
-        rsi = 100.0 if gains > 0 else 50.0
+    if gains == 0 and losses == 0:
+        rsi = 50.0
+    elif losses == 0:
+        rsi = 100.0
     else:
         rs = gains / losses
         rsi = 100 - (100 / (1 + rs))
 
+    # Detect missing intervals between consecutive candles.
+    expected_ms = interval_minutes * 60 * 1000
+    gap_count = 0
+    max_gap_intervals = 1
+    misaligned_intervals = 0
+
+    for previous, current in zip(candles, candles[1:]):
+        delta = current["time"] - previous["time"]
+
+        if delta <= 0:
+            continue
+
+        steps = max(1, round(delta / expected_ms))
+
+        missing = max(0, steps - 1)
+        gap_count += missing
+        max_gap_intervals = max(max_gap_intervals, steps)
+
+        if abs(delta - steps * expected_ms) > 1000:
+            misaligned_intervals += 1
+
+    now_ms = int(time.time() * 1000)
+    last_close_time = candles[-1]["close_time"]
+
+    age_ms = max(0, now_ms - last_close_time)
+    max_age_ms = expected_ms * 3 + 60_000
+
     return {
         "valid": True,
         "candle_count": len(candles),
+
         "last_price": last,
-        "trend": sma8 / sma30 - 1 if sma30 else 0,
+        "trend": sma8 / sma30 - 1 if sma30 else 0.0,
         "momentum_3": momentum_3,
         "momentum_10": momentum_10,
         "volume_ratio": volume_ratio,
         "rsi14": rsi,
-        "last_candle_time": candles[-1]["close_time"],
-        "last_candle_close_time": candles[-1]["close_time"]}
+
+        "last_candle_time": candles[-1]["time"],
+        "last_candle_close_time": last_close_time,
+
+        # New data-quality fields.
+        "expected_interval_ms": expected_ms,
+        "last_candle_age_ms": age_ms,
+        "is_stale": age_ms > max_age_ms,
+
+        "gap_count": gap_count,
+        "max_gap_intervals": max_gap_intervals,
+        "misaligned_intervals": misaligned_intervals,
+        "has_gaps": gap_count > 0 or misaligned_intervals > 0,
+    }
 
 
 def _clamp(value: float, low: float = -1.0, high: float = 1.0) -> float:
