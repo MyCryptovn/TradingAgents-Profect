@@ -420,11 +420,14 @@
    "t0": 1793993239,
    "entry": 3.3009,
    "btc0": 75754.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003635372171225629,
    "scan": "01 LIT/USD direction=SHORT score=72.09 long_score=27.91 short_score=72.09 mtf_score=0.7209 vol24h=$45,108,284 spread=3.631 depth10bps=$52,330",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.2758,
+   "t1": 1794079639.0,
+   "move_pct": -0.76
   },
   {
    "id": "42278613880-BCH/USD",
@@ -445,7 +448,8 @@
    "t1": 1794079639.0,
    "reason": "TIME",
    "pnl_pct": 2.44,
-   "mfe_pct": 3.419
+   "mfe_pct": 3.419,
+   "trail_pnl_pct": 2.44
   },
   {
    "id": "42278613880-ZEC/USD",
@@ -456,11 +460,14 @@
    "t0": 1793993239,
    "entry": 1341.95,
    "btc0": 75754.5,
-   "status": "open",
+   "status": "closed",
    "spread": 7.451842468043448e-05,
    "scan": "01 ZEC/USD direction=LONG score=61.01 long_score=61.01 short_score=38.99 mtf_score=0.6101 vol24h=$851,945,223 spread=0.746 depth10bps=$740,899",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 1265.9,
+   "t1": 1794079639.0,
+   "move_pct": -5.667
   },
   {
    "id": "42320865648-XMR/USD",
@@ -471,11 +478,14 @@
    "t0": 1794013347,
    "entry": 611.635,
    "btc0": 75977.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00011444734196037887,
    "scan": "01 XMR/USD direction=SHORT score=67.99 long_score=32.01 short_score=67.99 mtf_score=0.6799 vol24h=$56,970,274 spread=0.163 depth10bps=$436,858",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 601.29,
+   "t1": 1794099747.0,
+   "move_pct": -1.691
   },
   {
    "id": "42320865648-HYPE/USD",
@@ -501,7 +511,8 @@
    "t1": 1794084300,
    "reason": "SL",
    "pnl_pct": -3.621,
-   "mfe_pct": 0.552
+   "mfe_pct": 0.552,
+   "trail_pnl_pct": -3.086
   },
   {
    "id": "42320865648-PUMP/USD",
@@ -512,11 +523,14 @@
    "t0": 1794013347,
    "entry": 0.0039375,
    "btc0": 75977.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00025396825396806737,
    "scan": "02 PUMP/USD direction=SHORT score=64.74 long_score=35.26 short_score=64.74 mtf_score=0.6474 vol24h=$26,987,154 spread=2.547 depth10bps=$134,753",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.00368,
+   "t1": 1794099747.0,
+   "move_pct": -6.54
   },
   {
    "id": "42346801425-LIT/USD",
@@ -553,6 +567,36 @@
    "rev_first": 2.905,
    "rev_pnl_pct": 2.905,
    "watch": "pnl=+2.90% give=0.0% 1m=True 5m=True rsi=73 hits=2+0 fund=0.00001 imb=+0.04 live=- mv5=+0.14% vr=0.4"
+  },
+  {
+   "id": "42452558587-BCH/USD",
+   "symbol": "BCH/USD",
+   "pair": "BCH",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794117609,
+   "entry": 246.91500000000002,
+   "btc0": 75809.5,
+   "status": "open",
+   "spread": 0.00012149930137902167,
+   "scan": "01 BCH/USD direction=SHORT score=68.38 long_score=31.62 short_score=68.38 mtf_score=0.6838 vol24h=$4,616,643 spread=1.620 depth10bps=$143,366",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42452558587-MET/USD",
+   "symbol": "MET/USD",
+   "pair": "MET",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794117609,
+   "entry": 0.326515,
+   "btc0": 75809.5,
+   "status": "open",
+   "spread": 0.0009494203941626954,
+   "scan": "01 MET/USD direction=LONG score=56.72 long_score=56.72 short_score=43.28 mtf_score=0.5672 vol24h=$3,575,947 spread=9.224 depth10bps=$11,239",
+   "cfg": "hl-v2",
+   "src": "hyperliquid"
   }
  ]
 }
