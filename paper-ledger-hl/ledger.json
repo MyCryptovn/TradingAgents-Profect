@@ -541,11 +541,14 @@
    "t0": 1794033166,
    "entry": 3.48765,
    "btc0": 76047.5,
-   "status": "open",
+   "status": "closed",
    "spread": 8.601780568583115e-05,
    "scan": "01 LIT/USD direction=LONG score=71.19 long_score=71.19 short_score=28.81 mtf_score=0.7119 vol24h=$30,044,315 spread=2.013 depth10bps=$52,359",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.2625,
+   "t1": 1794119566.0,
+   "move_pct": -6.456
   },
   {
    "id": "42346801425-ZEC/USD",
@@ -571,7 +574,8 @@
    "t1": 1794119566.0,
    "reason": "TIME",
    "pnl_pct": 3.038,
-   "mfe_pct": 5.688
+   "mfe_pct": 5.688,
+   "trail_pnl_pct": 3.038
   },
   {
    "id": "42452558587-BCH/USD",
@@ -602,6 +606,51 @@
    "spread": 0.0009494203941626954,
    "scan": "01 MET/USD direction=LONG score=56.72 long_score=56.72 short_score=43.28 mtf_score=0.5672 vol24h=$3,575,947 spread=9.224 depth10bps=$11,239",
    "cfg": "hl-v2",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42471894087-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794134434,
+   "entry": 0.003653,
+   "btc0": 75842.5,
+   "status": "open",
+   "spread": 0.0005474952094169903,
+   "scan": "01 PUMP/USD direction=SHORT score=67.58 long_score=32.73 short_score=67.58 mtf_score=0.6758 vol24h=$45,883,190 spread=2.745 depth10bps=$127,300",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42471894087-ARB/USD",
+   "symbol": "ARB/USD",
+   "pair": "ARB",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794134435,
+   "entry": 0.169495,
+   "btc0": 75842.5,
+   "status": "open",
+   "spread": 0.00017699637157439596,
+   "scan": "01 ARB/USD direction=LONG score=62.85 long_score=62.85 short_score=41.95 mtf_score=0.6285 vol24h=$4,158,033 spread=0.590 depth10bps=$76,543",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42471894087-SUI/USD",
+   "symbol": "SUI/USD",
+   "pair": "SUI",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794134435,
+   "entry": 0.846795,
+   "btc0": 75842.5,
+   "status": "open",
+   "spread": 3.542770091931872e-05,
+   "scan": "03 SUI/USD direction=SHORT score=61.84 long_score=38.22 short_score=61.84 mtf_score=0.6184 vol24h=$3,996,590 spread=1.769 depth10bps=$103,282",
+   "cfg": "hl-v3",
    "src": "hyperliquid"
   }
  ]
