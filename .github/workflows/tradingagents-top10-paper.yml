@@ -94,7 +94,7 @@ jobs:
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "hl-v2"
+          CONFIG_TAG: "hl-v3"
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
         run: python scripts/paper_ledger.py record
 
