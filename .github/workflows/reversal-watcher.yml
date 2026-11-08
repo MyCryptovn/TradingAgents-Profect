@@ -3,6 +3,14 @@ on:
   schedule:
     - cron: "15 * * * *"
 
+  workflow_run:
+   workflows:
+    - "TradingAgents Top-10 Paper Effectiveness"
+   types:
+    - completed
+   branches:
+    - main
+      
 permissions:
   contents: write
 
@@ -12,6 +20,7 @@ concurrency:
 
 jobs:
   watch:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
