@@ -189,6 +189,13 @@ def run_scanner() -> list[str]:
             "scanner.json must contain a JSON object"
         )
     
+    symbols: list[str] = []
+
+    SCAN_ROWS.clear()
+    for r in data.get("analyzed_markets", []):
+        if isinstance(r, dict) and r.get("symbol"):
+            SCAN_ROWS[f"{r['symbol']}/USD"] = r
+            
     top_long = data.get("top_long", [])
     top_short = data.get("top_short", [])
 
@@ -207,10 +214,6 @@ def run_scanner() -> list[str]:
 
     seen = set()
 
-    SCAN_ROWS.clear()
-    for r in data.get("analyzed_markets", []):
-        if isinstance(r, dict) and r.get("symbol"):
-            SCAN_ROWS[f"{r['symbol']}/USD"] = r
     
     for row in top_long + top_short:
         if not isinstance(row, dict):
