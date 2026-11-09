@@ -22,8 +22,8 @@ LOOP_MINUTES = float(os.getenv("WATCH_LOOP_MINUTES", "15"))
 INTERVAL = int(os.getenv("WATCH_INTERVAL_SECONDS", "60"))
 
 MIN_AGE = 60
-GIVEBACK_SOFT = 0.018
-GIVEBACK_HARD = 0.028
+GIVEBACK_SOFT = 0.015
+GIVEBACK_HARD = 0.025
 STRONG_TREND_RSI = 55
 LIVE_MOVE = 0.005        # biến động 5 phút tối thiểu để tính bơm/xả (ước lượng ban đầu, cần đo)
 LIVE_VOL_RATIO = 3.0     # khối lượng 5 phút so với trung bình 60 phút (ước lượng ban đầu)
@@ -464,14 +464,14 @@ def check_reversal(t):
         bool(live_pressure),
     ])
 
-    pressure_confirmed = pressure_hits >= 2
+    pressure_confirmed = pressure_hits >=3
 
     # Strong trend is based on 15m RSI and higher timeframe context.
     rs15 = m15["rsi"]
 
     if direction == 1:
         strong = (
-            pnl > 0.035
+            pnl > 0.030
             and rs15 > STRONG_TREND_RSI
             and not confirm_15m
             and not confirm_1h
@@ -480,7 +480,7 @@ def check_reversal(t):
         )
     else:
         strong = (
-            pnl > 0.035
+            pnl > 0.030
             and rs15 < 100 - STRONG_TREND_RSI
             and not confirm_15m
             and not confirm_1h
