@@ -422,7 +422,7 @@ def check_reversal(t):
     # Only trust the four-value version of hl_context().
     # The legacy two-value version cannot distinguish API errors
     # from a genuine neutral reading.
-    if isinstance(context, (tuple, list)) and len(context) == 0:
+    if isinstance(context, (tuple, list)) and len(context) == 4:
         funding, imbalance, funding_ok, book_ok = context
 
     funding_pressure = False
