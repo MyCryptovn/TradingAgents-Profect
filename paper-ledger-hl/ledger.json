@@ -715,6 +715,36 @@
    "scan": "02 XPL/USD direction=SHORT score=67.48 long_score=32.52 short_score=67.48 mtf_score=0.6748 vol24h=$8,179,970 spread=1.650 depth10bps=$26,120",
    "cfg": "hl-v3",
    "src": "hyperliquid"
+  },
+  {
+   "id": "42542224684-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAX",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794185712,
+   "entry": 8.003599999999999,
+   "btc0": 75138.5,
+   "status": "open",
+   "spread": 9.99550202408806e-05,
+   "scan": "01 AVAX/USD direction=SHORT score=61.36 long_score=38.64 short_score=61.36 mtf_score=0.6136 vol24h=$4,282,072 spread=2.128 depth10bps=$103,373",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42542224684-ONDO/USD",
+   "symbol": "ONDO/USD",
+   "pair": "ONDO",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794185712,
+   "entry": 0.355475,
+   "btc0": 75138.5,
+   "status": "open",
+   "spread": 0.0002531823616287474,
+   "scan": "02 ONDO/USD direction=SHORT score=53.98 long_score=46.02 short_score=53.98 mtf_score=0.5398 vol24h=$4,238,560 spread=0.564 depth10bps=$90,202",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
   }
  ]
 }
