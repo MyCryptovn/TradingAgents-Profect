@@ -833,7 +833,8 @@
    "spread": 0.00012291395464466277,
    "scan": "02 AVAX/USD direction=LONG score=76.96 long_score=76.96 short_score=23.04 mtf_score=0.7696 vol24h=$45,744,658 spread=0.114 depth10bps=$61,713",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 8.991399999999999
   },
   {
    "id": "42644184986-LIT/USD",
