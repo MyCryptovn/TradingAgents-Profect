@@ -54,7 +54,7 @@ TOP_LIQUID_SAMPLE = int(
 )
 
 MAX_SPREAD_BPS = float(
-    os.getenv("SCANNER_MAX_SPREAD_BPS", "30")
+    os.getenv("SCANNER_MAX_SPREAD_BPS", "42")
 )
 
 MIN_DEPTH_10BPS_USD = float(
@@ -448,10 +448,10 @@ def assess_quality(
 
     # Weight core timeframes more heavily.
     timeframe_quality_weights = {
-        "1m": 0.35,
-        "5m": 0.15,
-        "15m": 0.35,
-        "1h": 0.25,
+        "1m": 0.10,
+        "5m": 0.18,
+        "15m": 0.34,
+        "1h": 0.38,
     }
 
     completeness = 0.0
@@ -585,8 +585,8 @@ def calculate_direction_scores(
     volume_bonus = min(7.0, max(0.0, (volume_ratio - 1.0) * 3.5))
 
     # Khởi tạo điểm
-    long_score = 35.0 + 25.0 * composite
-    short_score = 35.0 - 25.0 * composite
+    long_score = 55.0 + 25.0 * composite
+    short_score = 45.0 - 25.0 * composite
 
     # Orderbook imbalance
     long_score += 9.0 * imbalance
