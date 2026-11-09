@@ -188,7 +188,46 @@ def run_scanner() -> list[str]:
         raise RuntimeError(
             "scanner.json must contain a JSON object"
         )
+    
+    # Khởi tạo
+    symbols: list[str] = []
 
+    # 1. Ưu tiên lấy LONG + SHORT
+    for row in data.get("top_long", []) + data.get("top_short", []):
+        if not row.get("is_native", True):
+            continue
+        sym = f"{row['symbol']}/USD"
+        if sym not in symbols:
+            symbols.append(sym)
+            score = max(row["scores"]["long_score"], row["scores"]["short_score"])
+            SCAN_INFO[sym] = (
+                f"{sym} direction={row['scores']['direction']} "
+                f"score={score:.1f} vol24h=${row.get('day_volume_usd', 0):,.0f}"
+            )
+
+    # 2. Nếu không có candidate nào, lấy thêm từ watchlist
+    if not symbols:
+        for row in data.get("watchlist", [])[:5]:
+            if not row.get("is_native", True):
+                continue
+            sym = f"{row['symbol']}/USD"
+            if sym not in symbols:
+                symbols.append(sym)
+                score = max(row["scores"]["long_score"], row["scores"]["short_score"])
+                SCAN_INFO[sym] = f"{sym} direction=WATCH score={score:.1f}"
+
+    print(
+        f"Scanner JSON loaded. "
+        f"Long={len(data.get('top_long', []))}, "
+        f"Short={len(data.get('top_short', []))}, "
+        f"Selected={len(symbols)}"
+    )
+
+    if not symbols:
+        raise RuntimeError("Scanner produced no valid Top candidates")
+
+    return symbols[:TOP_N]
+    
     top_long = data.get("top_long", [])
     top_short = data.get("top_short", [])
 
@@ -205,7 +244,6 @@ def run_scanner() -> list[str]:
 
     output_lines = (proc.stdout or "").splitlines()
 
-    symbols = []
     seen = set()
 
     SCAN_ROWS.clear()
