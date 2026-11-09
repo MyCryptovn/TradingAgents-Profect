@@ -66,7 +66,7 @@ MIN_QUALITY_SCORE = float(
 )
 
 MIN_DIRECTION_SCORE = float(
-    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "52")
+    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "48")
 )
 
 MIN_DIRECTION_GAP = float(
@@ -81,10 +81,10 @@ WATCHLIST_MIN_SCORE = float(
 OI_MAX_AGE_SECONDS = 24 * 60 * 60
 
 TIMEFRAME_WEIGHTS = {
-    "1m": 0.35,
-    "5m": 0.15,
-    "15m": 0.30,
-    "1h": 0.30,
+    "1m": 0.10,
+    "5m": 0.18,
+    "15m": 0.34,
+    "1h": 0.38,
 }
 
 TIMEFRAME_TREND_SCALES = {
