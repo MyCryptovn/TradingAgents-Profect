@@ -54,6 +54,35 @@ class Decision:
     error: str | None = None
 
 
+def hl_coin_from_symbol(symbol: str) -> str:
+    """Chuẩn hóa symbol về đúng tên coin trên Hyperliquid."""
+    raw = str(symbol or "").strip()
+
+    if not raw:
+        raise ValueError("Empty trading symbol")
+
+    # Hỗ trợ BTC/USD và BTC-USD
+    base = raw.split("/", 1)[0]
+    if "/" not in raw and "-" in base:
+        base = base.split("-", 1)[0]
+
+    base = base.strip()
+
+    aliases = {
+        "XBT": "BTC",
+        "XDG": "DOGE",
+    }
+
+    return aliases.get(base.upper(), base)
+
+
+BLOCKED_TRADE_ASSETS = {"KPEPE"}
+
+
+def is_blocked_asset(symbol: str) -> bool:
+    return hl_coin_from_symbol(symbol).upper() in BLOCKED_TRADE_ASSETS
+
+
 def kraken_json(path: str, params: dict[str, str] | None = None) -> dict:
     url = KRAKEN_API + path
     if params:
@@ -102,14 +131,14 @@ SHORT_RULES = (
     "ENTRY BUY (LONG) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m below 72, "
     "(2) trend15 from scanner above 0 OR trend1h above 0, "
-    "(3) Kraken spot taker buy share (context, not perp) at least 52 percent, "
+    "(3) taker buy share at least 52 percent, "
     "(4) order book bid volume >= ask volume and Hyperliquid funding is not extremely positive. "
      "Strong bonus if 1m trend is also positive and vol_spike_1m is elevated. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "ENTRY SELL (SHORT) if at least 3 of 4 are true: "
     "(1) RSI14 on 5m or 15m above 28, "
     "(2) trend15 below 0 OR trend1h below 0, "
-    "(3) taker buy share"
+    "(3) taker buy share at most 52 percent, "
     "(4) order book ask volume >= bid volume and Hyperliquid funding is not extremely negative. "
     "If fewer than 3 of the 4 conditions hold, rate HOLD. "
     "Hard stop about 3 percent. Let winners run under reversal guard."
@@ -200,6 +229,10 @@ def run_scanner() -> list[str]:
             sym = raw_symbol
         else:
             sym = f"{raw_symbol}/USD"
+
+        if is_blocked_asset(sym):
+            print(f"SKIP BLOCKED ASSET: {sym}")
+            continue
 
         if sym in seen:
             continue
@@ -453,11 +486,29 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     return str(signal).strip().upper()
 
 
+
 def completed_ohlc(pair: str) -> list[list[float]]:
-    coin = pair.split("-")[0]
+    coin = hl_coin_from_symbol(pair)
     rows = hyper_candles(coin, "1h", 200)
-    out = [[r["time"] / 1000, r["open"], r["high"], r["low"], r["close"], r["volume"]] for r in rows]
-    return out[:-1] if len(out) > 1 else []
+
+    out = [
+        [
+            r["time"] / 1000,
+            r["open"],
+            r["high"],
+            r["low"],
+            r["close"],
+            r["volume"],
+        ]
+        for r in rows
+    ]
+
+    # Chỉ loại nến chưa đóng, không loại nến cuối một cách vô điều kiện.
+    now_ts = time.time()
+    return [
+        row for row in out
+        if row[0] + INTERVAL_SECONDS <= now_ts
+    ]
 
 
 def first_future_candle(pair: str, analyzed_at: str) -> list[float] | None:
@@ -548,12 +599,15 @@ def main() -> int:
     try:
         open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
     except Exception:
-        open_syms = []
+        open_syms = [
+    s for s in open_syms
+    if not is_blocked_asset(s)
+]
     candidates = candidates + [s for s in open_syms if s not in candidates]
 
     # ========== BỘ LỌC RỦI RO + CHẤT LƯỢNG ==========
     MAX_OPEN_POSITIONS = 3
-    MIN_MTF_SCORE = 0.28
+    MIN_MTF_SCORE = 0.26
     MAX_SPREAD_BPS = 45.0
 
     filtered: list[str] = []
