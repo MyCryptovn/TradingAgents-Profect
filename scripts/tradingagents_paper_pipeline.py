@@ -26,7 +26,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 
 # === CẤU HÌNH LỌC ALTCOIN NHỎ ===
-SMALL_ALT_VOLUME_USD = 500_000      # volume 24h dưới mức này coi là alt nhỏ
+SMALL_ALT_VOLUME_USD = 300_000      # volume 24h dưới mức này coi là alt nhỏ
 SMALL_ALT_TAKER_BUY = 0.52            # yêu cầu taker buy cao hơn
 NORMAL_TAKER_BUY = 0.50
 
@@ -117,7 +117,7 @@ def hyper_candles(coin: str, interval: str = "1h", count: int = 200):
     ]
 SCAN_INFO = {} 
 MAX_LLM_CANDIDATES = int(os.getenv("MAX_LLM_CANDIDATES", "5"))
-REQUIRE_DIRECTION = os.getenv("REQUIRE_DIRECTION", "2") == "2"
+REQUIRE_DIRECTION = os.getenv("REQUIRE_DIRECTION", "1") == "1"
 SCAN_ROWS = {}
 REASONS = {}
 SHORT_NOTE = (
@@ -188,45 +188,6 @@ def run_scanner() -> list[str]:
         raise RuntimeError(
             "scanner.json must contain a JSON object"
         )
-    
-    # Khởi tạo
-    symbols: list[str] = []
-
-    # 1. Ưu tiên lấy LONG + SHORT
-    for row in data.get("top_long", []) + data.get("top_short", []):
-        if not row.get("is_native", True):
-            continue
-        sym = f"{row['symbol']}/USD"
-        if sym not in symbols:
-            symbols.append(sym)
-            score = max(row["scores"]["long_score"], row["scores"]["short_score"])
-            SCAN_INFO[sym] = (
-                f"{sym} direction={row['scores']['direction']} "
-                f"score={score:.1f} vol24h=${row.get('day_volume_usd', 0):,.0f}"
-            )
-
-    # 2. Nếu không có candidate nào, lấy thêm từ watchlist
-    if not symbols:
-        for row in data.get("watchlist", [])[:5]:
-            if not row.get("is_native", True):
-                continue
-            sym = f"{row['symbol']}/USD"
-            if sym not in symbols:
-                symbols.append(sym)
-                score = max(row["scores"]["long_score"], row["scores"]["short_score"])
-                SCAN_INFO[sym] = f"{sym} direction=WATCH score={score:.1f}"
-
-    print(
-        f"Scanner JSON loaded. "
-        f"Long={len(data.get('top_long', []))}, "
-        f"Short={len(data.get('top_short', []))}, "
-        f"Selected={len(symbols)}"
-    )
-
-    if not symbols:
-        raise RuntimeError("Scanner produced no valid Top candidates")
-
-    return symbols[:TOP_N]
     
     top_long = data.get("top_long", [])
     top_short = data.get("top_short", [])
@@ -353,7 +314,6 @@ def run_scanner() -> list[str]:
     return symbols[:TOP_N]
 
 
-    
 def to_crypto_ticker(symbol: str) -> str:
     base = symbol.split("/", 1)[0].upper()
     base = {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
@@ -637,16 +597,13 @@ def main() -> int:
     try:
         open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
     except Exception:
-        open_syms = [
-    s for s in open_syms
-    if not is_blocked_asset(s)
-]
+        open_syms = []
     candidates = candidates + [s for s in open_syms if s not in candidates]
 
     # ========== BỘ LỌC RỦI RO + CHẤT LƯỢNG ==========
     MAX_OPEN_POSITIONS = 3
-    MIN_MTF_SCORE = 0.26
-    MAX_SPREAD_BPS = 45.0
+    MIN_MTF_SCORE = 0.28
+    MAX_SPREAD_BPS = 35.0
 
     filtered: list[str] = []
     for sym in candidates:
@@ -677,7 +634,7 @@ def main() -> int:
 
         filtered.append(sym)
 
-        candidates = filtered
+    candidates = filtered
 
     # Chỉ gọi LLM cho coin có hướng rõ từ scanner (LONG hoặc SHORT)
     if REQUIRE_DIRECTION:
