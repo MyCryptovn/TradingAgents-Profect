@@ -54,7 +54,7 @@ TOP_LIQUID_SAMPLE = int(
 )
 
 MAX_SPREAD_BPS = float(
-    os.getenv("SCANNER_MAX_SPREAD_BPS", "42")
+    os.getenv("SCANNER_MAX_SPREAD_BPS", "35")
 )
 
 MIN_DEPTH_10BPS_USD = float(
@@ -62,19 +62,19 @@ MIN_DEPTH_10BPS_USD = float(
 )
 
 MIN_QUALITY_SCORE = float(
-    os.getenv("SCANNER_MIN_QUALITY_SCORE", "35")
+    os.getenv("SCANNER_MIN_QUALITY_SCORE", "38")
 )
 
 MIN_DIRECTION_SCORE = float(
-    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "48")
+    os.getenv("SCANNER_MIN_DIRECTION_SCORE", "52")
 )
 
 MIN_DIRECTION_GAP = float(
-    os.getenv("SCANNER_MIN_DIRECTION_GAP", "3")
+    os.getenv("SCANNER_MIN_DIRECTION_GAP", "4")
 )
 
 WATCHLIST_MIN_SCORE = float(
-    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "45")
+    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "48")
 )
 
 # Snapshot is useful only if it can be restored between workflow runs.
@@ -585,8 +585,8 @@ def calculate_direction_scores(
     volume_bonus = min(7.0, max(0.0, (volume_ratio - 1.0) * 3.5))
 
     # Khởi tạo điểm
-    long_score = 55.0 + 25.0 * composite
-    short_score = 45.0 - 25.0 * composite
+    long_score = 50.0 + 30.0 * composite
+    short_score = 50.0 - 30.0 * composite
 
     # Orderbook imbalance
     long_score += 9.0 * imbalance
