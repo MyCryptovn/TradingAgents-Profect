@@ -54,7 +54,7 @@ TOP_LIQUID_SAMPLE = int(
 )
 
 MAX_SPREAD_BPS = float(
-    os.getenv("SCANNER_MAX_SPREAD_BPS", "35")
+    os.getenv("SCANNER_MAX_SPREAD_BPS", "30")
 )
 
 MIN_DEPTH_10BPS_USD = float(
@@ -62,7 +62,7 @@ MIN_DEPTH_10BPS_USD = float(
 )
 
 MIN_QUALITY_SCORE = float(
-    os.getenv("SCANNER_MIN_QUALITY_SCORE", "38")
+    os.getenv("SCANNER_MIN_QUALITY_SCORE", "35")
 )
 
 MIN_DIRECTION_SCORE = float(
@@ -70,21 +70,21 @@ MIN_DIRECTION_SCORE = float(
 )
 
 MIN_DIRECTION_GAP = float(
-    os.getenv("SCANNER_MIN_DIRECTION_GAP", "4")
+    os.getenv("SCANNER_MIN_DIRECTION_GAP", "3")
 )
 
 WATCHLIST_MIN_SCORE = float(
-    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "48")
+    os.getenv("SCANNER_WATCHLIST_MIN_SCORE", "45")
 )
 
 # Snapshot is useful only if it can be restored between workflow runs.
 OI_MAX_AGE_SECONDS = 24 * 60 * 60
 
 TIMEFRAME_WEIGHTS = {
-    "1m": 0.10,
-    "5m": 0.20,
-    "15m": 0.35,
-    "1h": 0.35,
+    "1m": 0.35,
+    "5m": 0.15,
+    "15m": 0.30,
+    "1h": 0.30,
 }
 
 TIMEFRAME_TREND_SCALES = {
@@ -253,9 +253,9 @@ def update_oi_state(
 
 
 # Ngưỡng nhóm altcoin thanh khoản tốt (có thể chỉnh bằng biến môi trường)
-MID_ALT_MIN_VOLUME_USD = float(os.getenv("SCANNER_MID_ALT_MIN_VOLUME_USD", "300000"))
-MID_ALT_MAX_VOLUME_USD = float(os.getenv("SCANNER_MID_ALT_MAX_VOLUME_USD", "5000000"))
-MID_ALT_SLOTS = int(os.getenv("SCANNER_MID_ALT_SLOTS", "4"))
+MID_ALT_MIN_VOLUME_USD = float(os.getenv("SCANNER_MID_ALT_MIN_VOLUME_USD", "100000"))
+MID_ALT_MAX_VOLUME_USD = float(os.getenv("SCANNER_MID_ALT_MAX_VOLUME_USD", "3000000"))
+MID_ALT_SLOTS = int(os.getenv("SCANNER_MID_ALT_SLOTS", "5"))
 
 
 def select_deep_scan_markets(
@@ -389,7 +389,7 @@ def assess_quality(
         if row.get("has_gaps"):
             warnings.append(f"{timeframe.upper()}_DATA_GAPS")
 
-    # 1m is supplementary, not mandatory.
+    # 1m is supplementary.
     one_minute = timeframes.get("1m", {})
 
     if not one_minute.get("valid"):
@@ -448,10 +448,10 @@ def assess_quality(
 
     # Weight core timeframes more heavily.
     timeframe_quality_weights = {
-        "1m": 0.10,
-        "5m": 0.20,
+        "1m": 0.35,
+        "5m": 0.15,
         "15m": 0.35,
-        "1h": 0.35,
+        "1h": 0.25,
     }
 
     completeness = 0.0
@@ -585,8 +585,8 @@ def calculate_direction_scores(
     volume_bonus = min(7.0, max(0.0, (volume_ratio - 1.0) * 3.5))
 
     # Khởi tạo điểm
-    long_score = 50.0 + 30.0 * composite
-    short_score = 50.0 - 30.0 * composite
+    long_score = 35.0 + 25.0 * composite
+    short_score = 35.0 - 25.0 * composite
 
     # Orderbook imbalance
     long_score += 9.0 * imbalance
