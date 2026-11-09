@@ -759,6 +759,66 @@
    "scan": "02 ONDO/USD direction=SHORT score=53.98 long_score=46.02 short_score=53.98 mtf_score=0.5398 vol24h=$4,238,560 spread=0.564 depth10bps=$90,202",
    "cfg": "hl-v3",
    "src": "hyperliquid"
+  },
+  {
+   "id": "42633077329-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAX",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794234421,
+   "entry": 8.7619,
+   "btc0": 74568.5,
+   "status": "open",
+   "spread": 4.5652198724117385e-05,
+   "scan": "02 AVAX/USD direction=LONG score=68.30 long_score=68.30 short_score=29.20 mtf_score=0.6830 vol24h=$39,639,507 spread=4.547 depth10bps=$92,062",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42633077329-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPE",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794234421,
+   "entry": 74.2135,
+   "btc0": 74568.5,
+   "status": "open",
+   "spread": 1.3474637363886287e-05,
+   "scan": "04 HYPE/USD direction=LONG score=57.62 long_score=57.62 short_score=42.38 mtf_score=0.5762 vol24h=$531,757,320 spread=0.136 depth10bps=$280,856",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42633077329-STRK/USD",
+   "symbol": "STRK/USD",
+   "pair": "STRK",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794234421,
+   "entry": 0.03894,
+   "btc0": 74568.5,
+   "status": "open",
+   "spread": 0.0005136106831021876,
+   "scan": "05 STRK/USD direction=LONG score=57.52 long_score=57.52 short_score=42.48 mtf_score=0.5752 vol24h=$2,883,794 spread=2.556 depth10bps=$38,290",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42633077329-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794234421,
+   "entry": 597.005,
+   "btc0": 74568.5,
+   "status": "open",
+   "spread": 1.6750278473364387e-05,
+   "scan": "01 XMR/USD direction=SHORT score=52.74 long_score=47.49 short_score=52.74 mtf_score=0.5274 vol24h=$33,883,810 spread=1.507 depth10bps=$103,817",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
   }
  ]
 }
