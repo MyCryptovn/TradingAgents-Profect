@@ -43,7 +43,7 @@ def _left(levels, px):
 
 
 def _candles(coin, interval, lookback_ms=6 * 3600 * 1000):
-    """Lấy nến Hyperliquid (interval: 5m, 15m, 1h, 4h...)."""
+    """Lấy nến Hyperliquid (interval: 1m, 5m, 15m, 1h, 4h...)."""
     now = int(time.time() * 1000)
     body = {
         "type": "candleSnapshot",
@@ -72,7 +72,7 @@ def _candle_block(rows, label):
     return (
         f" {label}: last {closes[-1]:.6g}, trend {trend}, "
         f"last 5 candles {colors}, vol last3/prior {vr:.1f}x, "
-        f"change \~6 candles {ch:+.2%}."
+        f"change ~6 candles {ch:+.2%}."
     )
 
 
@@ -107,6 +107,7 @@ def hl_note(ticker):
         akeep = _left(a2, aw[0]) / aw[1] if aw[1] else 0
 
         # --- Thêm nến đa khung từ Hyperliquid ---
+        c1 = _candles(coin, "1m", 5 * 3600 * 1000)
         c5 = _candles(coin, "5m", 3 * 3600 * 1000)
         c15 = _candles(coin, "15m", 8 * 3600 * 1000)
         c1h = _candles(coin, "1h", 24 * 3600 * 1000)
@@ -120,6 +121,7 @@ def hl_note(ticker):
             f" Largest bid wall ${bw[0] * bw[1]:,.0f} at {bw[2]:.2%} below mid, {bkeep:.0%} still present after 2.5s;"
             f" largest ask wall ${aw[0] * aw[1]:,.0f} at {aw[2]:.2%} above mid, {akeep:.0%} still present after 2.5s."
             " Walls that vanish quickly can be spoofing."
+            + _candle_block(c1, "HL 1m")
             + _candle_block(c5, "HL 5m")
             + _candle_block(c15, "HL 15m")
             + _candle_block(c1h, "HL 1h")
@@ -134,6 +136,6 @@ def hl_note(ticker):
 
 
 if __name__ == "__main__":
-    for t in ("BTC-USD", "ETH-USD", "SOL-USD", "TIA-USD", "INJ-USD"):
+    for t in ("BTC-USD", "ETH-USD", "SOL-USD", "TIA-USD", "INJ-USD", "kPEPE-USD"):
         print(t, "->", hl_note(t) or "(không có trên Hyperliquid hoặc lỗi)")
         print("-" * 60)
