@@ -596,7 +596,8 @@
    "t1": 1794135354,
    "reason": "REVERSAL_CUT",
    "pnl_pct": 0.133,
-   "watch": "pnl=+0.13% give=0.0% 1m=False 5m=True rsi=62 hits=2+1 fund=-0.00001 imb=+0.22 live=- mv5=-0.02% vr=0.1"
+   "watch": "pnl=+0.13% give=0.0% 1m=False 5m=True rsi=62 hits=2+1 fund=-0.00001 imb=+0.22 live=- mv5=-0.02% vr=0.1",
+   "trail_pnl_pct": 1.15
   },
   {
    "id": "42452558587-MET/USD",
@@ -607,11 +608,14 @@
    "t0": 1794117609,
    "entry": 0.326515,
    "btc0": 75809.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0009494203941626954,
    "scan": "01 MET/USD direction=LONG score=56.72 long_score=56.72 short_score=43.28 mtf_score=0.5672 vol24h=$3,575,947 spread=9.224 depth10bps=$11,239",
    "cfg": "hl-v2",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.30537,
+   "t1": 1794204009.0,
+   "move_pct": -6.476
   },
   {
    "id": "42471894087-PUMP/USD",
@@ -632,7 +636,8 @@
    "t1": 1794150593,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -3.084,
-   "watch": "pnl=-3.08% give=2.5% 1m=False 5m=False rsi=73 hits=1+2 fund=0.00001 imb=+0.22 live=BOM_LIVE mv5=+0.72% vr=9.6"
+   "watch": "pnl=-3.08% give=2.5% 1m=False 5m=False rsi=73 hits=1+2 fund=0.00001 imb=+0.22 live=BOM_LIVE mv5=+0.72% vr=9.6",
+   "trail_pnl_pct": -3.167
   },
   {
    "id": "42471894087-ARB/USD",
@@ -643,11 +648,14 @@
    "t0": 1794134435,
    "entry": 0.169495,
    "btc0": 75842.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00017699637157439596,
    "scan": "01 ARB/USD direction=LONG score=62.85 long_score=62.85 short_score=41.95 mtf_score=0.6285 vol24h=$4,158,033 spread=0.590 depth10bps=$76,543",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.1779,
+   "t1": 1794220835.0,
+   "move_pct": 4.959
   },
   {
    "id": "42471894087-SUI/USD",
@@ -658,7 +666,7 @@
    "t0": 1794134435,
    "entry": 0.846795,
    "btc0": 75842.5,
-   "status": "open",
+   "status": "closed",
    "spread": 3.542770091931872e-05,
    "scan": "03 SUI/USD direction=SHORT score=61.84 long_score=38.22 short_score=61.84 mtf_score=0.6184 vol24h=$3,996,590 spread=1.769 depth10bps=$103,282",
    "cfg": "hl-v3",
@@ -669,7 +677,13 @@
    "rev_first": -0.914,
    "rev_pnl_pct": -0.914,
    "rev_reason": "REVERSAL_CUT",
-   "watch": "pnl=-0.91% give=0.3% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.9 pressure=0/3 fund=0.00001 book=+0.05 mv5=+0.36% vol=0.9"
+   "watch": "pnl=-0.91% give=0.3% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.9 pressure=0/3 fund=0.00001 book=+0.05 mv5=+0.36% vol=0.9",
+   "exit": 0.82358,
+   "t1": 1794220835.0,
+   "reason": "TIME",
+   "pnl_pct": 2.118,
+   "mfe_pct": 5.282,
+   "trail_pnl_pct": 1.817
   },
   {
    "id": "42509051286-LIT/USD",
