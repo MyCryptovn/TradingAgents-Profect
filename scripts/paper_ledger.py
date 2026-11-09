@@ -41,7 +41,7 @@ def hl_post(body):
 
 
 def coin_of(sym):
-    """Tên coin Hyperliquid từ BTC/USD, kPEPE/USD, xyz:CL/USD."""
+    """Tên coin Hyperliquid từ BTC/USD, BTC-USD, kPEPE-USD, kPEPE/USD, xyz:CL/USD."""
     base = sym.strip().split("/", 1)[0].split("-", 1)[0]
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
 
