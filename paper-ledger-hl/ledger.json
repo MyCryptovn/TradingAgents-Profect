@@ -819,6 +819,51 @@
    "scan": "01 XMR/USD direction=SHORT score=52.74 long_score=47.49 short_score=52.74 mtf_score=0.5274 vol24h=$33,883,810 spread=1.507 depth10bps=$103,817",
    "cfg": "hl-v3",
    "src": "hyperliquid"
+  },
+  {
+   "id": "42644184986-AVAX/USD",
+   "symbol": "AVAX/USD",
+   "pair": "AVAX",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1794238426,
+   "entry": 8.949349999999999,
+   "btc0": 75201.5,
+   "status": "open",
+   "spread": 0.00012291395464466277,
+   "scan": "02 AVAX/USD direction=LONG score=76.96 long_score=76.96 short_score=23.04 mtf_score=0.7696 vol24h=$45,744,658 spread=0.114 depth10bps=$61,713",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42644184986-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794238426,
+   "entry": 3.22915,
+   "btc0": 75201.5,
+   "status": "open",
+   "spread": 0.00046451852654725136,
+   "scan": "03 LIT/USD direction=LONG score=70.78 long_score=70.78 short_score=30.68 mtf_score=0.7078 vol24h=$40,883,807 spread=4.968 depth10bps=$52,370",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "42644184986-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794238426,
+   "entry": 0.0036875,
+   "btc0": 75201.5,
+   "status": "open",
+   "spread": 0.0002711864406778845,
+   "scan": "05 PUMP/USD direction=LONG score=66.36 long_score=66.36 short_score=37.66 mtf_score=0.6636 vol24h=$51,686,511 spread=2.718 depth10bps=$133,906",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
   }
  ]
 }
