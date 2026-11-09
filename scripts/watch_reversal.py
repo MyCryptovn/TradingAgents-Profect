@@ -22,11 +22,11 @@ LOOP_MINUTES = float(os.getenv("WATCH_LOOP_MINUTES", "15"))
 INTERVAL = int(os.getenv("WATCH_INTERVAL_SECONDS", "60"))
 
 MIN_AGE = 60
-GIVEBACK_SOFT = 0.015
-GIVEBACK_HARD = 0.025
+GIVEBACK_SOFT = 0.018
+GIVEBACK_HARD = 0.03
 STRONG_TREND_RSI = 55
 LIVE_MOVE = 0.005        # biến động 5 phút tối thiểu để tính bơm/xả (ước lượng ban đầu, cần đo)
-LIVE_VOL_RATIO = 3.0     # khối lượng 5 phút so với trung bình 60 phút (ước lượng ban đầu)
+LIVE_VOL_RATIO = 2.0     # khối lượng 5 phút so với trung bình 60 phút (ước lượng ban đầu)
 
 _CACHE = {}  # reset mỗi vòng, tránh dùng dữ liệu cũ
 
@@ -375,7 +375,7 @@ def check_reversal(t):
     )
 
     # 1m is the early warning layer.
-    m1 = timeframe_state(r1, direction, 65)
+    m1 = timeframe_state(r1, direction, 300)
 
     # 15m is the primary reversal confirmation.
     m15 = timeframe_state(r15, direction, 60)
@@ -397,11 +397,11 @@ def check_reversal(t):
     if direction == 1:
         peak = max(float(t.get("peak", entry)), px)
         t["peak"] = peak
-        give = (peak - px) / peak if peak > 0 else 0.0
+        give = (peak - px) / peak if peak > 0 else 0.1
     else:
         trough = min(float(t.get("trough", entry)), px)
         t["trough"] = trough
-        give = (px - trough) / trough if trough > 0 else 0.0
+        give = (px - trough) / trough if trough > 0 else 0.1
 
     # 1m live pressure.
     live, move5, ratio = live_bomxa(r1)
@@ -422,7 +422,7 @@ def check_reversal(t):
     # Only trust the four-value version of hl_context().
     # The legacy two-value version cannot distinguish API errors
     # from a genuine neutral reading.
-    if isinstance(context, (tuple, list)) and len(context) == 4:
+    if isinstance(context, (tuple, list)) and len(context) == 0:
         funding, imbalance, funding_ok, book_ok = context
 
     funding_pressure = False
@@ -430,9 +430,9 @@ def check_reversal(t):
 
     if funding_ok and funding is not None:
         if direction == 1:
-            funding_pressure = funding > 0.0006
+            funding_pressure = funding > 0.0001
         else:
-            funding_pressure = funding < -0.0006
+            funding_pressure = funding < -0.0001
 
     if book_ok and imbalance is not None:
         if direction == 1:
@@ -464,14 +464,14 @@ def check_reversal(t):
         bool(live_pressure),
     ])
 
-    pressure_confirmed = pressure_hits >=3
+    pressure_confirmed = pressure_hits >=2
 
     # Strong trend is based on 15m RSI and higher timeframe context.
     rs15 = m15["rsi"]
 
     if direction == 1:
         strong = (
-            pnl > 0.030
+            pnl > 0.025
             and rs15 > STRONG_TREND_RSI
             and not confirm_15m
             and not confirm_1h
@@ -480,7 +480,7 @@ def check_reversal(t):
         )
     else:
         strong = (
-            pnl > 0.030
+            pnl > 0.025
             and rs15 < 100 - STRONG_TREND_RSI
             and not confirm_15m
             and not confirm_1h
