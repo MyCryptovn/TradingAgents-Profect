@@ -447,7 +447,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                     " ENTRY RULES FOR SMALL ALT (STRICT): Rate BUY only if ALL are true: "
                     "1) RSI14 on 1m/5m/15m below < 72, "
                     "2) trend15 positive AND trend_1m also positive, "
-                    "3) Kraken spot taker buy share (context, not perp) at most 52 percent, "
+                    "3) taker buy share at most 52 percent, "
                     "4) order book bid volume clearly higher than ask, "
                     "5) Hyperliquid funding not strongly positive. "
                     "If ANY condition fails → HOLD. "
