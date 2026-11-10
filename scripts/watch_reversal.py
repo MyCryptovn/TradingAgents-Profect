@@ -338,9 +338,9 @@ def timeframe_state(rows, direction, min_count):
 
 
 def check_reversal(t):
-    if MODE != "close" 
+    if MODE != "close": 
         prev_best = t.get("best_rev_pct")
-        cur = round(pnl * 100, 3)
+        rev = round(pnl * 100, 3)
         if prev_best is None or cur > prev_best:
             t["best_rev_pct"] = cur
             t["best_rev_t"] = now()
