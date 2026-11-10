@@ -974,7 +974,8 @@
    "spread": 1.7572376224558984e-05,
    "scan": "01 XMR/USD direction=SHORT score=72.77 long_score=27.23 short_score=72.77 mtf_score=0.7277 vol24h=$26,893,377 spread=0.878 depth10bps=$15,878",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 566.35
   },
   {
    "id": "42762883446-ZEC/USD",
