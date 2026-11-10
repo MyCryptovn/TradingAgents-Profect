@@ -9,7 +9,7 @@ from .validators import validate_model
 class NormalizedChatGoogleGenerativeAI(ChatGoogleGenerativeAI):
     """ChatGoogleGenerativeAI with normalized content output.
 
-    Gemini 5 models return content as list of typed blocks.
+    Gemini 3 models return content as list of typed blocks.
     This normalizes to string for consistent downstream handling.
     """
 
