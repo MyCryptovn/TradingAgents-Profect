@@ -338,7 +338,6 @@ def timeframe_state(rows, direction, min_count):
 
 
 def check_reversal(t):
-    t.update(rev_px=...)
     if MODE != "close" and "rev_px" in t: 
         return False
         
