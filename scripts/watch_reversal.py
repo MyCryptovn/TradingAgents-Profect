@@ -366,7 +366,6 @@ def check_reversal(t):
         if t.get("best_rev_pct") is None or cur > t["best_rev_pct"]:
             t["best_rev_pct"] = cur
             t["best_rev_t"] = now()
-        return False
 
     # Four independent timeframe histories.
     r1 = candles(
