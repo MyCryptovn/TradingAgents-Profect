@@ -338,26 +338,13 @@ def timeframe_state(rows, direction, min_count):
 
 
 def check_reversal(t):
-    def check_reversal(t):
-    # Chỉ bỏ qua việc ghi tín hiệu đầu, không bỏ qua việc cập nhật best_rev_pct
-    already_signaled = "rev_px" in t
-
-    if now() - t["t0"] < MIN_AGE:
+    t.update(rev_px=...)
+    if MODE != "close" and "rev_px" in t: 
         return False
 
     ...  # lấy giá, nến, tính pnl như cũ
 
     rev = round(pnl * 100, 3)
-
-    # Đo mức lãi tốt nhất trong thời gian canh 
-    if MODE != "close":
-        if t.get("best_rev_pct") is None or rev > t["best_rev_pct"]:
-            t["best_rev_pct"] = rev
-            t["best_rev_t"] = now()
-
-    # Chỉ ghi tín hiệu đầu một lần
-    if MODE != "close" and already_signaled:
-        return False
 
     if now() - t["t0"] < MIN_AGE:
         return False
@@ -377,6 +364,12 @@ def check_reversal(t):
         raise ValueError(f"Invalid price: {coin}")
 
     pnl = direction * (px / entry - 1) - COST
+        # Đo mức lãi tốt nhất trong lúc canh
+    if MODE != "close":
+        cur = round(pnl * 100, 3)
+        if t.get("best_rev_pct") is None or cur > t["best_rev_pct"]:
+            t["best_rev_pct"] = cur
+            t["best_rev_t"] = now()
 
     # Four independent timeframe histories.
     r1 = candles(
