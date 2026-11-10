@@ -342,10 +342,6 @@ def check_reversal(t):
     if MODE != "close" and "rev_px" in t: 
         return False
 
-    ...  # lấy giá, nến, tính pnl như cũ
-
-    rev = round(pnl * 100, 3)
-
     if now() - t["t0"] < MIN_AGE:
         return False
 
@@ -370,6 +366,7 @@ def check_reversal(t):
         if t.get("best_rev_pct") is None or cur > t["best_rev_pct"]:
             t["best_rev_pct"] = cur
             t["best_rev_t"] = now()
+        return False
 
     # Four independent timeframe histories.
     r1 = candles(
