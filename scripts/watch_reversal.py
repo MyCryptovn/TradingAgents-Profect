@@ -338,12 +338,25 @@ def timeframe_state(rows, direction, min_count):
 
 
 def check_reversal(t):
-    if MODE != "close": 
-        prev_best = t.get("best_rev_pct")
-        rev = round(pnl * 100, 3)
-        if prev_best is None or cur > prev_best:
-            t["best_rev_pct"] = cur
+    def check_reversal(t):
+    # Chỉ bỏ qua việc ghi tín hiệu đầu, không bỏ qua việc cập nhật best_rev_pct
+    already_signaled = "rev_px" in t
+
+    if now() - t["t0"] < MIN_AGE:
+        return False
+
+    ...  # lấy giá, nến, tính pnl như cũ
+
+    rev = round(pnl * 100, 3)
+
+    # Đo mức lãi tốt nhất trong thời gian canh 
+    if MODE != "close":
+        if t.get("best_rev_pct") is None or rev > t["best_rev_pct"]:
+            t["best_rev_pct"] = rev
             t["best_rev_t"] = now()
+
+    # Chỉ ghi tín hiệu đầu một lần
+    if MODE != "close" and already_signaled:
         return False
 
     if now() - t["t0"] < MIN_AGE:
