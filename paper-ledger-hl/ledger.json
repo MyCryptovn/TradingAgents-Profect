@@ -1061,12 +1061,17 @@
    "t0": 1794295722,
    "entry": 1151.05,
    "btc0": 74763.5,
-   "status": "open",
+   "status": "closed",
    "spread": 8.687719907902268e-05,
    "scan": "02 ZEC/USD direction=SHORT score=66.15 long_score=33.85 short_score=66.15 mtf_score=0.6615 vol24h=$364,589,452 spread=0.871 depth10bps=$668,709",
    "cfg": "hl-v3",
    "src": "hyperliquid",
-   "trough": 1140.05
+   "trough": 1140.05,
+   "exit": 1185.5815,
+   "t1": 1794318300,
+   "reason": "SL",
+   "pnl_pct": -3.629,
+   "mfe_pct": 1.829
   },
   {
    "id": "42773449999-LIT/USD",
