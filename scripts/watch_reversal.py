@@ -341,6 +341,8 @@ def check_reversal(t):
     t.update(rev_px=...)
     if MODE != "close" and "rev_px" in t: 
         return False
+        
+    rev = round(pnl * 100, 3)
 
     if now() - t["t0"] < MIN_AGE:
         return False
@@ -360,12 +362,6 @@ def check_reversal(t):
         raise ValueError(f"Invalid price: {coin}")
 
     pnl = direction * (px / entry - 1) - COST
-        # Đo mức lãi tốt nhất trong lúc canh
-    if MODE != "close":
-        cur = round(pnl * 100, 3)
-        if t.get("best_rev_pct") is None or cur > t["best_rev_pct"]:
-            t["best_rev_pct"] = cur
-            t["best_rev_t"] = now()
 
     # Four independent timeframe histories.
     r1 = candles(
