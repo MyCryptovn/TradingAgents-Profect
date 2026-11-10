@@ -48,7 +48,7 @@ class BaseLLMClient(ABC):
                 f"provider '{self.get_provider_name()}'. Continuing anyway."
             ),
             RuntimeWarning,
-            stacklevel=2,
+            stacklevel=3,
         )
 
     @abstractmethod
