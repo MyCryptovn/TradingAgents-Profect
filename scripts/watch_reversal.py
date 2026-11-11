@@ -340,8 +340,6 @@ def timeframe_state(rows, direction, min_count):
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t: 
         return False
-        
-    rev = round(pnl * 100, 3)
 
     if now() - t["t0"] < MIN_AGE:
         return False
