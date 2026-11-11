@@ -589,8 +589,8 @@ def scanner_direction(symbol: str) -> str:
 
 def main() -> int:
     provider = os.getenv("TRADINGAGENTS_LLM_PROVIDER", "google")
-    if provider == "google" and not os.getenv("GEMINI_API_KEY"):
-        print("TRADINGAGENTS PAPER PIPELINE: GEMINI_API_KEY is not configured")
+    if provider == "google" and not os.getenv("GOOGLE_API_KEY"):
+        print("TRADINGAGENTS PAPER PIPELINE: GOOGLE_API_KEY is not configured")
         print("PAPER BUY = LONG/SELL = SHORT: NOT RUN — LLM provider credential is required")
         print("LIVE TRADING GATE: DISABLED")
         return 0
