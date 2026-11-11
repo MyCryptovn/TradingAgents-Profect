@@ -1328,6 +1328,21 @@
    "scan": "05 HYPE/USD direction=LONG score=69.85 long_score=69.85 short_score=32.42 mtf_score=0.6985 vol24h=$327,855,622 spread=0.136 depth10bps=$214,367",
    "cfg": "hl-v3",
    "src": "hyperliquid"
+  },
+  {
+   "id": "43107127536-JUP/USD",
+   "symbol": "JUP/USD",
+   "pair": "JUP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794434281,
+   "entry": 0.257845,
+   "btc0": 74375.5,
+   "status": "open",
+   "spread": 0.0003490469080262735,
+   "scan": "01 JUP/USD direction=SHORT score=55.54 long_score=44.46 short_score=55.54 mtf_score=0.5554 vol24h=$2,843,187 spread=6.590 depth10bps=$40,433",
+   "cfg": "hl-v3",
+   "src": "hyperliquid"
   }
  ]
 }
