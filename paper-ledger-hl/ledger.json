@@ -1208,7 +1208,7 @@
    "t0": 1794354062,
    "entry": 3.45675,
    "btc0": 73794.5,
-   "status": "open",
+   "status": "closed",
    "spread": 8.678672163164504e-05,
    "scan": "01 LIT/USD direction=LONG score=68.12 long_score=68.12 short_score=31.88 mtf_score=0.6812 vol24h=$32,429,884 spread=1.159 depth10bps=$59,632",
    "cfg": "hl-v3",
@@ -1219,7 +1219,12 @@
    "rev_first": -1.184,
    "rev_pnl_pct": -1.184,
    "rev_reason": "REVERSAL_CUT",
-   "watch": "pnl=-1.18% give=1.9% 1m=True live=- 15m=True 1h=False 4h=False RSI15=42.6 pressure=0/3 fund=-0.00001 book=+0.07 mv5=+0.27% vol=0.4"
+   "watch": "pnl=-1.18% give=1.9% 1m=True live=- 15m=True 1h=False 4h=False RSI15=42.6 pressure=0/3 fund=-0.00001 book=+0.07 mv5=+0.27% vol=0.4",
+   "exit": 3.3530474999999997,
+   "t1": 1794386700,
+   "reason": "SL",
+   "pnl_pct": -3.629,
+   "mfe_pct": 2.215
   }
  ]
 }
