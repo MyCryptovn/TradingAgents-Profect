@@ -1180,7 +1180,8 @@
    "spread": 5.5774003736852114e-05,
    "scan": "02 NEAR/USD direction=SHORT score=68.86 long_score=32.86 short_score=68.86 mtf_score=0.6886 vol24h=$83,037,122 spread=0.562 depth10bps=$278,814",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 3.5858999999999996
   },
   {
    "id": "42921755915-LIT/USD",
@@ -1195,7 +1196,8 @@
    "spread": 8.678672163164504e-05,
    "scan": "01 LIT/USD direction=LONG score=68.12 long_score=68.12 short_score=31.88 mtf_score=0.6812 vol24h=$32,429,884 spread=1.159 depth10bps=$59,632",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 3.4855
   }
  ]
 }
