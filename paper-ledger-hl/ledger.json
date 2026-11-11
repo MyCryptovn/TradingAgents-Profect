@@ -1281,7 +1281,13 @@
    "scan": "02 SOL/USD direction=LONG score=77.24 long_score=77.24 short_score=29.35 mtf_score=0.7724 vol24h=$158,013,601 spread=0.117 depth10bps=$780,186",
    "cfg": "hl-v3",
    "src": "hyperliquid",
-   "peak": 85.3925
+   "peak": 85.3925,
+   "rev_px": 84.49549999999999,
+   "rev_t": 1794434422,
+   "rev_first": -1.67,
+   "rev_pnl_pct": -1.67,
+   "rev_reason": "REVERSAL_CUT",
+   "watch": "pnl=-1.67% give=1.1% 1m=True live=- 15m=True 1h=False 4h=True RSI15=44.6 pressure=1/3 fund=0.00000 book=-0.61 mv5=-0.11% vol=0.3"
   },
   {
    "id": "43068562985-FARTCOIN/USD",
@@ -1297,7 +1303,13 @@
    "scan": "03 FARTCOIN/USD direction=LONG score=70.91 long_score=70.91 short_score=29.09 mtf_score=0.7091 vol24h=$2,372,241 spread=5.081 depth10bps=$34,574",
    "cfg": "hl-v3",
    "src": "hyperliquid",
-   "peak": 0.118
+   "peak": 0.118,
+   "rev_px": 0.11563499999999999,
+   "rev_t": 1794434359,
+   "rev_first": -2.624,
+   "rev_pnl_pct": -2.624,
+   "rev_reason": "REVERSAL_GIVEBACK",
+   "watch": "pnl=-2.62% give=2.0% 1m=False live=- 15m=True 1h=False 4h=True RSI15=41.8 pressure=0/3 fund=0.00001 book=-0.08 mv5=-0.08% vol=1.4"
   },
   {
    "id": "43068562985-ETHFI/USD",
