@@ -22,8 +22,8 @@ LOOP_MINUTES = float(os.getenv("WATCH_LOOP_MINUTES", "15"))
 INTERVAL = int(os.getenv("WATCH_INTERVAL_SECONDS", "60"))
 
 MIN_AGE = 60
-GIVEBACK_SOFT = 0.018
-GIVEBACK_HARD = 0.03
+GIVEBACK_SOFT = 0.015
+GIVEBACK_HARD = 0.02
 STRONG_TREND_RSI = 55
 LIVE_MOVE = 0.005        # biến động 5 phút tối thiểu để tính bơm/xả (ước lượng ban đầu, cần đo)
 LIVE_VOL_RATIO = 2.0     # khối lượng 5 phút so với trung bình 60 phút (ước lượng ban đầu)
@@ -375,7 +375,7 @@ def check_reversal(t):
     )
 
     # 1m is the early warning layer.
-    m1 = timeframe_state(r1, direction, 300)
+    m1 = timeframe_state(r1, direction, 60)
 
     # 15m is the primary reversal confirmation.
     m15 = timeframe_state(r15, direction, 60)
