@@ -1280,7 +1280,8 @@
    "spread": 1.1710630324733143e-05,
    "scan": "02 SOL/USD direction=LONG score=77.24 long_score=77.24 short_score=29.35 mtf_score=0.7724 vol24h=$158,013,601 spread=0.117 depth10bps=$780,186",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 85.3925
   },
   {
    "id": "43068562985-FARTCOIN/USD",
@@ -1295,7 +1296,8 @@
    "spread": 0.0006779661016950053,
    "scan": "03 FARTCOIN/USD direction=LONG score=70.91 long_score=70.91 short_score=29.09 mtf_score=0.7091 vol24h=$2,372,241 spread=5.081 depth10bps=$34,574",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.118
   },
   {
    "id": "43068562985-ETHFI/USD",
