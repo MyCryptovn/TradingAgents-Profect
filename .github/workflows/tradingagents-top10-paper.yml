@@ -66,7 +66,7 @@ jobs:
           CONFIG_TAG: "hl-v3"
           TRADINGAGENTS_LLM_PROVIDER: google
           TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.5-flash
-          TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
+          TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "3"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "3"
           TRADINGAGENTS_LLM_MAX_RETRIES: "5"
