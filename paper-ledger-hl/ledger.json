@@ -1396,7 +1396,7 @@
    "scan": "02 HYPE/USD direction=SHORT score=71.41 long_score=29.37 short_score=71.41 mtf_score=0.7141 vol24h=$306,647,956 spread=0.141 depth10bps=$201,755",
    "cfg": "hl-v3",
    "src": "hyperliquid",
-   "trough": 71.22149999999999
+   "trough": 70.79650000000001
   },
   {
    "id": "43172531785-JUP/USD",
@@ -1471,7 +1471,8 @@
    "spread": 3.33377783703717e-05,
    "scan": "03 UNI/USD direction=SHORT score=71.13 long_score=29.02 short_score=71.13 mtf_score=0.7113 vol24h=$24,903,866 spread=1.002 depth10bps=$59,558",
    "cfg": "hl-v4",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 5.9986999999999995
   },
   {
    "id": "43270562165-BTC/USD",
@@ -1486,7 +1487,8 @@
    "spread": 1.395663672968088e-05,
    "scan": "04 BTC/USD direction=SHORT score=64.43 long_score=35.57 short_score=64.43 mtf_score=0.6443 vol24h=$3,377,289,346 spread=0.139 depth10bps=$9,452,200",
    "cfg": "hl-v4",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 71519.5
   },
   {
    "id": "43270562165-NEAR/USD",
