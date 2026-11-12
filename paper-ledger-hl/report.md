@@ -1,7 +1,7 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-12 18:53 UTC
+Cập nhật: 2026-11-12 23:34 UTC
 
-- Lệnh đã chốt: **18** | đang mở: 3 | HOLD đã chấm: 52
+- Lệnh đã chốt: **18** | đang mở: 3 | HOLD đã chấm: 53
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
@@ -29,7 +29,7 @@ Cập nhật: 2026-11-12 18:53 UTC
 - Lãi tối đa từng đạt (trung bình): 2.09% (16 lệnh)
 
 ## Quyết định HOLD
-- Sau 24h, giá biến động ≥ 3% ở 35/52 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
-- Biến động tuyệt đối trung bình: 4.63%
-- Trong số đó: tăng ≥ 3% = 8 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 27 lần (HOLD tránh được lỗ)
-- Biến động trung bình có dấu: -2.56%
+- Sau 24h, giá biến động ≥ 3% ở 36/53 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
+- Biến động tuyệt đối trung bình: 4.60%
+- Trong số đó: tăng ≥ 3% = 9 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 27 lần (HOLD tránh được lỗ)
+- Biến động trung bình có dấu: -2.45%

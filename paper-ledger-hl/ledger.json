@@ -1376,11 +1376,14 @@
    "t0": 1794434281,
    "entry": 0.257845,
    "btc0": 74375.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003490469080262735,
    "scan": "01 JUP/USD direction=SHORT score=55.54 long_score=44.46 short_score=55.54 mtf_score=0.5554 vol24h=$2,843,187 spread=6.590 depth10bps=$40,433",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.26608,
+   "t1": 1794520681.0,
+   "move_pct": 3.194
   },
   {
    "id": "43172531785-HYPE/USD",
