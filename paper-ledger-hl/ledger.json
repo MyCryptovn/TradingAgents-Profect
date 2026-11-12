@@ -1384,7 +1384,8 @@
    "spread": 1.4037156352733584e-05,
    "scan": "02 HYPE/USD direction=SHORT score=71.41 long_score=29.37 short_score=71.41 mtf_score=0.7141 vol24h=$306,647,956 spread=0.141 depth10bps=$201,755",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 71.22149999999999
   },
   {
    "id": "43172531785-JUP/USD",
