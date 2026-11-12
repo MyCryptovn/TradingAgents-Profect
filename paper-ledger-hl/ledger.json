@@ -1266,11 +1266,14 @@
    "t0": 1794419768,
    "entry": 3.75805,
    "btc0": 74515.5,
-   "status": "open",
+   "status": "closed",
    "spread": 2.6609544843791603e-05,
    "scan": "01 NEAR/USD direction=LONG score=81.90 long_score=81.90 short_score=23.40 mtf_score=0.8190 vol24h=$69,966,732 spread=0.529 depth10bps=$177,634",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.3796,
+   "t1": 1794506168.0,
+   "move_pct": -10.07
   },
   {
    "id": "43068562985-SOL/USD",
@@ -1297,7 +1300,8 @@
    "t1": 1794438000,
    "reason": "SL",
    "pnl_pct": -3.621,
-   "mfe_pct": 0.266
+   "mfe_pct": 0.266,
+   "trail_pnl_pct": -3.363
   },
   {
    "id": "43068562985-FARTCOIN/USD",
@@ -1324,7 +1328,8 @@
    "t1": 1794436200,
    "reason": "SL",
    "pnl_pct": -3.688,
-   "mfe_pct": 0.339
+   "mfe_pct": 0.339,
+   "trail_pnl_pct": -3.359
   },
   {
    "id": "43068562985-ETHFI/USD",
@@ -1335,11 +1340,14 @@
    "t0": 1794419769,
    "entry": 0.646305,
    "btc0": 74515.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.547257099986154e-05,
    "scan": "04 ETHFI/USD direction=LONG score=70.14 long_score=70.14 short_score=36.86 mtf_score=0.7014 vol24h=$2,869,912 spread=8.896 depth10bps=$10,756",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.61835,
+   "t1": 1794506169.0,
+   "move_pct": -4.325
   },
   {
    "id": "43068562985-HYPE/USD",
@@ -1350,11 +1358,14 @@
    "t0": 1794419769,
    "entry": 73.9425,
    "btc0": 74515.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.3524022044220508e-05,
    "scan": "05 HYPE/USD direction=LONG score=69.85 long_score=69.85 short_score=32.42 mtf_score=0.6985 vol24h=$327,855,622 spread=0.136 depth10bps=$214,367",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 70.711,
+   "t1": 1794506169.0,
+   "move_pct": -4.37
   },
   {
    "id": "43107127536-JUP/USD",
@@ -1445,6 +1456,51 @@
    "spread": 1.3599983680019584e-05,
    "scan": "05 BTC/USD direction=SHORT score=59.22 long_score=45.02 short_score=59.22 mtf_score=0.5922 vol24h=$2,563,037,253 spread=0.136 depth10bps=$7,765,070",
    "cfg": "hl-v3",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43270562165-UNI/USD",
+   "symbol": "UNI/USD",
+   "pair": "UNI",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794509613,
+   "entry": 5.9992,
+   "btc0": 71650.5,
+   "status": "open",
+   "spread": 3.33377783703717e-05,
+   "scan": "03 UNI/USD direction=SHORT score=71.13 long_score=29.02 short_score=71.13 mtf_score=0.7113 vol24h=$24,903,866 spread=1.002 depth10bps=$59,558",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43270562165-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794509613,
+   "entry": 71650.5,
+   "btc0": 71650.5,
+   "status": "open",
+   "spread": 1.395663672968088e-05,
+   "scan": "04 BTC/USD direction=SHORT score=64.43 long_score=35.57 short_score=64.43 mtf_score=0.6443 vol24h=$3,377,289,346 spread=0.139 depth10bps=$9,452,200",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43270562165-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEAR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794509613,
+   "entry": 3.41545,
+   "btc0": 71650.5,
+   "status": "open",
+   "spread": 2.9278718763328708e-05,
+   "scan": "05 NEAR/USD direction=SHORT score=64.20 long_score=35.80 short_score=64.20 mtf_score=0.6420 vol24h=$60,419,113 spread=0.294 depth10bps=$299,553",
+   "cfg": "hl-v4",
    "src": "hyperliquid"
   }
  ]
