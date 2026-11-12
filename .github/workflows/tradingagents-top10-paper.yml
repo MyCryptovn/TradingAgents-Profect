@@ -64,7 +64,6 @@ jobs:
           COINALYZE_API_KEY: ${{ secrets.COINALYZE_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
-          CONFIG_TAG: "hl-v3"
           TRADINGAGENTS_LLM_PROVIDER: google
           TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.5-flash-lite
           TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
@@ -82,6 +81,7 @@ jobs:
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
+          grep -r -q "ChatGoogleGenerativeAI\|deep_thinking_llm\|quick_thinking_llm" llm_gemini.py vendor/TradingAgents/tradingagents
           python - <<'PY'
           import json
           from pathlib import Path
