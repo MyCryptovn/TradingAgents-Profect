@@ -1,21 +1,23 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-11 21:58 UTC
+Cập nhật: 2026-11-12 07:21 UTC
 
-- Lệnh đã chốt: **16** | đang mở: 2 | HOLD đã chấm: 48
+- Lệnh đã chốt: **18** | đang mở: 1 | HOLD đã chấm: 49
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **31.2%** (5/16)
-- PnL trung bình/lệnh: -1.683%
-- Tổng PnL (cộng dồn): **-26.93%**
-- Profit factor: 0.27
-- Max drawdown: 26.93%
+- Win rate: **27.8%** (5/18)
+- PnL trung bình/lệnh: -1.902%
+- Tổng PnL (cộng dồn): **-34.23%**
+- Profit factor: 0.22
+- Max drawdown: 34.23%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +0.00%  -> bot THUA benchmark
 - ⚠️ Dưới 20 lệnh: chưa đủ ý nghĩa thống kê.
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| SOL/USD | BUY | 85.3925 | 82.8307 | SL | -3.62 |
+| FARTCOIN/USD | BUY | 0.118 | 0.11446 | SL | -3.69 |
 | LIT/USD | BUY | 3.45675 | 3.35305 | SL | -3.63 |
 | XMR/USD | SELL | 569.075 | 571.41 | TIME | -1.03 |
 | NEAR/USD | SELL | 3.5859 | 3.69348 | SL | -3.63 |
@@ -24,12 +26,10 @@ Cập nhật: 2026-11-11 21:58 UTC
 | SUI/USD | SELL | 0.846795 | 0.82358 | TIME | +2.12 |
 | PUMP/USD | SELL | 0.003653 | 0.003743 | REVERSAL_CUT | -3.08 |
 | BCH/USD | SELL | 246.915 | 245.055 | REVERSAL_CUT | +0.13 |
-| ZEC/USD | SELL | 1310.65 | 1262.6 | TIME | +3.04 |
-| HYPE/USD | BUY | 79.1385 | 76.7643 | SL | -3.62 |
-- Lãi tối đa từng đạt (trung bình): 2.34% (14 lệnh)
+- Lãi tối đa từng đạt (trung bình): 2.09% (16 lệnh)
 
 ## Quyết định HOLD
-- Sau 24h, giá biến động ≥ 3% ở 32/48 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
-- Biến động tuyệt đối trung bình: 4.62%
+- Sau 24h, giá biến động ≥ 3% ở 32/49 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
+- Biến động tuyệt đối trung bình: 4.53%
 - Trong số đó: tăng ≥ 3% = 8 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 24 lần (HOLD tránh được lỗ)
-- Biến động trung bình có dấu: -2.38%
+- Biến động trung bình có dấu: -2.34%
