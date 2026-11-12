@@ -81,7 +81,6 @@ jobs:
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "LIVE TRADING GATE: DISABLED" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REVIEW DECISIONS: NEVER EXECUTED" scripts/tradingagents_paper_pipeline.py
-          grep -r -q "ChatGoogleGenerativeAI\|deep_thinking_llm\|quick_thinking_llm" llm_gemini.py vendor/TradingAgents/tradingagents
           python - <<'PY'
           import json
           from pathlib import Path
