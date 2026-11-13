@@ -1503,7 +1503,7 @@
    "scan": "04 BTC/USD direction=SHORT score=64.43 long_score=35.57 short_score=64.43 mtf_score=0.6443 vol24h=$3,377,289,346 spread=0.139 depth10bps=$9,452,200",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "trough": 71206.5
+   "trough": 71149.5
   },
   {
    "id": "43270562165-NEAR/USD",
