@@ -602,7 +602,7 @@ def main() -> int:
     except Exception:
         open_syms = []
         
-        open_set = set(open_syms)
+    open_set = set(open_syms)
 
     if REQUIRE_DIRECTION:
         before = len(candidates)
