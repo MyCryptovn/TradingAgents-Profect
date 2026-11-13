@@ -1503,7 +1503,13 @@
    "scan": "04 BTC/USD direction=SHORT score=64.43 long_score=35.57 short_score=64.43 mtf_score=0.6443 vol24h=$3,377,289,346 spread=0.139 depth10bps=$9,452,200",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "trough": 68397.5
+   "trough": 68397.5,
+   "rev_px": 68825.5,
+   "rev_t": 1794551815,
+   "rev_first": 3.323,
+   "rev_pnl_pct": 3.323,
+   "rev_reason": "REVERSAL_PROFIT",
+   "watch": "pnl=+3.32% give=0.6% 1m=True live=- 15m=True 1h=False 4h=False RSI15=34.1 pressure=1/3 fund=0.00001 book=+0.23 mv5=+0.07% vol=0.9"
   },
   {
    "id": "43270562165-NEAR/USD",
