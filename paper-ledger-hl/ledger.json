@@ -1410,7 +1410,8 @@
    "t1": 1794554476.0,
    "reason": "TIME",
    "pnl_pct": -1.377,
-   "mfe_pct": 2.574
+   "mfe_pct": 2.574,
+   "trail_pnl_pct": -0.97
   },
   {
    "id": "43172531785-JUP/USD",
@@ -1421,11 +1422,14 @@
    "t0": 1794468076,
    "entry": 0.254355,
    "btc0": 73529.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000668357217275082,
    "scan": "03 JUP/USD direction=SHORT score=70.99 long_score=35.45 short_score=70.99 mtf_score=0.7099 vol24h=$2,811,617 spread=1.967 depth10bps=$30,422",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.266,
+   "t1": 1794554476.0,
+   "move_pct": 4.578
   },
   {
    "id": "43172531785-SOL/USD",
@@ -1436,11 +1440,14 @@
    "t0": 1794468076,
    "entry": 82.8735,
    "btc0": 73529.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.2066583407127295e-05,
    "scan": "04 SOL/USD direction=SHORT score=62.26 long_score=37.74 short_score=62.26 mtf_score=0.6226 vol24h=$164,832,598 spread=0.121 depth10bps=$664,472",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 80.408,
+   "t1": 1794554476.0,
+   "move_pct": -2.975
   },
   {
    "id": "43172531785-WLFI/USD",
@@ -1451,11 +1458,14 @@
    "t0": 1794468076,
    "entry": 0.047939999999999997,
    "btc0": 73529.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0004171881518564703,
    "scan": "01 WLFI/USD direction=LONG score=61.50 long_score=61.50 short_score=38.60 mtf_score=0.6150 vol24h=$2,593,131 spread=2.503 depth10bps=$75,426",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.047358,
+   "t1": 1794554476.0,
+   "move_pct": -1.214
   },
   {
    "id": "43172531785-BTC/USD",
@@ -1466,11 +1476,14 @@
    "t0": 1794468076,
    "entry": 73529.5,
    "btc0": 73529.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.3599983680019584e-05,
    "scan": "05 BTC/USD direction=SHORT score=59.22 long_score=45.02 short_score=59.22 mtf_score=0.5922 vol24h=$2,563,037,253 spread=0.136 depth10bps=$7,765,070",
    "cfg": "hl-v3",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 69123.0,
+   "t1": 1794554476.0,
+   "move_pct": -5.993
   },
   {
    "id": "43270562165-UNI/USD",
@@ -1528,6 +1541,81 @@
    "status": "open",
    "spread": 2.9278718763328708e-05,
    "scan": "05 NEAR/USD direction=SHORT score=64.20 long_score=35.80 short_score=64.20 mtf_score=0.6420 vol24h=$60,419,113 spread=0.294 depth10bps=$299,553",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43428276482-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEAR",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1794575473,
+   "entry": 3.5394,
+   "btc0": 69245.5,
+   "status": "open",
+   "spread": 0.00011301350511384865,
+   "scan": "01 NEAR/USD direction=LONG score=69.38 long_score=69.38 short_score=30.62 mtf_score=0.6938 vol24h=$73,202,523 spread=0.283 depth10bps=$280,938",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43428276482-HYPE/USD",
+   "symbol": "HYPE/USD",
+   "pair": "HYPE",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794575473,
+   "entry": 74.3265,
+   "btc0": 69245.5,
+   "status": "open",
+   "spread": 1.3454151614898789e-05,
+   "scan": "02 HYPE/USD direction=LONG score=63.98 long_score=63.98 short_score=28.02 mtf_score=0.6398 vol24h=$575,140,099 spread=0.135 depth10bps=$155,093",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43428276482-ICP/USD",
+   "symbol": "ICP/USD",
+   "pair": "ICP",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1794575473,
+   "entry": 2.6271,
+   "btc0": 69245.5,
+   "status": "open",
+   "spread": 0.00030451829012976737,
+   "scan": "03 ICP/USD direction=LONG score=62.63 long_score=62.63 short_score=37.37 mtf_score=0.6263 vol24h=$2,340,686 spread=4.190 depth10bps=$29,142",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43428276482-WLFI/USD",
+   "symbol": "WLFI/USD",
+   "pair": "WLFI",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794575473,
+   "entry": 0.048008999999999996,
+   "btc0": 69245.5,
+   "status": "open",
+   "spread": 0.0002499531337875203,
+   "scan": "04 WLFI/USD direction=LONG score=60.08 long_score=60.08 short_score=36.42 mtf_score=0.6008 vol24h=$2,371,986 spread=4.597 depth10bps=$83,695",
+   "cfg": "hl-v4",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43428276482-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794575474,
+   "entry": 3.2583,
+   "btc0": 69245.5,
+   "status": "open",
+   "spread": 0.00018414510634377862,
+   "scan": "05 LIT/USD direction=LONG score=60.04 long_score=60.04 short_score=39.96 mtf_score=0.6004 vol24h=$25,839,234 spread=0.923 depth10bps=$55,890",
    "cfg": "hl-v4",
    "src": "hyperliquid"
   }
