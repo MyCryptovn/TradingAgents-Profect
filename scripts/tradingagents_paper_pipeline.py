@@ -604,6 +604,7 @@ def main() -> int:
         
     open_set = set(open_syms)
 
+    # Gọi LLM mỗi khi chạy có tín hiệu tốt từ mọi dữ liệu để LONG/SHORT, canh lệnh đang mở
     if REQUIRE_DIRECTION:
         before = len(candidates)
         candidates = [
@@ -612,6 +613,12 @@ def main() -> int:
         ]
         print(f"DIRECTION FILTER: {before} -> {len(candidates)} (chỉ LONG/SHORT, giữ lệnh đang mở)")
 
+    # Giới hạn số coin gọi LLM mỗi run, ưu tiên điểm cao nhất
+    def _strength(sym: str) -> float:
+        row = SCAN_ROWS.get(sym) or {}
+        sc = row.get("scores") or {}
+        return max(float(sc.get("long_score", 0)), float(sc.get("short_score", 0)))
+    
     owned = [s for s in candidates if s in open_set]
     others = [s for s in candidates if s not in open_set]
     others = sorted(others, key=_strength, reverse=True)[:max(0, MAX_LLM_CANDIDATES - len(owned))]
@@ -653,24 +660,7 @@ def main() -> int:
         filtered.append(sym)
 
     candidates = filtered
-
-    # Chỉ gọi LLM cho coin có hướng rõ từ scanner (LONG hoặc SHORT)
-    if REQUIRE_DIRECTION:
-        before = len(candidates)
-        candidates = [s for s in candidates if scanner_direction(s) in ("LONG", "SHORT")]
-        print(f"DIRECTION FILTER: {before} -> {len(candidates)} (chỉ LONG/SHORT)")
-
-    # Lệnh đang mở do watch quản lý, không đưa vào hàng đợi LLM mỗi run
-    candidates = [s for s in candidates if s not in open_syms]
-
-    # Giới hạn số coin gọi LLM mỗi run, ưu tiên điểm cao nhất
-    def _strength(sym: str) -> float:
-        row = SCAN_ROWS.get(sym) or {}
-        sc = row.get("scores") or {}
-        return max(float(sc.get("long_score", 0)), float(sc.get("short_score", 0)))
-
-    candidates = sorted(candidates, key=_strength, reverse=True)[:MAX_LLM_CANDIDATES]
-    print(f"LLM CANDIDATES (max {MAX_LLM_CANDIDATES}): {candidates}")
+    
     
     trade_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     decisions: list[Decision] = []
