@@ -1494,7 +1494,7 @@
    "t0": 1794509613,
    "entry": 5.9992,
    "btc0": 71650.5,
-   "status": "open",
+   "status": "closed",
    "spread": 3.33377783703717e-05,
    "scan": "03 UNI/USD direction=SHORT score=71.13 long_score=29.02 short_score=71.13 mtf_score=0.7113 vol24h=$24,903,866 spread=1.002 depth10bps=$59,558",
    "cfg": "hl-v4",
@@ -1505,7 +1505,12 @@
    "rev_first": -1.203,
    "rev_pnl_pct": -1.203,
    "rev_reason": "REVERSAL_CUT",
-   "watch": "pnl=-1.20% give=0.6% 1m=True live=- 15m=True 1h=False 4h=False RSI15=51.4 pressure=1/3 fund=-0.00004 book=+0.25 mv5=+0.04% vol=1.8"
+   "watch": "pnl=-1.20% give=0.6% 1m=True live=- 15m=True 1h=False 4h=False RSI15=51.4 pressure=1/3 fund=-0.00004 book=+0.25 mv5=+0.04% vol=1.8",
+   "exit": 5.786,
+   "t1": 1794596013.0,
+   "reason": "TIME",
+   "pnl_pct": 2.93,
+   "mfe_pct": 6.071
   },
   {
    "id": "43270562165-BTC/USD",
@@ -1516,7 +1521,7 @@
    "t0": 1794509613,
    "entry": 71650.5,
    "btc0": 71650.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.395663672968088e-05,
    "scan": "04 BTC/USD direction=SHORT score=64.43 long_score=35.57 short_score=64.43 mtf_score=0.6443 vol24h=$3,377,289,346 spread=0.139 depth10bps=$9,452,200",
    "cfg": "hl-v4",
@@ -1527,7 +1532,12 @@
    "rev_first": 3.323,
    "rev_pnl_pct": 3.323,
    "rev_reason": "REVERSAL_PROFIT",
-   "watch": "pnl=+3.32% give=0.6% 1m=True live=- 15m=True 1h=False 4h=False RSI15=34.1 pressure=1/3 fund=0.00001 book=+0.23 mv5=+0.07% vol=0.9"
+   "watch": "pnl=+3.32% give=0.6% 1m=True live=- 15m=True 1h=False 4h=False RSI15=34.1 pressure=1/3 fund=0.00001 book=+0.23 mv5=+0.07% vol=0.9",
+   "exit": 68821.0,
+   "t1": 1794596013.0,
+   "reason": "TIME",
+   "pnl_pct": 3.328,
+   "mfe_pct": 5.829
   },
   {
    "id": "43270562165-NEAR/USD",
@@ -1553,12 +1563,17 @@
    "t0": 1794575473,
    "entry": 3.5394,
    "btc0": 69245.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00011301350511384865,
    "scan": "01 NEAR/USD direction=LONG score=69.38 long_score=69.38 short_score=30.62 mtf_score=0.6938 vol24h=$73,202,523 spread=0.283 depth10bps=$280,938",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "peak": 3.5499
+   "peak": 3.5499,
+   "exit": 3.433218,
+   "t1": 1794607200,
+   "reason": "SL",
+   "pnl_pct": -3.631,
+   "mfe_pct": 2.743
   },
   {
    "id": "43428276482-HYPE/USD",
@@ -1584,12 +1599,17 @@
    "t0": 1794575473,
    "entry": 2.6271,
    "btc0": 69245.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00030451829012976737,
    "scan": "03 ICP/USD direction=LONG score=62.63 long_score=62.63 short_score=37.37 mtf_score=0.6263 vol24h=$2,340,686 spread=4.190 depth10bps=$29,142",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "peak": 2.6381
+   "peak": 2.6381,
+   "exit": 2.5482869999999997,
+   "t1": 1794603600,
+   "reason": "SL",
+   "pnl_pct": -3.65,
+   "mfe_pct": 1.184
   },
   {
    "id": "43428276482-WLFI/USD",
