@@ -1,5 +1,5 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-13 05:26 UTC
+Cập nhật: 2026-11-13 06:35 UTC
 
 - Lệnh đã chốt: **18** | đang mở: 3 | HOLD đã chấm: 53
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
