@@ -602,6 +602,7 @@ def check_reversal(t):
 
 def run_once():
     """Một vòng: chấm SL/TP/TIME bằng settle, rồi canh tín hiệu đảo chiều."""
+    COUNCIL_WINDOW_SECONDS = int(os.getenv("COUNCIL_WINDOW_SECONDS", str(5 * 3600)))
     _CACHE.clear()
 
     if not os.path.exists(LEDGER_PATH):
@@ -655,6 +656,10 @@ def run_once():
             changed = True
 
         if t.get("status") != "open":
+            continue
+
+        # Hội đồng đang quản lý lệnh này: watch chỉ canh khi hội đồng trao quyền canh đảo chiều.
+        if now() - t.get("council_checked_at", 0) < COUNCIL_WINDOW_SECONDS:
             continue
 
         # Peak/trough must be persisted even without an exit signal.
