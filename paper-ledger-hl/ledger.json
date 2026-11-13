@@ -1557,7 +1557,8 @@
    "spread": 0.00011301350511384865,
    "scan": "01 NEAR/USD direction=LONG score=69.38 long_score=69.38 short_score=30.62 mtf_score=0.6938 vol24h=$73,202,523 spread=0.283 depth10bps=$280,938",
    "cfg": "hl-v4",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 3.5499
   },
   {
    "id": "43428276482-HYPE/USD",
@@ -1587,7 +1588,8 @@
    "spread": 0.00030451829012976737,
    "scan": "03 ICP/USD direction=LONG score=62.63 long_score=62.63 short_score=37.37 mtf_score=0.6263 vol24h=$2,340,686 spread=4.190 depth10bps=$29,142",
    "cfg": "hl-v4",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 2.6381
   },
   {
    "id": "43428276482-WLFI/USD",
