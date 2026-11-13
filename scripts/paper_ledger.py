@@ -143,7 +143,8 @@ def council_exit(led, sym, act):
     op = [t for t in led["trades"] if t["symbol"] == sym and t["status"] == "open" and t["action"] != "HOLD"]
     if not op:
         return False
-    t = op[0]
+    t = op[0]     
+    t["council_checked_at"] = now()
     try:
         settle(t)
     except Exception:
