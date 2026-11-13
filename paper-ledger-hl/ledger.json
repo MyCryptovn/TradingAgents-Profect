@@ -1394,7 +1394,7 @@
    "t0": 1794468076,
    "entry": 71.23949999999999,
    "btc0": 73529.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.4037156352733584e-05,
    "scan": "02 HYPE/USD direction=SHORT score=71.41 long_score=29.37 short_score=71.41 mtf_score=0.7141 vol24h=$306,647,956 spread=0.141 depth10bps=$201,755",
    "cfg": "hl-v3",
@@ -1405,7 +1405,12 @@
    "rev_first": -1.954,
    "rev_pnl_pct": -1.954,
    "rev_reason": "REVERSAL_CUT",
-   "watch": "pnl=-1.95% give=2.0% 1m=True live=- 15m=True 1h=False 4h=False RSI15=66.1 pressure=0/3 fund=0.00001 book=-0.02 mv5=+0.06% vol=0.8"
+   "watch": "pnl=-1.95% give=2.0% 1m=True live=- 15m=True 1h=False 4h=False RSI15=66.1 pressure=0/3 fund=0.00001 book=-0.02 mv5=+0.06% vol=0.8",
+   "exit": 71.778,
+   "t1": 1794554476.0,
+   "reason": "TIME",
+   "pnl_pct": -1.377,
+   "mfe_pct": 2.574
   },
   {
    "id": "43172531785-JUP/USD",
