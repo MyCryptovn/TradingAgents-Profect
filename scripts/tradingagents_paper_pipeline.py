@@ -601,7 +601,22 @@ def main() -> int:
         open_syms = [t["symbol"] for t in json.load(open(os.getenv("LEDGER_FILE", "paper-ledger/ledger.json")))["trades"] if t["status"] == "open" and t["action"] != "HOLD"]
     except Exception:
         open_syms = []
-    candidates = candidates + [s for s in open_syms if s not in candidates]
+        
+        open_set = set(open_syms)
+
+    if REQUIRE_DIRECTION:
+        before = len(candidates)
+        candidates = [
+            s for s in candidates
+            if s in open_set or scanner_direction(s) in ("LONG", "SHORT")
+        ]
+        print(f"DIRECTION FILTER: {before} -> {len(candidates)} (chỉ LONG/SHORT, giữ lệnh đang mở)")
+
+    owned = [s for s in candidates if s in open_set]
+    others = [s for s in candidates if s not in open_set]
+    others = sorted(others, key=_strength, reverse=True)[:max(0, MAX_LLM_CANDIDATES - len(owned))]
+    candidates = owned + others
+    print(f"LLM CANDIDATES (max {MAX_LLM_CANDIDATES}, lệnh đang mở {len(owned)}): {candidates}")
 
     # ========== BỘ LỌC RỦI RO + CHẤT LƯỢNG ==========
     MAX_OPEN_POSITIONS = 3
