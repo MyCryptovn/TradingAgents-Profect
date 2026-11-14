@@ -342,7 +342,7 @@ def _live_market(symbol: str) -> dict:
 
 @tool
 def get_stock_data(
-    symbol: Annotated[str, "crypto ticker such as BTC-USD"],
+    symbol: Annotated[str, "crypto ticker such as BTC"],
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
     end_date: Annotated[str, "End date in yyyy-mm-dd format"],
 ) -> str:
@@ -367,32 +367,41 @@ def get_stock_data(
 
 @tool
 def get_indicators(
-    symbol: Annotated[str, "crypto ticker such as BTC-USD"],
-    indicator: Annotated[str, "technical indicator name"],
+    symbol: Annotated[str, "crypto ticker such as BTC"],
+    indicator: Annotated[str, "one or comma-separated indicator names"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "days of history"] = 30,
 ) -> str:
-    """Calculate TradingAgents-compatible indicators from CoinGecko data."""
     df = _indicators(_history(symbol))
-    cutoff = pd.Timestamp(curr_date)
-    df = df[df["Date"] <= cutoff]
-    if df.empty or indicator not in df.columns:
+    df = df[df["Date"] <= pd.Timestamp(curr_date)]
+    if df.empty:
+        raise RuntimeError(f"No indicator data for {symbol} on or before {curr_date}")
+
+    names = [name.strip() for name in indicator.split(",") if name.strip()]
+    if not names:
+        raise RuntimeError("No indicator names were provided")
+    missing = [name for name in names if name not in df.columns]
+    if missing:
+        available = [str(col) for col in df.columns if col != "Date"]
         raise RuntimeError(
-            f"Unsupported or unavailable crypto indicator: {indicator}"
+            f"Unsupported indicator(s): {', '.join(missing)}. "
+            f"Available columns: {', '.join(available)}"
         )
 
     rows = df.tail(max(1, int(look_back_days)))
-    lines = [f"## {indicator} for {symbol.upper()} (CoinGecko-native)", ""]
-    for _, row in rows.iterrows():
-        value = row[indicator]
-        value_text = "N/A" if pd.isna(value) else f"{float(value):.8g}"
-        lines.append(f"{row['Date'].strftime('%Y-%m-%d')}: {value_text}")
-    return "\n".join(lines)
-
+    lines = []
+    for name in names:
+        lines.extend([f"## {name} for {symbol} (CoinGecko-native)", ""])
+        for _, row in rows.iterrows():
+            value = row[name]
+            text = "N/A" if pd.isna(value) else f"{float(value):.8g}"
+            lines.append(f"{row['Date'].strftime('%Y-%m-%d')}: {text}")
+        lines.append("")
+    return "\n".join(lines).rstrip()
 
 @tool
 def get_verified_market_snapshot(
-    symbol: Annotated[str, "crypto ticker such as BTC-USD"],
+    symbol: Annotated[str, "crypto ticker such as BTC"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "recent rows"] = 30,
 ) -> str:
