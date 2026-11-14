@@ -372,8 +372,8 @@ def get_indicators(
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "days of history"] = 30,
 ) -> str:
-  """Calculate TradingAgents-compatible indicators from market data."""
-  df = _indicators(_history(symbol))
+    """Calculate TradingAgents-compatible indicators from market data."""
+    df = _indicators(_history(symbol))
     df = df[df["Date"] <= pd.Timestamp(curr_date)]
     if df.empty:
         raise RuntimeError(f"No indicator data for {symbol} on or before {curr_date}")
