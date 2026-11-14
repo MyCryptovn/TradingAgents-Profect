@@ -342,7 +342,7 @@ def _live_market(symbol: str) -> dict:
 
 @tool
 def get_stock_data(
-    symbol: Annotated[str, "crypto ticker such as BTC"],
+    symbol: Annotated[str, "crypto ticker such as BTC-USD"],
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
     end_date: Annotated[str, "End date in yyyy-mm-dd format"],
 ) -> str:
@@ -367,7 +367,7 @@ def get_stock_data(
 
 @tool
 def get_indicators(
-    symbol: Annotated[str, "crypto ticker such as BTC"],
+    symbol: Annotated[str, "crypto ticker such as BTC-USD"],
     indicator: Annotated[str, "one or comma-separated indicator names"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "days of history"] = 30,
@@ -402,7 +402,7 @@ def get_indicators(
 
 @tool
 def get_verified_market_snapshot(
-    symbol: Annotated[str, "crypto ticker such as BTC"],
+    symbol: Annotated[str, "crypto ticker such as BTC-USD"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "recent rows"] = 30,
 ) -> str:
