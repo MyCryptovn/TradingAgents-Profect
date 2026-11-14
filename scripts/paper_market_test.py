@@ -1,7 +1,7 @@
 """Safe public-market paper-trading smoke test.
 
-This intentionally does not place real orders and does not require exchange credentials
-It downloads public Kraken spot candles, runs an adaptive statistical baseline, and
+This intentionally does not place real orders and does not require exchange credentials.
+It downloads public Hyperliquid spot/perps candles, runs an adaptive statistical baseline, and
 reports paper PnL, drawdown, trade count, and whether the run is eligible for a
 separate TradingAgents/LLM paper-analysis stage.
 """
