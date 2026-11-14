@@ -402,8 +402,8 @@ def get_indicators(
     available_str = ", ".join(sorted(available))
         
         raise RuntimeError(
-    f"Unsupported indicator(s): [{missing_str}]. "
-    f"Available indicators: [{available_str}]"
+            f"Unsupported indicator(s): [{missing_str}]. "
+            f"Available indicators: [{available_str}]"
 )
 
     # Lấy look_back_days ngày mới nhất tính đến curr_date
