@@ -36,7 +36,7 @@ KRAKEN_API = "https://api.kraken.com/0/public/"
 INTERVAL_MINUTES = 60
 INTERVAL_SECONDS = INTERVAL_MINUTES * 60
 HYPER_API = "https://api.hyperliquid.xyz/info"
-
+COINMARKETCAP_API = "https://pro-api.coinmarketcap.com/v2/simple/price"
 
 @dataclass
 class Decision:
@@ -338,42 +338,6 @@ def flow_note(ticker):
     except Exception:
         return ""
 
-
-COINGECKO_API_BASE = os.getenv("COINGECKO_API_BASE_URL", "https://api.coingecko.com/api/v3")
-COINGECKO_KEY = os.getenv("COINGECKO_API_KEY", "")
-
-def coingecko_note(ticker: str) -> str:
-    base = ticker.split("-")[0].lower()
-    try:
-        headers = {"User-Agent": "TradingAgents-Profect/paper-pipeline"}
-        if COINGECKO_KEY:
-            headers["x-cg-demo-api-key"] = COINGECKO_KEY
-        search_url = f"{COINGECKO_API_BASE}/search?query={urllib.parse.quote(base)}"
-        req = urllib.request.Request(search_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as r:
-            coins = json.load(r).get("coins", [])
-        match = next((c for c in coins if c.get("symbol", "").lower() == base), None)
-        if not match:
-            return ""
-        market_url = (
-            f"{COINGECKO_API_BASE}/coins/markets?vs_currency=usd&ids={match['id']}"
-            "&price_change_percentage=24h,7d"
-        )
-        req = urllib.request.Request(market_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as r:
-            rows = json.load(r)
-        if not rows:
-            return ""
-        m = rows[0]
-        return (
-            f" COINGECKO CONTEXT: market cap ${m.get('market_cap') or 0:,.0f}, "
-            f"rank #{m.get('market_cap_rank')}, 24h volume ${m.get('total_volume') or 0:,.0f} "
-            f"(aggregated across exchanges), 24h change {m.get('price_change_percentage_24h') or 0:.2f}%, "
-            f"7d change {m.get('price_change_percentage_7d_in_currency') or 0:.2f}%."
-        )
-    except Exception:
-        return ""
-
 def hl_perp_note(symbol: str) -> str:
     row = SCAN_ROWS.get(symbol.replace("-", "/"))
     if not row:
@@ -457,7 +421,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + coingecko_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
@@ -666,10 +630,10 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINGECKO (market context) + COINALYZE NOTE + KRAKEN (taker flow/spot depth)")
-    print("DATA: COINGECKO (market context in the AI prompt; not used by the scanner score)")
+    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINMARKETCAP (cap/rank/vol) + COINALYZE NOTE + KRAKEN")
+    print("DATA: COINMARKETCAP (market cap, cmc rank, 24h volume realtime)")
     print("DATA: COINALYZE (perp open interest, funding, liquidations, context only)")
-    print("DATA: KRAKEN (spot taker flow and spot depth only)")
+    print("DATA: KRAKEN (taker trade money flow / future & spot depth live)")
     print("AI: TRADINGAGENTS")
     print(f"LLM PROVIDER: {provider}")
     print("PAPER BUY/SELL: ENABLED")
