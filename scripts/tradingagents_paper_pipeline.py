@@ -451,6 +451,53 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     return str(signal).strip().upper()
 
 
+def realtime_long_candles(pair: str, resolution: str = "1m", limit: int = 50) -> list[list[float]]:
+    """
+    Lấy dữ liệu nến ngắn hạn (1m hoặc 5m) bao gồm cả nến đang chạy (real-time) 
+    để AI bắt các cú bơm xả hoặc biến động khối lượng đột biến.
+    """
+    coin = hl_coin_from_symbol(pair)
+    # Gọi trực tiếp Hyperliquid với interval ngắn ('1m', '15m', '1h')
+    rows = hyper_candles(coin, resolution, limit)
+
+    out = [
+        [
+            r["time"] / 1000,
+            r["open"],
+            r["high"],
+            r["low"],
+            r["close"],
+            r["volume"],
+        ]
+        for r in rows
+    ]
+    
+    # Không loại bỏ nến cuối cùng, giữ lại toàn bộ để bắt sóng real-time mới nhất!
+    return out
+
+def realtime_short_candles(pair: str, resolution: str = "1m", limit: int = 50) -> list[list[float]]:
+    """
+    Lấy dữ liệu nến ngắn hạn (1m hoặc 5m) bao gồm cả nến đang chạy (real-time) 
+    để AI bắt các cú bơm xả hoặc biến động khối lượng đột biến.
+    """
+    coin = hl_coin_from_symbol(pair)
+    # Gọi trực tiếp Hyperliquid với interval ngắn ('1m', '15m', '1h')
+    rows = hyper_candles(coin, resolution, limit)
+
+    out = [
+        [
+            r["time"] / 1000,
+            r["open"],
+            r["high"],
+            r["low"],
+            r["close"],
+            r["volume"],
+        ]
+        for r in rows
+    ]
+    
+    # Không loại bỏ nến cuối cùng, giữ lại toàn bộ để bắt sóng real-time mới nhất!
+    return out
 
 def completed_ohlc(pair: str) -> list[list[float]]:
     coin = hl_coin_from_symbol(pair)
