@@ -2,15 +2,13 @@
 
 Data sources:
 - Hyperliquid 1d candles: primary historical OHLC/volume for the AI analysts.
-- CoinGecko API: fallback history when Hyperliquid is unavailable, plus live
-  market context (market cap, rank, 24h volume aggregated across exchanges).
+- Kraken API: secondary/spot fallback source for price and market context.
+- CoinMarketCap API: live market context (market cap, rank, 24h volume).
 - Paper outcome measurement stays separate and uses Hyperliquid 1h candles.
 
 Design:
-- CoinGecko requests are cached in-process and 429 responses use Retry-After or
-  exponential backoff.
-- Optional COINGECKO_API_KEY is supported (Demo or Pro via API base URL).
-- The pinned TradingAgents source is unchanged; only tool functions are overlaid.
+- Requests are cached in-process to avoid redundant API calls.
+- Requires COINMARKETCAP_API_KEY for live market cap/rank context.
 """
 
 from __future__ import annotations
@@ -28,80 +26,54 @@ import pandas as pd
 from typing import Annotated
 from langchain_core.tools import tool
 
-COINGECKO_PUBLIC_API = "https://api.coingecko.com/api/v3/"
-COINGECKO_PRO_API = "https://pro-api.coingecko.com/api/v3/"
-USER_AGENT = "TradingAgents-Profect/coingecko-data"
+USER_AGENT = "TradingAgents-Profect/marketdata"
 MAX_HISTORY_ROWS = 720
+CMC_API_URL = "https://pro-api.coinmarketcap.com/v1"
+KRAKEN_API_URL = "https://api.kraken.com/0/public"
 
 
-def _api_base() -> str:
-    return os.getenv("COINGECKO_API_BASE_URL", COINGECKO_PUBLIC_API).rstrip("/") + "/"
-
-
-def _api_key() -> str:
+def _cmc_api_key() -> str:
+    """Lấy API Key của CoinMarketCap từ biến môi trường."""
     return (
-        os.getenv("COINGECKO_API_KEY")
-        or os.getenv("CG_API_KEY")
-        or os.getenv("COINGECKO_DEMO_API_KEY")
+        os.getenv("COINMARKETCAP_API_KEY")
+        or os.getenv("CMC_API_KEY")
+        or os.getenv("COINMARKETCAP_DEMO_API_KEY")
         or ""
     ).strip()
 
 
-def _get_json(
-    path: str,
-    params: dict[str, str] | None = None,
-    *,
-    retries: int = 4,
-) -> dict:
-    base = _api_base()
-    url = base + path.lstrip("/")
+def _get_cmc_json(path: str, params: dict[str, str] | None = None) -> dict:
+    """Gọi CoinMarketCap API lấy dữ liệu JSON."""
+    base = os.getenv("COINMARKETCAP_API_BASE_URL", CMC_API_URL).rstrip("/")
+    url = f"{base}/{path.lstrip('/')}"
     if params:
         url += "?" + urllib.parse.urlencode(params)
 
-    key = _api_key()
+    key = _cmc_api_key()
+    if not key:
+        raise RuntimeError("COINMARKETCAP_API_KEY chưa được thiết lập trong Environment Variables.")
+
     headers = {
-        "User-Agent": USER_AGENT,
         "Accept": "application/json",
+        "X-CMC_PRO_API_KEY": key,
+        "User-Agent": USER_AGENT,
     }
-    if key:
-        if "pro-api.coingecko.com" in base:
-            headers["x-cg-pro-api-key"] = key
-        else:
-            headers["x-cg-demo-api-key"] = key
 
-    last_error: Exception | None = None
-    for attempt in range(retries + 1):
-        req = urllib.request.Request(url, headers=headers)
-        try:
-            with urllib.request.urlopen(req, timeout=30) as response:
-                payload = json.load(response)
-            if isinstance(payload, dict) and payload.get("error"):
-                raise RuntimeError(f"CoinGecko API error: {payload['error']}")
-            return payload
-        except urllib.error.HTTPError as exc:
-            last_error = exc
-            if exc.code != 429 or attempt >= retries:
-                raise
-            retry_after = exc.headers.get("Retry-After")
-            try:
-                delay = float(retry_after) if retry_after else min(2 ** attempt, 16)
-            except ValueError:
-                delay = min(2 ** attempt, 16)
-            print(
-                f"COINGECKO RATE LIMIT: HTTP 429; retrying in {delay:.1f}s "
-                f"(attempt {attempt + 1}/{retries})"
-            )
-            time.sleep(delay)
-        except Exception as exc:
-            last_error = exc
-            if attempt >= retries:
-                raise
-            time.sleep(min(2 ** attempt, 8))
-
-    raise RuntimeError(f"CoinGecko request failed: {last_error}")
+    req = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as response:
+            payload = json.load(response)
+        
+        status = payload.get("status", {})
+        if status.get("error_code", 0) != 0:
+            raise RuntimeError(f"CoinMarketCap API error: {status.get('error_message', 'Unknown error')}")
+        return payload
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"CoinMarketCap HTTP error {exc.code}: {exc.reason}")
 
 
 def _base_symbol(symbol: str) -> str:
+    """Chuẩn hóa ký hiệu cơ bản từ input."""
     base = symbol.upper().strip()
     for sep in ("/", "-"):
         base = base.split(sep, 1)[0]
@@ -110,66 +82,11 @@ def _base_symbol(symbol: str) -> str:
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base, base)
 
 
-@lru_cache(maxsize=256)
-def _search_coin_id(base: str) -> str | None:
-    payload = _get_json("search", {"query": base})
-    coins = payload.get("coins", []) if isinstance(payload, dict) else []
-    exact = [c for c in coins if str(c.get("symbol", "")).upper() == base]
-    if not exact:
-        return None
-    exact.sort(key=lambda c: c.get("market_cap_rank") or 10**9)
-    return str(exact[0]["id"])
-  
-def _resolve_coin_id(symbol: str) -> str:
-    base = _base_symbol(symbol).lower()
-
-    # Stable, high-confidence aliases for the most common scanner symbols.
-    aliases = {
-        "btc": "bitcoin",
-        "eth": "ethereum",
-        "bnb": "binancecoin",
-        "sol": "solana",
-        "xrp": "ripple",
-        "ada": "cardano",
-        "doge": "dogecoin",
-        "avax": "avalanche-2",
-        "dot": "polkadot",
-        "matic": "matic-network",
-        "pol": "polygon-ecosystem-token",
-        "link": "chainlink",
-        "ltc": "litecoin",
-        "trx": "tron",
-        "atom": "cosmos",
-        "uni": "uniswap",
-        "etc": "ethereum-classic",
-        "xlm": "stellar",
-        "bch": "bitcoin-cash",
-        "near": "near",
-        "apt": "aptos",
-        "arb": "arbitrum",
-        "qnt": "quant-network",
-        "op": "optimism",
-        "fil": "filecoin",
-        "inj": "injective-protocol",
-        "sui": "sui",
-        "pepe": "pepe",
-        "aave": "aave",
-        "mkr": "maker",
-    }
-    if base in aliases:
-        return aliases[base]
-
-    cid = _search_coin_id(base.upper())
-    if not cid:
-        raise RuntimeError(f"CoinGecko coin id not found for {symbol}")
-    return cid
-
-
 HL_INFO_URL = "https://api.hyperliquid.xyz/info"
 
 
 def _hl_coin_name(symbol: str) -> str:
-    # Tên coin Hyperliquid phân biệt hoa thường (kPEPE), nên không dùng upper().
+    # Tên coin Hyperliquid phân biệt hoa thường (kPEPE), giữ nguyên định dạng hợp lệ.
     base = symbol.strip().split("/", 1)[0].split("-", 1)[0]
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
 
@@ -196,7 +113,7 @@ def _hl_daily_history(symbol: str) -> pd.DataFrame:
 
     out = []
     for row in rows:
-        if float(row["T"]) > now_ms:  # bỏ nến ngày đang chạy để không lộ giá tương lai
+        if float(row["T"]) > now_ms:  # bỏ nến ngày đang chạy
             continue
         o, h, l, c = (float(row[k]) for k in ("o", "h", "l", "c"))
         if c <= 0:
@@ -204,7 +121,7 @@ def _hl_daily_history(symbol: str) -> pd.DataFrame:
         out.append({
             "Date": pd.to_datetime(int(row["t"]), unit="ms"),
             "Open": o, "High": h, "Low": l, "Close": c,
-            "Volume": float(row["v"]) * c,  # quy đổi sang USD gần đúng
+            "Volume": float(row["v"]) * c,
         })
 
     df = pd.DataFrame(out)
@@ -218,77 +135,43 @@ def _hl_daily_history(symbol: str) -> pd.DataFrame:
     )
 
 
+def _kraken_ticker(symbol: str) -> dict:
+    """Lấy dữ liệu ticker spot bổ trợ từ Kraken API."""
+    base = _base_symbol(symbol)
+    # Kraken thường dùng mã XBT cho BTC và các cặp dạng XXBTZUSD hoặc tương đương
+    kraken_pair = "XXBTZUSD" if base == "BTC" else f"X{base}ZUSD" if base in ["ETH", "LTC", "XRP"] else f"{base}USD"
+    
+    url = f"{KRAKEN_API_URL}/Ticker?pair={kraken_pair}"
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as response:
+            data = json.load(response)
+            result = data.get("result", {})
+            # Lấy key đầu tiên trả về từ kết quả Kraken
+            for k in result:
+                pair_data = result[k]
+                c_info = pair_data.get("c", [0]) # Last trade closed [price, lot volume]
+                v_info = pair_data.get("v", [0, 0]) # Volume [today, 24h]
+                return {
+                    "kraken_price": float(c_info[0]) if c_info else 0.0,
+                    "kraken_volume_24h": float(v_info[1]) if len(v_info) > 1 else 0.0,
+                }
+    except Exception:
+        pass
+    return {}
+
+
 @lru_cache(maxsize=256)
 def _history(symbol: str) -> pd.DataFrame:
     """
-    Lấy lịch sử nến ngày, ưu tiên tuyệt đối Hyperliquid. 
-    Đã loại bỏ fallback phụ thuộc vào CoinGecko để tránh lỗi trễ dữ liệu.
+    Lấy lịch sử nến ngày, ưu tiên tuyệt đối Hyperliquid.
     """
     clean_sym = _hl_coin_name(symbol)
     try:
         return _hl_daily_history(clean_sym)
     except Exception as exc:
-        print(f"⚠️ [MarketData] Lỗi lấy lịch sử Hyperliquid cho {symbol} ({clean_sym}): {exc}")
-        # Nếu muốn fallback tạm thời sang chính hàm chuẩn hóa hoặc báo lỗi thay vì gọi CoinGecko chậm chạp:
-        raise RuntimeError(f"Không thể lấy lịch sử dữ liệu giá cho mã {symbol}")
-      
-def _history_coingecko(symbol: str) -> pd.DataFrame:
-    """Build a daily price/volume history from one CoinGecko market-chart request.
+        raise RuntimeError(f"Không thể lấy lịch sử dữ liệu giá cho mã {symbol} từ Hyperliquid: {exc}")
 
-    CoinGecko's daily market-chart data is used as the stable free/demo-compatible
-    history source. OHLC fields are reconstructed from consecutive daily prices;
-    volume comes from CoinGecko's total_volumes series.
-    """
-    coin_id = _resolve_coin_id(symbol)
-    payload = _get_json(
-        f"coins/{urllib.parse.quote(coin_id, safe='')}/market_chart",
-        {
-            "vs_currency": "usd",
-            "days": "365",
-            "interval": "daily",
-        },
-    )
-    prices = payload.get("prices") or []
-    volumes = payload.get("total_volumes") or []
-    if len(prices) < 60:
-        raise RuntimeError(
-            f"CoinGecko returned insufficient price history for {symbol}: {len(prices)} rows"
-        )
-
-    volume_map: dict[pd.Timestamp, float] = {}
-    for timestamp, value in volumes:
-        dt = pd.to_datetime(float(timestamp), unit="ms", utc=True).tz_convert(None)
-        volume_map[dt.normalize()] = float(value)
-
-    rows = []
-    previous_close: float | None = None
-    for timestamp, value in prices:
-        close = float(value)
-        if close <= 0:
-            continue
-        dt = pd.to_datetime(float(timestamp), unit="ms", utc=True).tz_convert(None)
-        open_price = previous_close if previous_close is not None else close
-        rows.append(
-            {
-                "Date": dt,
-                "Open": open_price,
-                "High": max(open_price, close),
-                "Low": min(open_price, close),
-                "Close": close,
-                "Volume": volume_map.get(dt.normalize(), 0.0),
-            }
-        )
-        previous_close = close
-
-    df = (
-        pd.DataFrame(rows)
-        .sort_values("Date")
-        .drop_duplicates("Date")
-        .reset_index(drop=True)
-    )
-    if len(df) < 60:
-        raise RuntimeError(f"CoinGecko history too short for {symbol}")
-    return df.tail(MAX_HISTORY_ROWS).reset_index(drop=True)
 
 def _indicators(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
@@ -332,19 +215,29 @@ def _indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 @lru_cache(maxsize=256)
 def _live_market(symbol: str) -> dict:
-    coin_id = _resolve_coin_id(symbol)
-    rows = _get_json(
-        "coins/markets",
-        {
-            "vs_currency": "usd",
-            "ids": coin_id,
-            "sparkline": "false",
-            "price_change_percentage": "24h",
-        },
-    )
-    if not rows:
-        raise RuntimeError(f"CoinGecko returned no live market row for {symbol}")
-    return rows[0]
+    """Lấy thông tin thị trường kết hợp từ CoinMarketCap và Kraken bổ trợ."""
+    clean_sym = _hl_coin_name(symbol)
+    payload = _get_cmc_json("cryptocurrency/quotes/latest", {"symbol": clean_sym})
+    data = payload.get("data", {})
+    if not data or clean_sym not in data:
+        raise RuntimeError(f"CoinMarketCap không trả về dữ liệu cho mã {symbol}")
+    
+    coin_data = data[clean_sym]
+    quote = coin_data.get("quote", {}).get("USD", {})
+    
+    # Lấy thêm dữ liệu bổ trợ từ Kraken spot
+    kraken_data = _kraken_ticker(symbol)
+
+    return {
+        "name": coin_data.get("name"),
+        "current_price": quote.get("price"),
+        "market_cap": quote.get("market_cap"),
+        "total_volume": quote.get("volume_24h"),
+        "price_change_percentage_24h": quote.get("percent_change_24h"),
+        "cmc_rank": coin_data.get("cmc_rank"),
+        "kraken_price": kraken_data.get("kraken_price"),
+        "kraken_volume_24h": kraken_data.get("kraken_volume_24h"),
+    }
 
 
 @tool
@@ -353,20 +246,17 @@ def get_stock_data(
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
     end_date: Annotated[str, "End date in yyyy-mm-dd format"],
 ) -> str:
-    """CoinGecko-backed replacement for TradingAgents' stock-data tool."""
+    """Hyperliquid-backed crypto market data tool."""
     df = _history(symbol)
     start = pd.Timestamp(start_date)
     end = pd.Timestamp(end_date) + pd.Timedelta(days=1)
     df = df[(df["Date"] >= start) & (df["Date"] < end)]
     if df.empty:
-        raise RuntimeError(
-            f"No CoinGecko crypto market data for {symbol} in requested range"
-        )
+        raise RuntimeError(f"Không có dữ liệu crypto cho {symbol} trong khoảng thời gian yêu cầu")
 
     return (
         f"# Crypto market data for {symbol.upper()}\n"
-        f"# Provider: Hyperliquid candles (CoinGecko fallback if unavailable)\n"
-        f"# Timeframe: CoinGecko market-chart daily data; OHLC reconstructed from daily closes\n"
+        f"# Provider: Hyperliquid candles\n"
         f"# Records: {len(df)}\n\n"
         + df[["Date", "Open", "High", "Low", "Close", "Volume"]].to_csv(index=False)
     )
@@ -385,18 +275,13 @@ def get_indicators(
     if df.empty or "Date" not in df.columns:
         raise RuntimeError(f"Indicator data for {symbol} is empty or missing 'Date' column")
 
-    # 1. Chuyển đổi cột Date sang datetime
     df["Date"] = pd.to_datetime(df["Date"])
-    
-    # 2. Sắp xếp dữ liệu theo thời gian tăng dần (Cũ -> Mới) để .tail() luôn lấy đúng các ngày gần nhất
     df = df.sort_values("Date").reset_index(drop=True)
     
-    # 3. Chuẩn hóa múi giờ cho target_date khớp với df["Date"] nếu có
     target_date = pd.Timestamp(curr_date)
     if df["Date"].dt.tz is not None and target_date.tz is None:
         target_date = target_date.tz_localize(df["Date"].dt.tz)
     
-    # 4. Lọc dữ liệu nhỏ hơn hoặc bằng ngày phân tích
     df = df[df["Date"] <= target_date]
     if df.empty:
         raise RuntimeError(f"No indicator data for {symbol} on or before {curr_date}")
@@ -411,18 +296,16 @@ def get_indicators(
     if missing:
         missing_str = ", ".join(f"'{m}'" for m in sorted(missing))
         available_str = ", ".join(sorted(available))
-        
         raise RuntimeError(
             f"Unsupported indicator(s): [{missing_str}]. "
             f"Available indicators: [{available_str}]"
-)
+        )
 
-    # Lấy look_back_days ngày mới nhất tính đến curr_date
     rows = df.tail(max(1, int(look_back_days)))
     
     lines = []
     for name in names:
-        lines.extend([f"## {name} for {symbol} (CoinGecko-native)", ""])
+        lines.extend([f"## {name} for {symbol}", ""])
         for _, row in rows.iterrows():
             value = row[name]
             text = "N/A" if pd.isna(value) else f"{float(value):.8g}"
@@ -431,18 +314,19 @@ def get_indicators(
         
     return "\n".join(lines).rstrip()
 
+
 @tool
 def get_verified_market_snapshot(
     symbol: Annotated[str, "crypto ticker such as BTC-USD"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "recent rows"] = 30,
 ) -> str:
-    """Verified crypto snapshot using CoinGecko historical + live market data."""
+    """Verified crypto snapshot using Hyperliquid historical + CoinMarketCap / Kraken live data."""
     df = _indicators(_history(symbol))
     cutoff = pd.Timestamp(curr_date)
     df = df[df["Date"] <= cutoff]
     if df.empty:
-        raise RuntimeError(f"No verified CoinGecko historical data for {symbol}")
+        raise RuntimeError(f"Không tìm thấy dữ liệu lịch sử cho {symbol}")
 
     latest = df.iloc[-1]
     live = _live_market(symbol)
@@ -450,8 +334,7 @@ def get_verified_market_snapshot(
     lines = [
         f"## Verified crypto market snapshot for {symbol.upper()}",
         "- Historical source: Hyperliquid 1d candles",
-        "- Live context: CoinGecko coins/markets",
-        f"- CoinGecko coin id: {_resolve_coin_id(symbol)}",
+        "- Live context: CoinMarketCap API + Kraken Spot",
         f"- Analysis cutoff: {curr_date}",
         "",
         "### Latest completed historical candle",
@@ -462,11 +345,14 @@ def get_verified_market_snapshot(
         f"- Close: {latest['Close']:.10g}",
         f"- Volume: {latest['Volume']:.10g}",
         "",
-        "### CoinGecko live context",
-        f"- Last: {float(live.get('current_price') or 0):.10g}",
+        "### Live Market Context (CMC & Kraken)",
+        f"- CMC Last Price: {float(live.get('current_price') or 0):.10g}",
+        f"- Kraken Spot Price: {float(live.get('kraken_price') or 0):.10g}",
         f"- Market cap: {float(live.get('market_cap') or 0):.10g}",
-        f"- 24h volume: {float(live.get('total_volume') or 0):.10g}",
+        f"- 24h volume (CMC): {float(live.get('total_volume') or 0):.10g}",
+        f"- 24h volume (Kraken): {float(live.get('kraken_volume_24h') or 0):.10g}",
         f"- 24h change: {float(live.get('price_change_percentage_24h') or 0):.6g}%",
+        f"- CMC Rank: {live.get('cmc_rank') or 'N/A'}",
         "",
         "### Verified indicators",
     ]
@@ -501,17 +387,16 @@ def get_verified_market_snapshot(
 
 
 def crypto_identity(ticker: str) -> dict[str, str]:
-    """Resolve crypto identity from the CoinGecko market endpoint."""
+    """Resolve crypto identity from live market endpoints."""
     base = _base_symbol(ticker)
-    pair = _resolve_coin_id(ticker)
     live = _live_market(ticker)
     return {
         "company_name": str(live.get("name") or base),
         "sector": "Crypto asset",
         "industry": "Cryptocurrency",
-        "exchange": "CoinGecko",
+        "exchange": "CoinMarketCap & Kraken",
         "quote_type": "CRYPTOCURRENCY",
         "market_cap": str(live.get("market_cap") or ""),
         "volume_24h": str(live.get("total_volume") or ""),
-        "pair": pair,
+        "pair": base,
     }
