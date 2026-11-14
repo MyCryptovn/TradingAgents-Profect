@@ -367,13 +367,13 @@ def get_stock_data(
 
 @tool
 def get_indicators(
-    """Calculate TradingAgents-compatible indicators from market data."""
     symbol: Annotated[str, "crypto ticker such as BTC"],
     indicator: Annotated[str, "one or comma-separated indicator names"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
     look_back_days: Annotated[int, "days of history"] = 30,
 ) -> str:
-    df = _indicators(_history(symbol))
+  """Calculate TradingAgents-compatible indicators from market data."""
+  df = _indicators(_history(symbol))
     df = df[df["Date"] <= pd.Timestamp(curr_date)]
     if df.empty:
         raise RuntimeError(f"No indicator data for {symbol} on or before {curr_date}")
