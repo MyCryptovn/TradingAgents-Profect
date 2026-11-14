@@ -398,8 +398,9 @@ def get_indicators(
     if not names:
         raise RuntimeError("No indicator names were provided")
     
-    missing_str = ", ".join(f"'{m}'" for m in sorted(missing))
-    available_str = ", ".join(sorted(available))
+    if missing:
+        missing_str = ", ".join(f"'{m}'" for m in sorted(missing))
+        available_str = ", ".join(sorted(available))
         
         raise RuntimeError(
             f"Unsupported indicator(s): [{missing_str}]. "
