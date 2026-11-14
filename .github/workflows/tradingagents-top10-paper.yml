@@ -101,7 +101,7 @@ jobs:
       - name: Score paper ledger
         env:
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
-        run: python scripts/audit_ledger.py score 
+        run: python scripts/paper_ledger.py score 
       
       - name: Show changed files
         run: git status --porcelain
