@@ -367,6 +367,7 @@ def get_stock_data(
 
 @tool
 def get_indicators(
+    """Calculate TradingAgents-compatible indicators from market data."""
     symbol: Annotated[str, "crypto ticker such as BTC"],
     indicator: Annotated[str, "one or comma-separated indicator names"],
     curr_date: Annotated[str, "analysis date YYYY-MM-DD"],
