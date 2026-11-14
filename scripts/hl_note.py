@@ -136,6 +136,6 @@ def hl_note(ticker):
 
 
 if __name__ == "__main__":
-    for t in ("BTC-USD", "ETH-USD", "SOL-USD", "TIA-USD", "INJ-USD", "kPEPE-USD"):
+    for t in ("BTC-USD", "ETH-USD", "SOL-USD", "TIA-USD", "INJ-USD"):
         print(t, "->", hl_note(t) or "(không có trên Hyperliquid hoặc lỗi)")
         print("-" * 60)
