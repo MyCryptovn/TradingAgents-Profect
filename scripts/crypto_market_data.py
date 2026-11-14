@@ -23,9 +23,9 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from functools import lru_cache
-from typing import Annotated
 
 import pandas as pd
+from typing import Annotated
 from langchain_core.tools import tool
 
 COINGECKO_PUBLIC_API = "https://api.coingecko.com/api/v3/"
@@ -398,6 +398,9 @@ def get_indicators(
     if not names:
         raise RuntimeError("No indicator names were provided")
     
+    available = [col for col in df.columns if col != "Date"]
+    missing = [name for name in names if name not in df.columns]
+  
     if missing:
         missing_str = ", ".join(f"'{m}'" for m in sorted(missing))
         available_str = ", ".join(sorted(available))
