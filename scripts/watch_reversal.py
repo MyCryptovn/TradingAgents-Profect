@@ -11,7 +11,6 @@ import tempfile
 import math
 import json
 import os
-import time
 from datetime import datetime, timezone
 
 from scripts.paper_ledger import COST, now, price, candles, settle, trade_coin, hl_post
@@ -29,6 +28,64 @@ LIVE_MOVE = 0.005        # biến động 5 phút tối thiểu để tính bơm
 LIVE_VOL_RATIO = 2.0     # khối lượng 5 phút so với trung bình 60 phút (ước lượng ban đầu)
 
 _CACHE = {}  # reset mỗi vòng, tránh dùng dữ liệu cũ
+
+import time
+import requests
+
+def get_hyperliquid_candles(coin: str, interval: str, lookback_minutes: int = 60):
+    """
+    Hàm gọi dữ liệu nến chuẩn từ Hyperliquid API.
+    - coin: Tên mã token (Ví dụ: 'NEAR', 'ICP', 'BTC'...)
+    - interval: Khung thời gian hỗ trợ chuẩn ('1m', '3m', '5m', '15m', '30m', '1h', ...)
+    - lookback_minutes: Khoảng thời gian quét lùi về quá khứ (tính bằng phút) để đảm bảo có đủ nến.
+    """
+    url = "https://api.hyperliquid.xyz/info"
+    
+    # Tính mốc thời gian mili-giây (milliseconds) hiện tại và quá khứ
+    end_time = int(time.time() * 1000)
+    start_time = end_time - (lookback_minutes * 60 * 1000)
+    
+    # Payload chuẩn theo tài liệu Hyperliquid cho Info API
+    payload = {
+        "type": "candleSnapshot",
+        "req": {
+            "coin": coin,
+            "interval": interval,
+            "startTime": start_time,
+            "endTime": end_time
+        }
+    }
+    
+    headers = {
+        "Content-Type": "application/json"
+    }
+    
+    try:
+        # Gửi request POST đến sàn (timeout 10 giây để tránh treo tiến trình trên GitHub Actions)
+        response = requests.post(url, json=payload, headers=headers, timeout=10)
+        
+        if response.status_code != 200:
+            print(f"⚠️ [API Error] {coin} {interval}: HTTP {response.status_code}")
+            return None
+            
+        data = response.json()
+        
+        # Kiểm tra nếu dữ liệu trả về rỗng hoặc không phải dạng danh sách
+        if not data or not isinstance(data, list):
+            print(f"⚠️ [Empty Data] Không có dữ liệu nến trả về cho {coin} ở khung {interval}")
+            return None
+            
+        return data  # Trả về danh sách các cây nến (OHLCV)
+        
+    except requests.exceptions.Timeout:
+        print(f"❌ [Timeout Error] Quá thời gian chờ khi lấy nến {coin} ({interval})")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"❌ [Network Error] Lỗi kết nối mạng khi lấy nến {coin} ({interval}): {e}")
+        return None
+    except Exception as e:
+        print(f"❌ [Unexpected Error] Lỗi không xác định với {coin} ({interval}): {e}")
+        return None
 
 
 def ema(values, n):
@@ -730,4 +787,24 @@ def main():
 
 
 if __name__ == "__main__":
+    symbols = ["BTC", "ETH", "XRP", "NEAR", "ICP", "..."] # Danh sách coin
+    
+    for symbol in symbols:
+        # 1. Lấy dữ liệu khung 1m (lùi về 30 phút trước)
+        candles_1m = get_hyperliquid_candles(symbol, "1m", lookback_minutes=60)
+        is_1m_valid = True if (candles_1m and len(candles_1m) > 0) else False
+    
+        # 2. Lấy dữ liệu khung 15m (lùi về 4 tiếng trước)
+        candles_15m = get_hyperliquid_candles(symbol, "15m", lookback_minutes=720)
+        is_15m_valid = True if (candles_15m and len(candles_15m) > 0) else False
+    
+        candles_1h = get_hyperliquid_candles(symbol, "1h", lookback_minutes=720)
+        is_1h_valid = True if (candles_1h and len(candles_1h) > 0) else False
+        
+        # In ra báo cáo chuẩn xác thay vì bị false ngầm
+        print(f"Báo cáo {symbol}: 1m={is_1m_valid} | 15m={is_15m_valid} | 1h={is_1h_valid}")
+    
+        # Nghỉ ngắn giữa các request để tránh chạm giới hạn Rate Limit của sàn (1200 request/phút)
+        time.sleep(0.3)
+
     main()
