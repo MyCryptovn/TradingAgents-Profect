@@ -47,7 +47,7 @@ def _get_cmc_json(path: str, params: dict[str, str] | None = None) -> dict:
     base = os.getenv("COINMARKETCAP_API_BASE_URL", CMC_API_URL).rstrip("/")
     url = f"{base}/{path.lstrip('/')}"
     if params:
-        url += "?" + urllib.parse.urlencode(params)
+        url = f"{url}?{urllib.parse.urlencode(params)}"
 
     key = _cmc_api_key()
     if not key:
