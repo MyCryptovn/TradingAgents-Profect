@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: tradingagents-top10-paper
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
