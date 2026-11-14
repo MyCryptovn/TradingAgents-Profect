@@ -44,8 +44,14 @@ def _cmc_api_key() -> str:
 
 def _get_cmc_json(path: str, params: dict[str, str] | None = None) -> dict:
     """Gọi CoinMarketCap API lấy dữ liệu JSON."""
-    base = os.getenv("COINMARKETCAP_API_BASE_URL", CMC_API_URL).rstrip("/")
-    url = f"{base}/{path.lstrip('/')}"
+    base = "https://pro-api.coinmarketcap.com/v1"
+    
+    # Làm sạch path để tránh lỗi trùng lặp dấu gạch chéo
+    clean_path = path.strip("/")
+    if not clean_path.startswith("v1/"):
+        clean_path = f"v1/{clean_path}"
+        
+    url = f"https://pro-api.coinmarketcap.com/{clean_path}"
     if params:
         url = f"{url}?{urllib.parse.urlencode(params)}"
 
