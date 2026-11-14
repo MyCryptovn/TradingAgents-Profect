@@ -220,11 +220,18 @@ def _hl_daily_history(symbol: str) -> pd.DataFrame:
 
 @lru_cache(maxsize=256)
 def _history(symbol: str) -> pd.DataFrame:
+    """
+    Lấy lịch sử nến ngày, ưu tiên tuyệt đối Hyperliquid. 
+    Đã loại bỏ fallback phụ thuộc vào CoinGecko để tránh lỗi trễ dữ liệu.
+    """
+    clean_sym = _hl_coin_name(symbol)
     try:
-        return _hl_daily_history(symbol)
+        return _hl_daily_history(clean_sym)
     except Exception as exc:
-        print(f"HL HISTORY FALLBACK to CoinGecko {symbol}: {type(exc).__name__}: {exc}")
-        return _history_coingecko(symbol)
+        print(f"⚠️ [MarketData] Lỗi lấy lịch sử Hyperliquid cho {symbol} ({clean_sym}): {exc}")
+        # Nếu muốn fallback tạm thời sang chính hàm chuẩn hóa hoặc báo lỗi thay vì gọi CoinGecko chậm chạp:
+        raise RuntimeError(f"Không thể lấy lịch sử dữ liệu giá cho mã {symbol}")
+      
 def _history_coingecko(symbol: str) -> pd.DataFrame:
     """Build a daily price/volume history from one CoinGecko market-chart request.
 
