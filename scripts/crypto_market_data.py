@@ -374,22 +374,41 @@ def get_indicators(
 ) -> str:
     """Calculate TradingAgents-compatible indicators from market data."""
     df = _indicators(_history(symbol))
-    df = df[df["Date"] <= pd.Timestamp(curr_date)]
+    
+    if df.empty or "Date" not in df.columns:
+        raise RuntimeError(f"Indicator data for {symbol} is empty or missing 'Date' column")
+
+    # 1. Chuyển đổi cột Date sang datetime
+    df["Date"] = pd.to_datetime(df["Date"])
+    
+    # 2. Sắp xếp dữ liệu theo thời gian tăng dần (Cũ -> Mới) để .tail() luôn lấy đúng các ngày gần nhất
+    df = df.sort_values("Date").reset_index(drop=True)
+    
+    # 3. Chuẩn hóa múi giờ cho target_date khớp với df["Date"] nếu có
+    target_date = pd.Timestamp(curr_date)
+    if df["Date"].dt.tz is not None and target_date.tz is None:
+        target_date = target_date.tz_localize(df["Date"].dt.tz)
+    
+    # 4. Lọc dữ liệu nhỏ hơn hoặc bằng ngày phân tích
+    df = df[df["Date"] <= target_date]
     if df.empty:
         raise RuntimeError(f"No indicator data for {symbol} on or before {curr_date}")
 
     names = [name.strip() for name in indicator.split(",") if name.strip()]
     if not names:
         raise RuntimeError("No indicator names were provided")
-    missing = [name for name in names if name not in df.columns]
-    if missing:
-        available = [str(col) for col in df.columns if col != "Date"]
+    
+    missing_str = ", ".join(f"'{m}'" for m in sorted(missing))
+    available_str = ", ".join(sorted(available))
+        
         raise RuntimeError(
-            f"Unsupported indicator(s): {', '.join(missing)}. "
-            f"Available columns: {', '.join(available)}"
-        )
+    f"Unsupported indicator(s): [{missing_str}]. "
+    f"Available indicators: [{available_str}]"
+)
 
+    # Lấy look_back_days ngày mới nhất tính đến curr_date
     rows = df.tail(max(1, int(look_back_days)))
+    
     lines = []
     for name in names:
         lines.extend([f"## {name} for {symbol} (CoinGecko-native)", ""])
@@ -398,6 +417,7 @@ def get_indicators(
             text = "N/A" if pd.isna(value) else f"{float(value):.8g}"
             lines.append(f"{row['Date'].strftime('%Y-%m-%d')}: {text}")
         lines.append("")
+        
     return "\n".join(lines).rstrip()
 
 @tool
