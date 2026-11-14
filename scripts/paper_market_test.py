@@ -31,20 +31,69 @@ class Trade:
     quantity: float
     equity_after: float
 
+import time
 
-def fetch_klines(symbol: str) -> list[list[float]]:
-    pair = symbol.upper().replace("/", "").replace("USDT", "USD")
-    pair = {"BTCUSD": "XBTUSD", "DOGEUSD": "XDGUSD"}.get(pair, pair)
-    params = urllib.parse.urlencode({"pair": pair, "interval": "15"})
-    url = f"https://api.kraken.com/0/public/OHLC?{params}"
-    with urllib.request.urlopen(url, timeout=20) as response:
-        raw = json.load(response)
-    if raw.get("error"):
-        raise RuntimeError(f"Kraken error: {raw['error']}")
-    key = next(k for k in raw["result"] if k != "last")
-    rows = raw["result"][key][:-1][-LIMIT:]
-    # Kraken OHLC row: [time, open, high, low, close, vwap, volume, count]
-    return [[float(r[1]), float(r[2]), float(r[3]), float(r[4]), float(r[6])] for r in rows]
+def fetch_klines(symbol: str, interval: str = "15m", limit: int = 100) -> list[list[float]]:
+    """
+    Lấy dữ liệu nến trực tiếp từ Hyperliquid Info API (chuẩn POST request),
+    giúp đồng bộ hoàn toàn với kiến trúc core engine mới.
+    """
+    # Chuẩn hóa symbol từ dạng "BTC/USDT" hoặc "BTCUSDT" sang coin của Hyperliquid (ví dụ: "BTC")
+    coin = symbol.upper().replace("/", "").replace("USDT", "").replace("USD", "")
+    if coin == "XBT":
+        coin = "BTC"
+        
+    url = "https://api.hyperliquid.xyz/info"
+    
+    # Quy đổi interval sang giây để tính khoảng thời gian bắt đầu (startTime)
+    interval_map = {"1m": 60, "5m": 300, "15m": 900, "1h": 3600, "4h": 14400, "1d": 86400}
+    sec = interval_map.get(interval, 900)
+    
+    end_time = int(time.time() * 1000)
+    start_time = end_time - (limit * sec * 1000)
+    
+    # Payload chuẩn theo tài liệu API của Hyperliquid cho candleSnapshot
+    payload = {
+        "type": "candleSnapshot",
+        "req": {
+            "coin": coin,
+            "interval": interval,
+            "startTime": start_time,
+            "endTime": end_time
+        }
+    }
+    
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "TradingAgents-PaperTest/1.0"
+        },
+        method="POST"
+    )
+    
+    try:
+        with urllib.request.urlopen(req, timeout=20) as response:
+            rows = json.loads(response.read().decode("utf-8"))
+    except Exception as e:
+        raise RuntimeError(f"Hyperliquid API error for {coin}: {e}")
+        
+    formatted = []
+    for r in rows:
+        if isinstance(r, dict):
+            # Hyperliquid trả về dạng dict chứa các trường thời gian, mở, cao, thấp, đóng, khối lượng
+            t = float(r.get("t", r.get("time", 0)))
+            o = float(r.get("o", r.get("open", 0)))
+            h = float(r.get("h", r.get("high", 0)))
+            l = float(r.get("l", r.get("low", 0)))
+            c = float(r.get("c", r.get("close", 0)))
+            v = float(r.get("v", r.get("volume", 0)))
+            formatted.append([t, o, h, l, c, v])
+            
+    return formatted
+
 
 def ema(values: list[float], period: int) -> float:
     alpha = 2.0 / (period + 1)
