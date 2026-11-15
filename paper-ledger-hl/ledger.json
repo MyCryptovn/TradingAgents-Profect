@@ -1671,7 +1671,8 @@
    "scan": "01 LIT/USD direction=SHORT score=84.19 long_score=22.81 short_score=84.19 mtf_score=0.8419 vol24h=$32,150,715 spread=1.649 depth10bps=$58,364",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "trough": 3.0218499999999997
+   "trough": 3.0218499999999997,
+   "council_checked_at": 1794719592
   },
   {
    "id": "43598524340-UNI/USD",
@@ -1687,7 +1688,8 @@
    "scan": "02 UNI/USD direction=SHORT score=84.07 long_score=16.96 short_score=84.07 mtf_score=0.8407 vol24h=$13,612,078 spread=1.850 depth10bps=$58,632",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "trough": 5.25395
+   "trough": 5.25395,
+   "council_checked_at": 1794719591
   },
   {
    "id": "43598524340-ZEC/USD",
@@ -1698,12 +1700,17 @@
    "t0": 1794663553,
    "entry": 878.315,
    "btc0": 66650.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.1385436887796053e-05,
    "scan": "03 ZEC/USD direction=SHORT score=82.39 long_score=20.45 short_score=82.39 mtf_score=0.8239 vol24h=$357,711,507 spread=2.609 depth10bps=$187,652",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "trough": 877.3299999999999
+   "trough": 877.3299999999999,
+   "exit": 904.6644500000001,
+   "t1": 1794709800,
+   "reason": "SL",
+   "pnl_pct": -3.621,
+   "mfe_pct": 8.731
   },
   {
    "id": "43598524340-ENA/USD",
