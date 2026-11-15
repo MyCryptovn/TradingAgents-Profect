@@ -420,7 +420,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + coingecko_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
