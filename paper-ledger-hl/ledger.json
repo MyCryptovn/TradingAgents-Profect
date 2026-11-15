@@ -1762,7 +1762,8 @@
    "scan": "01 FIL/USD direction=SHORT score=74.36 long_score=27.67 short_score=74.36 mtf_score=0.7436 vol24h=$2,694,956 spread=1.471 depth10bps=$69,142",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.61401
+   "trough": 0.61401,
+   "council_checked_at": 1794731463
   },
   {
    "id": "43684012650-ETH/USD",
@@ -1810,7 +1811,8 @@
    "scan": "04 PUMP/USD direction=SHORT score=66.52 long_score=40.48 short_score=66.52 mtf_score=0.6652 vol24h=$61,724,264 spread=3.425 depth10bps=$82,947",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.0029215
+   "trough": 0.0029215,
+   "council_checked_at": 1794731463
   },
   {
    "id": "43684012650-WLFI/USD",
