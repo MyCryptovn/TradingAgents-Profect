@@ -1838,7 +1838,7 @@
    "scan": "04 PUMP/USD direction=SHORT score=66.52 long_score=40.48 short_score=66.52 mtf_score=0.6652 vol24h=$61,724,264 spread=3.425 depth10bps=$82,947",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.0028995,
+   "trough": 0.0028585,
    "council_checked_at": 1794731463
   },
   {
@@ -1903,12 +1903,17 @@
    "t0": 1794742434,
    "entry": 503.88,
    "btc0": 65439.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00027784393109467803,
    "scan": "03 XMR/USD direction=LONG score=66.87 long_score=66.87 short_score=33.13 mtf_score=0.6687 vol24h=$70,399,344 spread=1.388 depth10bps=$46,335",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 504.155
+   "peak": 504.155,
+   "exit": 493.49,
+   "t1": 1794762422,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": -2.682,
+   "watch": "pnl=-2.68% give=2.1% 1m=False live=- 15m=True 1h=False 4h=True RSI15=41.9 pressure=0/3 fund=0.00001 book=+0.27 mv5=-0.31% vol=1.2"
   },
   {
    "id": "43708487424-NEAR/USD",
