@@ -1736,12 +1736,17 @@
    "t0": 1794663554,
    "entry": 0.0032375,
    "btc0": 66650.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003088803088803499,
    "scan": "05 PUMP/USD direction=SHORT score=76.22 long_score=22.06 short_score=76.22 mtf_score=0.7622 vol24h=$41,085,880 spread=3.097 depth10bps=$118,086",
    "cfg": "hl-v4",
    "src": "hyperliquid",
-   "trough": 0.0032095
+   "trough": 0.0029725,
+   "exit": 0.0029745,
+   "t1": 1794719731,
+   "reason": "REVERSAL_PROFIT",
+   "pnl_pct": 7.504,
+   "watch": "pnl=+7.50% give=0.1% 1m=True live=- 15m=True 1h=False 4h=False RSI15=58.3 pressure=0/3 fund=0.00001 book=-0.01 mv5=+0.30% vol=0.2"
   }
  ]
 }
