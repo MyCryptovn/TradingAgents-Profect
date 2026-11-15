@@ -1862,7 +1862,8 @@
    "spread": 2.1681156906512812e-05,
    "scan": "01 ZEC/USD direction=LONG score=81.37 long_score=81.37 short_score=18.79 mtf_score=0.8137 vol24h=$576,412,721 spread=0.109 depth10bps=$146,169",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 925.685
   },
   {
    "id": "43708487424-WLFI/USD",
@@ -1877,7 +1878,8 @@
    "spread": 0.00014798372179060436,
    "scan": "02 WLFI/USD direction=LONG score=70.50 long_score=70.50 short_score=31.61 mtf_score=0.7050 vol24h=$2,606,957 spread=1.271 depth10bps=$40,714",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.0474745
   },
   {
    "id": "43708487424-XMR/USD",
@@ -1892,7 +1894,8 @@
    "spread": 0.00027784393109467803,
    "scan": "03 XMR/USD direction=LONG score=66.87 long_score=66.87 short_score=33.13 mtf_score=0.6687 vol24h=$70,399,344 spread=1.388 depth10bps=$46,335",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 504.01
   },
   {
    "id": "43708487424-NEAR/USD",
