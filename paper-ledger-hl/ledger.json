@@ -1838,7 +1838,7 @@
    "scan": "04 PUMP/USD direction=SHORT score=66.52 long_score=40.48 short_score=66.52 mtf_score=0.6652 vol24h=$61,724,264 spread=3.425 depth10bps=$82,947",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.0029215,
+   "trough": 0.0028995,
    "council_checked_at": 1794731463
   },
   {
@@ -1865,12 +1865,17 @@
    "t0": 1794742433,
    "entry": 922.46,
    "btc0": 65439.5,
-   "status": "open",
+   "status": "closed",
    "spread": 2.1681156906512812e-05,
    "scan": "01 ZEC/USD direction=LONG score=81.37 long_score=81.37 short_score=18.79 mtf_score=0.8137 vol24h=$576,412,721 spread=0.109 depth10bps=$146,169",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 925.685
+   "peak": 925.685,
+   "exit": 896.795,
+   "t1": 1794751380,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": -3.402,
+   "watch": "pnl=-3.40% give=3.1% 1m=True live=XA_LIVE 15m=True 1h=False 4h=True RSI15=47.7 pressure=1/3 fund=0.00001 book=+0.19 mv5=-1.12% vol=19.3"
   },
   {
    "id": "43708487424-WLFI/USD",
@@ -1903,7 +1908,7 @@
    "scan": "03 XMR/USD direction=LONG score=66.87 long_score=66.87 short_score=33.13 mtf_score=0.6687 vol24h=$70,399,344 spread=1.388 depth10bps=$46,335",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 504.01
+   "peak": 504.155
   },
   {
    "id": "43708487424-NEAR/USD",
