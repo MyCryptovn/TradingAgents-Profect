@@ -4,7 +4,7 @@ Data sources:
 - Hyperliquid 1d candles: primary historical OHLC/volume for the AI analysts.
 - Kraken API: secondary/spot fallback source for price and market context.
 - CoinMarketCap API: live market context (market cap, rank, 24h volume).
-- Paper outcome measurement stays separate and uses Hyperliquid 1h candles.
+- Paper outcome measurement stays separate and uses Hyperliquid 1m, 15m, 1h candles.
 
 Design:
 - Requests are cached in-process to avoid redundant API calls.
@@ -42,40 +42,23 @@ def _cmc_api_key() -> str:
     ).strip()
 
 
-def _get_cmc_json(path: str, params: dict[str, str] | None = None) -> dict:
-    """Gọi CoinMarketCap API lấy dữ liệu JSON."""
-    base = "https://pro-api.coinmarketcap.com/v1"
-    
-    # Làm sạch path để tránh lỗi trùng lặp dấu gạch chéo
-    clean_path = path.strip("/")
-    if not clean_path.startswith("v1/"):
-        clean_path = f"v1/{clean_path}"
-        
-    url = f"https://pro-api.coinmarketcap.com/{clean_path}"
-    if params:
-        url = f"{url}?{urllib.parse.urlencode(params)}"
-
-    key = _cmc_api_key()
-    if not key:
-        raise RuntimeError("COINMARKETCAP_API_KEY chưa được thiết lập trong Environment Variables.")
-
-    headers = {
-        "Accept": "application/json",
-        "X-CMC_PRO_API_KEY": key,
-        "User-Agent": USER_AGENT,
+def _cmc_live(coin: str) -> dict:
+    sym = coin.upper()
+    payload = _get_cmc_json("cryptocurrency/quotes/latest", {"symbol": sym, "convert": "USD"})
+    data = payload.get("data", {}).get(sym)
+    rows = data if isinstance(data, list) else ([data] if data else [])
+    if not rows:
+        return {}
+    best = min(rows, key=lambda r: r.get("cmc_rank") or 10**9)
+    q = best.get("quote", {}).get("USD", {})
+    return {
+        "name": best.get("name"),
+        "cmc_rank": best.get("cmc_rank"),
+        "market_cap": q.get("market_cap"),
+        "volume_24h": q.get("volume_24h"),
+        "price": q.get("price"),
+        "pct_change_24h": q.get("percent_change_24h"),
     }
-
-    req = urllib.request.Request(url, headers=headers)
-    try:
-        with urllib.request.urlopen(req, timeout=30) as response:
-            payload = json.load(response)
-        
-        status = payload.get("status", {})
-        if status.get("error_code", 0) != 0:
-            raise RuntimeError(f"CoinMarketCap API error: {status.get('error_message', 'Unknown error')}")
-        return payload
-    except urllib.error.HTTPError as exc:
-        raise RuntimeError(f"CoinMarketCap HTTP error {exc.code}: {exc.reason}")
 
 
 def _base_symbol(symbol: str) -> str:
