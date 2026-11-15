@@ -1779,7 +1779,7 @@
    "scan": "01 FIL/USD direction=SHORT score=74.36 long_score=27.67 short_score=74.36 mtf_score=0.7436 vol24h=$2,694,956 spread=1.471 depth10bps=$69,142",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.61401,
+   "trough": 0.6107450000000001,
    "council_checked_at": 1794751361
   },
   {
