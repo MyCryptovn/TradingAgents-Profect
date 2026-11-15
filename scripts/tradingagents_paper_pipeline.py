@@ -36,7 +36,6 @@ KRAKEN_API = "https://api.kraken.com/0/public/"
 INTERVAL_MINUTES = 60
 INTERVAL_SECONDS = INTERVAL_MINUTES * 60
 HYPER_API = "https://api.hyperliquid.xyz/info"
-COINMARKETCAP_API = "https://pro-api.coinmarketcap.com/v1/simple/price"
 
 @dataclass
 class Decision:
@@ -421,7 +420,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
                 )
             else:
                 rules = SHORT_RULES
-            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
+            return (build_instrument_context(symbol, asset_type, crypto_identity(symbol)) + SHORT_NOTE + hl_perp_note(symbol) + flow_note(symbol) + candle_note(symbol) + hl_note(symbol) + hl_rich_note(symbol) + coinalyze_note(symbol) + coingecko_note(symbol) + " SCANNER SNAPSHOT: " + SCAN_INFO.get(symbol.replace("-", "/"), "") + rules)
         return original_resolve_context(self, symbol, asset_type)
 
     TradingAgentsGraph.resolve_instrument_context = crypto_resolve_context
@@ -677,8 +676,8 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINMARKETCAP (cap/rank/vol) + COINALYZE NOTE + KRAKEN")
-    print("DATA: COINMARKETCAP (market cap, cmc rank, 24h volume realtime)")
+    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINGECKO (cap/rank/vol) + COINALYZE NOTE + KRAKEN")
+    print("DATA: COINGECKO (market cap, cg rank, 24h volume realtime)")
     print("DATA: COINALYZE (perp open interest, funding, liquidations, context only)")
     print("DATA: KRAKEN (taker trade money flow / future & spot depth live)")
     print("AI: TRADINGAGENTS")
