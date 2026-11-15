@@ -36,7 +36,7 @@ KRAKEN_API = "https://api.kraken.com/0/public/"
 INTERVAL_MINUTES = 60
 INTERVAL_SECONDS = INTERVAL_MINUTES * 60
 HYPER_API = "https://api.hyperliquid.xyz/info"
-COINMARKETCAP_API = "https://pro-api.coinmarketcap.com/v2/simple/price"
+COINMARKETCAP_API = "https://pro-api.coinmarketcap.com/v1/simple/price"
 
 @dataclass
 class Decision:
