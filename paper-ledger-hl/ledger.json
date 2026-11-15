@@ -1779,7 +1779,7 @@
    "scan": "01 FIL/USD direction=SHORT score=74.36 long_score=27.67 short_score=74.36 mtf_score=0.7436 vol24h=$2,694,956 spread=1.471 depth10bps=$69,142",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.6107450000000001,
+   "trough": 0.60744,
    "council_checked_at": 1794751361
   },
   {
@@ -1891,7 +1891,7 @@
    "scan": "02 WLFI/USD direction=LONG score=70.50 long_score=70.50 short_score=31.61 mtf_score=0.7050 vol24h=$2,606,957 spread=1.271 depth10bps=$40,714",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.0474745,
+   "peak": 0.047508999999999996,
    "council_checked_at": 1794751361
   },
   {
