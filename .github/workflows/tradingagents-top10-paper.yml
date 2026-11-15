@@ -28,40 +28,39 @@ jobs:
         run: pip install -e vendor/TradingAgents
 
       - name: Validate crypto-native adapter
-        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
+        run: python -m py_compile scripts/market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
       
-      - name: Validate CoinMarketCap API access
+        - name: Validate CoinGecko API access
         env:
-          COINMARKETCAP_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
-          COINMARKETCAP_API_BASE_URL: https://pro-api.coinmarketcap.com/v1
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
         run: |
           python - <<'PY'
           import os
           import urllib.request
 
-          base = os.environ["COINMARKETCAP_API_BASE_URL"].rstrip("/") + "/"
-          key = os.environ.get("COINMARKETCAP_API_KEY", "").strip()
+          base = os.environ["COINGECKO_API_BASE_URL"].rstrip("/") + "/"
+          key = os.environ.get("COINGECKO_API_KEY", "").strip()
           if not key:
-              raise SystemExit("COINMARKETCAP_API_KEY GitHub Secret is missing.")
-          # Sử dụng endpoint thông tin cơ bản hoặc cryptocurrency map của CMC để kiểm tra preflight
-          url = base + "cryptocurrency/map?limit=1"
+              raise SystemExit("COINGECKO_API_KEY GitHub Secret is missing.")
           req = urllib.request.Request(
-              url,
+              base + "ping",
               headers={
                   "Accept": "application/json",
-                  "User-Agent": "TradingAgents-Profect/coinmarketcap-preflight",
-                  "X-CMC_PRO_API_KEY": key,
+                  "User-Agent": "TradingAgents-Profect/coingecko-preflight",
+                  "x-cg-demo-api-key": key,
               },
           )
           with urllib.request.urlopen(req, timeout=30) as response:
-              print("COINMARKETCAP API PREFLIGHT:", response.read().decode("utf-8")[:200])
+              print("COINGECKO API PREFLIGHT:", response.read().decode("utf-8")[:200])
           PY
-
+          
       - name: Run Top-10 TradingAgents paper pipeline
         env:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_API_BASE_URL: https://generativelanguage.googleapis.com
-          COINMARKETCAP_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
+          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
           COINALYZE_API_KEY: ${{ secrets.COINALYZE_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
@@ -76,7 +75,7 @@ jobs:
       - name: Verify crypto-native routing and live trading gate
         run: |
           grep -R -q "HYPERLIQUID" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "COINMARKETCAP" scripts/tradingagents_paper_pipeline.py
+          grep -R -q "COINGECKO" scripts/tradingagents_paper_pipeline.py
           grep -R -q "COINALYZE" scripts/tradingagents_paper_pipeline.py
           grep -R -q "KRAKEN" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
