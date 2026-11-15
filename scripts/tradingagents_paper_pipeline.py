@@ -452,7 +452,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
 
 def realtime_long_candles(pair: str, resolution: str = "1m", limit: int = 50) -> list[list[float]]:
     """
-    Lấy dữ liệu nến ngắn hạn (1m hoặc 5m) bao gồm cả nến đang chạy (real-time) 
+    Lấy dữ liệu nến ngắn hạn (1m hoặc 15m) bao gồm cả nến đang chạy (real-time) 
     để AI bắt các cú bơm xả hoặc biến động khối lượng đột biến.
     """
     coin = hl_coin_from_symbol(pair)
@@ -476,7 +476,7 @@ def realtime_long_candles(pair: str, resolution: str = "1m", limit: int = 50) ->
 
 def realtime_short_candles(pair: str, resolution: str = "1m", limit: int = 50) -> list[list[float]]:
     """
-    Lấy dữ liệu nến ngắn hạn (1m hoặc 5m) bao gồm cả nến đang chạy (real-time) 
+    Lấy dữ liệu nến ngắn hạn (1m hoặc 15m) bao gồm cả nến đang chạy (real-time) 
     để AI bắt các cú bơm xả hoặc biến động khối lượng đột biến.
     """
     coin = hl_coin_from_symbol(pair)
