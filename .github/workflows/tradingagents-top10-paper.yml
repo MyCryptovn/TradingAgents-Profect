@@ -108,6 +108,8 @@ jobs:
       
       - name: Commit and push ledger changes
         run: |
+          git config user.name "paper-bot"
+          git config user.email "paper-bot@users.noreply.github.com"
           git add paper-ledger-hl/ledger.json paper-ledger-hl/report.md
           git diff --staged --quiet && exit 0
           git commit -m "update paper ledger [skip ci]"
