@@ -374,7 +374,7 @@ def assess_quality(
     book = features.get("book", {})
 
     # Core timeframes: mandatory.
-    required = ("5m", "15m", "1h")
+    required = ("1m", "15m", "1h")
 
     for timeframe in required:
         row = timeframes.get(timeframe, {})
