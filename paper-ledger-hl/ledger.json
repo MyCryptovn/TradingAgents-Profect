@@ -1774,12 +1774,17 @@
    "t0": 1794723951,
    "entry": 1794.55,
    "btc0": 64490.5,
-   "status": "open",
+   "status": "closed",
    "spread": 5.5724276280911123e-05,
    "scan": "02 ETH/USD direction=SHORT score=72.22 long_score=33.31 short_score=72.22 mtf_score=0.7222 vol24h=$2,199,103,720 spread=0.559 depth10bps=$16,600,916",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 1791.15
+   "trough": 1791.15,
+   "exit": 1834.05,
+   "t1": 1794734513,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": -2.821,
+   "watch": "pnl=-2.82% give=2.4% 1m=False live=- 15m=True 1h=False 4h=False RSI15=68.7 pressure=1/3 fund=0.00001 book=+0.48 mv5=-0.04% vol=0.6"
   },
   {
    "id": "43684012650-BTC/USD",
@@ -1790,12 +1795,17 @@
    "t0": 1794723951,
    "entry": 64490.5,
    "btc0": 64490.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.5506159821989285e-05,
    "scan": "03 BTC/USD direction=SHORT score=71.62 long_score=35.38 short_score=71.62 mtf_score=0.7162 vol24h=$7,463,793,070 spread=0.156 depth10bps=$11,391,182",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 64353.5
+   "trough": 64353.5,
+   "exit": 65766.5,
+   "t1": 1794734514,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": -2.599,
+   "watch": "pnl=-2.60% give=2.2% 1m=False live=- 15m=True 1h=False 4h=False RSI15=68.6 pressure=1/3 fund=0.00001 book=+0.74 mv5=-0.08% vol=0.5"
   },
   {
    "id": "43684012650-PUMP/USD",
