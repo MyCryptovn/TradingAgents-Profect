@@ -686,7 +686,7 @@ def main() -> int:
     print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
 
-        owned = [s for s in candidates if s in open_set]
+    owned = [s for s in candidates if s in open_set]
     others = [s for s in candidates if s not in open_set]
     others = sorted(others, key=_strength, reverse=True)
     pool = owned + others
