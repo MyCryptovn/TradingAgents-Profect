@@ -856,6 +856,12 @@ def print_report(
         f"{sum(1 for x in all_rows if x['passed_quality'])}"
     )
 
+    for row in all_rows:
+    if not row.get("passed_quality"):
+        print(
+            f"REJECT_QUALITY {row['symbol']}: "
+            f"{','.join(row['quality'].get('reasons', []))}")
+    
     print(f"REJECTED: {len(rejected) + len(discovery_rejected)}")
 
     print("\nTOP LONG CANDIDATES:")
