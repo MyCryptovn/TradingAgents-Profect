@@ -167,7 +167,6 @@ def _resolve_coin_id(symbol: str) -> str:
 
 HL_INFO_URL = "https://api.hyperliquid.xyz/info"
 
-
 def _hl_retry(fn, tries: int = 3):
     for attempt in range(tries):
         try:
@@ -182,8 +181,6 @@ def _hl_coin_name(symbol: str) -> str:
     # Tên coin Hyperliquid phân biệt hoa thường (kPEPE), nên không dùng upper().
     base = symbol.strip().split("/", 1)[0].split("-", 1)[0]
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
-
-HL_INFO_URL = "https://api.hyperliquid.xyz/info"
 
 
 def hyper_post(body: dict):
@@ -208,13 +205,7 @@ def _hl_daily_history(symbol: str) -> pd.DataFrame:
             "endTime": now_ms,
         },
     }
-    req = urllib.request.Request(
-        HL_INFO_URL,
-        data=json.dumps(body).encode("utf-8"),
-        headers={"Content-Type": "application/json", "User-Agent": USER_AGENT},
-    )
-    with urllib.request.urlopen(req, timeout=30) as r:
-        rows = json.load(r)
+    rows = _hl_retry(lambda: hyper_post(body))
 
     out = []
     for row in rows:
