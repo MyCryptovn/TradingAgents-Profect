@@ -857,10 +857,13 @@ def print_report(
     )
 
     for row in all_rows:
-    if not row.get("passed_quality"):
-        print(
-            f"REJECT_QUALITY {row['symbol']}: "
-            f"{','.join(row['quality'].get('reasons', []))}")
+        if not row.get("passed_quality"):
+            print(
+                f"REJECT_QUALITY {row['symbol']}: "
+                f"{','.join(row['quality'].get('reasons', []))}"
+            )
+
+    print("\nREJECTED REASONS:")
     
     print(f"REJECTED: {len(rejected) + len(discovery_rejected)}")
 
