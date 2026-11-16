@@ -183,6 +183,18 @@ def _hl_coin_name(symbol: str) -> str:
     base = symbol.strip().split("/", 1)[0].split("-", 1)[0]
     return {"XBT": "BTC", "XDG": "DOGE"}.get(base.upper(), base)
 
+HL_INFO_URL = "https://api.hyperliquid.xyz/info"
+
+
+def hyper_post(body: dict):
+    req = urllib.request.Request(
+        HL_INFO_URL,
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json", "User-Agent": USER_AGENT},
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
+      
 
 def _hl_daily_history(symbol: str) -> pd.DataFrame:
     coin = _hl_coin_name(symbol)
