@@ -686,15 +686,26 @@ def main() -> int:
     print("REAL ORDERS: DISABLED")
     print(f"CANDIDATES: {len(candidates)}")
 
-    for rank, symbol in enumerate(candidates, 1):
+        owned = [s for s in candidates if s in open_set]
+    others = [s for s in candidates if s not in open_set]
+    others = sorted(others, key=_strength, reverse=True)
+    pool = owned + others
+    print(f"POOL: {len(pool)} coin, mục tiêu {MAX_LLM_CANDIDATES} phân tích thành công")
+
+    decisions: list[Decision] = []
+    successes = 0
+
+    for symbol in pool:
+        if successes >= MAX_LLM_CANDIDATES:
+            break
+        rank = len(decisions) + 1
         ticker = to_crypto_ticker(symbol)
         item = Decision(rank, symbol, ticker, "REVIEW", datetime.now(timezone.utc).isoformat())
         try:
             item.decision = run_with_retry(ticker, trade_date)
+            successes += 1
             print(f"{rank:02d} {symbol:12} -> {item.decision}")
         except Exception as exc:
-            import traceback
-            traceback.print_exc()
             item.error = f"{type(exc).__name__}: {exc}"
             item.outcome_status = "ERROR"
             print(f"{rank:02d} {symbol:12} -> ERROR -> {item.error}")
