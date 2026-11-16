@@ -2005,7 +2005,8 @@
    "scan": "01 ASTER/USD direction=LONG score=66.60 long_score=66.60 short_score=35.43 mtf_score=0.6660 vol24h=$60,260,339 spread=6.549 depth10bps=$94,597",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.5660050000000001
+   "peak": 0.5660050000000001,
+   "council_checked_at": 1794847493
   },
   {
    "id": "43883889666-XMR/USD",
@@ -2034,6 +2035,66 @@
    "status": "open",
    "spread": 0.0001491090732871043,
    "scan": "02 ZEC/USD direction=SHORT score=63.95 long_score=36.05 short_score=63.95 mtf_score=0.6395 vol24h=$333,240,444 spread=0.804 depth10bps=$114,572",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43905994165-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOL",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794847494,
+   "entry": 70.9005,
+   "btc0": 64578.5,
+   "status": "open",
+   "spread": 1.4104272889338778e-05,
+   "scan": "01 SOL/USD direction=SHORT score=67.58 long_score=33.40 short_score=67.58 mtf_score=0.6758 vol24h=$236,577,460 spread=0.852 depth10bps=$1,226,205",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43905994165-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794847494,
+   "entry": 0.0028355,
+   "btc0": 64578.5,
+   "status": "open",
+   "spread": 0.00035267148651036247,
+   "scan": "02 PUMP/USD direction=SHORT score=64.26 long_score=35.74 short_score=64.26 mtf_score=0.6426 vol24h=$21,433,164 spread=7.107 depth10bps=$49,558",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43905994165-ARB/USD",
+   "symbol": "ARB/USD",
+   "pair": "ARB",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794847494,
+   "entry": 0.131575,
+   "btc0": 64578.5,
+   "status": "open",
+   "spread": 0.00022800684020522324,
+   "scan": "03 ARB/USD direction=SHORT score=63.74 long_score=36.26 short_score=63.74 mtf_score=0.6374 vol24h=$2,819,458 spread=3.039 depth10bps=$102,696",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43905994165-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEAR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794847494,
+   "entry": 3.1651999999999996,
+   "btc0": 64578.5,
+   "status": "open",
+   "spread": 6.318716036900607e-05,
+   "scan": "04 NEAR/USD direction=SHORT score=60.88 long_score=46.12 short_score=60.88 mtf_score=0.6088 vol24h=$43,541,220 spread=0.319 depth10bps=$296,585",
    "cfg": "hl-v5",
    "src": "hyperliquid"
   }
