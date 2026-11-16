@@ -2004,7 +2004,8 @@
    "spread": 0.0003217905858375637,
    "scan": "01 ASTER/USD direction=LONG score=66.60 long_score=66.60 short_score=35.43 mtf_score=0.6660 vol24h=$60,260,339 spread=6.549 depth10bps=$94,597",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.5660050000000001
   },
   {
    "id": "43883889666-XMR/USD",
