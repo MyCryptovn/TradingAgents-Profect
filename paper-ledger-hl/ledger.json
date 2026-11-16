@@ -2005,7 +2005,7 @@
    "scan": "01 ASTER/USD direction=LONG score=66.60 long_score=66.60 short_score=35.43 mtf_score=0.6660 vol24h=$60,260,339 spread=6.549 depth10bps=$94,597",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.5660050000000001,
+   "peak": 0.56972,
    "council_checked_at": 1794847493
   },
   {
@@ -2111,7 +2111,8 @@
    "spread": 1.3864337458039927e-05,
    "scan": "01 SOL/USD direction=LONG score=72.06 long_score=72.06 short_score=34.94 mtf_score=0.7206 vol24h=$239,377,098 spread=0.139 depth10bps=$1,108,308",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 72.1275
   },
   {
    "id": "43965629800-ICP/USD",
@@ -2171,7 +2172,8 @@
    "spread": 1.4124593035230617e-05,
    "scan": "05 HYPE/USD direction=LONG score=67.95 long_score=67.95 short_score=31.05 mtf_score=0.6795 vol24h=$752,008,461 spread=0.284 depth10bps=$584,769",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 70.918
   }
  ]
 }
