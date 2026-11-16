@@ -1779,7 +1779,7 @@
    "scan": "01 FIL/USD direction=SHORT score=74.36 long_score=27.67 short_score=74.36 mtf_score=0.7436 vol24h=$2,694,956 spread=1.471 depth10bps=$69,142",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.603995,
+   "trough": 0.60138,
    "council_checked_at": 1794751361
   },
   {
@@ -1833,13 +1833,18 @@
    "t0": 1794723952,
    "entry": 0.0029305,
    "btc0": 64490.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003412386964682248,
    "scan": "04 PUMP/USD direction=SHORT score=66.52 long_score=40.48 short_score=66.52 mtf_score=0.6652 vol24h=$61,724,264 spread=3.425 depth10bps=$82,947",
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "trough": 0.0028585,
-   "council_checked_at": 1794774407
+   "council_checked_at": 1794774407,
+   "exit": 0.0028975,
+   "t1": 1794795309,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": 0.506,
+   "watch": "pnl=+0.51% give=1.4% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.6 pressure=0/3 fund=0.00000 book=+0.04 mv5=+0.24% vol=0.2"
   },
   {
    "id": "43684012650-WLFI/USD",
