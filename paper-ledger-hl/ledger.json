@@ -1785,7 +1785,8 @@
    "t1": 1794810351.0,
    "reason": "TIME",
    "pnl_pct": 1.621,
-   "mfe_pct": 2.712
+   "mfe_pct": 2.712,
+   "trail_pnl_pct": -1.81
   },
   {
    "id": "43684012650-ETH/USD",
@@ -1806,7 +1807,8 @@
    "t1": 1794734513,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": -2.821,
-   "watch": "pnl=-2.82% give=2.4% 1m=False live=- 15m=True 1h=False 4h=False RSI15=68.7 pressure=1/3 fund=0.00001 book=+0.48 mv5=-0.04% vol=0.6"
+   "watch": "pnl=-2.82% give=2.4% 1m=False live=- 15m=True 1h=False 4h=False RSI15=68.7 pressure=1/3 fund=0.00001 book=+0.48 mv5=-0.04% vol=0.6",
+   "trail_pnl_pct": -2.343
   },
   {
    "id": "43684012650-BTC/USD",
@@ -1827,7 +1829,8 @@
    "t1": 1794734514,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": -2.599,
-   "watch": "pnl=-2.60% give=2.2% 1m=False live=- 15m=True 1h=False 4h=False RSI15=68.6 pressure=1/3 fund=0.00001 book=+0.74 mv5=-0.08% vol=0.5"
+   "watch": "pnl=-2.60% give=2.2% 1m=False live=- 15m=True 1h=False 4h=False RSI15=68.6 pressure=1/3 fund=0.00001 book=+0.74 mv5=-0.08% vol=0.5",
+   "trail_pnl_pct": -2.439
   },
   {
    "id": "43684012650-PUMP/USD",
@@ -1849,7 +1852,8 @@
    "t1": 1794795309,
    "reason": "REVERSAL_CUT",
    "pnl_pct": 0.506,
-   "watch": "pnl=+0.51% give=1.4% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.6 pressure=0/3 fund=0.00000 book=+0.04 mv5=+0.24% vol=0.2"
+   "watch": "pnl=+0.51% give=1.4% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.6 pressure=0/3 fund=0.00000 book=+0.04 mv5=+0.24% vol=0.2",
+   "trail_pnl_pct": -1.282
   },
   {
    "id": "43684012650-WLFI/USD",
@@ -1860,11 +1864,14 @@
    "t0": 1794723952,
    "entry": 0.0466325,
    "btc0": 64490.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005361067924730016,
    "scan": "05 WLFI/USD direction=SHORT score=64.41 long_score=41.47 short_score=64.41 mtf_score=0.6441 vol24h=$2,593,644 spread=1.296 depth10bps=$43,846",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.046109,
+   "t1": 1794810352.0,
+   "move_pct": -1.123
   },
   {
    "id": "43708487424-ZEC/USD",
@@ -1885,7 +1892,8 @@
    "t1": 1794751380,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": -3.402,
-   "watch": "pnl=-3.40% give=3.1% 1m=True live=XA_LIVE 15m=True 1h=False 4h=True RSI15=47.7 pressure=1/3 fund=0.00001 book=+0.19 mv5=-1.12% vol=19.3"
+   "watch": "pnl=-3.40% give=3.1% 1m=True live=XA_LIVE 15m=True 1h=False 4h=True RSI15=47.7 pressure=1/3 fund=0.00001 book=+0.19 mv5=-1.12% vol=19.3",
+   "trail_pnl_pct": -3.04
   },
   {
    "id": "43708487424-WLFI/USD",
@@ -1907,7 +1915,8 @@
    "t1": 1794788487,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -1.456,
-   "watch": "pnl=-1.46% give=1.3% 1m=True live=- 15m=True 1h=False 4h=True RSI15=42.6 pressure=0/3 fund=0.00001 book=+0.82 mv5=+0.03% vol=0.6"
+   "watch": "pnl=-1.46% give=1.3% 1m=True live=- 15m=True 1h=False 4h=True RSI15=42.6 pressure=0/3 fund=0.00001 book=+0.82 mv5=+0.03% vol=0.6",
+   "trail_pnl_pct": -2.473
   },
   {
    "id": "43708487424-XMR/USD",
@@ -1928,7 +1937,8 @@
    "t1": 1794762422,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": -2.682,
-   "watch": "pnl=-2.68% give=2.1% 1m=False live=- 15m=True 1h=False 4h=True RSI15=41.9 pressure=0/3 fund=0.00001 book=+0.27 mv5=-0.31% vol=1.2"
+   "watch": "pnl=-2.68% give=2.1% 1m=False live=- 15m=True 1h=False 4h=True RSI15=41.9 pressure=0/3 fund=0.00001 book=+0.27 mv5=-0.31% vol=1.2",
+   "trail_pnl_pct": -3.02
   },
   {
    "id": "43708487424-NEAR/USD",
@@ -1939,11 +1949,14 @@
    "t0": 1794742434,
    "entry": 3.1965000000000003,
    "btc0": 65439.5,
-   "status": "open",
+   "status": "closed",
    "spread": 6.256843422492662e-05,
    "scan": "04 NEAR/USD direction=LONG score=66.75 long_score=66.75 short_score=33.61 mtf_score=0.6675 vol24h=$106,759,151 spread=1.570 depth10bps=$353,180",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.1987,
+   "t1": 1794828834.0,
+   "move_pct": 0.069
   },
   {
    "id": "43708487424-HYPE/USD",
@@ -1954,9 +1967,72 @@
    "t0": 1794742434,
    "entry": 68.07849999999999,
    "btc0": 65439.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.4688925284642936e-05,
    "scan": "05 HYPE/USD direction=LONG score=65.21 long_score=65.21 short_score=34.79 mtf_score=0.6521 vol24h=$1,249,436,998 spread=0.147 depth10bps=$252,015",
+   "cfg": "hl-v5",
+   "src": "hyperliquid",
+   "exit": 67.105,
+   "t1": 1794828834.0,
+   "move_pct": -1.43
+  },
+  {
+   "id": "43883889666-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794839474,
+   "entry": 0.00283,
+   "btc0": 64520.5,
+   "status": "open",
+   "spread": 0.0007067137809188217,
+   "scan": "01 PUMP/USD direction=SHORT score=68.82 long_score=34.25 short_score=68.82 mtf_score=0.6882 vol24h=$19,701,137 spread=3.534 depth10bps=$75,075",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43883889666-ASTER/USD",
+   "symbol": "ASTER/USD",
+   "pair": "ASTER",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1794839474,
+   "entry": 0.5593699999999999,
+   "btc0": 64520.5,
+   "status": "open",
+   "spread": 0.0003217905858375637,
+   "scan": "01 ASTER/USD direction=LONG score=66.60 long_score=66.60 short_score=35.43 mtf_score=0.6660 vol24h=$60,260,339 spread=6.549 depth10bps=$94,597",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43883889666-XMR/USD",
+   "symbol": "XMR/USD",
+   "pair": "XMR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794839475,
+   "entry": 502.64,
+   "btc0": 64520.5,
+   "status": "open",
+   "spread": 0.00031831927423210454,
+   "scan": "02 XMR/USD direction=LONG score=64.38 long_score=64.38 short_score=35.62 mtf_score=0.6438 vol24h=$38,437,581 spread=5.578 depth10bps=$49,625",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "43883889666-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794839475,
+   "entry": 871.845,
+   "btc0": 64520.5,
+   "status": "open",
+   "spread": 0.0001491090732871043,
+   "scan": "02 ZEC/USD direction=SHORT score=63.95 long_score=36.05 short_score=63.95 mtf_score=0.6395 vol24h=$333,240,444 spread=0.804 depth10bps=$114,572",
    "cfg": "hl-v5",
    "src": "hyperliquid"
   }
