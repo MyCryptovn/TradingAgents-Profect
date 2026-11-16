@@ -1774,13 +1774,18 @@
    "t0": 1794723951,
    "entry": 0.61401,
    "btc0": 64490.5,
-   "status": "open",
+   "status": "closed",
    "spread": 3.257275940134526e-05,
    "scan": "01 FIL/USD direction=SHORT score=74.36 long_score=27.67 short_score=74.36 mtf_score=0.7436 vol24h=$2,694,956 spread=1.471 depth10bps=$69,142",
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "trough": 0.60138,
-   "council_checked_at": 1794751361
+   "council_checked_at": 1794751361,
+   "exit": 0.60023,
+   "t1": 1794810351.0,
+   "reason": "TIME",
+   "pnl_pct": 1.621,
+   "mfe_pct": 2.712
   },
   {
    "id": "43684012650-ETH/USD",
