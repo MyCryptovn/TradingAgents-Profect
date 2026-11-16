@@ -239,7 +239,7 @@ def _history(symbol: str) -> pd.DataFrame:
     """
     clean_sym = _hl_coin_name(symbol)
     try:
-        return _hl_retry(lambda: hyper_post(body))
+        return _hl_daily_history(clean_sym)
     except Exception as exc:
         print(f"⚠️ [MarketData] Lỗi lấy lịch sử Hyperliquid cho {symbol} ({clean_sym}): {exc}")
         # Nếu muốn fallback tạm thời sang chính hàm chuẩn hóa hoặc báo lỗi thay vì gọi CoinGecko chậm chạp:
