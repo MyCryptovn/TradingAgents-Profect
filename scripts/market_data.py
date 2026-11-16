@@ -168,6 +168,16 @@ def _resolve_coin_id(symbol: str) -> str:
 HL_INFO_URL = "https://api.hyperliquid.xyz/info"
 
 
+def _hl_retry(fn, tries: int = 3):
+    for attempt in range(tries):
+        try:
+            return fn()
+        except urllib.error.HTTPError as exc:
+            if exc.code != 429 or attempt == tries - 1:
+                raise
+            time.sleep(5 * (attempt + 1))
+
+
 def _hl_coin_name(symbol: str) -> str:
     # Tên coin Hyperliquid phân biệt hoa thường (kPEPE), nên không dùng upper().
     base = symbol.strip().split("/", 1)[0].split("-", 1)[0]
@@ -226,7 +236,7 @@ def _history(symbol: str) -> pd.DataFrame:
     """
     clean_sym = _hl_coin_name(symbol)
     try:
-        return _hl_daily_history(clean_sym)
+        return _hl_retry(lambda: hyper_post(body))
     except Exception as exc:
         print(f"⚠️ [MarketData] Lỗi lấy lịch sử Hyperliquid cho {symbol} ({clean_sym}): {exc}")
         # Nếu muốn fallback tạm thời sang chính hàm chuẩn hóa hoặc báo lỗi thay vì gọi CoinGecko chậm chạp:
