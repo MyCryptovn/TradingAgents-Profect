@@ -139,7 +139,7 @@ def _meta(dex=None):
 def hl_context(coin):
     """
     Return:
-        funding, imbalance, funding_ok, book_ok
+        funding, imbalance, funding_ok, book_ok, oi
 
     None means unavailable. Never convert an API error into neutral zero.
     """
@@ -173,7 +173,14 @@ def hl_context(coin):
 
             except (KeyError, TypeError, ValueError, OverflowError):
                 pass
-
+            try:
+                oi_units = float(context["openInterest"])
+                mark = float(context["markPx"])
+                if math.isfinite(oi_units) and math.isfinite(mark):
+                    oi = oi_units * mark  # OI quy về USD
+            except (KeyError, TypeError, ValueError, OverflowError):
+                pass
+    
     try:
         key = ("book", coin)
 
@@ -230,7 +237,7 @@ def hl_context(coin):
     except Exception as ex:
         print("HL book lỗi:", coin, ex)
 
-    return funding, imbalance, funding_ok, book_ok
+    return funding, imbalance, funding_ok, book_ok, oi
 
 
 def live_bomxa(r1):
