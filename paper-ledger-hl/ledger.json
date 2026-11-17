@@ -2134,13 +2134,18 @@
    "t0": 1794867207,
    "entry": 72.1275,
    "btc0": 65462.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.3864337458039927e-05,
    "scan": "01 SOL/USD direction=LONG score=72.06 long_score=72.06 short_score=34.94 mtf_score=0.7206 vol24h=$239,377,098 spread=0.139 depth10bps=$1,108,308",
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "peak": 72.3435,
-   "council_checked_at": 1794941151
+   "council_checked_at": 1794941151,
+   "exit": 73.48,
+   "t1": 1794953607.0,
+   "reason": "TIME",
+   "pnl_pct": 1.254,
+   "mfe_pct": 3.016
   },
   {
    "id": "43965629800-ICP/USD",
@@ -2297,7 +2302,7 @@
    "scan": "02 CRV/USD direction=LONG score=59.54 long_score=59.54 short_score=40.46 mtf_score=0.5954 vol24h=$2,550,995 spread=4.357 depth10bps=$49,538",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.20639,
+   "peak": 0.20934,
    "council_checked_at": 1794920660
   },
   {
@@ -2309,12 +2314,17 @@
    "t0": 1794941151,
    "entry": 0.0026935,
    "btc0": 63714.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003712641544459375,
    "scan": "01 PUMP/USD direction=SHORT score=66.69 long_score=33.54 short_score=66.69 mtf_score=0.6669 vol24h=$30,235,008 spread=3.664 depth10bps=$137,531",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.0026905
+   "trough": 0.0026905,
+   "exit": 0.0027743050000000003,
+   "t1": 1794951000,
+   "reason": "SL",
+   "pnl_pct": -3.657,
+   "mfe_pct": 0.241
   },
   {
    "id": "44149170080-BTC/USD",
@@ -2355,12 +2365,17 @@
    "t0": 1794941152,
    "entry": 20.501,
    "btc0": 63714.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00029266865030975206,
    "scan": "05 VVV/USD direction=SHORT score=60.16 long_score=39.84 short_score=60.16 mtf_score=0.6016 vol24h=$17,640,470 spread=0.485 depth10bps=$17,833",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 20.4715
+   "trough": 20.4715,
+   "exit": 20.5915,
+   "t1": 1794954024,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -1.061,
+   "watch": "pnl=-1.06% give=0.6% 1m=True live=- 15m=True 1h=False 4h=True RSI15=47.7 pressure=0/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.696}mv5=+0.10% vol=0.1"
   }
  ]
 }
