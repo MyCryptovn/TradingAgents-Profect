@@ -145,9 +145,9 @@ def hl_context(coin):
     """
     funding = None
     imbalance = None
+    oi = None
     funding_ok = False
     book_ok = False
-    oi = False
 
     # Preserve full HIP-3 market identifier, e.g. xyz:COIN.
     if ":" in coin:
@@ -451,7 +451,7 @@ def check_reversal(t):
     # The legacy two-value version cannot distinguish API errors
     # from a genuine neutral reading.
     if isinstance(context, (tuple, list)) and len(context) == 5:
-        funding, imbalance, funding_ok, book_ok = context
+        funding, imbalance, funding_ok, book_ok, oi = hl_context(coin)
 
     funding_pressure = False
     book_pressure = False
@@ -564,7 +564,7 @@ def check_reversal(t):
     # Weak/losing position:
     # Require 15m confirmation and another supporting timeframe/group.
     elif (
-        pnl < 0.008
+        pnl < 0.01
         and confirm_15m
         and (
             confirm_1h
