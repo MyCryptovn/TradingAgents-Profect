@@ -2168,12 +2168,17 @@
    "t0": 1794867207,
    "entry": 70.7985,
    "btc0": 65462.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.4124593035230617e-05,
    "scan": "05 HYPE/USD direction=LONG score=67.95 long_score=67.95 short_score=31.05 mtf_score=0.6795 vol24h=$752,008,461 spread=0.284 depth10bps=$584,769",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 70.918
+   "peak": 70.918,
+   "exit": 68.67454500000001,
+   "t1": 1794881700,
+   "reason": "SL",
+   "pnl_pct": -3.621,
+   "mfe_pct": 0.344
   }
  ]
 }
