@@ -2113,7 +2113,7 @@
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "peak": 72.3435,
-   "council_checked_at": 1794892830
+   "council_checked_at": 1794920660
   },
   {
    "id": "43965629800-ICP/USD",
@@ -2270,7 +2270,8 @@
    "scan": "02 CRV/USD direction=LONG score=59.54 long_score=59.54 short_score=40.46 mtf_score=0.5954 vol24h=$2,550,995 spread=4.357 depth10bps=$49,538",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.20639
+   "peak": 0.20639,
+   "council_checked_at": 1794920660
   }
  ]
 }
