@@ -2005,7 +2005,7 @@
    "scan": "01 ASTER/USD direction=LONG score=66.60 long_score=66.60 short_score=35.43 mtf_score=0.6660 vol24h=$60,260,339 spread=6.549 depth10bps=$94,597",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.56972,
+   "peak": 0.58465,
    "council_checked_at": 1794847493
   },
   {
