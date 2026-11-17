@@ -2112,7 +2112,7 @@
    "scan": "01 SOL/USD direction=LONG score=72.06 long_score=72.06 short_score=34.94 mtf_score=0.7206 vol24h=$239,377,098 spread=0.139 depth10bps=$1,108,308",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 72.1275,
+   "peak": 72.3435,
    "council_checked_at": 1794892830
   },
   {
