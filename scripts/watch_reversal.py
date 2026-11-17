@@ -238,8 +238,6 @@ def hl_context(coin):
     except Exception as ex:
         print("HL book lỗi:", coin, ex)
 
-    return funding, imbalance, funding_ok, book_ok, oi
-
 
 def live_bomxa(r1):
     """Bơm/xả tự tính từ 5 nến 1m đã đóng gần nhất so với nền 60 phút trước đó.
@@ -344,6 +342,27 @@ def timeframe_state(rows, direction, min_count):
     except (TypeError, ValueError, IndexError, OverflowError):
         return result
 
+def ext_context(coin):
+    """Bối cảnh ngoài sàn, chỉ để đo, không dùng để đóng lệnh."""
+    import urllib.request
+
+    out = {"cz_text": None, "kr_buy_share": None}
+    try:
+        from scripts.coinalyze_note import _build as cz_build
+        out["cz_text"] = cz_build(coin)[:200]
+    except Exception as ex:
+        out["cz_text"] = f"err:{type(ex).__name__}"
+    try:
+        url = f"https://api.kraken.com/0/public/Trades?pair={coin}USD"
+        with urllib.request.urlopen(url, timeout=10) as r:
+            d = json.load(r)["result"]
+        rows = d[next(k for k in d if k != "last")][-200:]
+        buy = sum(float(x[1]) for x in rows if x[3] == "b")
+        tot = sum(float(x[1]) for x in rows)
+        out["kr_buy_share"] = round(buy / tot, 3) if tot > 0 else None
+    except Exception as ex:
+        out["kr_buy_share"] = f"err:{type(ex).__name__}"
+    return out
 
 def check_reversal(t):
     if MODE != "close" and "rev_px" in t: 
@@ -424,13 +443,14 @@ def check_reversal(t):
 
     funding = None
     imbalance = None
+    oi = None
     funding_ok = False
     book_ok = False
 
     # Only trust the four-value version of hl_context().
     # The legacy two-value version cannot distinguish API errors
     # from a genuine neutral reading.
-    if isinstance(context, (tuple, list)) and len(context) == 4:
+    if isinstance(context, (tuple, list)) and len(context) == 5:
         funding, imbalance, funding_ok, book_ok = context
 
     funding_pressure = False
@@ -438,9 +458,9 @@ def check_reversal(t):
 
     if funding_ok and funding is not None:
         if direction == 1:
-            funding_pressure = funding > 0.0001
+            funding_pressure = funding > 0.00005
         else:
-            funding_pressure = funding < -0.0001
+            funding_pressure = funding < -0.00005
 
     if book_ok and imbalance is not None:
         if direction == 1:
@@ -502,6 +522,7 @@ def check_reversal(t):
     book_text = (
         f"{imbalance:+.2f}" if book_ok else "UNKNOWN"
     )
+    oi_text = (f"{oi:,.0f}" if oi is not None else "UNKNOWN")
 
     info = (
         f"pnl={pnl:+.2%} give={give:.1%} "
@@ -511,7 +532,7 @@ def check_reversal(t):
         f"4h={context_4h} "
         f"RSI15={rs15:.1f} "
         f"pressure={pressure_hits}/3 "
-        f"fund={funding_text} book={book_text} "
+        f"fund={funding_text} book={book_text} oi={oi_text} ext = {ext_context(coin)}"
         f"mv5={move5:+.2%} vol={ratio:.1f}"
     )
 
@@ -570,6 +591,7 @@ def check_reversal(t):
     if MODE != "close":
         t.update(
             rev_px=px,
+            ext_ctx=ext,
             rev_t=now(),
             rev_first=rev,
             rev_pnl_pct=rev,
