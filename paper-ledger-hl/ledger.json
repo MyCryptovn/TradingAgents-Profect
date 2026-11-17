@@ -2313,7 +2313,8 @@
    "spread": 0.0003712641544459375,
    "scan": "01 PUMP/USD direction=SHORT score=66.69 long_score=33.54 short_score=66.69 mtf_score=0.6669 vol24h=$30,235,008 spread=3.664 depth10bps=$137,531",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 0.0026905
   },
   {
    "id": "44149170080-BTC/USD",
@@ -2358,7 +2359,8 @@
    "spread": 0.00029266865030975206,
    "scan": "05 VVV/USD direction=SHORT score=60.16 long_score=39.84 short_score=60.16 mtf_score=0.6016 vol24h=$17,640,470 spread=0.485 depth10bps=$17,833",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 20.4715
   }
  ]
 }
