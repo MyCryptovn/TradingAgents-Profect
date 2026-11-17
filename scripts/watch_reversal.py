@@ -147,6 +147,7 @@ def hl_context(coin):
     imbalance = None
     funding_ok = False
     book_ok = False
+    oi = False
 
     # Preserve full HIP-3 market identifier, e.g. xyz:COIN.
     if ":" in coin:
