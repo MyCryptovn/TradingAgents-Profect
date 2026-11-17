@@ -203,22 +203,22 @@ def hl_context(coin):
         if not bids or not asks:
             raise ValueError("Empty orderbook side")
 
-        def depth_usd(rows):
-            total = 0.0
+def depth_usd(rows):
+    total = 0.0
 
-            for row in rows:
-                px = float(row["px"])
-                sz = float(row["sz"])
+    for row in rows:
+        px = float(row["px"])
+        sz = float(row["sz"])
 
-                if (
-                    not math.isfinite(px)
-                    or not math.isfinite(sz)
-                    or px <= 0
-                    or sz < 0
+            if (
+                not math.isfinite(px)
+                or not math.isfinite(sz)
+                or px <= 0
+                or sz < 0
                 ):
-                    raise ValueError("Invalid orderbook level")
+            raise ValueError("Invalid orderbook level")
 
-                total += px * sz
+            total += px * sz
 
             return total
 
