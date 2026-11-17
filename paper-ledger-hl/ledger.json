@@ -1985,11 +1985,14 @@
    "t0": 1794839474,
    "entry": 0.00283,
    "btc0": 64520.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007067137809188217,
    "scan": "01 PUMP/USD direction=SHORT score=68.82 long_score=34.25 short_score=68.82 mtf_score=0.6882 vol24h=$19,701,137 spread=3.534 depth10bps=$75,075",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.002792,
+   "t1": 1794925874.0,
+   "move_pct": -1.343
   },
   {
    "id": "43883889666-ASTER/USD",
@@ -2011,7 +2014,8 @@
    "t1": 1794920677,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": 3.896,
-   "watch": "pnl=+3.90% give=2.3% 1m=False live=XA_LIVE 15m=False 1h=False 4h=False RSI15=60.8 pressure=1/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.559}mv5=-0.92% vol=2.6"
+   "watch": "pnl=+3.90% give=2.3% 1m=False live=XA_LIVE 15m=False 1h=False 4h=False RSI15=60.8 pressure=1/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.559}mv5=-0.92% vol=2.6",
+   "trail_pnl_pct": -2.457
   },
   {
    "id": "43883889666-XMR/USD",
@@ -2022,11 +2026,14 @@
    "t0": 1794839475,
    "entry": 502.64,
    "btc0": 64520.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00031831927423210454,
    "scan": "02 XMR/USD direction=LONG score=64.38 long_score=64.38 short_score=35.62 mtf_score=0.6438 vol24h=$38,437,581 spread=5.578 depth10bps=$49,625",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 509.41,
+   "t1": 1794925875.0,
+   "move_pct": 1.347
   },
   {
    "id": "43883889666-ZEC/USD",
@@ -2037,11 +2044,14 @@
    "t0": 1794839475,
    "entry": 871.845,
    "btc0": 64520.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0001491090732871043,
    "scan": "02 ZEC/USD direction=SHORT score=63.95 long_score=36.05 short_score=63.95 mtf_score=0.6395 vol24h=$333,240,444 spread=0.804 depth10bps=$114,572",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 952.96,
+   "t1": 1794925875.0,
+   "move_pct": 9.304
   },
   {
    "id": "43905994165-SOL/USD",
@@ -2052,11 +2062,14 @@
    "t0": 1794847494,
    "entry": 70.9005,
    "btc0": 64578.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.4104272889338778e-05,
    "scan": "01 SOL/USD direction=SHORT score=67.58 long_score=33.40 short_score=67.58 mtf_score=0.6758 vol24h=$236,577,460 spread=0.852 depth10bps=$1,226,205",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 72.45,
+   "t1": 1794933894.0,
+   "move_pct": 2.185
   },
   {
    "id": "43905994165-PUMP/USD",
@@ -2067,11 +2080,14 @@
    "t0": 1794847494,
    "entry": 0.0028355,
    "btc0": 64578.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00035267148651036247,
    "scan": "02 PUMP/USD direction=SHORT score=64.26 long_score=35.74 short_score=64.26 mtf_score=0.6426 vol24h=$21,433,164 spread=7.107 depth10bps=$49,558",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.002756,
+   "t1": 1794933894.0,
+   "move_pct": -2.804
   },
   {
    "id": "43905994165-ARB/USD",
@@ -2082,11 +2098,14 @@
    "t0": 1794847494,
    "entry": 0.131575,
    "btc0": 64578.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00022800684020522324,
    "scan": "03 ARB/USD direction=SHORT score=63.74 long_score=36.26 short_score=63.74 mtf_score=0.6374 vol24h=$2,819,458 spread=3.039 depth10bps=$102,696",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.1312,
+   "t1": 1794933894.0,
+   "move_pct": -0.285
   },
   {
    "id": "43905994165-NEAR/USD",
@@ -2097,11 +2116,14 @@
    "t0": 1794847494,
    "entry": 3.1651999999999996,
    "btc0": 64578.5,
-   "status": "open",
+   "status": "closed",
    "spread": 6.318716036900607e-05,
    "scan": "04 NEAR/USD direction=SHORT score=60.88 long_score=46.12 short_score=60.88 mtf_score=0.6088 vol24h=$43,541,220 spread=0.319 depth10bps=$296,585",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.1787,
+   "t1": 1794933894.0,
+   "move_pct": 0.427
   },
   {
    "id": "43965629800-SOL/USD",
@@ -2118,7 +2140,7 @@
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "peak": 72.3435,
-   "council_checked_at": 1794920660
+   "council_checked_at": 1794941151
   },
   {
    "id": "43965629800-ICP/USD",
@@ -2277,6 +2299,66 @@
    "src": "hyperliquid",
    "peak": 0.20639,
    "council_checked_at": 1794920660
+  },
+  {
+   "id": "44149170080-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794941151,
+   "entry": 0.0026935,
+   "btc0": 63714.5,
+   "status": "open",
+   "spread": 0.0003712641544459375,
+   "scan": "01 PUMP/USD direction=SHORT score=66.69 long_score=33.54 short_score=66.69 mtf_score=0.6669 vol24h=$30,235,008 spread=3.664 depth10bps=$137,531",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44149170080-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794941151,
+   "entry": 63714.5,
+   "btc0": 63714.5,
+   "status": "open",
+   "spread": 1.5695014478650857e-05,
+   "scan": "03 BTC/USD direction=SHORT score=63.35 long_score=36.65 short_score=63.35 mtf_score=0.6335 vol24h=$3,698,491,937 spread=0.783 depth10bps=$14,496,937",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44149170080-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794941151,
+   "entry": 2.8291500000000003,
+   "btc0": 63714.5,
+   "status": "open",
+   "spread": 3.534630542749979e-05,
+   "scan": "04 LIT/USD direction=SHORT score=61.41 long_score=38.81 short_score=61.41 mtf_score=0.6141 vol24h=$56,444,793 spread=2.457 depth10bps=$36,942",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44149170080-VVV/USD",
+   "symbol": "VVV/USD",
+   "pair": "VVV",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794941152,
+   "entry": 20.501,
+   "btc0": 63714.5,
+   "status": "open",
+   "spread": 0.00029266865030975206,
+   "scan": "05 VVV/USD direction=SHORT score=60.16 long_score=39.84 short_score=60.16 mtf_score=0.6016 vol24h=$17,640,470 spread=0.485 depth10bps=$17,833",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
   }
  ]
 }
