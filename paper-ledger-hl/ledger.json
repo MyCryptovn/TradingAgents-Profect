@@ -2005,7 +2005,7 @@
    "scan": "01 ASTER/USD direction=LONG score=66.60 long_score=66.60 short_score=35.43 mtf_score=0.6660 vol24h=$60,260,339 spread=6.549 depth10bps=$94,597",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 0.58465,
+   "peak": 0.5984,
    "council_checked_at": 1794847493
   },
   {
@@ -2269,7 +2269,8 @@
    "spread": 0.0002907117592906851,
    "scan": "02 CRV/USD direction=LONG score=59.54 long_score=59.54 short_score=40.46 mtf_score=0.5954 vol24h=$2,550,995 spread=4.357 depth10bps=$49,538",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.20639
   }
  ]
 }
