@@ -2240,6 +2240,36 @@
    "scan": "05 NEAR/USD direction=LONG score=67.11 long_score=67.11 short_score=33.24 mtf_score=0.6711 vol24h=$51,312,459 spread=0.307 depth10bps=$301,357",
    "cfg": "hl-v5",
    "src": "hyperliquid"
+  },
+  {
+   "id": "44042144676-AERO/USD",
+   "symbol": "AERO/USD",
+   "pair": "AERO",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794902401,
+   "entry": 0.442865,
+   "btc0": 64707.5,
+   "status": "open",
+   "spread": 0.0001580617118083716,
+   "scan": "01 AERO/USD direction=LONG score=74.01 long_score=74.01 short_score=32.66 mtf_score=0.7401 vol24h=$2,463,841 spread=2.487 depth10bps=$27,553",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44042144676-CRV/USD",
+   "symbol": "CRV/USD",
+   "pair": "CRV",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1794902401,
+   "entry": 0.20639,
+   "btc0": 64707.5,
+   "status": "open",
+   "spread": 0.0002907117592906851,
+   "scan": "02 CRV/USD direction=LONG score=59.54 long_score=59.54 short_score=40.46 mtf_score=0.5954 vol24h=$2,550,995 spread=4.357 depth10bps=$49,538",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
   }
  ]
 }
