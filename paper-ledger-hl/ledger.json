@@ -2432,12 +2432,17 @@
    "t0": 1794971356,
    "entry": 68.7205,
    "btc0": 64432.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.4551698547082381e-05,
    "scan": "03 HYPE/USD direction=SHORT score=65.33 long_score=34.67 short_score=65.33 mtf_score=0.6533 vol24h=$477,490,993 spread=0.146 depth10bps=$249,304",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 68.5035
+   "trough": 68.5035,
+   "exit": 69.0325,
+   "t1": 1794982537,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -1.074,
+   "watch": "pnl=-1.07% give=0.8% 1m=True live=- 15m=True 1h=True 4h=True RSI15=56.1 pressure=1/3 fund=0.00001 book=+0.68 oi=1,305,758,415 ext = {'cz_text': '', 'kr_buy_share': 0.554}mv5=+0.24% vol=0.9"
   },
   {
    "id": "44226546385-TIA/USD",
@@ -2468,7 +2473,7 @@
    "scan": "01 NEAR/USD direction=LONG score=64.29 long_score=64.29 short_score=35.71 mtf_score=0.6429 vol24h=$57,794,254 spread=1.493 depth10bps=$334,159",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 3.3995
+   "peak": 3.4261999999999997
   }
  ]
 }
