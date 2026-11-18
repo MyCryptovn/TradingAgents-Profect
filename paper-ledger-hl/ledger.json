@@ -2233,11 +2233,14 @@
    "t0": 1794892831,
    "entry": 926.8,
    "btc0": 64893.5,
-   "status": "open",
+   "status": "closed",
    "spread": 8.631851532158064e-05,
    "scan": "01 ZEC/USD direction=LONG score=75.39 long_score=75.39 short_score=24.91 mtf_score=0.7539 vol24h=$406,923,204 spread=0.433 depth10bps=$189,784",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 957.75,
+   "t1": 1794979231.0,
+   "move_pct": 3.339
   },
   {
    "id": "44022128604-VVV/USD",
@@ -2248,11 +2251,14 @@
    "t0": 1794892831,
    "entry": 21.2915,
    "btc0": 64893.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00014090129864030782,
    "scan": "02 VVV/USD direction=LONG score=72.97 long_score=72.97 short_score=27.03 mtf_score=0.7297 vol24h=$17,402,405 spread=4.713 depth10bps=$13,012",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 20.912,
+   "t1": 1794979231.0,
+   "move_pct": -1.782
   },
   {
    "id": "44022128604-AERO/USD",
@@ -2263,11 +2269,14 @@
    "t0": 1794892831,
    "entry": 0.44104,
    "btc0": 64893.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0005895156901867914,
    "scan": "03 AERO/USD direction=LONG score=67.99 long_score=67.99 short_score=28.51 mtf_score=0.6799 vol24h=$2,390,369 spread=9.945 depth10bps=$13,401",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.43906,
+   "t1": 1794979231.0,
+   "move_pct": -0.449
   },
   {
    "id": "44022128604-NEAR/USD",
@@ -2278,11 +2287,14 @@
    "t0": 1794892831,
    "entry": 3.2727500000000003,
    "btc0": 64893.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00027499809029107717,
    "scan": "05 NEAR/USD direction=LONG score=67.11 long_score=67.11 short_score=33.24 mtf_score=0.6711 vol24h=$51,312,459 spread=0.307 depth10bps=$301,357",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3.3774,
+   "t1": 1794979231.0,
+   "move_pct": 3.198
   },
   {
    "id": "44042144676-AERO/USD",
@@ -2473,7 +2485,68 @@
    "scan": "01 NEAR/USD direction=LONG score=64.29 long_score=64.29 short_score=35.71 mtf_score=0.6429 vol24h=$57,794,254 spread=1.493 depth10bps=$334,159",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 3.4261999999999997
+   "peak": 3.4261999999999997,
+   "council_checked_at": 1794984305
+  },
+  {
+   "id": "44251863606-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794984306,
+   "entry": 0.0026715000000000003,
+   "btc0": 64631.5,
+   "status": "open",
+   "spread": 0.0003743215422046412,
+   "scan": "01 PUMP/USD direction=SHORT score=68.61 long_score=31.39 short_score=68.61 mtf_score=0.6861 vol24h=$24,527,598 spread=3.732 depth10bps=$142,593",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44251863606-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794984306,
+   "entry": 958.945,
+   "btc0": 64631.5,
+   "status": "open",
+   "spread": 1.0428126743442954e-05,
+   "scan": "01 ZEC/USD direction=LONG score=66.58 long_score=66.58 short_score=33.42 mtf_score=0.6658 vol24h=$337,727,467 spread=0.104 depth10bps=$135,079",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44251863606-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794984306,
+   "entry": 2.84075,
+   "btc0": 64631.5,
+   "status": "open",
+   "spread": 3.520197131046767e-05,
+   "scan": "02 LIT/USD direction=SHORT score=65.02 long_score=34.98 short_score=65.02 mtf_score=0.6502 vol24h=$28,193,445 spread=4.587 depth10bps=$21,683",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44251863606-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOL",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794984306,
+   "entry": 74.7865,
+   "btc0": 64631.5,
+   "status": "open",
+   "spread": 1.3371397244218874e-05,
+   "scan": "03 SOL/USD direction=LONG score=64.64 long_score=64.64 short_score=35.36 mtf_score=0.6464 vol24h=$299,071,852 spread=0.134 depth10bps=$789,980",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
   }
  ]
 }
