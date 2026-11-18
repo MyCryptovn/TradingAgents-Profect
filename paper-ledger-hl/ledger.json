@@ -2308,13 +2308,18 @@
    "t0": 1794902401,
    "entry": 0.20639,
    "btc0": 64707.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0002907117592906851,
    "scan": "02 CRV/USD direction=LONG score=59.54 long_score=59.54 short_score=40.46 mtf_score=0.5954 vol24h=$2,550,995 spread=4.357 depth10bps=$49,538",
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "peak": 0.20934,
-   "council_checked_at": 1794920660
+   "council_checked_at": 1794920660,
+   "exit": 0.20689,
+   "t1": 1794971695,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -0.378,
+   "watch": "pnl=-0.38% give=1.2% 1m=True live=- 15m=True 1h=False 4h=True RSI15=43.5 pressure=0/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.527}mv5=-0.03% vol=1.6"
   },
   {
    "id": "44149170080-PUMP/USD",
@@ -2431,7 +2436,8 @@
    "spread": 1.4551698547082381e-05,
    "scan": "03 HYPE/USD direction=SHORT score=65.33 long_score=34.67 short_score=65.33 mtf_score=0.6533 vol24h=$477,490,993 spread=0.146 depth10bps=$249,304",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 68.5035
   },
   {
    "id": "44226546385-TIA/USD",
@@ -2461,7 +2467,8 @@
    "spread": 8.881914940866845e-05,
    "scan": "01 NEAR/USD direction=LONG score=64.29 long_score=64.29 short_score=35.71 mtf_score=0.6429 vol24h=$57,794,254 spread=1.493 depth10bps=$334,159",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 3.3931500000000003
   }
  ]
 }
