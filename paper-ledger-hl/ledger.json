@@ -2578,7 +2578,8 @@
    "scan": "01 ARB/USD direction=SHORT score=65.71 long_score=34.29 short_score=65.71 mtf_score=0.6571 vol24h=$2,734,576 spread=0.770 depth10bps=$69,924",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.129805
+   "trough": 0.129805,
+   "council_checked_at": 1795002826
   },
   {
    "id": "44274947994-PAXG/USD",
@@ -2592,6 +2593,66 @@
    "status": "open",
    "spread": 2.6536813194079384e-05,
    "scan": "02 PAXG/USD direction=SHORT score=64.69 long_score=35.31 short_score=64.69 mtf_score=0.6469 vol24h=$2,688,331 spread=0.266 depth10bps=$325,745",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44296634993-ICP/USD",
+   "symbol": "ICP/USD",
+   "pair": "ICP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795002826,
+   "entry": 2.2548,
+   "btc0": 64200.5,
+   "status": "open",
+   "spread": 0.0003547986517650842,
+   "scan": "01 ICP/USD direction=SHORT score=71.09 long_score=30.52 short_score=71.09 mtf_score=0.7109 vol24h=$2,552,787 spread=2.655 depth10bps=$28,139",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44296634993-XPL/USD",
+   "symbol": "XPL/USD",
+   "pair": "XPL",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795002826,
+   "entry": 0.046642,
+   "btc0": 64200.5,
+   "status": "open",
+   "spread": 8.575961579685822e-05,
+   "scan": "01 XPL/USD direction=LONG score=67.57 long_score=67.57 short_score=33.23 mtf_score=0.6757 vol24h=$2,989,201 spread=2.152 depth10bps=$17,421",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44296634993-JUP/USD",
+   "symbol": "JUP/USD",
+   "pair": "JUP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795002826,
+   "entry": 0.253745,
+   "btc0": 64200.5,
+   "status": "open",
+   "spread": 0.000985241088494246,
+   "scan": "03 JUP/USD direction=SHORT score=64.67 long_score=35.33 short_score=64.67 mtf_score=0.6467 vol24h=$2,946,524 spread=6.726 depth10bps=$24,505",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44296634993-PAXG/USD",
+   "symbol": "PAXG/USD",
+   "pair": "PAXG",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1795002827,
+   "entry": 3755.55,
+   "btc0": 64200.5,
+   "status": "open",
+   "spread": 2.6627258324322414e-05,
+   "scan": "04 PAXG/USD direction=SHORT score=61.48 long_score=38.52 short_score=61.48 mtf_score=0.6148 vol24h=$2,815,791 spread=0.266 depth10bps=$444,068",
    "cfg": "hl-v5",
    "src": "hyperliquid"
   }
