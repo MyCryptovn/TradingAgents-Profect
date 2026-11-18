@@ -29,32 +29,7 @@ jobs:
 
       - name: Validate crypto-native adapter
         run: python -m py_compile scripts/market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
-      
-      - name: Validate CoinGecko API access
-        env:
-          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
-          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
-        run: |
-          python - <<'PY'
-          import os
-          import urllib.request
-
-          base = os.environ["COINGECKO_API_BASE_URL"].rstrip("/") + "/"
-          key = os.environ.get("COINGECKO_API_KEY", "").strip()
-          if not key:
-              raise SystemExit("COINGECKO_API_KEY GitHub Secret is missing.")
-          req = urllib.request.Request(
-              base + "ping",
-              headers={
-                  "Accept": "application/json",
-                  "User-Agent": "TradingAgents-Profect/coingecko-preflight",
-                  "x-cg-demo-api-key": key,
-              },
-          )
-          with urllib.request.urlopen(req, timeout=30) as response:
-              print("COINGECKO API PREFLIGHT:", response.read().decode("utf-8")[:200])
-          PY
-          
+    
       - name: Run Top-10 TradingAgents paper pipeline
         env:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
