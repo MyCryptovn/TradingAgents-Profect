@@ -2666,6 +2666,51 @@
    "reason": "REVERSAL_CUT",
    "pnl_pct": -1.278,
    "watch": "pnl=-1.28% give=0.7% 1m=True live=- 15m=True 1h=False 4h=False RSI15=56.9 pressure=0/3 fund=0.00001 book=-0.10 oi=21,764,071 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (PAXGUSDT_PERP.A, multi-exchange): open interest $93,409,956, OI change 15m -0.2%, OI change 1h +1.0%, OI change 4h -0.4%, OI change 24h -2.5%, funding -0.0027, taker b', 'kr_buy_share': 0.599}mv5=+0.00% vol=0.1"
+  },
+  {
+   "id": "44332660248-INJ/USD",
+   "symbol": "INJ/USD",
+   "pair": "INJ",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1795015250,
+   "entry": 7.137499999999999,
+   "btc0": 63686.5,
+   "status": "open",
+   "spread": 0.0007005253940455193,
+   "scan": "01 INJ/USD direction=SHORT score=72.40 long_score=27.60 short_score=72.40 mtf_score=0.7240 vol24h=$2,733,715 spread=7.593 depth10bps=$10,530",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44332660248-TRUMP/USD",
+   "symbol": "TRUMP/USD",
+   "pair": "TRUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795015250,
+   "entry": 0.94804,
+   "btc0": 63686.5,
+   "status": "open",
+   "spread": 0.00048521159444739136,
+   "scan": "02 TRUMP/USD direction=SHORT score=72.21 long_score=34.50 short_score=72.21 mtf_score=0.7221 vol24h=$2,955,739 spread=0.528 depth10bps=$49,505",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44332660248-AERO/USD",
+   "symbol": "AERO/USD",
+   "pair": "AERO",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1795015250,
+   "entry": 0.433875,
+   "btc0": 63686.5,
+   "status": "open",
+   "spread": 0.00029962546816483777,
+   "scan": "03 AERO/USD direction=SHORT score=69.73 long_score=32.12 short_score=69.73 mtf_score=0.6973 vol24h=$2,926,169 spread=4.149 depth10bps=$11,723",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
   }
  ]
 }

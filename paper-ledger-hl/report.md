@@ -1,20 +1,22 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-18 11:53 UTC
+Cập nhật: 2026-11-18 15:20 UTC
 
-- Lệnh đã chốt: **43** | đang mở: 3 | HOLD đã chấm: 80
+- Lệnh đã chốt: **45** | đang mở: 3 | HOLD đã chấm: 80
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **30.2%** (13/43)
-- PnL trung bình/lệnh: -1.084%
-- Tổng PnL (cộng dồn): **-46.62%**
-- Profit factor: 0.43
-- Max drawdown: 46.62%
+- Win rate: **28.9%** (13/45)
+- PnL trung bình/lệnh: -1.098%
+- Tổng PnL (cộng dồn): **-49.39%**
+- Profit factor: 0.41
+- Max drawdown: 49.39%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +0.00%  -> bot THUA benchmark
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| PAXG/USD | SELL | 3755.55 | 3780.25 | REVERSAL_CUT | -1.28 |
+| NEAR/USD | BUY | 3.37765 | 3.34795 | REVERSAL_GIVEBACK | -1.50 |
 | LIT/USD | SELL | 2.84075 | 2.8528 | REVERSAL_CUT | -1.04 |
 | PUMP/USD | SELL | 0.0026715 | 0.0026745 | REVERSAL_CUT | -0.73 |
 | HYPE/USD | SELL | 68.7205 | 69.0325 | REVERSAL_CUT | -1.07 |
@@ -23,8 +25,6 @@ Cập nhật: 2026-11-18 11:53 UTC
 | SOL/USD | BUY | 72.1275 | 73.48 | TIME | +1.25 |
 | PUMP/USD | SELL | 0.0026935 | 0.00277431 | SL | -3.66 |
 | ASTER/USD | BUY | 0.55937 | 0.58463 | REVERSAL_GIVEBACK | +3.90 |
-| HYPE/USD | BUY | 70.7985 | 68.6745 | SL | -3.62 |
-| FIL/USD | SELL | 0.61401 | 0.60023 | TIME | +1.62 |
 - Lãi tối đa từng đạt (trung bình): 2.57% (26 lệnh)
 
 ## Quyết định HOLD
