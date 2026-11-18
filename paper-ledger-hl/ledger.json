@@ -2680,7 +2680,8 @@
    "spread": 0.0007005253940455193,
    "scan": "01 INJ/USD direction=SHORT score=72.40 long_score=27.60 short_score=72.40 mtf_score=0.7240 vol24h=$2,733,715 spread=7.593 depth10bps=$10,530",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 7.0809
   },
   {
    "id": "44332660248-TRUMP/USD",
@@ -2710,7 +2711,8 @@
    "spread": 0.00029962546816483777,
    "scan": "03 AERO/USD direction=SHORT score=69.73 long_score=32.12 short_score=69.73 mtf_score=0.6973 vol24h=$2,926,169 spread=4.149 depth10bps=$11,723",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 0.43096
   }
  ]
 }
