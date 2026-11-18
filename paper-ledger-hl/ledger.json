@@ -2577,7 +2577,8 @@
    "spread": 0.00023100912486044927,
    "scan": "01 ARB/USD direction=SHORT score=65.71 long_score=34.29 short_score=65.71 mtf_score=0.6571 vol24h=$2,734,576 spread=0.770 depth10bps=$69,924",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 0.129805
   },
   {
    "id": "44274947994-PAXG/USD",
