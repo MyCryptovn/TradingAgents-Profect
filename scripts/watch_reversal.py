@@ -353,7 +353,7 @@ def ext_context(coin):
 
     out = {"cz_text": None, "kr_buy_share": None}
     try:
-        from scripts.coinalyze_note import _build as cz_build
+        from scripts.coinalyze_note import coinalyze_note as cz_build
         out["cz_text"] = cz_build(coin)[:200]
     except Exception as ex:
         out["cz_text"] = f"err:{type(ex).__name__}"
