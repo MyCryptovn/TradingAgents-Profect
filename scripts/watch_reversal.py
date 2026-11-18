@@ -10,7 +10,6 @@ WATCH_INTERVAL_SECONDS trong tối đa 15 phút.
 import tempfile
 import math
 import json
-import sys
 import os
 import time
 from datetime import datetime, timezone
@@ -636,11 +635,6 @@ def check_reversal(t):
 
 
 def run_once():
-    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
-# --------------------------------------------------
-    
     """Một vòng: chấm SL/TP/TIME bằng settle, rồi canh tín hiệu đảo chiều."""
     COUNCIL_WINDOW_SECONDS = int(os.getenv("COUNCIL_WINDOW_SECONDS", str(5 * 3600)))
     _CACHE.clear()
