@@ -2484,13 +2484,18 @@
    "t0": 1794971356,
    "entry": 3.37765,
    "btc0": 64432.5,
-   "status": "open",
+   "status": "closed",
    "spread": 8.881914940866845e-05,
    "scan": "01 NEAR/USD direction=LONG score=64.29 long_score=64.29 short_score=35.71 mtf_score=0.6429 vol24h=$57,794,254 spread=1.493 depth10bps=$334,159",
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "peak": 3.4261999999999997,
-   "council_checked_at": 1794984305
+   "council_checked_at": 1794984305,
+   "exit": 3.34795,
+   "t1": 1795002845,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": -1.499,
+   "watch": "pnl=-1.50% give=2.3% 1m=False live=- 15m=False 1h=False 4h=False RSI15=48.2 pressure=0/3 fund=0.00001 book=+0.14 oi=121,527,770 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (NEARUSDT_PERP.A, multi-exchange): open interest $182,121,725, OI change 15m +0.1%, OI change 1h +0.4%, OI change 4h +0.2%, OI change 24h +5.8%, funding +0.0008, taker ', 'kr_buy_share': 0.299}mv5=+0.01% vol=1.2"
   },
   {
    "id": "44251863606-PUMP/USD",
@@ -2654,7 +2659,8 @@
    "spread": 2.6627258324322414e-05,
    "scan": "04 PAXG/USD direction=SHORT score=61.48 long_score=38.52 short_score=61.48 mtf_score=0.6148 vol24h=$2,815,791 spread=0.266 depth10bps=$444,068",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 3755.25
   }
  ]
 }
