@@ -2305,11 +2305,14 @@
    "t0": 1794902401,
    "entry": 0.442865,
    "btc0": 64707.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0001580617118083716,
    "scan": "01 AERO/USD direction=LONG score=74.01 long_score=74.01 short_score=32.66 mtf_score=0.7401 vol24h=$2,463,841 spread=2.487 depth10bps=$27,553",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.43891,
+   "t1": 1794988801.0,
+   "move_pct": -0.893
   },
   {
    "id": "44042144676-CRV/USD",
@@ -2331,7 +2334,8 @@
    "t1": 1794971695,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -0.378,
-   "watch": "pnl=-0.38% give=1.2% 1m=True live=- 15m=True 1h=False 4h=True RSI15=43.5 pressure=0/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.527}mv5=-0.03% vol=1.6"
+   "watch": "pnl=-0.38% give=1.2% 1m=True live=- 15m=True 1h=False 4h=True RSI15=43.5 pressure=0/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.527}mv5=-0.03% vol=1.6",
+   "trail_pnl_pct": -1.558
   },
   {
    "id": "44149170080-PUMP/USD",
@@ -2557,6 +2561,36 @@
    "status": "open",
    "spread": 1.3371397244218874e-05,
    "scan": "03 SOL/USD direction=LONG score=64.64 long_score=64.64 short_score=35.36 mtf_score=0.6464 vol24h=$299,071,852 spread=0.134 depth10bps=$789,980",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44274947994-ARB/USD",
+   "symbol": "ARB/USD",
+   "pair": "ARB",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1794993988,
+   "entry": 0.129865,
+   "btc0": 64650.5,
+   "status": "open",
+   "spread": 0.00023100912486044927,
+   "scan": "01 ARB/USD direction=SHORT score=65.71 long_score=34.29 short_score=65.71 mtf_score=0.6571 vol24h=$2,734,576 spread=0.770 depth10bps=$69,924",
+   "cfg": "hl-v5",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44274947994-PAXG/USD",
+   "symbol": "PAXG/USD",
+   "pair": "PAXG",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1794993988,
+   "entry": 3768.3500000000004,
+   "btc0": 64650.5,
+   "status": "open",
+   "spread": 2.6536813194079384e-05,
+   "scan": "02 PAXG/USD direction=SHORT score=64.69 long_score=35.31 short_score=64.69 mtf_score=0.6469 vol24h=$2,688,331 spread=0.266 depth10bps=$325,745",
    "cfg": "hl-v5",
    "src": "hyperliquid"
   }
