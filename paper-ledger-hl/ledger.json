@@ -2468,7 +2468,7 @@
    "scan": "01 NEAR/USD direction=LONG score=64.29 long_score=64.29 short_score=35.71 mtf_score=0.6429 vol24h=$57,794,254 spread=1.493 depth10bps=$334,159",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "peak": 3.3931500000000003
+   "peak": 3.3995
   }
  ]
 }
