@@ -2583,7 +2583,7 @@
    "scan": "01 ARB/USD direction=SHORT score=65.71 long_score=34.29 short_score=65.71 mtf_score=0.6571 vol24h=$2,734,576 spread=0.770 depth10bps=$69,924",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.129805,
+   "trough": 0.127025,
    "council_checked_at": 1795002826
   },
   {
@@ -2681,7 +2681,7 @@
    "scan": "01 INJ/USD direction=SHORT score=72.40 long_score=27.60 short_score=72.40 mtf_score=0.7240 vol24h=$2,733,715 spread=7.593 depth10bps=$10,530",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "trough": 7.0809
+   "trough": 6.93235
   },
   {
    "id": "44332660248-TRUMP/USD",
@@ -2712,7 +2712,7 @@
    "scan": "03 AERO/USD direction=SHORT score=69.73 long_score=32.12 short_score=69.73 mtf_score=0.6973 vol24h=$2,926,169 spread=4.149 depth10bps=$11,723",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "trough": 0.43096
+   "trough": 0.424025
   }
  ]
 }
