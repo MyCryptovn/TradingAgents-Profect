@@ -2501,7 +2501,8 @@
    "spread": 0.0003743215422046412,
    "scan": "01 PUMP/USD direction=SHORT score=68.61 long_score=31.39 short_score=68.61 mtf_score=0.6861 vol24h=$24,527,598 spread=3.732 depth10bps=$142,593",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 0.0026555
   },
   {
    "id": "44251863606-ZEC/USD",
@@ -2531,7 +2532,8 @@
    "spread": 3.520197131046767e-05,
    "scan": "02 LIT/USD direction=SHORT score=65.02 long_score=34.98 short_score=65.02 mtf_score=0.6502 vol24h=$28,193,445 spread=4.587 depth10bps=$21,683",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 2.8403
   },
   {
    "id": "44251863606-SOL/USD",
