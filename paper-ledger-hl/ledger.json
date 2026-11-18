@@ -2497,12 +2497,17 @@
    "t0": 1794984306,
    "entry": 0.0026715000000000003,
    "btc0": 64631.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003743215422046412,
    "scan": "01 PUMP/USD direction=SHORT score=68.61 long_score=31.39 short_score=68.61 mtf_score=0.6861 vol24h=$24,527,598 spread=3.732 depth10bps=$142,593",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 0.0026555
+   "trough": 0.0026555,
+   "exit": 0.0026745,
+   "t1": 1794991563,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -0.732,
+   "watch": "pnl=-0.73% give=0.7% 1m=True live=- 15m=True 1h=False 4h=False RSI15=44.3 pressure=0/3 fund=0.00001 book=+0.16 oi=38,084,327 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (PUMPUSDT_PERP.A, multi-exchange): open interest $45,861,312, OI change 15m +0.5%, OI change 1h +0.9%, OI change 4h -0.1%, OI change 24h +3.1%, funding +0.0044, taker b', 'kr_buy_share': 0.54}mv5=+0.49% vol=2.4"
   },
   {
    "id": "44251863606-ZEC/USD",
@@ -2528,12 +2533,17 @@
    "t0": 1794984306,
    "entry": 2.84075,
    "btc0": 64631.5,
-   "status": "open",
+   "status": "closed",
    "spread": 3.520197131046767e-05,
    "scan": "02 LIT/USD direction=SHORT score=65.02 long_score=34.98 short_score=65.02 mtf_score=0.6502 vol24h=$28,193,445 spread=4.587 depth10bps=$21,683",
    "cfg": "hl-v5",
    "src": "hyperliquid",
-   "trough": 2.8403
+   "trough": 2.8403,
+   "exit": 2.8528000000000002,
+   "t1": 1794991749,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -1.044,
+   "watch": "pnl=-1.04% give=0.4% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.9 pressure=0/3 fund=-0.00002 book=+0.01 oi=95,365,036 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (LITUSDT_PERP.A, multi-exchange): open interest $34,659,799, OI change 15m +0.5%, OI change 1h +1.2%, OI change 4h +0.9%, OI change 24h -8.2%, funding -0.0084, taker bu', 'kr_buy_share': 0.647}mv5=+0.17% vol=0.6"
   },
   {
    "id": "44251863606-SOL/USD",
