@@ -2646,11 +2646,14 @@
    "t0": 1795002826,
    "entry": 2.2548,
    "btc0": 64200.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003547986517650842,
    "scan": "01 ICP/USD direction=SHORT score=71.09 long_score=30.52 short_score=71.09 mtf_score=0.7109 vol24h=$2,552,787 spread=2.655 depth10bps=$28,139",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 2.2711,
+   "t1": 1795089226.0,
+   "move_pct": 0.723
   },
   {
    "id": "44296634993-XPL/USD",
@@ -2661,11 +2664,14 @@
    "t0": 1795002826,
    "entry": 0.046642,
    "btc0": 64200.5,
-   "status": "open",
+   "status": "closed",
    "spread": 8.575961579685822e-05,
    "scan": "01 XPL/USD direction=LONG score=67.57 long_score=67.57 short_score=33.23 mtf_score=0.6757 vol24h=$2,989,201 spread=2.152 depth10bps=$17,421",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.048037,
+   "t1": 1795089226.0,
+   "move_pct": 2.991
   },
   {
    "id": "44296634993-JUP/USD",
@@ -2676,11 +2682,14 @@
    "t0": 1795002826,
    "entry": 0.253745,
    "btc0": 64200.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000985241088494246,
    "scan": "03 JUP/USD direction=SHORT score=64.67 long_score=35.33 short_score=64.67 mtf_score=0.6467 vol24h=$2,946,524 spread=6.726 depth10bps=$24,505",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.27224,
+   "t1": 1795089226.0,
+   "move_pct": 7.289
   },
   {
    "id": "44296634993-PAXG/USD",
@@ -2701,7 +2710,8 @@
    "t1": 1795010219,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -1.278,
-   "watch": "pnl=-1.28% give=0.7% 1m=True live=- 15m=True 1h=False 4h=False RSI15=56.9 pressure=0/3 fund=0.00001 book=-0.10 oi=21,764,071 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (PAXGUSDT_PERP.A, multi-exchange): open interest $93,409,956, OI change 15m -0.2%, OI change 1h +1.0%, OI change 4h -0.4%, OI change 24h -2.5%, funding -0.0027, taker b', 'kr_buy_share': 0.599}mv5=+0.00% vol=0.1"
+   "watch": "pnl=-1.28% give=0.7% 1m=True live=- 15m=True 1h=False 4h=False RSI15=56.9 pressure=0/3 fund=0.00001 book=-0.10 oi=21,764,071 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (PAXGUSDT_PERP.A, multi-exchange): open interest $93,409,956, OI change 15m -0.2%, OI change 1h +1.0%, OI change 4h -0.4%, OI change 24h -2.5%, funding -0.0027, taker b', 'kr_buy_share': 0.599}mv5=+0.00% vol=0.1",
+   "trail_pnl_pct": 0.361
   },
   {
    "id": "44332660248-INJ/USD",
@@ -2722,7 +2732,8 @@
    "t1": 1795067141,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": 0.846,
-   "watch": "pnl=+0.85% give=3.0% 1m=False live=- 15m=True 1h=False 4h=False RSI15=58.3 pressure=0/3 fund=-0.00001 book=-0.16 oi=6,166,053 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (INJUSDT_PERP.A, multi-exchange): open interest $27,253,265, OI change 15m +0.1%, OI change 1h +0.3%, OI change 4h +2.1%, OI change 24h -6.7%, funding -0.0090, taker bu', 'kr_buy_share': 0.478}mv5=+0.29% vol=1.4"
+   "watch": "pnl=+0.85% give=3.0% 1m=False live=- 15m=True 1h=False 4h=False RSI15=58.3 pressure=0/3 fund=-0.00001 book=-0.16 oi=6,166,053 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (INJUSDT_PERP.A, multi-exchange): open interest $27,253,265, OI change 15m +0.1%, OI change 1h +0.3%, OI change 4h +2.1%, OI change 24h -6.7%, funding -0.0090, taker bu', 'kr_buy_share': 0.478}mv5=+0.29% vol=1.4",
+   "trail_pnl_pct": 1.01
   },
   {
    "id": "44332660248-TRUMP/USD",
@@ -2733,11 +2744,14 @@
    "t0": 1795015250,
    "entry": 0.94804,
    "btc0": 63686.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00048521159444739136,
    "scan": "02 TRUMP/USD direction=SHORT score=72.21 long_score=34.50 short_score=72.21 mtf_score=0.7221 vol24h=$2,955,739 spread=0.528 depth10bps=$49,505",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.97251,
+   "t1": 1795101650.0,
+   "move_pct": 2.581
   },
   {
    "id": "44332660248-AERO/USD",
@@ -2758,7 +2772,8 @@
    "t1": 1795055687,
    "reason": "REVERSAL_GIVEBACK",
    "pnl_pct": -0.912,
-   "watch": "pnl=-0.91% give=2.6% 1m=False live=XA_LIVE 15m=False 1h=False 4h=False RSI15=65.6 pressure=1/3 fund=0.00001 book=+0.49 oi=13,231,804 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (AEROUSDT_PERP.A, multi-exchange): open interest $18,150,038, OI change 15m -1.0%, OI change 1h -1.0%, OI change 4h +2.1%, OI change 24h -2.2%, funding +0.0050, taker b', 'kr_buy_share': 0.423}mv5=-1.25% vol=20.5"
+   "watch": "pnl=-0.91% give=2.6% 1m=False live=XA_LIVE 15m=False 1h=False 4h=False RSI15=65.6 pressure=1/3 fund=0.00001 book=+0.49 oi=13,231,804 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (AEROUSDT_PERP.A, multi-exchange): open interest $18,150,038, OI change 15m -1.0%, OI change 1h -1.0%, OI change 4h +2.1%, OI change 24h -2.2%, funding +0.0050, taker b', 'kr_buy_share': 0.423}mv5=-1.25% vol=20.5",
+   "trail_pnl_pct": -0.513
   },
   {
    "id": "44470513862-XMR/USD",
@@ -2882,12 +2897,17 @@
    "t0": 1795088984,
    "entry": 2.9707999999999997,
    "btc0": 64020.5,
-   "status": "open",
+   "status": "closed",
    "spread": 6.732193348592231e-05,
    "scan": "01 LIT/USD direction=LONG score=80.13 long_score=80.13 short_score=19.87 mtf_score=0.8013 vol24h=$18,048,306 spread=0.338 depth10bps=$62,099",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "peak": 2.9751
+   "peak": 2.9751,
+   "exit": 2.8816759999999997,
+   "t1": 1795102200,
+   "reason": "SL",
+   "pnl_pct": -3.627,
+   "mfe_pct": 0.421
   },
   {
    "id": "44516506056-PUMP/USD",
@@ -2898,12 +2918,18 @@
    "t0": 1795088984,
    "entry": 0.0027625,
    "btc0": 64020.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0003619909502261354,
    "scan": "03 PUMP/USD direction=LONG score=75.04 long_score=75.04 short_score=24.96 mtf_score=0.7504 vol24h=$26,908,850 spread=3.621 depth10bps=$180,379",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "peak": 0.0027635
+   "peak": 0.0027635,
+   "council_checked_at": 1795106224,
+   "exit": 0.002679625,
+   "t1": 1795102200,
+   "reason": "SL",
+   "pnl_pct": -3.656,
+   "mfe_pct": 0.706
   },
   {
    "id": "44516506056-ZEC/USD",
