@@ -358,7 +358,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     from tradingagents.graph.trading_graph import TradingAgentsGraph
     from tradingagents.agents.analysts import market_analyst as market_analyst_module
     from tradingagents.graph import trading_graph as trading_graph_module
-    from scripts.cryoto_market_data import (
+    from scripts.crypto_market_data import (
         crypto_identity,
         get_indicators as crypto_get_indicators,
         get_stock_data as crypto_get_stock_data,
