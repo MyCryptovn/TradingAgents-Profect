@@ -3,7 +3,7 @@ name: TradingAgents Top-10 Paper Effectiveness
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 */3 * * *"
+    - cron: "25 */2 * * *"
 permissions:
   contents: write
 
@@ -28,14 +28,12 @@ jobs:
         run: pip install -e vendor/TradingAgents
 
       - name: Validate crypto-native adapter
-        run: python -m py_compile scripts/market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
+        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
     
       - name: Run Top-10 TradingAgents paper pipeline
         env:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_API_BASE_URL: https://generativelanguage.googleapis.com
-          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
-          COINGECKO_API_BASE_URL: https://api.coingecko.com/api/v3/
           COINALYZE_API_KEY: ${{ secrets.COINALYZE_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
@@ -50,7 +48,6 @@ jobs:
       - name: Verify crypto-native routing and live trading gate
         run: |
           grep -R -q "HYPERLIQUID" scripts/tradingagents_paper_pipeline.py
-          grep -R -q "COINGECKO" scripts/tradingagents_paper_pipeline.py
           grep -R -q "COINALYZE" scripts/tradingagents_paper_pipeline.py
           grep -R -q "KRAKEN" scripts/tradingagents_paper_pipeline.py
           grep -R -q "REAL ORDERS: DISABLED" scripts/tradingagents_paper_pipeline.py
@@ -69,7 +66,7 @@ jobs:
 
       - name: Record paper ledger
         env:
-          CONFIG_TAG: "hl-v6"
+          CONFIG_TAG: "hl-v7"
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
         run: python scripts/paper_ledger.py record
 
