@@ -365,6 +365,19 @@ def by_cfg(led):
             f.write(text)
     print(text)
 
+def overdue_report(led):
+    limit = HORIZON_H * 3600
+    n = now()
+    late = [
+        t for t in led["trades"]
+        if t.get("status") == "open"
+        and t.get("action") in ("BUY", "SELL")
+        and n - int(t.get("t0", n)) > limit
+    ]
+    print(f"OVERDUE OPEN TRADES: {len(late)}")
+    for t in late:
+        hours = (n - int(t["t0"])) / 3600
+        print(f"OVERDUE {t['id']} {t['symbol']} {t['action']} open {hours:.1f}h (quá {HORIZON_H:g}h)")
 
 def score():
     led = load()
@@ -375,6 +388,7 @@ def score():
             except Exception as e:
                 print("Lỗi chấm", t["id"], e)
     fill_trail(led)
+    overdue_report(led)
     save(led)
     report(led)
     extra(led)
