@@ -3,7 +3,7 @@ name: TradingAgents Top-10 Paper Effectiveness
 on:
   workflow_dispatch:
   schedule:
-    - cron: "25 */2 * * *"
+    - cron: "15 */2 * * *"
 permissions:
   contents: write
 
