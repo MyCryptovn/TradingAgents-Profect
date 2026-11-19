@@ -2835,13 +2835,18 @@
    "t0": 1795069450,
    "entry": 0.303155,
    "btc0": 63498.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00016493213042831058,
    "scan": "03 ONDO/USD direction=LONG score=65.88 long_score=65.88 short_score=41.12 mtf_score=0.6588 vol24h=$2,946,415 spread=0.331 depth10bps=$92,919",
    "cfg": "hl-v6",
    "src": "hyperliquid",
    "peak": 0.304765,
-   "council_checked_at": 1795088984
+   "council_checked_at": 1795088984,
+   "exit": 0.29406035,
+   "t1": 1795107600,
+   "reason": "SL",
+   "pnl_pct": -3.636,
+   "mfe_pct": 1.235
   },
   {
    "id": "44510627661-TAO/USD",
