@@ -2535,7 +2535,8 @@
    "t1": 1794991563,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -0.732,
-   "watch": "pnl=-0.73% give=0.7% 1m=True live=- 15m=True 1h=False 4h=False RSI15=44.3 pressure=0/3 fund=0.00001 book=+0.16 oi=38,084,327 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (PUMPUSDT_PERP.A, multi-exchange): open interest $45,861,312, OI change 15m +0.5%, OI change 1h +0.9%, OI change 4h -0.1%, OI change 24h +3.1%, funding +0.0044, taker b', 'kr_buy_share': 0.54}mv5=+0.49% vol=2.4"
+   "watch": "pnl=-0.73% give=0.7% 1m=True live=- 15m=True 1h=False 4h=False RSI15=44.3 pressure=0/3 fund=0.00001 book=+0.16 oi=38,084,327 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (PUMPUSDT_PERP.A, multi-exchange): open interest $45,861,312, OI change 15m +0.5%, OI change 1h +0.9%, OI change 4h -0.1%, OI change 24h +3.1%, funding +0.0044, taker b', 'kr_buy_share': 0.54}mv5=+0.49% vol=2.4",
+   "trail_pnl_pct": -2.366
   },
   {
    "id": "44251863606-ZEC/USD",
@@ -2546,11 +2547,14 @@
    "t0": 1794984306,
    "entry": 958.945,
    "btc0": 64631.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.0428126743442954e-05,
    "scan": "01 ZEC/USD direction=LONG score=66.58 long_score=66.58 short_score=33.42 mtf_score=0.6658 vol24h=$337,727,467 spread=0.104 depth10bps=$135,079",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 942.22,
+   "t1": 1795070706.0,
+   "move_pct": -1.744
   },
   {
    "id": "44251863606-LIT/USD",
@@ -2571,7 +2575,8 @@
    "t1": 1794991749,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -1.044,
-   "watch": "pnl=-1.04% give=0.4% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.9 pressure=0/3 fund=-0.00002 book=+0.01 oi=95,365,036 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (LITUSDT_PERP.A, multi-exchange): open interest $34,659,799, OI change 15m +0.5%, OI change 1h +1.2%, OI change 4h +0.9%, OI change 24h -8.2%, funding -0.0084, taker bu', 'kr_buy_share': 0.647}mv5=+0.17% vol=0.6"
+   "watch": "pnl=-1.04% give=0.4% 1m=True live=- 15m=True 1h=False 4h=False RSI15=47.9 pressure=0/3 fund=-0.00002 book=+0.01 oi=95,365,036 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (LITUSDT_PERP.A, multi-exchange): open interest $34,659,799, OI change 15m +0.5%, OI change 1h +1.2%, OI change 4h +0.9%, OI change 24h -8.2%, funding -0.0084, taker bu', 'kr_buy_share': 0.647}mv5=+0.17% vol=0.6",
+   "trail_pnl_pct": 2.792
   },
   {
    "id": "44251863606-SOL/USD",
@@ -2582,11 +2587,14 @@
    "t0": 1794984306,
    "entry": 74.7865,
    "btc0": 64631.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.3371397244218874e-05,
    "scan": "03 SOL/USD direction=LONG score=64.64 long_score=64.64 short_score=35.36 mtf_score=0.6464 vol24h=$299,071,852 spread=0.134 depth10bps=$789,980",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 74.881,
+   "t1": 1795070706.0,
+   "move_pct": 0.126
   },
   {
    "id": "44274947994-ARB/USD",
@@ -2608,7 +2616,8 @@
    "t1": 1795080388.0,
    "reason": "TIME",
    "pnl_pct": 1.263,
-   "mfe_pct": 3.561
+   "mfe_pct": 3.561,
+   "trail_pnl_pct": 1.263
   },
   {
    "id": "44274947994-PAXG/USD",
@@ -2619,11 +2628,14 @@
    "t0": 1794993988,
    "entry": 3768.3500000000004,
    "btc0": 64650.5,
-   "status": "open",
+   "status": "closed",
    "spread": 2.6536813194079384e-05,
    "scan": "02 PAXG/USD direction=SHORT score=64.69 long_score=35.31 short_score=64.69 mtf_score=0.6469 vol24h=$2,688,331 spread=0.266 depth10bps=$325,745",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 3724.4,
+   "t1": 1795080388.0,
+   "move_pct": -1.166
   },
   {
    "id": "44296634993-ICP/USD",
@@ -2813,7 +2825,53 @@
    "scan": "03 ONDO/USD direction=LONG score=65.88 long_score=65.88 short_score=41.12 mtf_score=0.6588 vol24h=$2,946,415 spread=0.331 depth10bps=$92,919",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "peak": 0.304765
+   "peak": 0.304765,
+   "council_checked_at": 1795086510
+  },
+  {
+   "id": "44510627661-TAO/USD",
+   "symbol": "TAO/USD",
+   "pair": "TAO",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795086510,
+   "entry": 196.81,
+   "btc0": 63703.5,
+   "status": "open",
+   "spread": 0.00030486255779687145,
+   "scan": "02 TAO/USD direction=LONG score=58.44 long_score=58.44 short_score=41.56 mtf_score=0.5844 vol24h=$2,667,954 spread=1.017 depth10bps=$160,547",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44510627661-GRAM/USD",
+   "symbol": "GRAM/USD",
+   "pair": "GRAM",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795086510,
+   "entry": 1.02905,
+   "btc0": 63703.5,
+   "status": "open",
+   "spread": 0.000485885039599793,
+   "scan": "03 GRAM/USD direction=LONG score=56.81 long_score=56.81 short_score=48.61 mtf_score=0.5681 vol24h=$2,937,459 spread=3.883 depth10bps=$24,872",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44510627661-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795086511,
+   "entry": 63700.5,
+   "btc0": 63703.5,
+   "status": "open",
+   "spread": 1.5698463905306867e-05,
+   "scan": "04 BTC/USD direction=LONG score=53.78 long_score=53.78 short_score=46.95 mtf_score=0.5378 vol24h=$4,521,225,967 spread=0.157 depth10bps=$11,942,142",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
   }
  ]
 }
