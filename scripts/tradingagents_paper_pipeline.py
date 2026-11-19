@@ -3,8 +3,7 @@
 Data sources:
 - Hyperliquid perp: scanner universe, candles, order book, funding, open interest, and the paper outcome evaluator.
 - Liquidity context in the prompt: hl_perp_note (from scanner data).
-- Kraken: SPOT taker flow and SPOT order book depth only (flow_note). Not the Hyperliquid perp; context only.
-- CoinGecko: market-cap, rank and aggregated 24h volume context (coingecko_note). Context only; may not match the traded contract.
+- Kraken: SPOT taker flow and SPOT order book depth only (flow_note). Not the Hyperliquid perp; context only
 - Coinalyze: aggregated perpetual OI, funding and liquidation context (coinalyze_note). Context only.
 
 The pinned TradingAgents source remains unchanged. BUY=LONG/SELL=SHORT are paper decisions only;
@@ -32,10 +31,10 @@ NORMAL_TAKER_BUY = 0.50
 
 TOP_N = 10
 OUT_DIR = Path("tradingagents-paper-results")
-KRAKEN_API = "https://api.kraken.com/0/public/"
 INTERVAL_MINUTES = 60
 INTERVAL_SECONDS = INTERVAL_MINUTES * 60
 HYPER_API = "https://api.hyperliquid.xyz/info"
+KRAKEN_API = "https://api.kraken.com/0/public/"
 
 @dataclass
 class Decision:
@@ -359,7 +358,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     from tradingagents.graph.trading_graph import TradingAgentsGraph
     from tradingagents.agents.analysts import market_analyst as market_analyst_module
     from tradingagents.graph import trading_graph as trading_graph_module
-    from scripts.market_data import (
+    from scripts.cryoto_market_data import (
         crypto_identity,
         get_indicators as crypto_get_indicators,
         get_stock_data as crypto_get_stock_data,
@@ -637,8 +636,8 @@ def main() -> int:
 
     # ========== BỘ LỌC RỦI RO + CHẤT LƯỢNG ==========
     MAX_OPEN_POSITIONS = 3
-    MIN_MTF_SCORE = 0.28
-    MAX_SPREAD_BPS = 35.0
+    MIN_MTF_SCORE = 0.32
+    MAX_SPREAD_BPS = 38.0
 
     filtered: list[str] = []
     for sym in candidates:
@@ -676,8 +675,7 @@ def main() -> int:
     decisions: list[Decision] = []
 
     print("TRADINGAGENTS TOP-10 PAPER PIPELINE")
-    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINGECKO (cap/rank/vol) + COINALYZE NOTE + KRAKEN")
-    print("DATA: COINGECKO (market cap, cg rank, 24h volume realtime)")
+    print("DATA: HYPERLIQUID (price/candles/book/funding) + COINALYZE NOTE + KRAKEN")
     print("DATA: COINALYZE (perp open interest, funding, liquidations, context only)")
     print("DATA: KRAKEN (taker trade money flow / future & spot depth live)")
     print("AI: TRADINGAGENTS")
