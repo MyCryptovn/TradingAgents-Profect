@@ -2356,7 +2356,8 @@
    "t1": 1794951000,
    "reason": "SL",
    "pnl_pct": -3.657,
-   "mfe_pct": 0.241
+   "mfe_pct": 0.241,
+   "trail_pnl_pct": -3.409
   },
   {
    "id": "44149170080-BTC/USD",
@@ -2367,11 +2368,14 @@
    "t0": 1794941151,
    "entry": 63714.5,
    "btc0": 63714.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.5695014478650857e-05,
    "scan": "03 BTC/USD direction=SHORT score=63.35 long_score=36.65 short_score=63.35 mtf_score=0.6335 vol24h=$3,698,491,937 spread=0.783 depth10bps=$14,496,937",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 63241.0,
+   "t1": 1795027551.0,
+   "move_pct": -0.743
   },
   {
    "id": "44149170080-LIT/USD",
@@ -2382,11 +2386,14 @@
    "t0": 1794941151,
    "entry": 2.8291500000000003,
    "btc0": 63714.5,
-   "status": "open",
+   "status": "closed",
    "spread": 3.534630542749979e-05,
    "scan": "04 LIT/USD direction=SHORT score=61.41 long_score=38.81 short_score=61.41 mtf_score=0.6141 vol24h=$56,444,793 spread=2.457 depth10bps=$36,942",
    "cfg": "hl-v5",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 2.7227,
+   "t1": 1795027551.0,
+   "move_pct": -3.763
   },
   {
    "id": "44149170080-VVV/USD",
@@ -2407,7 +2414,8 @@
    "t1": 1794954024,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -1.061,
-   "watch": "pnl=-1.06% give=0.6% 1m=True live=- 15m=True 1h=False 4h=True RSI15=47.7 pressure=0/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.696}mv5=+0.10% vol=0.1"
+   "watch": "pnl=-1.06% give=0.6% 1m=True live=- 15m=True 1h=False 4h=True RSI15=47.7 pressure=0/3 fund=UNKNOWN book=UNKNOWN oi=UNKNOWN ext = {'cz_text': 'err:RuntimeError', 'kr_buy_share': 0.696}mv5=+0.10% vol=0.1",
+   "trail_pnl_pct": -2.217
   },
   {
    "id": "44226546385-PUMP/USD",
