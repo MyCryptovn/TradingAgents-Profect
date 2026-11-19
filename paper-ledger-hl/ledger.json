@@ -2684,12 +2684,17 @@
    "t0": 1795015250,
    "entry": 7.137499999999999,
    "btc0": 63686.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.0007005253940455193,
    "scan": "01 INJ/USD direction=SHORT score=72.40 long_score=27.60 short_score=72.40 mtf_score=0.7240 vol24h=$2,733,715 spread=7.593 depth10bps=$10,530",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "trough": 6.82615
+   "trough": 6.82615,
+   "exit": 7.03285,
+   "t1": 1795067141,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": 0.846,
+   "watch": "pnl=+0.85% give=3.0% 1m=False live=- 15m=True 1h=False 4h=False RSI15=58.3 pressure=0/3 fund=-0.00001 book=-0.16 oi=6,166,053 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (INJUSDT_PERP.A, multi-exchange): open interest $27,253,265, OI change 15m +0.1%, OI change 1h +0.3%, OI change 4h +2.1%, OI change 24h -6.7%, funding -0.0090, taker bu', 'kr_buy_share': 0.478}mv5=+0.29% vol=1.4"
   },
   {
    "id": "44332660248-TRUMP/USD",
