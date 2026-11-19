@@ -75,3 +75,29 @@ def patch_tradingagents_graph_llms(ta_graph: Any) -> Any:
         ta_graph.config["quick_think_llm"] = quick_name
 
     return ta_graph
+    
+def install_gemini_llm_hook(trading_graph_module: Any) -> None:
+    """
+    Chặn ngay hàm khởi tạo LLM bên trong trading_graph_module trước khi TradingAgentsGraph() chạy,
+    đảm bảo 100% agent con đều nhận đúng gemini-3.5-flash-lite.
+    """
+    deep_name = (
+        os.getenv("CUSTOM_DEEP_LLM")
+        or os.getenv("TRADINGAGENTS_DEEP_THINK_LLM")
+        or DEFAULT_PRIMARY_MODEL
+    ).strip()
+    quick_name = (
+        os.getenv("CUSTOM_QUICK_LLM")
+        or os.getenv("TRADINGAGENTS_QUICK_THINK_LLM")
+        or DEFAULT_PRIMARY_MODEL
+    ).strip()
+    retries = int(os.getenv("TRADINGAGENTS_LLM_MAX_RETRIES", "2"))
+
+    def _custom_create_llm(provider: str, model: str, *args: Any, **kwargs: Any) -> Any:
+        # Nếu vendor gọi cho deep_think thì trả deep_llm, ngược lại trả quick_llm
+        target = deep_name if "deep" in str(model).lower() else quick_name
+        return create_gemini_chat_model(model_name=target, max_retries=retries)
+
+    # Ghi đè hàm tạo LLM của vendor (tên phổ biến trong TradingAgents là create_llm)
+    if hasattr(trading_graph_module, "create_llm"):
+        trading_graph_module.create_llm = _custom_create_llm
