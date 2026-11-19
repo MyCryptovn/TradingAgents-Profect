@@ -2597,13 +2597,18 @@
    "t0": 1794993988,
    "entry": 0.129865,
    "btc0": 64650.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00023100912486044927,
    "scan": "01 ARB/USD direction=SHORT score=65.71 long_score=34.29 short_score=65.71 mtf_score=0.6571 vol24h=$2,734,576 spread=0.770 depth10bps=$69,924",
    "cfg": "hl-v5",
    "src": "hyperliquid",
    "trough": 0.125685,
-   "council_checked_at": 1795069449
+   "council_checked_at": 1795069449,
+   "exit": 0.12739,
+   "t1": 1795080388.0,
+   "reason": "TIME",
+   "pnl_pct": 1.263,
+   "mfe_pct": 3.561
   },
   {
    "id": "44274947994-PAXG/USD",
@@ -2808,7 +2813,7 @@
    "scan": "03 ONDO/USD direction=LONG score=65.88 long_score=65.88 short_score=41.12 mtf_score=0.6588 vol24h=$2,946,415 spread=0.331 depth10bps=$92,919",
    "cfg": "hl-v6",
    "src": "hyperliquid",
-   "peak": 0.304365
+   "peak": 0.304765
   }
  ]
 }
