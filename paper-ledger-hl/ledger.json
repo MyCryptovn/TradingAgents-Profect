@@ -2752,11 +2752,17 @@
    "t0": 1795069449,
    "entry": 505.46500000000003,
    "btc0": 63498.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.9783763465418473e-05,
    "scan": "01 XMR/USD direction=LONG score=70.51 long_score=70.51 short_score=36.49 mtf_score=0.7051 vol24h=$22,366,334 spread=0.198 depth10bps=$63,238",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 505.46500000000003,
+   "exit": 504.6,
+   "t1": 1795069850,
+   "reason": "REVERSAL_CUT",
+   "pnl_pct": -0.791,
+   "watch": "pnl=-0.79% give=0.2% 1m=True live=- 15m=True 1h=False 4h=True RSI15=53.5 pressure=0/3 fund=0.00001 book=+0.83 oi=88,108,913 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (XMRUSDT_PERP.A, multi-exchange): open interest $48,417,640, OI change 15m -0.2%, OI change 1h -0.1%, OI change 4h +0.2%, OI change 24h +3.2%, funding +0.0237, taker bu', 'kr_buy_share': 0.623}mv5=-0.19% vol=0.3"
   },
   {
    "id": "44470513862-CRV/USD",
@@ -2801,7 +2807,8 @@
    "spread": 0.00016493213042831058,
    "scan": "03 ONDO/USD direction=LONG score=65.88 long_score=65.88 short_score=41.12 mtf_score=0.6588 vol24h=$2,946,415 spread=0.331 depth10bps=$92,919",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.304365
   }
  ]
 }
