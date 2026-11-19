@@ -2826,7 +2826,7 @@
    "cfg": "hl-v6",
    "src": "hyperliquid",
    "peak": 0.304765,
-   "council_checked_at": 1795086510
+   "council_checked_at": 1795088984
   },
   {
    "id": "44510627661-TAO/USD",
@@ -2870,6 +2870,51 @@
    "status": "open",
    "spread": 1.5698463905306867e-05,
    "scan": "04 BTC/USD direction=LONG score=53.78 long_score=53.78 short_score=46.95 mtf_score=0.5378 vol24h=$4,521,225,967 spread=0.157 depth10bps=$11,942,142",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44516506056-LIT/USD",
+   "symbol": "LIT/USD",
+   "pair": "LIT",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1795088984,
+   "entry": 2.9707999999999997,
+   "btc0": 64020.5,
+   "status": "open",
+   "spread": 6.732193348592231e-05,
+   "scan": "01 LIT/USD direction=LONG score=80.13 long_score=80.13 short_score=19.87 mtf_score=0.8013 vol24h=$18,048,306 spread=0.338 depth10bps=$62,099",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44516506056-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1795088984,
+   "entry": 0.0027625,
+   "btc0": 64020.5,
+   "status": "open",
+   "spread": 0.0003619909502261354,
+   "scan": "03 PUMP/USD direction=LONG score=75.04 long_score=75.04 short_score=24.96 mtf_score=0.7504 vol24h=$26,908,850 spread=3.621 depth10bps=$180,379",
+   "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44516506056-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795088985,
+   "entry": 958.175,
+   "btc0": 64020.5,
+   "status": "open",
+   "spread": 1.0436506901130697e-05,
+   "scan": "04 ZEC/USD direction=LONG score=74.13 long_score=74.13 short_score=25.87 mtf_score=0.7413 vol24h=$203,447,675 spread=0.105 depth10bps=$167,914",
    "cfg": "hl-v6",
    "src": "hyperliquid"
   }
