@@ -1,20 +1,21 @@
 # Báo cáo paper trading
-Cập nhật: 2026-11-19 16:37 UTC
+Cập nhật: 2026-11-20 08:27 UTC
 
-- Lệnh đã chốt: **51** | đang mở: 1 | HOLD đã chấm: 92
+- Lệnh đã chốt: **52** | đang mở: 1 | HOLD đã chấm: 94
 - Thiết lập: giữ tối đa 24h, SL 3%, TP tắt (reversal ưu tiên), chi phí khứ hồi 0.62%
 
 ## Kết quả lệnh BUY/SELL
-- Win rate: **29.4%** (15/51)
-- PnL trung bình/lệnh: -1.103%
-- Tổng PnL (cộng dồn): **-56.27%**
-- Profit factor: 0.39
-- Max drawdown: 56.27%
+- Win rate: **28.8%** (15/52)
+- PnL trung bình/lệnh: -1.152%
+- Tổng PnL (cộng dồn): **-59.91%**
+- Profit factor: 0.38
+- Max drawdown: 59.91%
 - Benchmark (cùng hướng, cùng kỳ, theo BTC): +0.00%  -> bot THUA benchmark
 
 ## 10 lệnh gần nhất
 | Coin | Hướng | Vào | Ra | Lý do | PnL % |
 |---|---|---|---|---|---|
+| ONDO/USD | BUY | 0.303155 | 0.29406 | SL | -3.64 |
 | PUMP/USD | BUY | 0.0027625 | 0.00267963 | SL | -3.66 |
 | LIT/USD | BUY | 2.9708 | 2.88168 | SL | -3.63 |
 | ARB/USD | SELL | 0.129865 | 0.12739 | TIME | +1.26 |
@@ -24,11 +25,10 @@ Cập nhật: 2026-11-19 16:37 UTC
 | PAXG/USD | SELL | 3755.55 | 3780.25 | REVERSAL_CUT | -1.28 |
 | NEAR/USD | BUY | 3.37765 | 3.34795 | REVERSAL_GIVEBACK | -1.50 |
 | LIT/USD | SELL | 2.84075 | 2.8528 | REVERSAL_CUT | -1.04 |
-| PUMP/USD | SELL | 0.0026715 | 0.0026745 | REVERSAL_CUT | -0.73 |
-- Lãi tối đa từng đạt (trung bình): 2.47% (29 lệnh)
+- Lãi tối đa từng đạt (trung bình): 2.43% (30 lệnh)
 
 ## Quyết định HOLD
-- Sau 24h, giá biến động ≥ 3% ở 49/92 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
-- Biến động tuyệt đối trung bình: 3.90%
-- Trong số đó: tăng ≥ 3% = 15 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 34 lần (HOLD tránh được lỗ)
-- Biến động trung bình có dấu: -1.59%
+- Sau 24h, giá biến động ≥ 3% ở 51/94 lần (có thể đã bỏ lỡ cơ hội hoặc tránh được lỗ)
+- Biến động tuyệt đối trung bình: 3.96%
+- Trong số đó: tăng ≥ 3% = 15 lần (HOLD bỏ lỡ BUY), giảm ≥ 3% = 36 lần (HOLD tránh được lỗ)
+- Biến động trung bình có dấu: -1.70%

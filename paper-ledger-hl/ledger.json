@@ -2794,7 +2794,8 @@
    "t1": 1795069850,
    "reason": "REVERSAL_CUT",
    "pnl_pct": -0.791,
-   "watch": "pnl=-0.79% give=0.2% 1m=True live=- 15m=True 1h=False 4h=True RSI15=53.5 pressure=0/3 fund=0.00001 book=+0.83 oi=88,108,913 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (XMRUSDT_PERP.A, multi-exchange): open interest $48,417,640, OI change 15m -0.2%, OI change 1h -0.1%, OI change 4h +0.2%, OI change 24h +3.2%, funding +0.0237, taker bu', 'kr_buy_share': 0.623}mv5=-0.19% vol=0.3"
+   "watch": "pnl=-0.79% give=0.2% 1m=True live=- 15m=True 1h=False 4h=True RSI15=53.5 pressure=0/3 fund=0.00001 book=+0.83 oi=88,108,913 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (XMRUSDT_PERP.A, multi-exchange): open interest $48,417,640, OI change 15m -0.2%, OI change 1h -0.1%, OI change 4h +0.2%, OI change 24h +3.2%, funding +0.0237, taker bu', 'kr_buy_share': 0.623}mv5=-0.19% vol=0.3",
+   "trail_pnl_pct": -3.301
   },
   {
    "id": "44470513862-CRV/USD",
@@ -2805,11 +2806,14 @@
    "t0": 1795069450,
    "entry": 0.19770500000000002,
    "btc0": 63498.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00035406287144982033,
    "scan": "01 CRV/USD direction=SHORT score=68.63 long_score=27.87 short_score=68.63 mtf_score=0.6863 vol24h=$2,861,586 spread=2.032 depth10bps=$40,009",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 0.19116,
+   "t1": 1795155850.0,
+   "move_pct": -3.31
   },
   {
    "id": "44470513862-LIT/USD",
@@ -2820,11 +2824,14 @@
    "t0": 1795069450,
    "entry": 2.9146,
    "btc0": 63498.5,
-   "status": "open",
+   "status": "closed",
    "spread": 6.862005077883001e-05,
    "scan": "02 LIT/USD direction=LONG score=67.50 long_score=67.50 short_score=30.87 mtf_score=0.6750 vol24h=$15,967,341 spread=0.345 depth10bps=$60,746",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 2.6216,
+   "t1": 1795155850.0,
+   "move_pct": -10.053
   },
   {
    "id": "44470513862-ONDO/USD",
@@ -2846,7 +2853,8 @@
    "t1": 1795107600,
    "reason": "SL",
    "pnl_pct": -3.636,
-   "mfe_pct": 1.235
+   "mfe_pct": 1.235,
+   "trail_pnl_pct": -2.438
   },
   {
    "id": "44510627661-TAO/USD",
@@ -2949,6 +2957,81 @@
    "spread": 1.0436506901130697e-05,
    "scan": "04 ZEC/USD direction=LONG score=74.13 long_score=74.13 short_score=25.87 mtf_score=0.7413 vol24h=$203,447,675 spread=0.105 depth10bps=$167,914",
    "cfg": "hl-v6",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44701153383-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795163232,
+   "entry": 852.215,
+   "btc0": 61920.5,
+   "status": "open",
+   "spread": 1.1734128124934324e-05,
+   "scan": "01 ZEC/USD direction=SHORT score=70.49 long_score=29.51 short_score=70.49 mtf_score=0.7049 vol24h=$247,714,801 spread=0.117 depth10bps=$144,327",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44701153383-NEAR/USD",
+   "symbol": "NEAR/USD",
+   "pair": "NEAR",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795163232,
+   "entry": 3.03575,
+   "btc0": 61920.5,
+   "status": "open",
+   "spread": 3.2940788931964435e-05,
+   "scan": "02 NEAR/USD direction=SHORT score=67.34 long_score=32.66 short_score=67.34 mtf_score=0.6734 vol24h=$62,791,223 spread=0.330 depth10bps=$313,416",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44701153383-SOL/USD",
+   "symbol": "SOL/USD",
+   "pair": "SOL",
+   "action": "SELL",
+   "raw": "SELL",
+   "t0": 1795163233,
+   "entry": 72.6325,
+   "btc0": 61920.5,
+   "status": "open",
+   "spread": 1.3767941348439942e-05,
+   "scan": "03 SOL/USD direction=SHORT score=58.48 long_score=41.52 short_score=58.48 mtf_score=0.5848 vol24h=$191,833,975 spread=0.138 depth10bps=$704,627",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44701153383-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795163233,
+   "entry": 0.0025694999999999997,
+   "btc0": 61920.5,
+   "status": "open",
+   "spread": 0.0003891807744696241,
+   "scan": "04 PUMP/USD direction=SHORT score=58.44 long_score=41.91 short_score=58.44 mtf_score=0.5844 vol24h=$29,773,726 spread=3.913 depth10bps=$170,650",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44701153383-ETH/USD",
+   "symbol": "ETH/USD",
+   "pair": "ETH",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795163233,
+   "entry": 1754.25,
+   "btc0": 61920.5,
+   "status": "open",
+   "spread": 5.700441784233094e-05,
+   "scan": "01 ETH/USD direction=LONG score=56.85 long_score=56.85 short_score=43.15 mtf_score=0.5685 vol24h=$942,159,549 spread=0.570 depth10bps=$17,101,995",
+   "cfg": "hl-v7",
    "src": "hyperliquid"
   }
  ]
