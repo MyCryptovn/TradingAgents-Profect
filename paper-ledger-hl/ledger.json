@@ -3003,7 +3003,7 @@
    "scan": "03 SOL/USD direction=SHORT score=58.48 long_score=41.52 short_score=58.48 mtf_score=0.5848 vol24h=$191,833,975 spread=0.138 depth10bps=$704,627",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 72.0195
+   "trough": 71.82849999999999
   },
   {
    "id": "44701153383-PUMP/USD",
@@ -3048,7 +3048,8 @@
    "spread": 1.1936236623943977e-05,
    "scan": "01 ZEC/USD direction=SHORT score=83.53 long_score=19.97 short_score=83.53 mtf_score=0.8353 vol24h=$251,780,843 spread=0.119 depth10bps=$181,385",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 830.585
   },
   {
    "id": "44715366318-XMR/USD",
@@ -3063,7 +3064,8 @@
    "spread": 0.00016716467810360224,
    "scan": "02 XMR/USD direction=SHORT score=77.54 long_score=22.46 short_score=77.54 mtf_score=0.7754 vol24h=$48,879,862 spread=2.308 depth10bps=$12,303",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 473.255
   },
   {
    "id": "44715366318-NEAR/USD",
@@ -3078,7 +3080,8 @@
    "spread": 3.329393550971718e-05,
    "scan": "03 NEAR/USD direction=SHORT score=74.14 long_score=25.86 short_score=74.14 mtf_score=0.7414 vol24h=$60,863,496 spread=0.334 depth10bps=$296,033",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 2.9959499999999997
   },
   {
    "id": "44715366318-HYPE/USD",
@@ -3108,7 +3111,8 @@
    "spread": 6.24928393621958e-05,
    "scan": "05 UNI/USD direction=SHORT score=70.89 long_score=30.14 short_score=70.89 mtf_score=0.7089 vol24h=$12,280,686 spread=0.624 depth10bps=$61,398",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 4.7804
   }
  ]
 }
