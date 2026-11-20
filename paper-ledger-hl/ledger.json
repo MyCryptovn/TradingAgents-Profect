@@ -2865,11 +2865,14 @@
    "t0": 1795086510,
    "entry": 196.81,
    "btc0": 63703.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00030486255779687145,
    "scan": "02 TAO/USD direction=LONG score=58.44 long_score=58.44 short_score=41.56 mtf_score=0.5844 vol24h=$2,667,954 spread=1.017 depth10bps=$160,547",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 187.99,
+   "t1": 1795172910.0,
+   "move_pct": -4.481
   },
   {
    "id": "44510627661-GRAM/USD",
@@ -2880,11 +2883,14 @@
    "t0": 1795086510,
    "entry": 1.02905,
    "btc0": 63703.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.000485885039599793,
    "scan": "03 GRAM/USD direction=LONG score=56.81 long_score=56.81 short_score=48.61 mtf_score=0.5681 vol24h=$2,937,459 spread=3.883 depth10bps=$24,872",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 1.0155,
+   "t1": 1795172910.0,
+   "move_pct": -1.317
   },
   {
    "id": "44510627661-BTC/USD",
@@ -2895,11 +2901,14 @@
    "t0": 1795086511,
    "entry": 63700.5,
    "btc0": 63703.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.5698463905306867e-05,
    "scan": "04 BTC/USD direction=LONG score=53.78 long_score=53.78 short_score=46.95 mtf_score=0.5378 vol24h=$4,521,225,967 spread=0.157 depth10bps=$11,942,142",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 62025.0,
+   "t1": 1795172911.0,
+   "move_pct": -2.63
   },
   {
    "id": "44516506056-LIT/USD",
@@ -2920,7 +2929,8 @@
    "t1": 1795102200,
    "reason": "SL",
    "pnl_pct": -3.627,
-   "mfe_pct": 0.421
+   "mfe_pct": 0.421,
+   "trail_pnl_pct": -3.219
   },
   {
    "id": "44516506056-PUMP/USD",
@@ -2942,7 +2952,8 @@
    "t1": 1795102200,
    "reason": "SL",
    "pnl_pct": -3.656,
-   "mfe_pct": 0.706
+   "mfe_pct": 0.706,
+   "trail_pnl_pct": -2.971
   },
   {
    "id": "44516506056-ZEC/USD",
@@ -2953,11 +2964,14 @@
    "t0": 1795088985,
    "entry": 958.175,
    "btc0": 64020.5,
-   "status": "open",
+   "status": "closed",
    "spread": 1.0436506901130697e-05,
    "scan": "04 ZEC/USD direction=LONG score=74.13 long_score=74.13 short_score=25.87 mtf_score=0.7413 vol24h=$203,447,675 spread=0.105 depth10bps=$167,914",
    "cfg": "hl-v6",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "exit": 819.25,
+   "t1": 1795175385.0,
+   "move_pct": -14.499
   },
   {
    "id": "44701153383-ZEC/USD",
@@ -3003,7 +3017,8 @@
    "scan": "03 SOL/USD direction=SHORT score=58.48 long_score=41.52 short_score=58.48 mtf_score=0.5848 vol24h=$191,833,975 spread=0.138 depth10bps=$704,627",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 68.4865
+   "trough": 68.4865,
+   "council_checked_at": 1795189681
   },
   {
    "id": "44701153383-PUMP/USD",
@@ -3049,7 +3064,8 @@
    "scan": "01 ZEC/USD direction=SHORT score=83.53 long_score=19.97 short_score=83.53 mtf_score=0.8353 vol24h=$251,780,843 spread=0.119 depth10bps=$181,385",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 779.265
+   "trough": 779.265,
+   "council_checked_at": 1795189680
   },
   {
    "id": "44715366318-XMR/USD",
@@ -3065,7 +3081,7 @@
    "scan": "02 XMR/USD direction=SHORT score=77.54 long_score=22.46 short_score=77.54 mtf_score=0.7754 vol24h=$48,879,862 spread=2.308 depth10bps=$12,303",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 448.025
+   "trough": 443.995
   },
   {
    "id": "44715366318-NEAR/USD",
@@ -3081,7 +3097,7 @@
    "scan": "03 NEAR/USD direction=SHORT score=74.14 long_score=25.86 short_score=74.14 mtf_score=0.7414 vol24h=$60,863,496 spread=0.334 depth10bps=$296,033",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 2.8449999999999998
+   "trough": 2.8185000000000002
   },
   {
    "id": "44715366318-HYPE/USD",
@@ -3112,7 +3128,7 @@
    "scan": "05 UNI/USD direction=SHORT score=70.89 long_score=30.14 short_score=70.89 mtf_score=0.7089 vol24h=$12,280,686 spread=0.624 depth10bps=$61,398",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 4.4849499999999995
+   "trough": 4.41265
   }
  ]
 }
