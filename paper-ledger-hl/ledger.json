@@ -3002,7 +3002,8 @@
    "spread": 1.3767941348439942e-05,
    "scan": "03 SOL/USD direction=SHORT score=58.48 long_score=41.52 short_score=58.48 mtf_score=0.5848 vol24h=$191,833,975 spread=0.138 depth10bps=$704,627",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "trough": 72.6325
   },
   {
    "id": "44701153383-PUMP/USD",
