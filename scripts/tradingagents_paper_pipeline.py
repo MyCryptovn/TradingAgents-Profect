@@ -402,7 +402,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     market_analyst_module.get_stock_data = crypto_get_stock_data
     market_analyst_module.get_indicators = crypto_get_indicators
     market_analyst_module.get_verified_market_snapshot = crypto_get_verified_snapshot
-    trading_graph_module.get_stock_data = crypto_get_stock_data
+    trading_graph_module.get__custom_llm_bridge = crypto_get__custom_llm_bridge
     trading_graph_module.get_indicators = crypto_get_indicators
     trading_graph_module.get_verified_market_snapshot = crypto_get_verified_snapshot
     original_resolve_context = TradingAgentsGraph.resolve_instrument_context
