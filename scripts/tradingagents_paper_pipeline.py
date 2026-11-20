@@ -356,6 +356,7 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     """Run TradingAgents with crypto-native market tools over the pinned source."""
     from scripts.custom_llm_bridge import (install_gemini_llm_hook, patch_tradingagents_graph_llms,)
     from tradingagents.graph.trading_graph import TradingAgentsGraph
+    from tradingagents.default_config import DEFAULT_CONFIG
     from tradingagents.agents.analysts import market_analyst as market_analyst_module
     from tradingagents.graph import trading_graph as trading_graph_module
     from scripts.crypto_market_data import (
@@ -365,12 +366,8 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         get_verified_market_snapshot as crypto_get_verified_snapshot,
     )
     from tradingagents.agents.utils.agent_utils import build_instrument_context
-    from tradingagents.default_config import DEFAULT_CONFIG
-    
     install_gemini_llm_hook(trading_graph_module)
-    # 1. Khởi tạo bình thường để qua mặt whitelist cũ của vendor
     ta = TradingAgentsGraph(debug=False, config=config)
-
     # 2. Thay thế ngay bằng client độc lập trỏ thẳng gemini-3.5-flash-lite
     patch_tradingagents_graph_llms(ta)
     print(f"ACTIVE LLM: {ta.deep_thinking_llm.model_name}", flush=True)
