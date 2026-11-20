@@ -28,7 +28,7 @@ jobs:
         run: pip install -e vendor/TradingAgents
 
       - name: Validate crypto-native adapter
-        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py scripts/custom_llm_bridge.py 
+        run: python -m py_compile scripts/crypto_market_data.py scripts/tradingagents_paper_pipeline.py scripts/market_scanner.py scripts/paper_ledger.py scripts/hl_feeder.py scripts/coinalyze_note.py 
     
       - name: Run Top-10 TradingAgents paper pipeline
         env:
@@ -38,8 +38,6 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
           TRADINGAGENTS_LLM_PROVIDER: google
-          CUSTOM_DEEP_LLM: gemini-3.5-flash-lite
-          CUSTOM_QUICK_LLM: gemini-3.5-flash-lite
           TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.1-flash-lite
           TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.1-flash-lite
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "1"
