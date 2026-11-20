@@ -3129,7 +3129,7 @@
    "scan": "05 UNI/USD direction=SHORT score=70.89 long_score=30.14 short_score=70.89 mtf_score=0.7089 vol24h=$12,280,686 spread=0.624 depth10bps=$61,398",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 4.41265
+   "trough": 4.40675
   }
  ]
 }
