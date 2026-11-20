@@ -3097,7 +3097,8 @@
    "scan": "03 NEAR/USD direction=SHORT score=74.14 long_score=25.86 short_score=74.14 mtf_score=0.7414 vol24h=$60,863,496 spread=0.334 depth10bps=$296,033",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 2.8185000000000002
+   "trough": 2.8185000000000002,
+   "council_checked_at": 1795200086
   },
   {
    "id": "44715366318-HYPE/USD",
