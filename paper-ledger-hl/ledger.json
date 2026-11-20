@@ -3076,12 +3076,17 @@
    "t0": 1795169657,
    "entry": 478.57,
    "btc0": 61751.5,
-   "status": "open",
+   "status": "closed",
    "spread": 0.00016716467810360224,
    "scan": "02 XMR/USD direction=SHORT score=77.54 long_score=22.46 short_score=77.54 mtf_score=0.7754 vol24h=$48,879,862 spread=2.308 depth10bps=$12,303",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 443.83000000000004
+   "trough": 443.83000000000004,
+   "exit": 453.225,
+   "t1": 1795205759,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": 4.676,
+   "watch": "pnl=+4.68% give=2.1% 1m=False live=- 15m=False 1h=False 4h=False RSI15=51.8 pressure=0/3 fund=0.00001 book=-0.19 oi=67,205,926 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (XMRUSDT_PERP.A, multi-exchange): open interest $43,272,126, OI change 15m +0.1%, OI change 1h +1.3%, OI change 4h -1.0%, OI change 24h -9.4%, funding +0.0100, taker bu', 'kr_buy_share': 0.93}mv5=+0.04% vol=0.7"
   },
   {
    "id": "44715366318-NEAR/USD",
@@ -3129,7 +3134,7 @@
    "scan": "05 UNI/USD direction=SHORT score=70.89 long_score=30.14 short_score=70.89 mtf_score=0.7089 vol24h=$12,280,686 spread=0.624 depth10bps=$61,398",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 4.40675
+   "trough": 4.33445
   }
  ]
 }
