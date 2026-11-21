@@ -3189,7 +3189,8 @@
    "spread": 4.215229624623978e-05,
    "scan": "01 LIT/USD direction=LONG score=76.15 long_score=76.15 short_score=30.85 mtf_score=0.7615 vol24h=$38,767,981 spread=4.600 depth10bps=$44,883",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 2.374
   },
   {
    "id": "44911131114-ZEC/USD",
@@ -3204,7 +3205,8 @@
    "spread": 5.076013299150227e-05,
    "scan": "02 ZEC/USD direction=LONG score=66.57 long_score=66.57 short_score=29.69 mtf_score=0.6657 vol24h=$643,170,499 spread=0.374 depth10bps=$392,599",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 795.675
   },
   {
    "id": "44911131114-XMR/USD",
@@ -3234,7 +3236,8 @@
    "spread": 0.0005324813631522311,
    "scan": "04 APT/USD direction=LONG score=65.99 long_score=65.99 short_score=34.86 mtf_score=0.6599 vol24h=$2,123,525 spread=5.336 depth10bps=$18,433",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 0.3758
   },
   {
    "id": "44911131114-BTC/USD",
@@ -3249,7 +3252,8 @@
    "spread": 1.6554235815089187e-05,
    "scan": "05 BTC/USD direction=LONG score=65.92 long_score=65.92 short_score=33.08 mtf_score=0.6592 vol24h=$7,799,323,704 spread=0.165 depth10bps=$6,996,383",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 60487.5
   }
  ]
 }
