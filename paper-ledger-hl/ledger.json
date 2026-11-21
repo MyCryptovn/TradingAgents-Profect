@@ -3082,7 +3082,7 @@
    "scan": "01 ZEC/USD direction=SHORT score=83.53 long_score=19.97 short_score=83.53 mtf_score=0.8353 vol24h=$251,780,843 spread=0.119 depth10bps=$181,385",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 718.9449999999999,
+   "trough": 715.215,
    "council_checked_at": 1795220323
   },
   {
