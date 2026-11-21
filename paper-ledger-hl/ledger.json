@@ -3129,12 +3129,17 @@
    "t0": 1795169658,
    "entry": 4.800549999999999,
    "btc0": 61751.5,
-   "status": "open",
+   "status": "closed",
    "spread": 6.24928393621958e-05,
    "scan": "05 UNI/USD direction=SHORT score=70.89 long_score=30.14 short_score=70.89 mtf_score=0.7089 vol24h=$12,280,686 spread=0.624 depth10bps=$61,398",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "trough": 4.33445
+   "trough": 4.33445,
+   "exit": 4.45965,
+   "t1": 1795220348,
+   "reason": "REVERSAL_GIVEBACK",
+   "pnl_pct": 6.481,
+   "watch": "pnl=+6.48% give=2.9% 1m=False live=- 15m=False 1h=False 4h=False RSI15=52.6 pressure=0/3 fund=0.00001 book=-0.48 oi=24,530,827 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (UNIUSDT_PERP.A, multi-exchange): open interest $85,343,689, OI change 15m -0.4%, OI change 1h -0.5%, OI change 4h +2.3%, OI change 24h -4.4%, funding -0.0036, taker bu', 'kr_buy_share': 0.866}mv5=-0.32% vol=0.4"
   }
  ]
 }
