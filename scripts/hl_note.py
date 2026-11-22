@@ -8,13 +8,18 @@ RENAME = {"XBT": "BTC", "XDG": "DOGE"}
 
 
 def _info(body):
-    req = urllib.request.Request(
-        URL,
-        data=json.dumps(body).encode(),
-        headers={"Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+    data = json.dumps(body).encode()
+
+    def _call():
+        req = urllib.request.Request(
+            URL,
+            data=data,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.load(r)
+
+    return _hl_retry(_call)
 
 
 def _book(coin):
