@@ -7,6 +7,17 @@ URL = "https://api.hyperliquid.xyz/info"
 RENAME = {"XBT": "BTC", "XDG": "DOGE"}
 
 
+import urllib.error
+
+def _hl_retry(fn, tries: int = 3):
+    for attempt in range(tries):
+        try:
+            return fn()
+        except urllib.error.HTTPError as exc:
+            if exc.code != 429 or attempt == tries - 1:
+                raise
+            time.sleep(5 * (attempt + 1))
+
 def _info(body):
     data = json.dumps(body).encode()
 
