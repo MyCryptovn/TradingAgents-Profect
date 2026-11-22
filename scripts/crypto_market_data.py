@@ -101,7 +101,7 @@ def _live_market(symbol: str) -> dict:
     coin = _hl_coin_name(symbol)
     if ":" in coin:
         raise RuntimeError(f"HIP-3 market {coin}: no live context from this endpoint")
-    data = hyper_post({"type": "metaAndAssetCtxs"})
+    data = _hl_retry(lambda: hyper_post({"type": "metaAndAssetCtxs"}))
     names = [u["name"] for u in data[0]["universe"]]
     if coin not in names:
         raise RuntimeError(f"{coin} not found in Hyperliquid universe")
