@@ -3296,7 +3296,7 @@
    "scan": "01 TAO/USD direction=LONG score=70.34 long_score=70.34 short_score=29.66 mtf_score=0.7034 vol24h=$2,914,430 spread=1.608 depth10bps=$142,160",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "peak": 190.19,
+   "peak": 190.39,
    "council_checked_at": 1795358893
   },
   {
@@ -3375,7 +3375,7 @@
    "scan": "05 PUMP/USD direction=LONG score=69.87 long_score=69.87 short_score=26.63 mtf_score=0.6987 vol24h=$22,080,397 spread=4.143 depth10bps=$48,412",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "peak": 0.0025815,
+   "peak": 0.0025875,
    "council_checked_at": 1795348117
   }
  ]
