@@ -3289,7 +3289,8 @@
    "scan": "01 TAO/USD direction=LONG score=70.34 long_score=70.34 short_score=29.66 mtf_score=0.7034 vol24h=$2,914,430 spread=1.608 depth10bps=$142,160",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "peak": 187.595
+   "peak": 187.595,
+   "council_checked_at": 1795341242
   },
   {
    "id": "44999956269-FARTCOIN/USD",
@@ -3303,6 +3304,66 @@
    "status": "open",
    "spread": 0.0005224660397073978,
    "scan": "01 FARTCOIN/USD direction=SHORT score=55.42 long_score=44.58 short_score=55.42 mtf_score=0.5542 vol24h=$2,858,305 spread=1.306 depth10bps=$43,452",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "45008835995-CRV/USD",
+   "symbol": "CRV/USD",
+   "pair": "CRV",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795341243,
+   "entry": 0.18346,
+   "btc0": 60777.5,
+   "status": "open",
+   "spread": 0.0005450779461463901,
+   "scan": "02 CRV/USD direction=LONG score=76.18 long_score=76.18 short_score=23.82 mtf_score=0.7618 vol24h=$2,467,614 spread=1.101 depth10bps=$32,501",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "45008835995-BTC/USD",
+   "symbol": "BTC/USD",
+   "pair": "BTC",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1795341243,
+   "entry": 60777.5,
+   "btc0": 60777.5,
+   "status": "open",
+   "spread": 1.645345728271153e-05,
+   "scan": "03 BTC/USD direction=LONG score=73.23 long_score=73.23 short_score=28.32 mtf_score=0.7323 vol24h=$3,331,062,925 spread=0.166 depth10bps=$8,909,072",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "45008835995-ZEC/USD",
+   "symbol": "ZEC/USD",
+   "pair": "ZEC",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795341243,
+   "entry": 798.4100000000001,
+   "btc0": 60777.5,
+   "status": "open",
+   "spread": 0.00012524893225288102,
+   "scan": "04 ZEC/USD direction=LONG score=72.90 long_score=72.90 short_score=28.64 mtf_score=0.7290 vol24h=$169,161,117 spread=0.126 depth10bps=$141,080",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "45008835995-PUMP/USD",
+   "symbol": "PUMP/USD",
+   "pair": "PUMP",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1795341243,
+   "entry": 0.002438,
+   "btc0": 60777.5,
+   "status": "open",
+   "spread": 0.0008203445447088866,
+   "scan": "05 PUMP/USD direction=LONG score=69.87 long_score=69.87 short_score=26.63 mtf_score=0.6987 vol24h=$22,080,397 spread=4.143 depth10bps=$48,412",
    "cfg": "hl-v7",
    "src": "hyperliquid"
   }
