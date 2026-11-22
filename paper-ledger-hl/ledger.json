@@ -3288,7 +3288,8 @@
    "spread": 0.00016038921115240254,
    "scan": "01 TAO/USD direction=LONG score=70.34 long_score=70.34 short_score=29.66 mtf_score=0.7034 vol24h=$2,914,430 spread=1.608 depth10bps=$142,160",
    "cfg": "hl-v7",
-   "src": "hyperliquid"
+   "src": "hyperliquid",
+   "peak": 187.595
   },
   {
    "id": "44999956269-FARTCOIN/USD",
