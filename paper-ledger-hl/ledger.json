@@ -3336,7 +3336,8 @@
    "scan": "03 BTC/USD direction=LONG score=73.23 long_score=73.23 short_score=28.32 mtf_score=0.7323 vol24h=$3,331,062,925 spread=0.166 depth10bps=$8,909,072",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "peak": 61208.5
+   "peak": 61208.5,
+   "council_checked_at": 1795348117
   },
   {
    "id": "45008835995-ZEC/USD",
@@ -3367,7 +3368,8 @@
    "scan": "05 PUMP/USD direction=LONG score=69.87 long_score=69.87 short_score=26.63 mtf_score=0.6987 vol24h=$22,080,397 spread=4.143 depth10bps=$48,412",
    "cfg": "hl-v7",
    "src": "hyperliquid",
-   "peak": 0.0024645
+   "peak": 0.0024645,
+   "council_checked_at": 1795348117
   }
  ]
 }
