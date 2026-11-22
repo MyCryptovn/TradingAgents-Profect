@@ -696,6 +696,8 @@ def candle_features(candles: list[dict]) -> dict:
     age_ms = max(0, now_ms - last_close_time)
     max_age_ms = expected_ms * 3 + 60_000
 
+    print(f"HL CANDLE AGE {candles[-1].get('interval')}: age_s={age_ms/1000:.0f} count={len(candles)} last_close={last_close_time}")
+    
     return {
         "valid": True,
         "candle_count": len(candles),
@@ -865,6 +867,7 @@ def compute_market_features(coin: str) -> dict:
             print(f"HL TF ERROR {coin} {tf}: {type(exc).__name__}: {exc}")
             row = {"valid": False}
         features["timeframes"][tf] = row
+        print(f"HL TF {coin} {tf}: valid={row.get('valid')} age_s={row.get('last_candle_age_ms', 0)/1000:.0f} error={row.get('error')}")
 
     try:
         features["book"] = orderbook_features(coin)
