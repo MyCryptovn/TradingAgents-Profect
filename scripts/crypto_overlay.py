@@ -35,6 +35,7 @@ _BLOCKED_IDS: set[int] = set()
 
 def _make_blocked(name: str):
     def _blocked(query: str = "") -> str:
+        """Stock-only tool, disabled for crypto analysis (Yahoo Finance)."""
         return (
             f"NO DATA: {name} uses Yahoo Finance (stock-only) and is disabled "
             "for crypto analysis. Use Hyperliquid tools instead."
