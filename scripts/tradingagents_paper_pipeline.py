@@ -358,12 +358,8 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
     from tradingagents.default_config import DEFAULT_CONFIG
     from tradingagents.agents.analysts import market_analyst as market_analyst_module
     from tradingagents.graph import trading_graph as trading_graph_module
-    from scripts.crypto_market_data import (
-        crypto_identity,
-        get_indicators as crypto_get_indicators,
-        get_stock_data as crypto_get_stock_data,
-        get_verified_market_snapshot as crypto_get_verified_snapshot,
-    )
+    from scripts.crypto_market_data import crypto_identity
+    from scripts.crypto_overlay import apply_overlay, verify
     from tradingagents.agents.utils.agent_utils import build_instrument_context
     
     # Safe import candle_note
@@ -390,14 +386,13 @@ def run_tradingagents(ticker: str, trade_date: str) -> str:
         def coinalyze_note(ticker: str) -> str:
             return ""
 
-    # Overlay the stock-oriented tool names with crypto-native tools before the
-    # graph is constructed. This keeps the pinned upstream source intact while
-    # preventing crypto runs from touching Yahoo Finance market-data paths.
-    market_analyst_module.get_stock_data = crypto_get_stock_data
-    market_analyst_module.get_indicators = crypto_get_indicators
-    market_analyst_module.get_verified_market_snapshot = crypto_get_verified_snapshot
-    trading_graph_module.get_indicators = crypto_get_indicators
-    trading_graph_module.get_verified_market_snapshot = crypto_get_verified_snapshot
+    # Tool overlay (Hyperliquid, chặn Yahoo) được gắn bởi scripts/crypto_overlay.py
+    # trước khi dựng graph, không gán trực tiếp ở đây.
+    print("OVERLAY PATCHED:", apply_overlay())
+    left = verify()
+    if left:
+        raise RuntimeError(f"Yahoo tools còn gắn, dừng để không dùng dữ liệu cổ phiếu: {left}")
+
     original_resolve_context = TradingAgentsGraph.resolve_instrument_context
 
     def crypto_resolve_context(self, symbol: str, asset_type: str = "stock") -> str:
