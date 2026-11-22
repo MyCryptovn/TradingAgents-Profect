@@ -7,7 +7,7 @@ import sys
 
 from langchain_core.tools import tool
 
-from scripts import market_data as md
+from scripts import crypto_market_data as md
 
 # Tool cổ phiếu -> tool Hyperliquid (cùng tên hàm, khác nguồn dữ liệu)
 STOCK_TO_CRYPTO = {
