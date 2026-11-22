@@ -3274,6 +3274,36 @@
    "reason": "REVERSAL_CUT",
    "pnl_pct": -0.943,
    "watch": "pnl=-0.94% give=0.5% 1m=True live=- 15m=True 1h=False 4h=True RSI15=51.7 pressure=0/3 fund=-0.00000 book=+0.62 oi=2,240,543,581 ext = {'cz_text': ' COINALYZE AGGREGATED PERP DATA (BTCUSDT_PERP.A, multi-exchange): open interest $5,530,693,073, OI change 15m +0.0%, OI change 1h +0.2%, OI change 4h -0.5%, OI change 24h -2.6%, funding +0.0009, taker', 'kr_buy_share': 0.959}mv5=+0.02% vol=0.1"
+  },
+  {
+   "id": "44999956269-TAO/USD",
+   "symbol": "TAO/USD",
+   "pair": "TAO",
+   "action": "BUY",
+   "raw": "BUY",
+   "t0": 1795334136,
+   "entry": 187.04500000000002,
+   "btc0": 59129.5,
+   "status": "open",
+   "spread": 0.00016038921115240254,
+   "scan": "01 TAO/USD direction=LONG score=70.34 long_score=70.34 short_score=29.66 mtf_score=0.7034 vol24h=$2,914,430 spread=1.608 depth10bps=$142,160",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
+  },
+  {
+   "id": "44999956269-FARTCOIN/USD",
+   "symbol": "FARTCOIN/USD",
+   "pair": "FARTCOIN",
+   "action": "HOLD",
+   "raw": "HOLD",
+   "t0": 1795334136,
+   "entry": 0.07655999999999999,
+   "btc0": 59129.5,
+   "status": "open",
+   "spread": 0.0005224660397073978,
+   "scan": "01 FARTCOIN/USD direction=SHORT score=55.42 long_score=44.58 short_score=55.42 mtf_score=0.5542 vol24h=$2,858,305 spread=1.306 depth10bps=$43,452",
+   "cfg": "hl-v7",
+   "src": "hyperliquid"
   }
  ]
 }
