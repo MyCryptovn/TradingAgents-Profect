@@ -33,13 +33,13 @@ jobs:
       - name: Run Top-10 TradingAgents paper pipeline
         env:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GOOGLE_API_BASE_URL: https://generativelanguage.googleapis.com
+          GOOGLE_OPENAI_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai/"
           COINALYZE_API_KEY: ${{ secrets.COINALYZE_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           LEDGER_FILE: "paper-ledger-hl/ledger.json"
           TRADINGAGENTS_LLM_PROVIDER: google
-          TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.1-flash-lite
-          TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.1-flash-lite
+          TRADINGAGENTS_DEEP_THINK_LLM: gemini-3.5-flash-lite
+          TRADINGAGENTS_QUICK_THINK_LLM: gemini-3.5-flash-lite
           TRADINGAGENTS_MAX_DEBATE_ROUNDS: "1"
           TRADINGAGENTS_MAX_RISK_ROUNDS: "1"
           TRADINGAGENTS_LLM_MAX_RETRIES: "3"
